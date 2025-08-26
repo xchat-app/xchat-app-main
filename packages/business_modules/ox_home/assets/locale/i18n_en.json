@@ -1,13 +1,9 @@
 {
-  "Home": "Chats",
-  "Contact": "Contacts",
-  "Discover": "Discovery",
-  "Me": "Me",
   "join_or_create_circle_now": "Add a Circle now",
   "unlock_advanced_model": "Connect to a Nostr relay to get started",
   "join_circle": "Add Circle",
   "add_circle": "Add Circle",
-  "new_paid_circle": "New Paid Circle \uD83D\uDC8E",
+  "new_paid_circle": "New Paid Circle 💎",
   "join_circle_title": "Add Circle",
   "join_circle_description": "To add a Circle, enter a relay address or invitation link.",
   "join_circle_input_label": "relay address or invitation link",
@@ -19,6 +15,5 @@
   "join_circle_dialog_title": "Join Circle",
   "join_circle_dialog_content": "This user is from circle \"${relayName}\". Would you like to join this circle to chat with them?",
   "failed_to_join_circle": "Failed to join circle: ${message}",
-  "error_joining_circle": "Error joining circle: ${error}",
-  "user_not_found": "User not found"
+  "error_joining_circle": "Error joining circle: ${error}"
 }

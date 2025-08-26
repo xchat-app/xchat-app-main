@@ -64,7 +64,7 @@ class CLPushIntegration with WidgetsBindingObserver, OXChatObserver {
 
     // 1) Init base kit
     await LocalPushKit.instance.ensureInitialized(
-      androidDefaultIcon: '@mipmap/ic_notification',
+      androidDefaultIcon: '@drawable/ic_notification',
       androidChannelId: 'message_channel',
       androidChannelName: 'Messages',
       androidChannelDescription: 'General message notifications',

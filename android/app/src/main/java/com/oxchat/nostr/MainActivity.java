@@ -71,14 +71,19 @@ public class MainActivity extends FlutterFragmentActivity {
     protected void onResume() {
         super.onResume();
         getOpenData(getIntent());
-        handleIntent(getIntent());
+        // Only process deep links if there's actual data
+        Intent currentIntent = getIntent();
+            getOpenData(currentIntent);
+            handleIntent(currentIntent);
+        }
     }
 
     @Override
     protected void onNewIntent(@NonNull Intent intent) {
         super.onNewIntent(intent);
-        getOpenData(getIntent());
-        handleIntent(getIntent());
+        // Use the passed intent parameter for deep link processing
+        getOpenData(intent);
+        handleIntent(intent);
     }
 
     @Override
@@ -90,10 +95,15 @@ public class MainActivity extends FlutterFragmentActivity {
 
     private void getOpenData(Intent intent) {
         try {
+            if (intent == null) {
+                return;
+            }
+            
             Uri uridata = intent.getData();
             if (uridata == null) {
                 return;
             }
+            
             String param = uridata.toString();
             if (!TextUtils.isEmpty(param)) {
                 try {
@@ -104,11 +114,11 @@ public class MainActivity extends FlutterFragmentActivity {
                         e.apply();
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Log.e("scheme-", "Failed to save deep link to SharedPreferences", e);
                 }
             }
         } catch (Exception e) {
-            Log.e("scheme-", e.getMessage(), e);
+            Log.e("scheme-", "Error processing deep link", e);
         }
     }
 

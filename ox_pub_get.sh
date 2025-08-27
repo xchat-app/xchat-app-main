@@ -87,6 +87,41 @@ is_git_repo() {
   [[ -d "$dir/.git" ]] && ! is_git_submodule "$dir"
 }
 
+# Get commit ID and branch info for a repository
+get_repo_info() {
+  local dir=$1
+  local repo_name=$(basename "$dir")
+  
+  if is_git_submodule "$dir" || is_git_repo "$dir"; then
+    local commit_hash=$(git -C "$dir" rev-parse HEAD 2>/dev/null)
+    local short_hash=$(git -C "$dir" rev-parse --short HEAD 2>/dev/null)
+    local branch=$(git -C "$dir" branch --show-current 2>/dev/null)
+    local commit_msg=$(git -C "$dir" log -1 --pretty=format:"%s" 2>/dev/null)
+    
+    if [[ -n "$commit_hash" ]]; then
+      echo "  📦 $repo_name"
+      echo "     Branch: $branch"
+      echo "     CID: $commit_hash"
+      echo "     Short: $short_hash"
+      echo "     Message: $commit_msg"
+      echo ""
+    fi
+  fi
+}
+
+# Display all repository commit information
+show_all_repo_cids() {
+  log_stage "Repository Commit Information"
+  echo "All repositories current commit IDs (CIDs):"
+  echo ""
+  
+  get_repo_info "$main_path"
+  get_repo_info "$core_path"
+  get_repo_info "$nostr_dart_path"
+  get_repo_info "$nostr_mls_path"
+  get_repo_info "$bitchat_path"
+}
+
 checkout_branch() {
   local dir=$1
   local branch=$2
@@ -180,6 +215,9 @@ checkout_branch "$bitchat_path" "$bitchat_branch"
 log_stage "Step 2: Installing Flutter dependencies"
 # Only run flutter pub get in the main project
 run_pub_get "$main_path"
+
+log_stage "Step 3: Repository Information"
+show_all_repo_cids
 
 log_stage "All done"
 echo "🎉 Successfully completed all setup tasks!"

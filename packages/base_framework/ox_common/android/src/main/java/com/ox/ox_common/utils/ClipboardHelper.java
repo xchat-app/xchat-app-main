@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
@@ -106,6 +107,55 @@ public class ClipboardHelper {
 
             return true;
         } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean copyImageToClipboardFromBytes(Context context, byte[] imageData) {
+        try {
+            String detectedFormat = OXCImageUtils.detectImageFormat(imageData);
+            if (detectedFormat == null) {
+                return false;
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+            if (bitmap == null) {
+                return false;
+            }
+
+            String fileExtension = OXCImageUtils.getFileExtension(detectedFormat);
+            File tempFile = new File(context.getCacheDir(), "clipboard_image_" + System.currentTimeMillis() + fileExtension);
+            FileOutputStream outputStream = new FileOutputStream(tempFile);
+            
+            Bitmap.CompressFormat compressFormat = OXCImageUtils.getCompressFormat(detectedFormat);
+            if (compressFormat == null) {
+                compressFormat = Bitmap.CompressFormat.PNG;
+                detectedFormat = "png";
+                tempFile = new File(context.getCacheDir(), "clipboard_image_" + System.currentTimeMillis() + ".png");
+                outputStream = new FileOutputStream(tempFile);
+            }
+            
+            boolean success = bitmap.compress(compressFormat, 100, outputStream);
+            outputStream.close();
+            
+            if (!success || !tempFile.exists()) {
+                return false;
+            }
+
+            String authority = context.getPackageName() + ".fileprovider";
+            Uri contentUri = FileProvider.getUriForFile(context, authority, tempFile);
+
+            ClipData clipData = ClipData.newUri(context.getContentResolver(), "image", contentUri);
+
+            ClipboardManager clipboardManager =
+                    (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboardManager.setPrimaryClip(clipData);
+
+            tempFile.deleteOnExit();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

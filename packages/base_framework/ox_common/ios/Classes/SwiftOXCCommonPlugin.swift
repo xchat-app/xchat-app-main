@@ -117,6 +117,13 @@ public class SwiftOXCCommonPlugin: NSObject, FlutterPlugin, UINavigationControll
                 return
             }
             result(ClipboardHelper.copyImageToClipboard(imagePath: imagePath))
+        case "copyImageToClipboardFromBytes":
+            guard let arguments = call.arguments as? [String: Any],
+                  let imageData = arguments["imageData"] as? FlutterStandardTypedData else {
+                result(false)
+                return
+            }
+            result(ClipboardHelper.copyImageToClipboardFromBytes(imageData: imageData.data))
         case "registeNotification":
             let isRotation = (call.arguments as? [String: Any])?["isRotation"] as? Bool ?? false
             registeNotification(isRotation: isRotation)

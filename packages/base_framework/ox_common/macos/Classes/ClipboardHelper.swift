@@ -39,6 +39,22 @@ class ClipboardHelper {
             return false
         }
     }
+    
+    static func copyImageToClipboardFromBytes(imageData: Data) -> Bool {
+        let detectedFormat = OXCImageUtils.detectImageFormat(from: imageData)
+        if detectedFormat == nil {
+            return false
+        }
+        
+        guard let nsImage = NSImage(data: imageData) else {
+            return false
+        }
+        
+        let pasteboard = NSPasteboard.general
+        pasteboard.clearContents()
+        pasteboard.writeObjects([nsImage])
+        return true
+    }
 }
 
 extension ClipboardHelper {

@@ -36,11 +36,25 @@ class ClipboardHelper {
     }
     
     static func copyImageToClipboard(imagePath: String) -> Bool {
-        if let uiImage = UIImage(contentsOfFile: imagePath) {
-            UIPasteboard.general.image = uiImage
-            return true
-        } else {
+        guard let uiImage = UIImage(contentsOfFile: imagePath) else {
             return false
         }
+        
+        UIPasteboard.general.image = uiImage
+        return true
+    }
+    
+    static func copyImageToClipboardFromBytes(imageData: Data) -> Bool {
+        let detectedFormat = OXCImageUtils.detectImageFormat(from: imageData)
+        if detectedFormat == nil {
+            return false
+        }
+        
+        guard let uiImage = UIImage(data: imageData) else {
+            return false
+        }
+        
+        UIPasteboard.general.image = uiImage
+        return true
     }
 }

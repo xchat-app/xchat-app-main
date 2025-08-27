@@ -20,6 +20,13 @@ public class OXCCommonPlugin: NSObject, FlutterPlugin {
             return
         }
         result(ClipboardHelper.copyImageToClipboard(imagePath: imagePath))
+    case "copyImageToClipboardFromBytes":
+        guard let arguments = call.arguments as? [String: Any],
+              let imageData = arguments["imageData"] as? FlutterStandardTypedData else {
+            result(false)
+            return
+        }
+        result(ClipboardHelper.copyImageToClipboardFromBytes(imageData: imageData.data))
     default:
       result(FlutterMethodNotImplemented)
     }

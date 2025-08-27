@@ -69,9 +69,6 @@ class OXCImagePickerHelper {
         let ratio = ZLImageClipRatio(title: "", whRatio: Double(width) / Double(height), isCircle: false)
         configuration.editImageConfiguration.clipRatios = [ratio]
         
-//        if let colorString = params?["uiColor"] as? [String: Any] {
-//            self.colorChange(colorString: colorString, configuration: configurationUI)
-//        }
         
         if !cameraMimeType.isEmpty {
             if cameraMimeType == "photo" {
@@ -110,7 +107,9 @@ class OXCImagePickerHelper {
                     formatter.dateFormat = "yyyyMMddHHmmss"
                     let x = arc4random() % 10000
                     let name = "\(formatter.string(from: Date()))01\(x)"
-                    let fileExtension = imageType(data: compressData)
+                    
+                    // Use unified image utility for format detection
+                    let fileExtension = OXCImageUtils.detectImageFormat(from: compressData) ?? "jpg"
                     let jpgPath = (NSHomeDirectory() as NSString).appendingPathComponent("Documents/\(name).\(fileExtension)")
 
                     try? compressData.write(to: URL(fileURLWithPath: jpgPath))
@@ -172,16 +171,12 @@ class OXCImagePickerHelper {
         let colorType = stringChangeColor(colorString: colorString)
         let light = colorString["l"] as? Int ?? 0
         
-        // 相册列表界面背景色
         let configurationUI = ZLPhotoUIConfiguration.default()
         configurationUI.albumListBgColor = .white
         configurationUI.previewVCBgColor = .white
-        // 分割线颜色
         configurationUI.separatorColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 0.98)
-        // 小图界面背景色
         configurationUI.thumbnailBgColor = .white
         
-        // 预览快速选择模式下 拍照/相册/取消 的背景颜色
         if light <= 179 {
             configurationUI.navBarColor = colorType
             configurationUI.navTitleColor = .white
@@ -219,28 +214,6 @@ class OXCImagePickerHelper {
         let green = colorString["g"] as? Int ?? 0
         let blue = colorString["b"] as? Int ?? 0
         return UIColor(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: CGFloat(alph) / 255.0)
-    }
-
-    private static func imageType(data: Data) -> String {
-        var c: UInt8 = 0
-        data.copyBytes(to: &c, count: 1)
-        
-        switch c {
-        case 0xFF:
-            return "JPEG"
-        case 0x89:
-            return "PNG"
-        case 0x47:
-            return "GIF"
-        case 0x49, 0x4D:
-            return "PNG"
-        case 0x52:
-            return "PNG"
-        case 0x00:
-            return "PNG"
-        default:
-            return "PNG"
-        }
     }
     
     private static func saveImageView(_ index: Int, imagePHAsset modelList: [ZLResultModel], resultArr: [[String: Any?]], compressSize: Int, result: @escaping FlutterResult) {

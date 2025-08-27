@@ -142,6 +142,18 @@ public class OXCommonPlugin implements FlutterPlugin, MethodCallHandler, Activit
                     mResult = null;
                 }
                 break;
+            case "copyImageToClipboardFromBytes":
+                if (mResult != null) {
+                    byte[] imageData = call.argument("imageData");
+                    if (imageData == null) {
+                        mResult.success(false);
+                    } else {
+                        boolean success = ClipboardHelper.copyImageToClipboardFromBytes(mContext, imageData);
+                        mResult.success(success);
+                    }
+                    mResult = null;
+                }
+                break;
             default:
                 result.notImplemented();
                 break;

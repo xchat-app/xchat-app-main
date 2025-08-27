@@ -1,5 +1,6 @@
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:ox_common/utils/list_extension.dart';
@@ -59,6 +60,19 @@ class OXClipboard {
     const copyImageToClipboardMethodName = 'copyImageToClipboard';
     final result = await channel.invokeMethod(copyImageToClipboardMethodName, {
       'imagePath': filePath,
+    });
+    if (result == true) {
+      await CommonToast.instance.show(null, 'copied_to_clipboard'.commonLocalized());
+    }
+  }
+
+  /// Copy an image (specified by binary data) to the system clipboard.
+  ///
+  /// [imageData] is the binary data of the image.
+  static Future<void> copyImageToClipboardFromBytes(Uint8List imageData) async {
+    const copyImageToClipboardMethodName = 'copyImageToClipboardFromBytes';
+    final result = await channel.invokeMethod(copyImageToClipboardMethodName, {
+      'imageData': imageData,
     });
     if (result == true) {
       await CommonToast.instance.show(null, 'copied_to_clipboard'.commonLocalized());

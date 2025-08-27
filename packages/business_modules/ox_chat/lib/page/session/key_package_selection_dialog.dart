@@ -219,7 +219,7 @@ class _KeyPackageSelectionDialogState extends State<KeyPackageSelectionDialog> {
               Navigator.of(context).pop(selectedKeyPackage$.value);
             } : null,
             child: CLText.bodyMedium(
-              Localized.text('ox_chat.confirm'),
+              Localized.text('ox_common.confirm'),
               colorToken: ColorToken.onPrimary,
             ),
           ),

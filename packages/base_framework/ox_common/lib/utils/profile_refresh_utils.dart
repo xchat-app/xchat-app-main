@@ -30,7 +30,7 @@ class ProfileRefreshUtils {
       actions: [
         CLAlertAction.cancel(),
         CLAlertAction<bool>(
-          label: Localized.text('ox_usercenter.confirm'),
+          label: Localized.text('ox_common.confirm'),
           value: true,
         ),
       ],
@@ -43,7 +43,7 @@ class ProfileRefreshUtils {
       if (currentUser == null) {
         CommonToast.instance.show(
           context, 
-          Localized.text(userNotFoundKey ?? 'ox_usercenter.user_not_found')
+          Localized.text(userNotFoundKey ?? 'ox_common.user_not_found')
         );
         return false;
       }
@@ -122,7 +122,7 @@ class ProfileRefreshUtils {
       actions: [
         CLAlertAction.cancel(),
         CLAlertAction<bool>(
-          label: Localized.text('ox_usercenter.confirm'),
+          label: Localized.text('ox_common.confirm'),
           value: true,
         ),
       ],

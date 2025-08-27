@@ -569,7 +569,7 @@ class _QRCodeDisplayPageState extends State<QRCodeDisplayPage> {
       actions: [
         CLAlertAction.cancel(),
         CLAlertAction<bool>(
-          label: Localized.text('ox_usercenter.confirm'),
+          label: Localized.text('ox_common.confirm'),
           value: true,
           isDefaultAction: true,
         ),
@@ -589,7 +589,7 @@ class _QRCodeDisplayPageState extends State<QRCodeDisplayPage> {
       actions: [
         CLAlertAction.cancel(),
         CLAlertAction<bool>(
-          label: Localized.text('ox_usercenter.confirm'),
+          label: Localized.text('ox_common.confirm'),
           value: true,
           isDefaultAction: true,
         ),
@@ -609,7 +609,7 @@ class _QRCodeDisplayPageState extends State<QRCodeDisplayPage> {
       actions: [
         CLAlertAction.cancel(),
         CLAlertAction<bool>(
-          label: Localized.text('ox_usercenter.confirm'),
+          label: Localized.text('ox_common.confirm'),
           value: true,
           isDefaultAction: true,
         ),

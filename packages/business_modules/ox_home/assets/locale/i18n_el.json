@@ -1,6 +1,19 @@
 {
-  "Home": "Αρχική",
-  "Contact": "Επικοινωνία",
-  "Discover": "Ανακαλύψτε",
-  "Me": "Εγώ"
+  "join_or_create_circle_now": "Προσθέστε ή δημιουργήστε έναν κύκλο τώρα",
+  "unlock_advanced_model": "Συνδεθείτε σε ένα relay Nostr για να ξεκινήσετε",
+  "join_circle": "Γίνετε μέλος του κύκλου",
+  "add_circle": "Προσθέστε κύκλο",
+  "new_paid_circle": "Νέος πληρωτέος κύκλος 💎",
+  "join_circle_title": "Γίνετε μέλος του κύκλου",
+  "join_circle_description": "Για να γίνετε μέλος ενός κύκλου, εισάγετε μια διεύθυνση relay ή έναν σύνδεσμο πρόσκλησης.",
+  "join_circle_input_label": "διεύθυνση relay ή σύνδεσμος πρόσκλησης",
+  "add": "Προσθήκη",
+  "what_is_circle": "Τι είναι ένας κύκλος;",
+  "invalid_nprofile_format": "Μη έγκυρη μορφή nprofile",
+  "invalid_pubkey": "Μη έγκυρο δημόσιο κλειδί",
+  "failed_to_process_nprofile": "Αποτυχία επεξεργασίας nprofile: ${error}",
+  "join_circle_dialog_title": "Γίνετε μέλος του κύκλου",
+  "join_circle_dialog_content": "Αυτός ο χρήστης είναι από τον κύκλο \"${relayName}\". Θέλετε να γίνετε μέλος αυτού του κύκλου για να συνομιλήσετε μαζί τους;",
+  "failed_to_join_circle": "Αποτυχία συμμετοχής στον κύκλο: ${message}",
+  "error_joining_circle": "Σφάλμα κατά τη συμμετοχή στον κύκλο: ${error}"
 }

@@ -1,6 +1,19 @@
 {
-  "Home": "Startpagina",
-  "Contact": "Contact",
-  "Discover": "Ontdekken",
-  "Me": "Ik"
+  "join_or_create_circle_now": "Voeg nu een cirkel toe of maak er een",
+  "unlock_advanced_model": "Verbind met een Nostr-relay om te beginnen",
+  "join_circle": "Word lid van cirkel",
+  "add_circle": "Cirkel toevoegen",
+  "new_paid_circle": "Nieuwe betaalde cirkel 💎",
+  "join_circle_title": "Word lid van cirkel",
+  "join_circle_description": "Om lid te worden van een cirkel, voer een relay-adres of uitnodigingslink in.",
+  "join_circle_input_label": "relay-adres of uitnodigingslink",
+  "add": "Toevoegen",
+  "what_is_circle": "Wat is een cirkel?",
+  "invalid_nprofile_format": "Ongeldig nprofile-formaat",
+  "invalid_pubkey": "Ongeldige publieke sleutel",
+  "failed_to_process_nprofile": "Verwerken van nprofile mislukt: ${error}",
+  "join_circle_dialog_title": "Word lid van cirkel",
+  "join_circle_dialog_content": "Deze gebruiker komt uit de cirkel \"${relayName}\". Wil je lid worden van deze cirkel om met hen te chatten?",
+  "failed_to_join_circle": "Lid worden van cirkel mislukt: ${message}",
+  "error_joining_circle": "Fout bij lid worden van cirkel: ${error}"
 }

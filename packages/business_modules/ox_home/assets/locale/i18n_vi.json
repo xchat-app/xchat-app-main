@@ -1,6 +1,19 @@
 {
-  "Home": "Trang chủ",
-  "Contact": "Liên hệ",
-  "Discover": "Khám phá",
-  "Me": "Tôi"
+  "join_or_create_circle_now": "Thêm hoặc tạo vòng tròn ngay bây giờ",
+  "unlock_advanced_model": "Kết nối với relay Nostr để bắt đầu",
+  "join_circle": "Tham gia vòng tròn",
+  "add_circle": "Thêm vòng tròn",
+  "new_paid_circle": "Vòng tròn trả phí mới 💎",
+  "join_circle_title": "Tham gia vòng tròn",
+  "join_circle_description": "Để tham gia vòng tròn, nhập địa chỉ relay hoặc liên kết mời.",
+  "join_circle_input_label": "địa chỉ relay hoặc liên kết mời",
+  "add": "Thêm",
+  "what_is_circle": "Vòng tròn là gì?",
+  "invalid_nprofile_format": "Định dạng nprofile không hợp lệ",
+  "invalid_pubkey": "Khóa công khai không hợp lệ",
+  "failed_to_process_nprofile": "Không thể xử lý nprofile: ${error}",
+  "join_circle_dialog_title": "Tham gia vòng tròn",
+  "join_circle_dialog_content": "Người dùng này đến từ vòng tròn \"${relayName}\". Bạn có muốn tham gia vòng tròn này để trò chuyện với họ không?",
+  "failed_to_join_circle": "Không thể tham gia vòng tròn: ${message}",
+  "error_joining_circle": "Lỗi khi tham gia vòng tròn: ${error}"
 }

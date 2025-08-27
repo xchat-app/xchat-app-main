@@ -1,6 +1,19 @@
 {
-  "Home": "Strona główna",
-  "Contact": "Kontakt",
-  "Discover": "Odkryć",
-  "Me": "Ja"
+  "join_or_create_circle_now": "Dodaj lub utwórz krąg teraz",
+  "unlock_advanced_model": "Połącz się z przekaźnikiem Nostr, aby rozpocząć",
+  "join_circle": "Dołącz do kręgu",
+  "add_circle": "Dodaj krąg",
+  "new_paid_circle": "Nowy płatny krąg 💎",
+  "join_circle_title": "Dołącz do kręgu",
+  "join_circle_description": "Aby dołączyć do kręgu, wprowadź adres przekaźnika lub link zaproszenia.",
+  "join_circle_input_label": "adres przekaźnika lub link zaproszenia",
+  "add": "Dodaj",
+  "what_is_circle": "Co to jest krąg?",
+  "invalid_nprofile_format": "Nieprawidłowy format nprofile",
+  "invalid_pubkey": "Nieprawidłowy klucz publiczny",
+  "failed_to_process_nprofile": "Nie udało się przetworzyć nprofile: ${error}",
+  "join_circle_dialog_title": "Dołącz do kręgu",
+  "join_circle_dialog_content": "Ten użytkownik pochodzi z kręgu \"${relayName}\". Czy chcesz dołączyć do tego kręgu, aby z nim czatować?",
+  "failed_to_join_circle": "Nie udało się dołączyć do kręgu: ${message}",
+  "error_joining_circle": "Błąd podczas dołączania do kręgu: ${error}"
 }

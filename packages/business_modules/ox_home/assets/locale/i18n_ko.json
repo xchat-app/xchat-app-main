@@ -1,6 +1,19 @@
 {
-  "Home": "홈",
-  "Contact": "연락처",
-  "Discover": "발견",
-  "Me": "나"
+  "join_or_create_circle_now": "지금 서클 추가 또는 생성",
+  "unlock_advanced_model": "Nostr 릴레이에 연결하여 시작",
+  "join_circle": "서클 참가",
+  "add_circle": "서클 추가",
+  "new_paid_circle": "새 유료 서클 💎",
+  "join_circle_title": "서클 참가",
+  "join_circle_description": "서클에 참가하려면 릴레이 주소 또는 초대 링크를 입력하세요.",
+  "join_circle_input_label": "릴레이 주소 또는 초대 링크",
+  "add": "추가",
+  "what_is_circle": "서클이란 무엇인가요?",
+  "invalid_nprofile_format": "잘못된 nprofile 형식",
+  "invalid_pubkey": "잘못된 공개키",
+  "failed_to_process_nprofile": "nprofile 처리 실패: ${error}",
+  "join_circle_dialog_title": "서클 참가",
+  "join_circle_dialog_content": "이 사용자는 \"${relayName}\" 서클에서 온 것입니다. 이 서클에 참가하여 채팅하시겠습니까?",
+  "failed_to_join_circle": "서클 참가 실패: ${message}",
+  "error_joining_circle": "서클 참가 중 오류 발생: ${error}"
 }

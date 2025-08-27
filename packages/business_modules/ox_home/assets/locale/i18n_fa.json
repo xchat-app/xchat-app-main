@@ -1,6 +1,19 @@
 {
-  "Home": "چت‌ها",
-  "Contact": "تماس‌ها",
-  "Discover": "کشف",
-  "Me": "من"
+  "join_or_create_circle_now": "حالا یک دایره اضافه کنید یا ایجاد کنید",
+  "unlock_advanced_model": "برای شروع به یک رله Nostr متصل شوید",
+  "join_circle": "به دایره بپیوندید",
+  "add_circle": "دایره اضافه کنید",
+  "new_paid_circle": "دایره پولی جدید 💎",
+  "join_circle_title": "به دایره بپیوندید",
+  "join_circle_description": "برای پیوستن به یک دایره، آدرس رله یا لینک دعوت را وارد کنید.",
+  "join_circle_input_label": "آدرس رله یا لینک دعوت",
+  "add": "اضافه کردن",
+  "what_is_circle": "دایره چیست؟",
+  "invalid_nprofile_format": "فرمت nprofile نامعتبر",
+  "invalid_pubkey": "کلید عمومی نامعتبر",
+  "failed_to_process_nprofile": "پردازش nprofile ناموفق بود: ${error}",
+  "join_circle_dialog_title": "به دایره بپیوندید",
+  "join_circle_dialog_content": "این کاربر از دایره \"${relayName}\" است. آیا می‌خواهید به این دایره بپیوندید تا با آنها چت کنید؟",
+  "failed_to_join_circle": "پیوستن به دایره ناموفق بود: ${message}",
+  "error_joining_circle": "خطا در پیوستن به دایره: ${error}"
 }

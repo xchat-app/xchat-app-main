@@ -1,16 +1,19 @@
 {
-  "Home": "首页",
-  "Contact": "联系人",
-  "Discover": "发现",
-  "Me": "我的",
   "join_or_create_circle_now": "现在创建一个圈子",
   "unlock_advanced_model": "连接到 Nostr 中继开始使用",
   "join_circle": "加入圈子",
   "add_circle": "新增圈子",
-  "new_paid_circle": "新建付费圈子 \uD83D\uDC8E",
+  "new_paid_circle": "新建付费圈子 💎",
   "join_circle_title": "加入圈子",
   "join_circle_description": "要加入圈子，请输入中继地址或有效的邀请链接。",
-  "join_circle_input_label": "链接",
+  "join_circle_input_label": "中继地址或邀请链接",
   "add": "添加",
-  "what_is_circle": "什么是圈子？"
+  "what_is_circle": "什么是圈子？",
+  "invalid_nprofile_format": "无效的 nprofile 格式",
+  "invalid_pubkey": "无效的公钥",
+  "failed_to_process_nprofile": "处理 nprofile 失败：${error}",
+  "join_circle_dialog_title": "加入圈子",
+  "join_circle_dialog_content": "此用户来自圈子 \"${relayName}\"。您是否要加入此圈子以便与他们聊天？",
+  "failed_to_join_circle": "加入圈子失败：${message}",
+  "error_joining_circle": "加入圈子时出错：${error}"
 }

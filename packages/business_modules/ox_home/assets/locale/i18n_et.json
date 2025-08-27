@@ -1,6 +1,19 @@
 {
-  "Home": "Avaleht",
-  "Contact": "Kontakt",
-  "Discover": "Avasta",
-  "Me": "Mina"
+  "join_or_create_circle_now": "Lisa või loo ring nüüd",
+  "unlock_advanced_model": "Ühenda Nostr relay-ga, et alustada",
+  "join_circle": "Liitu ringiga",
+  "add_circle": "Lisa ring",
+  "new_paid_circle": "Uus tasuline ring 💎",
+  "join_circle_title": "Liitu ringiga",
+  "join_circle_description": "Ringiga liitumiseks sisesta relay aadress või kutselink.",
+  "join_circle_input_label": "relay aadress või kutselink",
+  "add": "Lisa",
+  "what_is_circle": "Mis on ring?",
+  "invalid_nprofile_format": "Vigane nprofile vorming",
+  "invalid_pubkey": "Vigane avalik võti",
+  "failed_to_process_nprofile": "nprofile töötlemine ebaõnnestus: ${error}",
+  "join_circle_dialog_title": "Liitu ringiga",
+  "join_circle_dialog_content": "See kasutaja on ringist \"${relayName}\". Kas soovid liituda selle ringiga, et nendega vestelda?",
+  "failed_to_join_circle": "Ringiga liitumine ebaõnnestus: ${message}",
+  "error_joining_circle": "Viga ringiga liitumisel: ${error}"
 }

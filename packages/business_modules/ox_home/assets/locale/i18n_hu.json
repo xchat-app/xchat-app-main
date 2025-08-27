@@ -1,6 +1,19 @@
 {
-  "Home": "Főoldal",
-  "Contact": "Kapcsolat",
-  "Discover": "Felfedez",
-  "Me": "Én"
+  "join_or_create_circle_now": "Kör hozzáadása vagy létrehozása most",
+  "unlock_advanced_model": "Kapcsolódjon egy Nostr reléhez a kezdéshez",
+  "join_circle": "Csatlakozás a körhöz",
+  "add_circle": "Kör hozzáadása",
+  "new_paid_circle": "Új fizetős kör 💎",
+  "join_circle_title": "Csatlakozás a körhöz",
+  "join_circle_description": "Egy körhöz való csatlakozáshoz adjon meg egy relécímet vagy meghívó linket.",
+  "join_circle_input_label": "relécím vagy meghívó link",
+  "add": "Hozzáadás",
+  "what_is_circle": "Mi az a kör?",
+  "invalid_nprofile_format": "Érvénytelen nprofile formátum",
+  "invalid_pubkey": "Érvénytelen nyilvános kulcs",
+  "failed_to_process_nprofile": "Az nprofile feldolgozása sikertelen: ${error}",
+  "join_circle_dialog_title": "Csatlakozás a körhöz",
+  "join_circle_dialog_content": "Ez a felhasználó a \"${relayName}\" körből származik. Szeretne csatlakozni ehhez a körhöz, hogy beszélgessen velük?",
+  "failed_to_join_circle": "A körhöz való csatlakozás sikertelen: ${message}",
+  "error_joining_circle": "Hiba a körhöz való csatlakozáskor: ${error}"
 }

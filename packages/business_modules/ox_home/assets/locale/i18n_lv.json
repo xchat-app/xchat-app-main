@@ -1,6 +1,19 @@
 {
-  "Home": "Sākumlapa",
-  "Contact": "Kontakti",
-  "Discover": "Atklāt",
-  "Me": "Es"
+  "join_or_create_circle_now": "Pievienojiet vai izveidojiet apli tagad",
+  "unlock_advanced_model": "Pievienojieties Nostr relejam, lai sāktu",
+  "join_circle": "Pievienojieties aplim",
+  "add_circle": "Pievienot apli",
+  "new_paid_circle": "Jauns maksas aplis 💎",
+  "join_circle_title": "Pievienojieties aplim",
+  "join_circle_description": "Lai pievienotos aplim, ievadiet releja adresi vai uzaicinājuma saiti.",
+  "join_circle_input_label": "releja adrese vai uzaicinājuma saite",
+  "add": "Pievienot",
+  "what_is_circle": "Kas ir aplis?",
+  "invalid_nprofile_format": "Nederīgs nprofile formāts",
+  "invalid_pubkey": "Nederīga publiskā atslēga",
+  "failed_to_process_nprofile": "Neizdevās apstrādāt nprofile: ${error}",
+  "join_circle_dialog_title": "Pievienojieties aplim",
+  "join_circle_dialog_content": "Šis lietotājs ir no \"${relayName}\" apļa. Vai vēlaties pievienoties šim aplim, lai čatotu ar viņiem?",
+  "failed_to_join_circle": "Neizdevās pievienoties aplim: ${message}",
+  "error_joining_circle": "Kļūda pievienojoties aplim: ${error}"
 }

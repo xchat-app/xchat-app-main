@@ -1,6 +1,19 @@
 {
-  "Home": "Hjem",
-  "Contact": "Kontakt",
-  "Discover": "Opdag",
-  "Me": "Jeg"
+  "join_or_create_circle_now": "Tilføj eller opret en cirkel nu",
+  "unlock_advanced_model": "Tilslut dig til en Nostr-relæ for at komme i gang",
+  "join_circle": "Tilslut dig til cirkel",
+  "add_circle": "Tilføj cirkel",
+  "new_paid_circle": "Ny betalt cirkel 💎",
+  "join_circle_title": "Tilslut dig til cirkel",
+  "join_circle_description": "For at tilslutte dig til en cirkel, indtast en relæadresse eller invitationlink.",
+  "join_circle_input_label": "relæadresse eller invitationlink",
+  "add": "Tilføj",
+  "what_is_circle": "Hvad er en cirkel?",
+  "invalid_nprofile_format": "Ugyldigt nprofile-format",
+  "invalid_pubkey": "Ugyldig offentlig nøgle",
+  "failed_to_process_nprofile": "Kunne ikke behandle nprofile: ${error}",
+  "join_circle_dialog_title": "Tilslut dig til cirkel",
+  "join_circle_dialog_content": "Denne bruger kommer fra cirklen \"${relayName}\". Vil du tilslutte dig til denne cirkel for at chatte med dem?",
+  "failed_to_join_circle": "Kunne ikke tilslutte sig til cirkel: ${message}",
+  "error_joining_circle": "Fejl ved tilslutning til cirkel: ${error}"
 }

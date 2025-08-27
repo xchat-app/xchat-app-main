@@ -1,6 +1,19 @@
 {
-  "Home": "Home",
-  "Contact": "Contatto",
-  "Discover": "Scoprire",
-  "Me": "Io"
+  "join_or_create_circle_now": "Aggiungi o crea un cerchio ora",
+  "unlock_advanced_model": "Connettiti a un relay Nostr per iniziare",
+  "join_circle": "Unisciti al cerchio",
+  "add_circle": "Aggiungi cerchio",
+  "new_paid_circle": "Nuovo cerchio a pagamento 💎",
+  "join_circle_title": "Unisciti al cerchio",
+  "join_circle_description": "Per unirsi a un cerchio, inserisci un indirizzo relay o un link di invito.",
+  "join_circle_input_label": "indirizzo relay o link di invito",
+  "add": "Aggiungi",
+  "what_is_circle": "Cos'è un cerchio?",
+  "invalid_nprofile_format": "Formato nprofile non valido",
+  "invalid_pubkey": "Chiave pubblica non valida",
+  "failed_to_process_nprofile": "Impossibile elaborare nprofile: ${error}",
+  "join_circle_dialog_title": "Unisciti al cerchio",
+  "join_circle_dialog_content": "Questo utente proviene dal cerchio \"${relayName}\". Vuoi unirti a questo cerchio per chattare con loro?",
+  "failed_to_join_circle": "Impossibile unirsi al cerchio: ${message}",
+  "error_joining_circle": "Errore nell'unirsi al cerchio: ${error}"
 }

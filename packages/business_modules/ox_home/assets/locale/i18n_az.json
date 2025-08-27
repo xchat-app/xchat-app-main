@@ -1,6 +1,19 @@
 {
-  "Home": "Əsas",
-  "Contact": "Əlaqə",
-  "Discover": "Kəşf et",
-  "Me": "Mən"
+  "join_or_create_circle_now": "İndi dairə əlavə edin və ya yaradın",
+  "unlock_advanced_model": "Başlamaq üçün Nostr relay-ə qoşulun",
+  "join_circle": "Dairəyə qoşulun",
+  "add_circle": "Dairə əlavə edin",
+  "new_paid_circle": "Yeni ödənişli dairə 💎",
+  "join_circle_title": "Dairəyə qoşulun",
+  "join_circle_description": "Dairəyə qoşulmaq üçün relay ünvanı və ya dəvət linki daxil edin.",
+  "join_circle_input_label": "relay ünvanı və ya dəvət linki",
+  "add": "Əlavə et",
+  "what_is_circle": "Dairə nədir?",
+  "invalid_nprofile_format": "Yanlış nprofile formatı",
+  "invalid_pubkey": "Yanlış ictimai açar",
+  "failed_to_process_nprofile": "nprofile emal edilə bilmədi: ${error}",
+  "join_circle_dialog_title": "Dairəyə qoşulun",
+  "join_circle_dialog_content": "Bu istifadəçi \"${relayName}\" dairəsindəndir. Onlarla söhbət etmək üçün bu dairəyə qoşulmaq istəyirsinizmi?",
+  "failed_to_join_circle": "Dairəyə qoşulmaq uğursuz oldu: ${message}",
+  "error_joining_circle": "Dairəyə qoşularkən xəta: ${error}"
 }

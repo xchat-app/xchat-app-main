@@ -1,6 +1,19 @@
 {
-  "Home": "Domů",
-  "Contact": "Kontakt",
-  "Discover": "Objevte",
-  "Me": "Já"
+  "join_or_create_circle_now": "Přidejte nebo vytvořte kruh nyní",
+  "unlock_advanced_model": "Připojte se k Nostr relé pro začátek",
+  "join_circle": "Připojit se ke kruhu",
+  "add_circle": "Přidat kruh",
+  "new_paid_circle": "Nový placený kruh 💎",
+  "join_circle_title": "Připojit se ke kruhu",
+  "join_circle_description": "Pro připojení ke kruhu zadejte adresu relé nebo pozvánkový odkaz.",
+  "join_circle_input_label": "adresa relé nebo pozvánkový odkaz",
+  "add": "Přidat",
+  "what_is_circle": "Co je kruh?",
+  "invalid_nprofile_format": "Neplatný formát nprofile",
+  "invalid_pubkey": "Neplatný veřejný klíč",
+  "failed_to_process_nprofile": "Nepodařilo se zpracovat nprofile: ${error}",
+  "join_circle_dialog_title": "Připojit se ke kruhu",
+  "join_circle_dialog_content": "Tento uživatel je z kruhu \"${relayName}\". Chcete se připojit k tomuto kruhu pro chatování s ním?",
+  "failed_to_join_circle": "Nepodařilo se připojit ke kruhu: ${message}",
+  "error_joining_circle": "Chyba při připojování ke kruhu: ${error}"
 }

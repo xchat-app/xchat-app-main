@@ -1,6 +1,19 @@
 {
-  "Home": "Beranda",
-  "Contact": "Kontak",
-  "Discover": "Temukan",
-  "Me": "Saya"
+  "join_or_create_circle_now": "Tambahkan atau buat lingkaran sekarang",
+  "unlock_advanced_model": "Hubungkan ke relay Nostr untuk memulai",
+  "join_circle": "Bergabung dengan lingkaran",
+  "add_circle": "Tambah lingkaran",
+  "new_paid_circle": "Lingkaran berbayar baru 💎",
+  "join_circle_title": "Bergabung dengan lingkaran",
+  "join_circle_description": "Untuk bergabung dengan lingkaran, masukkan alamat relay atau tautan undangan.",
+  "join_circle_input_label": "alamat relay atau tautan undangan",
+  "add": "Tambah",
+  "what_is_circle": "Apa itu lingkaran?",
+  "invalid_nprofile_format": "Format nprofile tidak valid",
+  "invalid_pubkey": "Kunci publik tidak valid",
+  "failed_to_process_nprofile": "Gagal memproses nprofile: ${error}",
+  "join_circle_dialog_title": "Bergabung dengan lingkaran",
+  "join_circle_dialog_content": "Pengguna ini berasal dari lingkaran \"${relayName}\". Apakah Anda ingin bergabung dengan lingkaran ini untuk mengobrol dengan mereka?",
+  "failed_to_join_circle": "Gagal bergabung dengan lingkaran: ${message}",
+  "error_joining_circle": "Error saat bergabung dengan lingkaran: ${error}"
 }

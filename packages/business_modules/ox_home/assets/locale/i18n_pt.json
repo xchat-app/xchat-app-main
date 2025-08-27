@@ -1,6 +1,19 @@
 {
-  "Home": "Início",
-  "Contact": "Contato",
-  "Discover": "Descobrir",
-  "Me": "Eu"
+  "join_or_create_circle_now": "Adicione ou crie um círculo agora",
+  "unlock_advanced_model": "Conecte-se a um relay Nostr para começar",
+  "join_circle": "Junte-se ao círculo",
+  "add_circle": "Adicionar círculo",
+  "new_paid_circle": "Novo círculo pago 💎",
+  "join_circle_title": "Junte-se ao círculo",
+  "join_circle_description": "Para se juntar a um círculo, digite um endereço de relay ou link de convite.",
+  "join_circle_input_label": "endereço de relay ou link de convite",
+  "add": "Adicionar",
+  "what_is_circle": "O que é um círculo?",
+  "invalid_nprofile_format": "Formato nprofile inválido",
+  "invalid_pubkey": "Chave pública inválida",
+  "failed_to_process_nprofile": "Falha ao processar nprofile: ${error}",
+  "join_circle_dialog_title": "Junte-se ao círculo",
+  "join_circle_dialog_content": "Este usuário é do círculo \"${relayName}\". Você gostaria de se juntar a este círculo para conversar com eles?",
+  "failed_to_join_circle": "Falha ao se juntar ao círculo: ${message}",
+  "error_joining_circle": "Erro ao se juntar ao círculo: ${error}"
 }

@@ -1,6 +1,19 @@
 {
-  "Home": "Hem",
-  "Contact": "Kontakt",
-  "Discover": "Upptäck",
-  "Me": "Jag"
+  "join_or_create_circle_now": "Lägg till eller skapa en cirkel nu",
+  "unlock_advanced_model": "Anslut till en Nostr-relä för att komma igång",
+  "join_circle": "Gå med i cirkel",
+  "add_circle": "Lägg till cirkel",
+  "new_paid_circle": "Ny betald cirkel 💎",
+  "join_circle_title": "Gå med i cirkel",
+  "join_circle_description": "För att gå med i en cirkel, ange en reläadress eller inbjudningslänk.",
+  "join_circle_input_label": "reläadress eller inbjudningslänk",
+  "add": "Lägg till",
+  "what_is_circle": "Vad är en cirkel?",
+  "invalid_nprofile_format": "Ogiltigt nprofile-format",
+  "invalid_pubkey": "Ogiltig publik nyckel",
+  "failed_to_process_nprofile": "Misslyckades att bearbeta nprofile: ${error}",
+  "join_circle_dialog_title": "Gå med i cirkel",
+  "join_circle_dialog_content": "Denna användare kommer från cirkeln \"${relayName}\". Vill du gå med i denna cirkel för att chatta med dem?",
+  "failed_to_join_circle": "Misslyckades att gå med i cirkel: ${message}",
+  "error_joining_circle": "Fel vid anslutning till cirkel: ${error}"
 }

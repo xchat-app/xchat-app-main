@@ -1,6 +1,19 @@
 {
-  "Home": "Inici",
-  "Contact": "Contacte",
-  "Discover": "Descobreix",
-  "Me": "Jo"
+  "join_or_create_circle_now": "Afegeix o crea un cercle ara",
+  "unlock_advanced_model": "Connecta't a un relé Nostr per començar",
+  "join_circle": "Uneix-te al cercle",
+  "add_circle": "Afegeix cercle",
+  "new_paid_circle": "Nou cercle de pagament 💎",
+  "join_circle_title": "Uneix-te al cercle",
+  "join_circle_description": "Per unir-te a un cercle, introdueix una adreça de relé o un enllaç d'invitació.",
+  "join_circle_input_label": "adreça de relé o enllaç d'invitació",
+  "add": "Afegeix",
+  "what_is_circle": "Què és un cercle?",
+  "invalid_nprofile_format": "Format nprofile no vàlid",
+  "invalid_pubkey": "Clau pública no vàlida",
+  "failed_to_process_nprofile": "Error en processar nprofile: ${error}",
+  "join_circle_dialog_title": "Uneix-te al cercle",
+  "join_circle_dialog_content": "Aquest usuari és del cercle \"${relayName}\". Vols unir-te a aquest cercle per xatejar amb ells?",
+  "failed_to_join_circle": "Error en unir-se al cercle: ${message}",
+  "error_joining_circle": "Error en unir-se al cercle: ${error}"
 }

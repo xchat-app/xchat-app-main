@@ -1,6 +1,19 @@
 {
-  "Home": "Ana Sayfa",
-  "Contact": "İletişim",
-  "Discover": "Keşfet",
-  "Me": "Ben"
+  "join_or_create_circle_now": "Şimdi bir daire ekleyin veya oluşturun",
+  "unlock_advanced_model": "Başlamak için bir Nostr rölesine bağlanın",
+  "join_circle": "Daireye katılın",
+  "add_circle": "Daire ekle",
+  "new_paid_circle": "Yeni ücretli daire 💎",
+  "join_circle_title": "Daireye katılın",
+  "join_circle_description": "Bir daireye katılmak için, röle adresi veya davet bağlantısı girin.",
+  "join_circle_input_label": "röle adresi veya davet bağlantısı",
+  "add": "Ekle",
+  "what_is_circle": "Daire nedir?",
+  "invalid_nprofile_format": "Geçersiz nprofile formatı",
+  "invalid_pubkey": "Geçersiz genel anahtar",
+  "failed_to_process_nprofile": "nprofile işlenemedi: ${error}",
+  "join_circle_dialog_title": "Daireye katılın",
+  "join_circle_dialog_content": "Bu kullanıcı \"${relayName}\" dairesinden geliyor. Onlarla sohbet etmek için bu daireye katılmak ister misiniz?",
+  "failed_to_join_circle": "Daireye katılınamadı: ${message}",
+  "error_joining_circle": "Daireye katılırken hata: ${error}"
 }

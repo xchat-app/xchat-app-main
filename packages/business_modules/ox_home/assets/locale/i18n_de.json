@@ -1,15 +1,19 @@
 {
-  "Home": "Chats",
-  "Contact": "Kontakte",
-  "Discover": "Entdecken",
-  "Me": "Ich",
   "join_or_create_circle_now": "Kreis jetzt hinzufügen oder erstellen",
-  "unlock_advanced_model": "Verbinden Sie sich mit einem Nostr-Relay, um zu beginnen"
-  "join_circle": "Kreis hinzufügen",
+  "unlock_advanced_model": "Verbinden Sie sich mit einem Nostr-Relay, um zu beginnen",
+  "join_circle": "Kreis beitreten",
   "add_circle": "Kreis hinzufügen",
   "new_paid_circle": "Neuer bezahlter Kreis 💎",
-  "join_circle_title": "Kreis hinzufügen",
-  "join_circle_description": "Um einen Kreis hinzuzufügen, geben Sie eine Relais-Adresse oder einen gültigen Einladungslink ein.",
-  "join_circle_input_label": "Link",
-  "add": "Hinzufügen"
+  "join_circle_title": "Kreis beitreten",
+  "join_circle_description": "Um einem Kreis beizutreten, geben Sie eine Relais-Adresse oder einen Einladungslink ein.",
+  "join_circle_input_label": "Relais-Adresse oder Einladungslink",
+  "add": "Hinzufügen",
+  "what_is_circle": "Was ist ein Kreis?",
+  "invalid_nprofile_format": "Ungültiges nprofile-Format",
+  "invalid_pubkey": "Ungültiger öffentlicher Schlüssel",
+  "failed_to_process_nprofile": "Verarbeitung des nprofile fehlgeschlagen: ${error}",
+  "join_circle_dialog_title": "Kreis beitreten",
+  "join_circle_dialog_content": "Dieser Benutzer kommt aus dem Kreis \"${relayName}\". Möchten Sie diesem Kreis beitreten, um mit ihm zu chatten?",
+  "failed_to_join_circle": "Beitritt zum Kreis fehlgeschlagen: ${message}",
+  "error_joining_circle": "Fehler beim Beitritt zum Kreis: ${error}"
 }

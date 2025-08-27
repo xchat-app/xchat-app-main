@@ -46,6 +46,7 @@ class BioSettingsPage extends StatelessWidget {
 
     user.about = newBio;
 
+    OXLoading.show();
     final newUser = await Account.sharedInstance.updateProfile(user);
     await OXLoading.dismiss();
     if (newUser == null) {

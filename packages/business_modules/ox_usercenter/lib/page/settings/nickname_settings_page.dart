@@ -61,6 +61,7 @@ class NicknameSettingsPage extends StatelessWidget {
 
     user.name = newNickname;
 
+    OXLoading.show();
     final newUser = await Account.sharedInstance.updateProfile(user);
     await OXLoading.dismiss();
     if (newUser == null) {

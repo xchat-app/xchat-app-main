@@ -64,7 +64,7 @@ class SingleSettingPageState extends State<SingleSettingPage> {
           children: [
             CLTextField(
               controller: controller,
-              autofocus: true,
+              autofocus: false,
               placeholder: widget.title,
               maxLines: null,
               textInputAction: widget.textInputAction,

@@ -53,7 +53,7 @@ class _ChatGroupMessagePageState extends State<ChatGroupMessagePage> {
       builder: (context, group, child) {
         String showName = group.name;
         UserDBISAR? otherUser;
-        final isSingleChat = group.isDirectMessage == true;
+        final isSingleChat = session.isSingleChat == true;
         if (isSingleChat) {
           otherUser = Account.sharedInstance.userCache[group.otherPubkey]?.value;
           showName = otherUser?.getUserShowName() ?? '';
@@ -110,7 +110,7 @@ class _ChatGroupMessagePageState extends State<ChatGroupMessagePage> {
         Localized.text('ox_chat_ui.group_join'),
         onJoinGroupTap,
       );
-    } else if (group.isDirectMessage) {
+    } else if (session.isSingleChat) {
       final otherPubkey = handler.otherUser?.pubKey;
       if (otherPubkey != null) {
         final otherUser = Account.sharedInstance.userCache[otherPubkey]?.value;

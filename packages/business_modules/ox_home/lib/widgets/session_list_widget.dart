@@ -210,9 +210,6 @@ class _SessionListWidgetState extends State<SessionListWidget> {
     
     if (entity is UserDBISAR) {
       otherUserName = entity.getUserShowName();
-    } else if (entity is GroupDBISAR && entity.isDirectMessage == true) {
-      UserDBISAR? otherUser = Account.sharedInstance.userCache[entity.otherPubkey]?.value;
-      otherUserName = otherUser?.getUserShowName() ?? '';
     }
 
     final result = await CLPicker.show<SessionDeleteAction>(
@@ -352,9 +349,6 @@ class _SessionListWidgetState extends State<SessionListWidget> {
     
     if (entity is UserDBISAR) {
       otherUserName = entity.getUserShowName();
-    } else if (entity is GroupDBISAR && entity.isDirectMessage == true) {
-      UserDBISAR? otherUser = Account.sharedInstance.userCache[entity.otherPubkey]?.value;
-      otherUserName = otherUser?.getUserShowName() ?? '';
     }
 
     final bool? confirmed = await CLAlertDialog.show(

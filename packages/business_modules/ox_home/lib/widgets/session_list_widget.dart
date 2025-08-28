@@ -105,7 +105,7 @@ class _SessionListWidgetState extends State<SessionListWidget> {
     return ValueListenableBuilder(
       valueListenable: item.build$,
       builder: (context, value, _) {
-        return CLListItemActions(
+        return CLListTileActions(
           actions: [
             buildMuteAction(item),
             buildDeleteAction(item),

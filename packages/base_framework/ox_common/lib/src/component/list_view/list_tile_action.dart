@@ -2,7 +2,6 @@ import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:ox_common/component.dart';
-import 'package:ox_common/navigator/navigator.dart';
 
 class ItemAction {
   final String id;
@@ -23,8 +22,8 @@ class ItemAction {
 /// Attach actions to a list item.
 /// - iOS: right-swipe (endActionPane) using flutter_slidable.
 /// - Android: long-press BottomSheet (overridable by [onLongPress]).
-class CLListItemActions extends StatelessWidget {
-  const CLListItemActions({
+class CLListTileActions extends StatelessWidget {
+  const CLListTileActions({
     super.key,
     required this.child,
     required this.actions,
@@ -42,70 +41,6 @@ class CLListItemActions extends StatelessWidget {
 
   /// iOS only: motion for the action pane.
   final ScrollMotion cupertinoMotion;
-
-  Future<void> _showAndroidMenu(BuildContext context) async {
-    showModalBottomSheet<String>(
-      context: context,
-      useSafeArea: true,
-      builder: (ctx) {
-        return SafeArea(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              for (final action in actions)
-                ListTile(
-                  leading: action.icon != null ? Icon(action.icon) : null,
-                  title: Text(
-                    action.label,
-                    style: action.destructive
-                        ? const TextStyle(fontWeight: FontWeight.w600)
-                        : null,
-                  ),
-                  textColor: action.destructive ? Theme.of(ctx).colorScheme.error : null,
-                  iconColor: action.destructive ? Theme.of(ctx).colorScheme.error : null,
-                  onTap: () async {
-                    final shouldClose = await action.onTap?.call(context) ?? true;
-                    if (shouldClose) OXNavigator.pop(context);
-                  },
-                ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildCupertinoAction(BuildContext context, ItemAction action) {
-    final tintColor = ColorToken.white.of(context);
-    return CustomSlidableAction(
-      padding: EdgeInsets.zero,
-      backgroundColor: action.destructive
-          ? ColorToken.error.of(context)
-          : ColorToken.secondaryXChat.of(context),
-      onPressed: (ctx) async {
-        final shouldClose = await action.onTap?.call(ctx) ?? true;
-        if (shouldClose) Slidable.of(ctx)?.close();
-      },
-      autoClose: false,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (action.icon != null) ...[
-            CLIcon(
-              icon: action.icon,
-              size: 30,
-              color: tintColor,
-            ),
-            const SizedBox(height: 6),
-          ],
-          CLText.bodySmall(
-            action.label,
-            customColor: tintColor,
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,10 +65,42 @@ class CLListItemActions extends StatelessWidget {
         extentRatio: cupertinoExtentRatio,
         motion: cupertinoMotion,
         children: [
-          for (final a in actions) _buildCupertinoAction(context, a),
+          for (final action in actions) _buildCupertinoAction(context, action),
         ],
       ),
       child: child,
+    );
+  }
+
+  Widget _buildCupertinoAction(BuildContext context, ItemAction action) {
+    final tintColor = ColorToken.white.of(context);
+    return CustomSlidableAction(
+      padding: EdgeInsets.zero,
+      backgroundColor: action.destructive
+          ? ColorToken.error.of(context)
+          : ColorToken.xChat.of(context),
+      onPressed: (ctx) async {
+        final shouldClose = await action.onTap?.call(ctx) ?? true;
+        if (shouldClose) Slidable.of(ctx)?.close();
+      },
+      autoClose: false,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (action.icon != null) ...[
+            CLIcon(
+              icon: action.icon,
+              size: 30,
+              color: tintColor,
+            ),
+            const SizedBox(height: 6),
+          ],
+          CLText.bodySmall(
+            action.label,
+            customColor: tintColor,
+          ),
+        ],
+      ),
     );
   }
 }

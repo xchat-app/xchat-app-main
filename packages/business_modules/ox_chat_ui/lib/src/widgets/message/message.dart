@@ -3,7 +3,6 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:ox_common/component.dart';
 import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_common/utils/platform_utils.dart';
-import 'package:ox_common/utils/theme_color.dart';
 import 'package:ox_common/utils/took_kit.dart';
 import 'package:ox_common/utils/web_url_helper.dart';
 import 'package:ox_common/utils/widget_tool.dart';
@@ -13,7 +12,6 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../../ox_chat_ui.dart';
 import '../../util.dart';
 import '../state/inherited_chat_theme.dart';
-import '../state/inherited_user.dart';
 import 'audio_message_page.dart';
 
 /// Base widget for all message types in the chat. Renders bubbles around
@@ -177,15 +175,11 @@ class MessageState extends State<Message> {
 
   Duration get flashDisplayDuration => const Duration(milliseconds: 300);
   Duration get flashDismissDuration => const Duration(milliseconds: 1000);
-  late Duration flashDuration = flashDisplayDuration;
-
-  Color get flashColor => ThemeColor.color190;
-  late Color flashBackgroundColor = flashColor.withValues(alpha: 0);
+  ValueNotifier<bool> flash$ = ValueNotifier(false);
 
   @override
   Widget build(BuildContext context) {
     final query = MediaQuery.of(context);
-    final user = InheritedUser.of(context).user;
     final currentUserIsAuthor = widget.message.isMe;
 
     AlignmentGeometry? alignment;
@@ -218,14 +212,9 @@ class MessageState extends State<Message> {
       );
     }
 
-    Widget content = AnimatedContainer(
-      duration: flashDuration,
-      curve: Curves.easeIn,
-      color: flashBackgroundColor,
-      child: Align(
-        alignment: alignment,
-        child: _buildMessageContentView(),
-      ),
+    Widget content = Align(
+      alignment: alignment,
+      child: _buildMessageContentView(),
     );
 
     if (!PlatformUtils.isDesktop
@@ -247,9 +236,19 @@ class MessageState extends State<Message> {
       );
     }
 
-    return Container(
-      margin: margin,
-      child: content,
+    return ValueListenableBuilder(
+      valueListenable: flash$,
+      builder: (context, flash, child) => AnimatedContainer(
+        duration: flash ? flashDisplayDuration : flashDismissDuration,
+        curve: Curves.easeIn,
+        color: ColorToken.secondaryContainer.of(context)
+            .withValues(alpha: flash ? 1.0 : 0.0),
+        child: child ?? const SizedBox(),
+      ),
+      child: Container(
+        margin: margin,
+        child: content,
+      )
     );
   }
 
@@ -258,7 +257,7 @@ class MessageState extends State<Message> {
     height: 32.px,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(16.px),
-      color: ThemeColor.color180,
+      color: ColorToken.secondaryContainer.of(context),
     ),
     alignment: Alignment.center,
     child: CommonImage(
@@ -270,7 +269,6 @@ class MessageState extends State<Message> {
 
   // avatar & name & message
   Widget _buildMessageContentView() {
-    final user = InheritedUser.of(context).user;
     final currentUserIsAuthor = widget.message.isMe;
     final avatarBuilder = widget.uiConfig.avatarBuilder;
     return Row(
@@ -298,7 +296,6 @@ class MessageState extends State<Message> {
 
   // name & message
   Widget _buildMessageBubbleView() {
-    final user = InheritedUser.of(context).user;
     final currentUserIsAuthor = widget.message.isMe;
     // Use 20 for main rounded corners and 8 for the previously straight corner
     final double bigRadius = 20;
@@ -466,24 +463,30 @@ class MessageState extends State<Message> {
     required bool currentUserIsAuthor,
     required bool hasReply,
   }) {
+    Widget content = _messageBuilder(context, borderRadius);
+    if (hasReply) {
+      content = IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (hasReply)
+              _buildReplyPreview(
+                context: context,
+                currentUserIsAuthor: currentUserIsAuthor,
+              ),
+            _messageBuilder(context, borderRadius),
+          ],
+        ),
+      );
+    }
     final theme = InheritedChatTheme.of(context).theme;
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: theme.messageInsetsHorizontal,
         vertical: theme.messageInsetsVertical,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (hasReply)
-            _buildReplyPreview(
-              context: context,
-              currentUserIsAuthor: currentUserIsAuthor,
-            ),
-          _messageBuilder(context, borderRadius),
-        ],
-      ),
+      child: content,
     );
   }
 
@@ -626,16 +629,10 @@ class MessageState extends State<Message> {
   }
 
   void flash() {
-    setState(() {
-      flashBackgroundColor = flashColor;
-      flashDuration = flashDisplayDuration;
-    });
+    flash$.value = true;
     Future.delayed(flashDisplayDuration, () {
       if (!mounted) return;
-      setState(() {
-        flashBackgroundColor = flashColor.withValues(alpha: 0.0);
-        flashDuration = flashDismissDuration;
-      });
+      flash$.value = false;
     });
   }
 }

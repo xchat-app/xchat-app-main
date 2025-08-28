@@ -1,12 +1,7 @@
-
 import 'dart:math';
-
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:ox_common/component.dart';
 import 'package:ox_common/utils/adapt.dart';
-import 'package:ox_common/utils/theme_color.dart';
-import 'package:ox_common/utils/widget_tool.dart';
-import 'package:ox_common/widgets/common_image.dart';
-
 import '../utils/general_handler/chat_highlight_message_handler.dart';
 
 class ChatHighlightMessageWidget extends StatefulWidget {
@@ -137,58 +132,53 @@ class ChatHighlightMessageWidgetState extends State<ChatHighlightMessageWidget> 
     if (count == 0) {
       countText = '';
     }
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: 48.px,
-            height: 48.px,
-            decoration: BoxDecoration(
-              color: ThemeColor.color160,
-              borderRadius: BorderRadius.circular(24.px),
-            ),
-            alignment: Alignment.center,
-            child: Transform.rotate(
-              angle: rotate ? pi : 0,
-              child: CommonImage(
-                iconName: iconName,
-                size: 24.px,
-                package: 'ox_chat',
+    return Padding(
+      padding: EdgeInsets.only(top: 12.px),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width: 48.px,
+              height: 48.px,
+              decoration: BoxDecoration(
+                color: ColorToken.secondaryXChat.of(context),
+                borderRadius: BorderRadius.circular(24.px),
+              ),
+              alignment: Alignment.center,
+              child: Transform.rotate(
+                angle: rotate ? pi : 0,
+                child: CLIcon(
+                  iconName: iconName,
+                  size: 24.px,
+                  color: ColorToken.white.of(context),
+                  package: 'ox_chat',
+                ),
               ),
             ),
-          ),
-          if (countText.isNotEmpty)
-            Positioned(
-              left: 0,
-              right: 0,
-              top: -_fontSize.spWithTextScale / 2,
-              child: Center(
-                child: Container(
-                  padding: _numPadding,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.px),
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        ThemeColor.gradientMainEnd,
-                        ThemeColor.gradientMainStart
-                      ],
+            if (countText.isNotEmpty)
+              Positioned(
+                left: 0,
+                right: 0,
+                top: -_fontSize.spWithTextScale / 2,
+                child: Center(
+                  child: Container(
+                    padding: _numPadding,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.px),
+                      gradient: CLThemeData.themeGradientOf(context),
                     ),
-                  ),
-                  child: Text(
-                    countText,
-                    style: TextStyle(
-                      fontSize: _fontSize.sp,
+                    child: CLText.bodySmall(
+                      countText,
+                      colorToken: ColorToken.white,
                     ),
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
-    ).setPaddingOnly(top: 12.px);
+    );
   }
 }

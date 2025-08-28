@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:ox_common/component.dart';
 import 'package:ox_common/utils/widget_tool.dart';
 
+enum CLPopupTrigger { tap, longPress }
+
 class CLPopupMenuItem<T> {
   final T value;
   final String title;
@@ -36,6 +38,7 @@ class CLPopupMenu<T> extends StatelessWidget {
   final Color? color;
   final Alignment? scaleDirection;
   final double itemHeight;
+  final CLPopupTrigger trigger;
 
   const CLPopupMenu({
     super.key,
@@ -53,6 +56,7 @@ class CLPopupMenu<T> extends StatelessWidget {
     this.color,
     this.scaleDirection,
     this.itemHeight = 44.0,
+    this.trigger = CLPopupTrigger.tap,
   });
 
   Offset get defaultOffset => const Offset(0, 8.0);
@@ -65,7 +69,8 @@ class CLPopupMenu<T> extends StatelessWidget {
   Widget _buildPopupMenu(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () => _showPopupMenu(context),
+      onTap: trigger == CLPopupTrigger.tap ? () => _showPopupMenu(context) : null,
+      onLongPress: trigger == CLPopupTrigger.longPress ? () => _showPopupMenu(context) : null,
       child: child,
     );
   }
@@ -306,12 +311,13 @@ class _CLPopupMenuState<T> extends State<_CLPopupMenu<T>>
   }
 
   Widget _buildMenuContainer() {
+    final shadowColor = ColorToken.black.of(context);
     return Container(
       constraints: BoxConstraints(maxWidth: widget.maxWidth),
       decoration: BoxDecoration(
         color: PlatformStyle.isUseMaterial 
-            ? Theme.of(context).colorScheme.surface
-            : CupertinoColors.systemBackground.resolveFrom(context),
+            ? ColorToken.surfaceContainer.of(context)
+            : ColorToken.surface.of(context),
         borderRadius: PlatformStyle.isUseMaterial 
             ? BorderRadius.circular(8) // Material Design 3 menu radius
             : BorderRadius.circular(14), // iOS 13+ menu/card style
@@ -324,12 +330,12 @@ class _CLPopupMenuState<T> extends State<_CLPopupMenu<T>>
         boxShadow: PlatformStyle.isUseMaterial 
             ? [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.12),
+                  color: shadowColor.withValues(alpha: 0.12),
                   blurRadius: 8,
                   offset: const Offset(0, 4),
                 ),
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
+                  color: shadowColor.withValues(alpha: 0.08),
                   blurRadius: 16,
                   offset: const Offset(0, 8),
                 ),
@@ -540,64 +546,10 @@ class _CLPopupMenuState<T> extends State<_CLPopupMenu<T>>
     
     if (isPressed || isHovered) {
       return PlatformStyle.isUseMaterial 
-          ? Theme.of(context).colorScheme.primary.withOpacity(0.08) // Material Design 3 highlight
+          ? ColorToken.primary.of(context).withValues(alpha: 0.08) // Material Design 3 highlight
           : CupertinoColors.systemGrey.withOpacity(0.1);
     }
     
     return Colors.transparent;
   }
 }
-
-class CLPopupMenuBuilder {
-  static Widget popupMenu<T>({
-    Key? key,
-    required Widget child,
-    required List<CLPopupMenuItem<T>> items,
-    T? initialValue,
-    void Function(T)? onSelected,
-    VoidCallback? onCanceled,
-    String? tooltip,
-    EdgeInsetsGeometry? padding,
-    Color? shadowColor,
-    Color? surfaceTintColor,
-    bool enableFeedback = true,
-    Offset? offset,
-    Color? color,
-    Alignment? scaleDirection,
-    double? itemHeight,
-  }) {
-    return CLPopupMenu<T>(
-      key: key,
-      child: child,
-      items: items,
-      initialValue: initialValue,
-      onSelected: onSelected,
-      onCanceled: onCanceled,
-      tooltip: tooltip,
-      padding: padding,
-      shadowColor: shadowColor,
-      surfaceTintColor: surfaceTintColor,
-      enableFeedback: enableFeedback,
-      offset: offset,
-      color: color,
-      scaleDirection: scaleDirection,
-      itemHeight: itemHeight ?? 44.0,
-    );
-  }
-
-  static CLPopupMenuItem<T> item<T>({
-    required T value,
-    required String title,
-    IconData? icon,
-    bool enabled = true,
-    VoidCallback? onTap,
-  }) {
-    return CLPopupMenuItem<T>(
-      value: value,
-      title: title,
-      icon: icon,
-      enabled: enabled,
-      onTap: onTap,
-    );
-  }
-} 

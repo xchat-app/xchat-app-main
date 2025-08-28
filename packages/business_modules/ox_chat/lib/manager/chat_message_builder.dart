@@ -47,16 +47,14 @@ class ChatMessageBuilder {
     if (repliedMessageId == null || repliedMessageId.isEmpty || repliedMessage == null)
       return SizedBox();
 
-    Color bgColor = ColorToken.secondaryXChat.of(OXNavigator.rootContext);
-    if (!currentUserIsAuthor) {
-      bgColor = bgColor.withValues(alpha: 0.4);
-    }
+    Color bgColor = ColorToken.secondaryXChat.of(OXNavigator.rootContext)
+        .withValues(alpha: 0.3);
 
     Color bgBorderColor;
     if (currentUserIsAuthor) {
       bgBorderColor = Colors.white;
     } else {
-      bgBorderColor = ColorToken.xChat.of(OXNavigator.rootContext);
+      bgBorderColor = ColorToken.xChat.of(OXNavigator.rootContext).withValues(alpha: 0.5);
     }
 
     return GestureDetector(
@@ -66,13 +64,13 @@ class ChatMessageBuilder {
           maxWidth: messageWidth.toDouble(),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
           child: Container(
             decoration: BoxDecoration(
               border: Border(
                 left: BorderSide(
                   color: bgBorderColor,
-                  width: 5,
+                  width: 4,
                 ),
               ),
               color: bgColor,
@@ -84,9 +82,15 @@ class ChatMessageBuilder {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildAuthorName(repliedMessage),
+                _buildAuthorName(
+                  message: repliedMessage,
+                  currentUserIsAuthor: currentUserIsAuthor,
+                ),
                 SizedBox(height: 2.px,),
-                _buildMsgContent(repliedMessage),
+                _buildMsgContent(
+                  message: repliedMessage,
+                  currentUserIsAuthor: currentUserIsAuthor,
+                ),
               ],
             ),
           ),
@@ -95,20 +99,31 @@ class ChatMessageBuilder {
     );
   }
 
-  static Widget _buildAuthorName(types.Message msg) {
-    String name = msg.author.firstName ?? '[Not Found]';
+  static Widget _buildAuthorName({
+    required types.Message message,
+    required bool currentUserIsAuthor,
+  }) {
+    String name = message.author.firstName ?? '[Not Found]';
     return Padding(
       padding: EdgeInsetsDirectional.only(
         end: 4.px,
       ),
-      child: CLText.labelMedium(name, isBold: true),
+      child: CLText.labelMedium(
+        name,
+        colorToken: currentUserIsAuthor ? ColorToken.white : ColorToken.onSurface,
+        isBold: true,
+      ),
     );
   }
 
-  static Widget _buildMsgContent(types.Message msg) {
+  static Widget _buildMsgContent({
+    required types.Message message,
+    required bool currentUserIsAuthor,
+  }) {
     return CLText.labelSmall(
-      msg.messagePreviewText,
+      message.messagePreviewText,
       maxLines: 2,
+      colorToken: currentUserIsAuthor ? ColorToken.white : ColorToken.onSurface,
       overflow: TextOverflow.ellipsis,
     );
   }

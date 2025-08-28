@@ -419,7 +419,7 @@ class MessageState extends State<Message> {
 
     final bubbleBgColor = currentUserIsAuthor
         ? ColorToken.primary.of(context)
-        : ColorToken.secondaryContainer.of(context).withValues(alpha: 1.0);
+        : ColorToken.secondaryContainer.of(context);
 
     final core = _buildBubbleContent(
       context: context,

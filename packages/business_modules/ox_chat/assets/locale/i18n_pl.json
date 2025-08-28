@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Nie udało się wysłać audio",
   "description": "Opis",
   "mute_item": "Wycisz",
+  "un_mute_item": "Wyłącz wyciszenie",
   "public_key": "Klucz publiczny",
   "bio": "Bio",
   "block_dialog_title": "Zablokować ${userName}?",

@@ -19,6 +19,7 @@
   "message_send_audio_fail": "音频发送失败",
   "description": "描述",
   "mute_item": "静音",
+  "un_mute_item": "取消静音",
   "public_key": "公钥",
   "bio": "简介",
   "block_dialog_title": "封锁 ${userName}？",

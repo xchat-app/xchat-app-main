@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Изпращането на аудио се провали",
   "description": "Описание",
   "mute_item": "Заглушаване",
+  "un_mute_item": "Премахване на заглушаването",
   "public_key": "Публичен ключ",
   "bio": "Био",
   "block_dialog_title": "Блокиране на ${userName}?",

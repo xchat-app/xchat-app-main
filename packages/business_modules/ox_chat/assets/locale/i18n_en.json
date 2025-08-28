@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audio sending failed",
   "description": "Description",
   "mute_item": "Mute",
+  "un_mute_item": "Unmute",
   "public_key": "Pubkey",
   "bio": "Bio",
   "block_dialog_title": "Block ${userName}?",

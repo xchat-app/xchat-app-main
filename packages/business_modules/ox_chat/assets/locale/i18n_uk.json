@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Не вдалося надіслати аудіо",
   "description": "Опис",
   "mute_item": "Вимкнути звук",
+  "un_mute_item": "Увімкнути звук",
   "public_key": "Відкритий ключ",
   "bio": "Біографія",
   "block_dialog_title": "Заблокувати ${userName}?",

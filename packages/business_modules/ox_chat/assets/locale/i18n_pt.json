@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Falha ao enviar áudio",
   "description": "Descrição",
   "mute_item": "Silenciar",
+  "un_mute_item": "Ativar som",
   "public_key": "Chave Pública",
   "bio": "Bio",
   "block_dialog_title": "Bloquear ${userName}?",

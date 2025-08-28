@@ -19,6 +19,7 @@
   "message_send_audio_fail": "ส่งเสียงไม่สำเร็จ",
   "description": "คำอธิบาย",
   "mute_item": "ปิดเสียง",
+  "un_mute_item": "เปิดเสียง",
   "public_key": "กุญแจสาธารณะ",
   "bio": "ประวัติ",
   "block_dialog_title": "บล็อก${userName}?",

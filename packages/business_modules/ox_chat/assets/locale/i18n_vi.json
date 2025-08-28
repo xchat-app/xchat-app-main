@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Gửi âm thanh thất bại",
   "description": "Mô tả",
   "mute_item": "Tắt tiếng",
+  "un_mute_item": "Bật tiếng",
   "public_key": "Khóa công khai",
   "bio": "Tiểu sử",
   "block_dialog_title": "Chặn ${userName}?",

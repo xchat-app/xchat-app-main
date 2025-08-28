@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Αποτυχία αποστολής ήχου",
   "description": "Περιγραφή",
   "mute_item": "Σίγαση",
+  "un_mute_item": "Κατάργηση σίγασης",
   "public_key": "Δημόσιο Κλειδί",
   "bio": "Βιογραφία",
   "block_dialog_title": "Φραγή του ${userName};",

@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audiosändning misslyckades",
   "description": "Beskrivning",
   "mute_item": "Stäng av",
+  "un_mute_item": "Slå på ljudet",
   "public_key": "Publik Nyckel",
   "bio": "Bio",
   "block_dialog_title": "Blockera ${userName}?",

@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audio nosūtīšana neizdevās",
   "description": "Apraksts",
   "mute_item": "Apklusināt",
+  "un_mute_item": "Atklusināt",
   "public_key": "Publiskā atslēga",
   "bio": "Bio",
   "block_dialog_title": "Bloķēt ${userName}?",

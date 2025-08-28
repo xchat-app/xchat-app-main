@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audiosendung fehlgeschlagen",
   "description": "Beschreibung",
   "mute_item": "Stummschalten",
+  "un_mute_item": "Stummschaltung aufheben",
   "public_key": "Öffentlicher Schlüssel",
   "bio": "Bio",
   "block_dialog_title": "${userName} blockieren?",

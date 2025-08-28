@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Odeslání audia se nezdařilo",
   "description": "Popis",
   "mute_item": "Ztlumit",
+  "un_mute_item": "Zrušit ztlumení",
   "public_key": "Veřejný klíč",
   "bio": "Bio",
   "block_dialog_title": "Zablokovat ${userName}?",

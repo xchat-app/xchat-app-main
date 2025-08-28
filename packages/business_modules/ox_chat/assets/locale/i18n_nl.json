@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audio versturen mislukt",
   "description": "Beschrijving",
   "mute_item": "Demp",
+  "un_mute_item": "Demp opheffen",
   "public_key": "Publieke sleutel",
   "bio": "Bio",
   "block_dialog_title": "${userName} blokkeren?",

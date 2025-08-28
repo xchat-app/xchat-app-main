@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Ses gönderme başarısız",
   "description": "Açıklama",
   "mute_item": "Sessiz",
+  "un_mute_item": "Sesi aç",
   "public_key": "Genel Anahtar",
   "bio": "Biyografi",
   "block_dialog_title": "${userName} adlı kullanıcıyı engellemek istiyor musunuz?",

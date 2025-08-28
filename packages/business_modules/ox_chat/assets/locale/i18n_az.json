@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audio göndərmək uğursuz oldu",
   "description": "Təsvir",
   "mute_item": "Susdur",
+  "un_mute_item": "Səsi aç",
   "public_key": "Publik Açar",
   "bio": "Bio",
   "block_dialog_title": "${userName} bloklamaq?",

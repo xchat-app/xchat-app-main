@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Hang küldése sikertelen",
   "description": "Leírás",
   "mute_item": "Némítás",
+  "un_mute_item": "Némítás feloldása",
   "public_key": "Publikus Kulcs",
   "bio": "Bio",
   "block_dialog_title": "Blokkolja ${userName}-t?",

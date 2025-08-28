@@ -19,6 +19,7 @@
   "message_send_audio_fail": "Audiosendelse mislykkedes",
   "description": "Beskrivelse",
   "mute_item": "Slå lyd fra",
+  "un_mute_item": "Slå lyd til",
   "public_key": "Offentlig nøgle",
   "bio": "Bio",
   "block_dialog_title": "Bloker ${userName}?",

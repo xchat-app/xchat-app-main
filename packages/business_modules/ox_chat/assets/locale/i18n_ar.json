@@ -19,6 +19,7 @@
   "message_send_audio_fail": "فشل إرسال الصوت",
   "description": "وصف",
   "mute_item": "كتم",
+  "un_mute_item": "إلغاء الكتم",
   "public_key": "المفتاح العام",
   "bio": "السيرة الذاتية",
   "block_dialog_title": "حظر ${userName}؟",

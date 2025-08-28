@@ -98,5 +98,6 @@
   "clear_history_content": "Deze actie zal alle berichtgeschiedenis verwijderen maar het gesprek behouden.",
   "delete_group_content": "Deze groep verwijderen zal alle leden verwijderen en alle berichten gaan verloren. Wil je de groep verwijderen?",
   "leave_group_content": "Je zult geen berichten meer van deze groep ontvangen en moet opnieuw worden uitgenodigd om weer deel te nemen.",
-  "cancel": "Annuleren"
+  "cancel": "Annuleren",
+  "input_menu_select": "Selecteren"
 }

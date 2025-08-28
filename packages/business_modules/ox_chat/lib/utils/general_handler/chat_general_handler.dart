@@ -5,7 +5,7 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:ox_chat/manager/chat_message_helper.dart';
 import 'package:ox_chat/manager/chat_page_config.dart';
 import 'package:ox_chat/model/constant.dart';
@@ -928,6 +928,39 @@ extension ChatInputHandlerEx on ChatGeneralHandler {
                 },
                 type: ContextMenuButtonType.paste,
               ),
+              // Add custom select option (select 2 characters by default) only when no text is selected
+              if (!editableTextState.textEditingValue.selection.isValid || 
+                  editableTextState.textEditingValue.selection.isCollapsed)
+                ContextMenuButtonItem(
+                  onPressed: () {
+                    final text = editableTextState.textEditingValue.text;
+                    final cursorPosition = editableTextState.textEditingValue.selection.start;
+                    if (text.isNotEmpty) {
+                      TextSelection selection;
+                      if (cursorPosition >= text.length) {
+                        // If cursor is at the end, select 2 characters from the end
+                        selection = TextSelection(
+                          baseOffset: (text.length - 2).clamp(0, text.length),
+                          extentOffset: text.length,
+                        );
+                      } else {
+                        // Select 2 characters from current cursor position
+                        selection = TextSelection(
+                          baseOffset: cursorPosition,
+                          extentOffset: (cursorPosition + 2).clamp(0, text.length),
+                        );
+                      }
+                      editableTextState.userUpdateTextEditingValue(
+                        editableTextState.textEditingValue.copyWith(
+                          selection: selection,
+                        ),
+                        SelectionChangedCause.toolbar,
+                      );
+                    }
+                  },
+                  type: ContextMenuButtonType.custom,
+                  label: Localized.text('ox_chat.input_menu_select'),
+                ),
               ...editableTextState.contextMenuButtonItems.map(
                       (item) => item.type != ContextMenuButtonType.paste ? item : null
               ).whereNotNull(),
@@ -935,7 +968,45 @@ extension ChatInputHandlerEx on ChatGeneralHandler {
             anchors: editableTextState.contextMenuAnchors,
           );
         } else if (asyncSnapshot.data == false) {
-          return AdaptiveTextSelectionToolbar.editableText(editableTextState: editableTextState);
+          return AdaptiveTextSelectionToolbar.buttonItems(
+            buttonItems: [
+              // Add custom select option (select 2 characters by default) only when no text is selected
+              if (!editableTextState.textEditingValue.selection.isValid || 
+                  editableTextState.textEditingValue.selection.isCollapsed)
+                ContextMenuButtonItem(
+                  onPressed: () {
+                    final text = editableTextState.textEditingValue.text;
+                    final cursorPosition = editableTextState.textEditingValue.selection.start;
+                    if (text.isNotEmpty) {
+                      TextSelection selection;
+                      if (cursorPosition >= text.length) {
+                        // If cursor is at the end, select 2 characters from the end
+                        selection = TextSelection(
+                          baseOffset: (text.length - 2).clamp(0, text.length),
+                          extentOffset: text.length,
+                        );
+                      } else {
+                        // Select 2 characters from current cursor position
+                        selection = TextSelection(
+                          baseOffset: cursorPosition,
+                          extentOffset: (cursorPosition + 2).clamp(0, text.length),
+                        );
+                      }
+                      editableTextState.userUpdateTextEditingValue(
+                        editableTextState.textEditingValue.copyWith(
+                          selection: selection,
+                        ),
+                        SelectionChangedCause.toolbar,
+                      );
+                    }
+                  },
+                  type: ContextMenuButtonType.custom,
+                  label: Localized.text('ox_chat.input_menu_select'),
+                ),
+              ...editableTextState.contextMenuButtonItems,
+            ],
+            anchors: editableTextState.contextMenuAnchors,
+          );
         }
         return const SizedBox.shrink();
       },

@@ -98,5 +98,6 @@
   "clear_history_content": "Hành động này sẽ xóa tất cả lịch sử tin nhắn nhưng giữ lại cuộc trò chuyện.",
   "delete_group_content": "Xóa nhóm này sẽ loại bỏ tất cả thành viên và tất cả tin nhắn sẽ bị mất. Bạn có muốn xóa nhóm?",
   "leave_group_content": "Bạn sẽ không còn nhận được tin nhắn từ nhóm này và cần được mời lại để tham gia lại.",
-  "cancel": "Hủy"
+  "cancel": "Hủy",
+  "input_menu_select": "Chọn"
 }

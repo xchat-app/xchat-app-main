@@ -98,5 +98,6 @@
   "clear_history_content": "Diese Aktion wird den gesamten Nachrichtenverlauf löschen, aber die Konversation beibehalten.",
   "delete_group_content": "Das Löschen dieser Gruppe wird alle Mitglieder entfernen und alle Nachrichten gehen verloren. Möchten Sie die Gruppe löschen?",
   "leave_group_content": "Sie erhalten keine Nachrichten mehr von dieser Gruppe und müssen erneut eingeladen werden, um wieder beizutreten.",
-  "cancel": "Abbrechen"
+  "cancel": "Abbrechen",
+  "input_menu_select": "Auswählen"
 }

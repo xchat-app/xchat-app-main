@@ -98,5 +98,6 @@
   "clear_history_content": "Questa azione eliminerà tutta la cronologia dei messaggi ma manterrà la conversazione.",
   "delete_group_content": "Eliminare questo gruppo rimuoverà tutti i membri e tutti i messaggi andranno persi. Vuoi eliminare il gruppo?",
   "leave_group_content": "Non riceverai più messaggi da questo gruppo e dovrai essere reinvitato per riunirti.",
-  "cancel": "Annulla"
+  "cancel": "Annulla",
+  "input_menu_select": "Seleziona"
 }

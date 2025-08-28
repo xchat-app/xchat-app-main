@@ -98,5 +98,6 @@
   "clear_history_content": "Bu işlem tüm mesaj geçmişini silecek ancak konuşmayı koruyacak.",
   "delete_group_content": "Bu grubu silmek tüm üyeleri kaldıracak ve tüm mesajlar kaybolacak. Grubu silmek istiyor musunuz?",
   "leave_group_content": "Bu gruptan artık mesaj almayacaksınız ve tekrar katılmak için yeniden davet edilmeniz gerekecek.",
-  "cancel": "İptal"
+  "cancel": "İptal",
+  "input_menu_select": "Seç"
 }

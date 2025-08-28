@@ -98,5 +98,6 @@
   "clear_history_content": "This action will delete all message history but keep the conversation.",
   "delete_group_content": "Deleting this group will remove all members and all messages will be lost. Do you want to delete the group?",
   "leave_group_content": "You will no longer receive messages from this group and will need to be re-invited to rejoin.",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "input_menu_select": "Select"
 }

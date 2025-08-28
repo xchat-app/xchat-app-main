@@ -98,5 +98,6 @@
   "clear_history_content": "Denna åtgärd kommer att ta bort all meddelandehistorik men behålla konversationen.",
   "delete_group_content": "Att ta bort denna grupp kommer att ta bort alla medlemmar och alla meddelanden kommer att gå förlorade. Vill du ta bort gruppen?",
   "leave_group_content": "Du kommer inte längre att mottaga meddelanden från denna grupp och behöver bjudas in igen för att gå med.",
-  "cancel": "Avbryt"
+  "cancel": "Avbryt",
+  "input_menu_select": "Välj"
 }

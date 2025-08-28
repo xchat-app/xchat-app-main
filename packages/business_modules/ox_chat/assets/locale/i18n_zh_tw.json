@@ -98,5 +98,6 @@
   "clear_history_content": "此操作將刪除所有訊息歷史記錄但保留對話。",
   "delete_group_content": "刪除此群組將移除所有成員，所有訊息將丟失。您確定要刪除群組嗎？",
   "leave_group_content": "退出後將無法接收此群組訊息，需要重新邀請才能加入。",
-  "cancel": "取消"
+  "cancel": "取消",
+  "input_menu_select": "選擇"
 }

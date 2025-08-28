@@ -98,5 +98,6 @@
   "clear_history_content": "Ta akcja usunie całą historię wiadomości, ale zachowa rozmowę.",
   "delete_group_content": "Usunięcie tej grupy usunie wszystkich członków i wszystkie wiadomości zostaną utracone. Czy chcesz usunąć grupę?",
   "leave_group_content": "Nie będziesz już otrzymywać wiadomości od tej grupy i będziesz musiał zostać ponownie zaproszony, aby dołączyć.",
-  "cancel": "Anuluj"
+  "cancel": "Anuluj",
+  "input_menu_select": "Wybierz"
 }

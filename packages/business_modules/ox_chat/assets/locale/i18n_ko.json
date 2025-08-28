@@ -98,5 +98,6 @@
   "clear_history_content": "이 작업은 모든 메시지 기록을 삭제하지만 대화는 유지합니다.",
   "delete_group_content": "이 그룹을 삭제하면 모든 멤버가 제거되고 모든 메시지가 손실됩니다. 그룹을 삭제하시겠습니까?",
   "leave_group_content": "이 그룹으로부터 메시지를 더 이상 받지 않으며 다시 참여하려면 재초대가 필요합니다.",
-  "cancel": "취소"
+  "cancel": "취소",
+  "input_menu_select": "선택"
 }

@@ -74,11 +74,13 @@ class CLListTileActions extends StatelessWidget {
 
   Widget _buildCupertinoAction(BuildContext context, ItemAction action) {
     final tintColor = ColorToken.white.of(context);
+    final backgroundColor = action.destructive
+        ? ColorToken.error.of(context)
+        : ColorToken.xChat.of(context);
     return CustomSlidableAction(
       padding: EdgeInsets.zero,
-      backgroundColor: action.destructive
-          ? ColorToken.error.of(context)
-          : ColorToken.xChat.of(context),
+      foregroundColor: backgroundColor,
+      backgroundColor: backgroundColor,
       onPressed: (ctx) async {
         final shouldClose = await action.onTap?.call(ctx) ?? true;
         if (shouldClose) Slidable.of(ctx)?.close();

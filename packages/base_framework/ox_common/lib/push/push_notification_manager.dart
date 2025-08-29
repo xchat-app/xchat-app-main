@@ -30,6 +30,7 @@ class CLPushNotificationManager {
     if (circle == null) return;
 
     await _loadConfiguration(circle);
+    await _syncToNotificationHelper();
 
     if (!_isConfigurationInitialized(circle)) {
       await _initializeDefaultConfiguration(circle);

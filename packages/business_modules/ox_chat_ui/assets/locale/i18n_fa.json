@@ -12,5 +12,8 @@
   "giphy_search": "جستجو",
   "chat_input_hint_text": "پیام",
   "giphy_use_hint": "ویژگی Giphy را فعال کنید تا از ارسال تصاویر GIF پشتیبانی کرده و از چت کردن لذت بیشتری ببرید. با این حال، چون ما از رابط API Giphy استفاده می‌کنیم، درخواست از API Giphy آدرس IP شما را به سرویس Giphy نشان خواهد داد. آیا موافق به فعال‌سازی آن هستید؟",
-  "giphy_continue": "ادامه"
+  "giphy_continue": "ادامه",
+  "press_duration_too_short": "مدت زمان فشردن برای ارسال خیلی کوتاه است",
+  "release_to_cancel": "برای لغو رها کنید",
+  "no_recording_permission": "اجازه ضبط وجود ندارد، لطفاً در تنظیمات درخواست دهید"
 }

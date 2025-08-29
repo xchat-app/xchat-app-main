@@ -12,5 +12,8 @@
   "giphy_search": "Hledat",
   "chat_input_hint_text": "Zpráva",
   "giphy_use_hint": "Povolte funkci Giphy, aby podporovala odesílání GIF obrázků a užívejte si více zábavy v chatu. Nicméně, protože používáme rozhraní API Giphy, požádáním o API Giphy bude vaše IP adresa vystavena službě Giphy. Souhlasíte s jejím povolením?",
-  "giphy_continue": "Pokračovat"
+  "giphy_continue": "Pokračovat",
+  "press_duration_too_short": "Doba stisknutí příliš krátká pro odeslání",
+  "release_to_cancel": "Pusťte pro zrušení",
+  "no_recording_permission": "Žádné oprávnění k nahrávání, požádejte v nastavení"
 }

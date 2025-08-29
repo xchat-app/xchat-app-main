@@ -1,16 +1,19 @@
 {
-  "record_hint": "${durationInSeconds}초 후 보내려면 누르고 있음, 놓으면 전송",
+  "record_hint": "길게 눌러 녹음하고 ${durationInSeconds}초 후 놓아서 보내기",
   "input_more_album": "앨범",
   "input_more_camera": "카메라",
   "input_more_video": "비디오",
   "group_join": "그룹 참여",
-  "not_in_group": "그룹에 속하지 않습니다",
-  "giphy_emoji": "이모티콘",
-  "giphy_gif": "GIFs",
+  "not_in_group": "그룹에 속해 있지 않습니다",
+  "giphy_emoji": "이모지",
+  "giphy_gif": "GIF",
   "giphy_sticker": "스티커",
-  "giphy_collect": "컬렉션",
+  "giphy_collect": "수집",
   "giphy_search": "검색",
   "chat_input_hint_text": "메시지",
-  "giphy_use_hint": "Giphy 기능을 활성화하여 GIF 이미지를 보내고 채팅을 더 즐겁게 즐기세요. 그러나 Giphy의 API 인터페이스를 사용하기 때문에 Giphy API를 요청하면 IP 주소가 Giphy 서비스에 노출됩니다. 활성화에 동의하십니까?",
-  "giphy_continue": "계속"
+  "giphy_use_hint": "Giphy 기능을 활성화하여 GIF 이미지 전송을 지원하고 채팅을 더욱 재미있게 만드세요. 하지만 Giphy의 API 인터페이스를 사용하기 때문에 Giphy API를 요청하면 IP 주소가 Giphy 서비스에 노출됩니다. 활성화하는 것에 동의하시나요?",
+  "giphy_continue": "계속",
+  "press_duration_too_short": "누르는 시간이 너무 짧아 전송할 수 없습니다",
+  "release_to_cancel": "놓아서 취소",
+  "no_recording_permission": "녹음 권한이 없습니다. 설정에서 신청해 주세요"
 }

@@ -12,5 +12,8 @@
   "giphy_search": "Keresés",
   "chat_input_hint_text": "Üzenet",
   "giphy_use_hint": "Engedélyezze a Giphy funkciót GIF képek küldésének támogatásához és több szórakozáshoz a csevegésben. Azonban, mivel a Giphy API interfészt használjuk, a Giphy API kérése kiteszi az IP címét a Giphy szolgáltatásnak. Egyetért az engedélyezéssel?",
-  "giphy_continue": "Folytatás"
+  "giphy_continue": "Folytatás",
+  "press_duration_too_short": "A nyomás időtartama túl rövid a küldéshez",
+  "release_to_cancel": "Engedje el a megszakításhoz",
+  "no_recording_permission": "Nincs felvételi engedély, kérjük, jelentkezzen be a beállításokban"
 }

@@ -12,5 +12,8 @@
   "giphy_search": "Axtar",
   "chat_input_hint_text": "Mesaj",
   "giphy_use_hint": "GIF şəkillərini göndərməyi dəstəkləmək və söhbətdə daha çox əyləncə yaşamaq üçün Giphy funksiyasını aktivləşdirin. Lakin, biz Giphy-nin API interfeysindən istifadə etdiyimiz üçün, Giphy API-ni tələb etmək IP ünvanınızı Giphy xidmətinə açıqlayacaq. Onu aktivləşdirməyə razısınızmı?",
-  "giphy_continue": "Davam et"
+  "giphy_continue": "Davam et",
+  "press_duration_too_short": "Basma müddəti göndərmək üçün çox qısadır",
+  "release_to_cancel": "Ləğv etmək üçün buraxın",
+  "no_recording_permission": "Yazma icazəsi yoxdur, zəhmət olmasa parametrlərdə müraciət edin"
 }

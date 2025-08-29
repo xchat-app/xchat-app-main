@@ -12,5 +12,8 @@
   "giphy_search": "Meklēt",
   "chat_input_hint_text": "Ziņa",
   "giphy_use_hint": "Iespējojiet Giphy funkciju, lai atbalstītu GIF attēlu sūtīšanu un baudītu vairāk jautrības čatošanā. Tomēr, tā kā mēs izmantojam Giphy API saskarni, pieprasot Giphy API, jūsu IP adrese tiks pakļauta Giphy pakalpojumam. Vai piekrītat to iespējot?",
-  "giphy_continue": "Turpināt"
+  "giphy_continue": "Turpināt",
+  "press_duration_too_short": "Spaudimo laikas per trumpas siųsti",
+  "release_to_cancel": "Paleiskite, kad atceltu",
+  "no_recording_permission": "Nav ierakstīšanas atļaujas, lūdzu, piesakieties iestatījumos"
 }

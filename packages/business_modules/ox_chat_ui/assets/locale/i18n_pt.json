@@ -12,5 +12,8 @@
   "giphy_search": "Pesquisar",
   "chat_input_hint_text": "Mensagem",
   "giphy_use_hint": "Ative a função Giphy para suportar o envio de imagens GIF e aproveite mais diversão no chat. No entanto, como usamos a interface da API do Giphy, solicitar a API do Giphy exporá seu endereço IP ao serviço do Giphy. Você concorda em ativá-lo?",
-  "giphy_continue": "Continuar"
+  "giphy_continue": "Continuar",
+  "press_duration_too_short": "Duração da pressão muito curta para enviar",
+  "release_to_cancel": "Solte para cancelar",
+  "no_recording_permission": "Sem permissão de gravação, por favor solicite nas configurações"
 }

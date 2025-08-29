@@ -129,7 +129,7 @@ class _InputVoicePageState extends State<InputVoicePage> with SingleTickerProvid
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Center(
-            child: Text('Press duration too short to send'),
+            child: Text(Localized.text('ox_chat_ui.press_duration_too_short')),
           ),
           duration: Duration(seconds: 1),
         ),
@@ -178,7 +178,7 @@ class _InputVoicePageState extends State<InputVoicePage> with SingleTickerProvid
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: Text('Release to Cancel'),
+                child: Text(Localized.text('ox_chat_ui.release_to_cancel')),
               ),
             ),
           ),
@@ -316,7 +316,7 @@ class _InputVoicePageState extends State<InputVoicePage> with SingleTickerProvid
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Center(
-              child: Text('No recording permission, please apply in settings'),
+              child: Text(Localized.text('ox_chat_ui.no_recording_permission')),
             ),
             duration: Duration(seconds: 1),
           ),

@@ -12,5 +12,8 @@
   "giphy_search": "Søg",
   "chat_input_hint_text": "Besked",
   "giphy_use_hint": "Aktiver Giphy-funktionen for at understøtte afsendelse af GIF-billeder og nyd mere sjov i chatten. Men da vi bruger Giphys API-grænseflade, vil en anmodning til Giphy API afsløre din IP-adresse til Giphy-tjenesten. Er du enig i at aktivere den?",
-  "giphy_continue": "Fortsæt"
+  "giphy_continue": "Fortsæt",
+  "press_duration_too_short": "Trykvarighed for kort til at sende",
+  "release_to_cancel": "Slip for at annullere",
+  "no_recording_permission": "Ingen optagelsestilladelse, venligst ansøg i indstillingerne"
 }

@@ -189,7 +189,7 @@ class HomeHeaderComponents {
         Container(
             height: 36.px,
             alignment: Alignment.centerLeft,
-            child: CLText.titleSmall('Circles').setPaddingOnly(left: 16.px)
+            child: CLText.titleSmall(Localized.text('ox_common.circles')).setPaddingOnly(left: 16.px)
         ),
         ValueListenableBuilder(
           valueListenable: selectedCircle$,

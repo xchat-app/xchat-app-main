@@ -1,9 +1,9 @@
 {
-  "record_hint": "按住錄製，${durationInSeconds}秒後鬆開以傳送",
+  "record_hint": "按住以錄製，${durationInSeconds}秒後鬆開以發送",
   "input_more_album": "相簿",
   "input_more_camera": "相機",
   "input_more_video": "影片",
-  "group_join": "加入群組",
+  "group_join": "加入群聊",
   "not_in_group": "您不在群組中",
   "giphy_emoji": "表情符號",
   "giphy_gif": "動圖",
@@ -11,6 +11,9 @@
   "giphy_collect": "收藏",
   "giphy_search": "搜尋",
   "chat_input_hint_text": "訊息",
-  "giphy_use_hint": "啟用Giphy功能以支持發送GIF圖像，並在聊天中享受更多樂趣。然而，由於我們使用Giphy的API接口，請求Giphy API會將您的IP地址暴露給Giphy服務。您同意啟用它嗎？",
-  "giphy_continue": "繼續"
+  "giphy_use_hint": "啟用Giphy功能以支援發送GIF圖片，讓聊天更加有趣。但由於我們使用Giphy的API介面，請求Giphy API將會向Giphy服務暴露您的IP位址。您同意啟用嗎？",
+  "giphy_continue": "繼續",
+  "press_duration_too_short": "按壓時間太短，無法發送",
+  "release_to_cancel": "鬆開以取消",
+  "no_recording_permission": "沒有錄音權限，請在設定中申請"
 }

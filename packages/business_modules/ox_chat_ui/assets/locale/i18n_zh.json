@@ -12,5 +12,8 @@
   "giphy_search": "搜索",
   "chat_input_hint_text": "消息",
   "giphy_use_hint": "启用Giphy功能以支持发送GIF图片，让聊天更加有趣。但由于我们使用Giphy的API接口，请求Giphy API将会向Giphy服务暴露您的IP地址。您同意启用吗？",
-  "giphy_continue": "继续"
+  "giphy_continue": "继续",
+  "press_duration_too_short": "按压时间太短，无法发送",
+  "release_to_cancel": "松开以取消",
+  "no_recording_permission": "没有录音权限，请在设置中申请"
 }

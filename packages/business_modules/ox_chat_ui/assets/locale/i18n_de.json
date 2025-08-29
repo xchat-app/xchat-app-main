@@ -12,5 +12,8 @@
   "giphy_search": "Suche",
   "chat_input_hint_text": "Nachricht",
   "giphy_use_hint": "Aktivieren Sie die Giphy-Funktion, um das Senden von GIF-Bildern zu unterstützen und mehr Spaß beim Chatten zu haben. Da wir jedoch die API-Schnittstelle von Giphy verwenden, wird Ihre IP-Adresse durch Anfordern der Giphy-API dem Giphy-Dienst offengelegt. Stimmen Sie zu, dies zu aktivieren?",
-  "giphy_continue": "Weiter"
+  "giphy_continue": "Weiter",
+  "press_duration_too_short": "Druckdauer zu kurz zum Senden",
+  "release_to_cancel": "Loslassen zum Abbrechen",
+  "no_recording_permission": "Keine Aufnahmeberechtigung, bitte in den Einstellungen beantragen"
 }

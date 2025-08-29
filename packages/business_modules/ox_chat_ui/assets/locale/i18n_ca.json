@@ -12,5 +12,8 @@
   "giphy_search": "Cerca",
   "chat_input_hint_text": "Missatge",
   "giphy_use_hint": "Activa la funció Giphy per donar suport a l'enviament d'imatges GIF i gaudir de més diversió en les xerrades. Tanmateix, com que utilitzem la interfície API de Giphy, sol·licitar l'API de Giphy exposarà la teva adreça IP al servei de Giphy. Estàs d'acord a activar-ho?",
-  "giphy_continue": "Continua"
+  "giphy_continue": "Continua",
+  "press_duration_too_short": "Durada de la pressió massa curta per enviar",
+  "release_to_cancel": "Allibera per cancel·lar",
+  "no_recording_permission": "Sense permís d'enregistrament, si us plau sol·licita a la configuració"
 }

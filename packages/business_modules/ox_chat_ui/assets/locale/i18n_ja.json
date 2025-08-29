@@ -1,16 +1,19 @@
 {
-  "record_hint": "${durationInSeconds}秒間押して録音、離して送信",
+  "record_hint": "長押しして録音、${durationInSeconds}秒後に離して送信",
   "input_more_album": "アルバム",
   "input_more_camera": "カメラ",
   "input_more_video": "ビデオ",
   "group_join": "グループに参加",
-  "not_in_group": "グループに所属していません",
+  "not_in_group": "あなたはグループにいません",
   "giphy_emoji": "絵文字",
-  "giphy_gif": "GIF画像",
+  "giphy_gif": "GIF",
   "giphy_sticker": "ステッカー",
   "giphy_collect": "コレクション",
   "giphy_search": "検索",
   "chat_input_hint_text": "メッセージ",
-  "giphy_use_hint": "Giphy機能を有効にしてGIF画像の送信をサポートし、チャットをより楽しみましょう。ただし、GiphyのAPIインターフェースを使用しているため、Giphy APIをリクエストすると、IPアドレスがGiphyサービスに公開されます。有効にすることに同意しますか？",
-  "giphy_continue": "続行"
+  "giphy_use_hint": "Giphy機能を有効にしてGIF画像の送信をサポートし、チャットをより楽しくしましょう。ただし、GiphyのAPIインターフェースを使用しているため、Giphy APIをリクエストすると、あなたのIPアドレスがGiphyサービスに公開されます。有効にすることに同意しますか？",
+  "giphy_continue": "続行",
+  "press_duration_too_short": "押下時間が短すぎて送信できません",
+  "release_to_cancel": "離してキャンセル",
+  "no_recording_permission": "録音権限がありません。設定で申請してください"
 }

@@ -12,5 +12,8 @@
   "giphy_search": "Cari",
   "chat_input_hint_text": "Pesan",
   "giphy_use_hint": "Aktifkan fitur Giphy untuk mendukung pengiriman gambar GIF dan nikmati lebih banyak kesenangan dalam obrolan. Namun, karena kami menggunakan antarmuka API Giphy, permintaan API Giphy akan mengekspos alamat IP Anda ke layanan Giphy. Apakah Anda setuju untuk mengaktifkannya?",
-  "giphy_continue": "Lanjutkan"
+  "giphy_continue": "Lanjutkan",
+  "press_duration_too_short": "Durasi tekan terlalu pendek untuk dikirim",
+  "release_to_cancel": "Lepaskan untuk membatalkan",
+  "no_recording_permission": "Tidak ada izin perekaman, silakan ajukan di pengaturan"
 }

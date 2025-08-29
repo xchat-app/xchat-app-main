@@ -12,5 +12,8 @@
   "giphy_search": "Sök",
   "chat_input_hint_text": "Meddelande",
   "giphy_use_hint": "Aktivera Giphy-funktionen för att stödja sändning av GIF-bilder och ha roligare i chatten. Eftersom vi använder Giphys API-gränssnitt kommer en förfrågan till Giphy API att avslöja din IP-adress för Giphys tjänst. Godkänner du att aktivera det?",
-  "giphy_continue": "Fortsätt"
+  "giphy_continue": "Fortsätt",
+  "press_duration_too_short": "Tryckningstid för kort för att skicka",
+  "release_to_cancel": "Släpp för att avbryta",
+  "no_recording_permission": "Ingen inspelningsbehörighet, vänligen ansök i inställningarna"
 }

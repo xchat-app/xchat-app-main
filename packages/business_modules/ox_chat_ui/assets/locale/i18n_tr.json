@@ -12,5 +12,8 @@
   "giphy_search": "Ara",
   "chat_input_hint_text": "Mesaj",
   "giphy_use_hint": "GIF görüntüleri göndermeyi desteklemek ve sohbette daha fazla eğlence yaşamak için Giphy özelliğini etkinleştirin. Ancak, Giphy'nin API arayüzünü kullandığımız için, Giphy API'sini istemek IP adresinizi Giphy hizmetine açığa çıkaracaktır. Etkinleştirmeyi kabul ediyor musunuz?",
-  "giphy_continue": "Devam et"
+  "giphy_continue": "Devam et",
+  "press_duration_too_short": "Basma süresi göndermek için çok kısa",
+  "release_to_cancel": "İptal etmek için bırakın",
+  "no_recording_permission": "Kayıt izni yok, lütfen ayarlarda başvurun"
 }

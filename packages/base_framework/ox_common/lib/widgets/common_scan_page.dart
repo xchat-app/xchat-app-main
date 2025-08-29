@@ -247,7 +247,7 @@ class CommonScanPageState extends State<CommonScanPage> with SingleTickerProvide
 
   _onScanFailure(Code? code) {
     if (code?.error?.isNotEmpty == true) {
-      _showMessage(context, 'Error: ${code?.error}');
+      _showMessage(context, '${"str_error".commonLocalized()}: ${code?.error}');
     }
   }
 

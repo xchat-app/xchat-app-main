@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_common/ox_common.dart';
 import 'package:ox_common/utils/ox_chat_binding.dart';
-import 'package:ox_common/utils/ox_chat_observer.dart';
 
 import 'decision_service.dart';
 import 'core/local_notifier.dart';
@@ -18,7 +17,7 @@ import 'core/policy_config.dart';
 import 'core/ports.dart';
 
 /// Wires LocalPushKit + Notifier + DecisionService into app lifecycle and message bus.
-class CLPushIntegration with WidgetsBindingObserver, OXChatObserver {
+class CLPushIntegration with WidgetsBindingObserver {
   static final CLPushIntegration instance = CLPushIntegration._();
   CLPushIntegration._();
 
@@ -94,7 +93,6 @@ class CLPushIntegration with WidgetsBindingObserver, OXChatObserver {
 
     // 4) Hook lifecycle & message bus
     WidgetsBinding.instance.addObserver(this);
-    OXChatBinding.sharedInstance.addObserver(this);
 
     _initialized = true;
   }
@@ -138,17 +136,15 @@ class CLPushIntegration with WidgetsBindingObserver, OXChatObserver {
     }
   }
 
-  // Message observer
-  @override
-  void didReceiveMessageCallback(MessageDBISAR message) {
-    final msg = _mapToIncomingMessage(message);
+  void putReceiveMessage(String title, MessageDBISAR message) {
+    final msg = _mapToIncomingMessage(title, message);
     if (msg != null) {
       unawaited(_decision.onMessageArrived(msg));
     }
   }
 
   // Map MessageDBISAR to IncomingMessage
-  IncomingMessage? _mapToIncomingMessage(MessageDBISAR m) {
+  IncomingMessage? _mapToIncomingMessage(String title, MessageDBISAR m) {
     try {
       // Determine threadId
       String threadId = '';
@@ -169,6 +165,7 @@ class CLPushIntegration with WidgetsBindingObserver, OXChatObserver {
       return IncomingMessage(
         id: m.messageId,
         threadId: threadId,
+        title: title,
         preview: preview,
         highPriority: high,
         sentAt: sentAt,

@@ -64,11 +64,17 @@ class NotificationDecisionService {
         body = aggregated > 1 ? 'You have $aggregated new messages' : 'You have a new message';
         break;
       case PreviewPolicy.summary:
+        if (aggregated == 1) {
+          title = latest.title;
+        }
         body = aggregated > 1
             ? 'You have $aggregated new messages'
             : (latest.preview?.isNotEmpty == true ? latest.preview! : 'You have a new message');
         break;
       case PreviewPolicy.full:
+        if (aggregated == 1) {
+          title = latest.title;
+        }
         body = aggregated > 1
             ? 'You have $aggregated new messages, latest: ${latest.preview ?? ""}'
             : (latest.preview ?? 'You have a new message');

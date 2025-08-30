@@ -254,10 +254,10 @@ extension ChatGestureHandlerEx on ChatGeneralHandler {
         await CLAlertDialog.show(
           context: context,
           title: Localized.text('ox_usercenter.warn_title'),
-          content: 'This message is not a gift-wrapped message.',
+          content: Localized.text('ox_chat.gift_wrapped_message_warning'),
           actions: [
             CLAlertAction<bool>(
-              label: 'OK',
+              label: Localized.text('ox_chat.ok'),
               value: true,
               isDefaultAction: true,
             ),
@@ -285,14 +285,14 @@ extension ChatGestureHandlerEx on ChatGeneralHandler {
   Future avatarPressHandler(context, {required String userId}) async {
 
     if (LoginManager.instance.isMe(userId)) {
-      ChatLogUtils.info(className: 'ChatMessagePage', funcName: '_avatarPressHandler', message: 'Not allowed push own detail page');
+      ChatLogUtils.info(className: 'ChatMessagePage', funcName: '_avatarPressHandler', message: Localized.text('ox_chat.not_allowed_push_own_detail'));
       return ;
     }
 
     var userDB = await Account.sharedInstance.getUserInfo(userId);
 
     if (userDB == null) {
-      CommonToast.instance.show(context, 'User not found');
+      CommonToast.instance.show(context, Localized.text('ox_chat.user_not_found'));
       return ;
     }
 
@@ -389,7 +389,7 @@ extension ChatGestureHandlerEx on ChatGeneralHandler {
       ChatLogUtils.error(
         className: 'ChatGeneralHandler',
         funcName: 'imageMessagePressHandler',
-        message: 'image not found',
+        message: Localized.text('ox_chat.image_not_found'),
       );
       return ;
     }
@@ -534,27 +534,29 @@ extension ChatMenuHandlerEx on ChatGeneralHandler {
   void _copyMenuItemPressHandler(BuildContext context, types.Message message) async {
     if (message is types.TextMessage) {
       TookKit.copyKey(context, message.text, '');
-    } else if (message is types.CustomMessage && message.customType == CustomMessageType.imageSending) {
-      await _copyImageToClipboardFromMessage(message);
+    } else if (message.isImageMessage) {
+      await _copyImageToClipboardFromMessage(message as types.CustomMessage);
     }
   }
 
   /// Copy image to clipboard from message by getting binary data
   Future<void> _copyImageToClipboardFromMessage(types.CustomMessage message) async {
-    final imageUri = ImageSendingMessageEx(message).url;
-    final path = ImageSendingMessageEx(message).path;
+    final imageUrl = ImageSendingMessageEx(message).url;
     final decryptKey = ImageSendingMessageEx(message).encryptedKey;
     final decryptNonce = ImageSendingMessageEx(message).encryptedNonce;
     
-    // Determine the actual image source
-    final actualImageUri = path.isNotEmpty ? path : imageUri;
-    if (actualImageUri.isEmpty || actualImageUri.isRemoteURL) return;
-
     Uint8List imageData;
-    if (actualImageUri.isImageBase64) {
-      imageData = await Base64ImageProvider.decodeBase64ToBytes(actualImageUri);
+    if (imageUrl.isImageBase64) {
+      imageData = await Base64ImageProvider.decodeBase64ToBytes(imageUrl);
     } else {
-      final imageFile = File(actualImageUri);
+      final imageFile = await CacheManagerHelper.getCacheFile(
+        url: imageUrl,
+        fileType: CacheFileType.image,
+      );
+      if (imageFile == null) {
+        CommonToast.instance.show(OXNavigator.rootContext, Localized.text('ox_chat.get_image_data_failed'));
+        return;
+      }
       if (decryptKey != null) {
         imageData = await FileEncryptionUtils.decryptFileInMemory(
           imageFile,
@@ -571,27 +573,26 @@ extension ChatMenuHandlerEx on ChatGeneralHandler {
 
   /// Handles the press event for the "Save" button in a menu item.
   void _saveMenuItemPressHandler(BuildContext context, types.Message message) async {
-    if (message is types.CustomMessage && message.customType == CustomMessageType.imageSending) {
-      final imageUri = ImageSendingMessageEx(message).url;
-      final path = ImageSendingMessageEx(message).path;
-      final decryptKey = ImageSendingMessageEx(message).encryptedKey;
-      final decryptNonce = ImageSendingMessageEx(message).encryptedNonce;
-      
-      final actualImageUri = path.isNotEmpty ? path : imageUri;
-      if (actualImageUri.isEmpty) return;
+    if (!message.isImageMessage) return;
 
-      final success = await ImageSaveUtils.saveImageToGallery(
-        imageUri: actualImageUri,
-        decryptKey: decryptKey,
-        decryptNonce: decryptNonce,
-        context: context,
-        fileName: message.id,
-      );
+    final imageMessage = message as types.CustomMessage;
 
-      if (!success) {
-        CommonToast.instance.show(context, 'Failed to save image');
-      }
+    final imageUri = ImageSendingMessageEx(imageMessage).url;
+    final decryptKey = ImageSendingMessageEx(imageMessage).encryptedKey;
+    final decryptNonce = ImageSendingMessageEx(imageMessage).encryptedNonce;
+
+    final success = await ImageSaveUtils.saveImageToGallery(
+      imageUri: imageUri,
+      decryptKey: decryptKey,
+      decryptNonce: decryptNonce,
+      context: context,
+      fileName: message.id,
+    );
+
+    if (!success) {
+      CommonToast.instance.show(context, Localized.text('ox_chat.save_image_failed'));
     }
+
   }
 
   /// Handles the press event for the "Delete" button in a menu item.
@@ -722,7 +723,7 @@ extension ChatMenuHandlerEx on ChatGeneralHandler {
           break;
       }
     } catch (e) {
-      CommonToast.instance.show(context, 'Delete failed: $e');
+      CommonToast.instance.show(context, Localized.text('ox_chat.delete_failed').replaceAll('{error}', e.toString()));
     } finally {
       OXLoading.dismiss();
     }
@@ -752,7 +753,7 @@ extension ChatMenuHandlerEx on ChatGeneralHandler {
   Future<void> _deleteMessageRemotely(BuildContext context, types.Message message) async {
     final messageId = message.remoteId;
     if (messageId == null || messageId.isEmpty) {
-      throw Exception('Message has no remote ID');
+      throw Exception(Localized.text('ox_chat.message_no_remote_id'));
     }
 
     // Check if it's an MLS group and use the appropriate deletion method
@@ -1021,7 +1022,7 @@ extension ChatInputHandlerEx on ChatGeneralHandler {
 
     final imageFile = (await OXClipboard.getImages()).firstOrNull;
     if (imageFile == null || !imageFile.existsSync()) {
-      CommonToast.instance.show(context, 'Get image from clipboard failure.');
+      CommonToast.instance.show(context, Localized.text('ox_chat.get_image_from_clipboard_failed'));
       return;
     }
 

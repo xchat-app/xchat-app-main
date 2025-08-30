@@ -100,5 +100,15 @@
   "delete_group_content": "Das Löschen dieser Gruppe wird alle Mitglieder entfernen und alle Nachrichten gehen verloren. Möchten Sie die Gruppe löschen?",
   "leave_group_content": "Sie erhalten keine Nachrichten mehr von dieser Gruppe und müssen erneut eingeladen werden, um wieder beizutreten.",
   "cancel": "Abbrechen",
-  "input_menu_select": "Auswählen"
+  "input_menu_select": "Auswählen",
+  "gift_wrapped_message_warning": "Diese Nachricht ist keine Geschenk-verpackte Nachricht.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Nicht erlaubt, eigene Detailseite zu öffnen",
+  "user_not_found": "Benutzer nicht gefunden",
+  "image_not_found": "Bild nicht gefunden",
+  "get_image_data_failed": "Fehler beim Abrufen der Bilddaten",
+  "save_image_failed": "Fehler beim Speichern des Bildes",
+  "delete_failed": "Löschen fehlgeschlagen: {error}",
+  "message_no_remote_id": "Nachricht hat keine Remote-ID",
+  "get_image_from_clipboard_failed": "Fehler beim Abrufen des Bildes aus der Zwischenablage."
 }

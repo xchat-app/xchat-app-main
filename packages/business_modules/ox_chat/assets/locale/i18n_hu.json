@@ -99,5 +99,16 @@
   "clear_history_content": "Ez a művelet törli az összes üzenetelőzményt, de megtartja a beszélgetést.",
   "delete_group_content": "Ez a csoport törlése eltávolítja az összes tagot, és minden üzenet elveszik. Szeretné törölni a csoportot?",
   "leave_group_content": "Nem fog többé üzeneteket kapni erről a csoportról, és újra meg kell hívni a csatlakozáshoz.",
-  "cancel": "Mégse"
+  "cancel": "Mégse",
+  "input_menu_select": "Kiválasztás",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

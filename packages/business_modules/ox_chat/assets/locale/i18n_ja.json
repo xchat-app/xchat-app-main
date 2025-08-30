@@ -100,5 +100,15 @@
   "delete_group_content": "このグループを削除すると、すべてのメンバーが削除され、すべてのメッセージが失われます。グループを削除しますか？",
   "leave_group_content": "このグループからのメッセージは受信されなくなり、再参加するには再招待が必要です。",
   "cancel": "キャンセル",
-  "input_menu_select": "選択"
+  "input_menu_select": "選択",
+  "gift_wrapped_message_warning": "このメッセージはギフト包装されたメッセージではありません。",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "自分の詳細ページを開くことは許可されていません",
+  "user_not_found": "ユーザーが見つかりません",
+  "image_not_found": "画像が見つかりません",
+  "get_image_data_failed": "画像データの取得に失敗しました",
+  "save_image_failed": "画像の保存に失敗しました",
+  "delete_failed": "削除に失敗しました: {error}",
+  "message_no_remote_id": "メッセージにリモートIDがありません",
+  "get_image_from_clipboard_failed": "クリップボードから画像の取得に失敗しました。"
 }

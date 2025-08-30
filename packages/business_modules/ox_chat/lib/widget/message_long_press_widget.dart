@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:ox_chat/manager/chat_message_helper.dart';
 import 'package:ox_chat/model/constant.dart';
 import 'package:ox_chat/utils/custom_message_utils.dart';
 import 'package:ox_chat/utils/general_handler/chat_general_handler.dart';
@@ -16,21 +17,8 @@ class MessageLongPressMenu {
     ChatGeneralHandler handler,
   ) {
     final List<MenuElement> menuItems = [];
-    
-    // Copy action for text messages and image sending messages
-    final isImageMsgCanCopy = () {
-      if (message is! types.CustomMessage || message.customType != CustomMessageType.imageSending)
-        return false;
 
-      final imageUri = ImageSendingMessageEx(message).url;
-      final path = ImageSendingMessageEx(message).path;
-      final actualImageUri = path.isNotEmpty ? path : imageUri;
-      if (actualImageUri.isEmpty || actualImageUri.isRemoteURL) return false;
-
-      return true;
-    }();
-
-    if (message is types.TextMessage || isImageMsgCanCopy) {
+    if (message is types.TextMessage || message.isImageMessage) {
       menuItems.add(
         MenuAction(
           title: Localized.text('ox_chat.message_menu_copy'),
@@ -60,7 +48,7 @@ class MessageLongPressMenu {
     }
 
     // Save action for image messages
-    if (message is types.CustomMessage && message.customType == CustomMessageType.imageSending && isImageMsgCanCopy) {
+    if (message.isImageMessage) {
       menuItems.add(
         MenuAction(
           title: Localized.text('ox_chat.message_menu_save'),
@@ -73,7 +61,7 @@ class MessageLongPressMenu {
     }
 
     // Report action
-    if (!handler.session.isSingleChat) {
+    if (!handler.session.isSingleChat && !message.isMe) {
       menuItems.add(
         MenuAction(
           title: Localized.text('ox_chat.message_menu_report'),

@@ -100,5 +100,15 @@
   "delete_group_content": "删除此群组将移除所有成员，所有消息将丢失。您确定要删除群组吗？",
   "leave_group_content": "退出后将无法接收此群组消息，需要重新邀请才能加入。",
   "cancel": "取消",
-  "input_menu_select": "选择"
+  "input_menu_select": "选择",
+  "gift_wrapped_message_warning": "此消息不是礼品包装消息。",
+  "ok": "确定",
+  "not_allowed_push_own_detail": "不允许推送自己的详情页面",
+  "user_not_found": "用户未找到",
+  "image_not_found": "图片未找到",
+  "get_image_data_failed": "获取图片数据失败",
+  "save_image_failed": "保存图片失败",
+  "delete_failed": "删除失败：{error}",
+  "message_no_remote_id": "消息没有远程ID",
+  "get_image_from_clipboard_failed": "从剪贴板获取图片失败。"
 }

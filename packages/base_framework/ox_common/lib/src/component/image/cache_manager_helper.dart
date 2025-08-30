@@ -111,24 +111,27 @@ class CacheManagerHelper {
     return _configCache.containsKey(cacheKey);
   }
 
-  /// Cache a file using the appropriate CacheManager for the given file type
-  /// 
-  /// [file] - The file to be cached
-  /// [url] - The URL of the file
-  /// [fileType] - The type of file (audio, image, video, file)
-  /// Returns the cached File object
-  static Future<File> cacheFile(
-    File file,
-    String url,
-    CacheFileType fileType,
-  ) async {
+  static Future<File> cacheFile({
+    required File file,
+    required String url,
+    required CacheFileType fileType,
+  }) async {
     final cacheManager = await CLCacheManager.getCircleCacheManager(fileType);
     final fileBytes = await file.readAsBytes();
     return cacheManager.putFile(
-      url, fileBytes,
-      fileExtension:
-      file.path.getFileExtension(),
+      url,
+      fileBytes,
+      fileExtension: file.path.getFileExtension(),
     );
+  }
+
+  static Future<File?> getCacheFile({
+    required String url,
+    required CacheFileType fileType,
+  }) async {
+    final cacheManager = await CLCacheManager.getCircleCacheManager(fileType);
+    final fileInfo = await cacheManager.getFileFromCache(url);
+    return fileInfo?.file;
   }
 }
 

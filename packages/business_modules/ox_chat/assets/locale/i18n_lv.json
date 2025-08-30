@@ -99,5 +99,16 @@
   "clear_history_content": "Šī darbība dzēsīs visu ziņu vēsturi, bet saglabās tērzēšanu.",
   "delete_group_content": "Šīs grupas dzēšana noņems visus dalībniekus un visas ziņas tiks zaudētas. Vai vēlaties dzēst grupu?",
   "leave_group_content": "Jūs vairs nesaņemsiet ziņas no šīs grupas un būsiet jāielūdz atkal, lai pievienotos.",
-  "cancel": "Atcelt"
+  "cancel": "Atcelt",
+  "input_menu_select": "Izvēlēties",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

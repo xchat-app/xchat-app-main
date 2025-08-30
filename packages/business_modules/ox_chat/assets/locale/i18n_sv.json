@@ -100,5 +100,15 @@
   "delete_group_content": "Att ta bort denna grupp kommer att ta bort alla medlemmar och alla meddelanden kommer att gå förlorade. Vill du ta bort gruppen?",
   "leave_group_content": "Du kommer inte längre att mottaga meddelanden från denna grupp och behöver bjudas in igen för att gå med.",
   "cancel": "Avbryt",
-  "input_menu_select": "Välj"
+  "input_menu_select": "Välj",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

@@ -100,5 +100,15 @@
   "delete_group_content": "Eliminar este grupo eliminará todos los miembros y todos los mensajes se perderán. ¿Quieres eliminar el grupo?",
   "leave_group_content": "Ya no recibirás mensajes de este grupo y necesitarás ser reinvitado para volver a unirte.",
   "cancel": "Cancelar",
-  "input_menu_select": "Seleccionar"
+  "input_menu_select": "Seleccionar",
+  "gift_wrapped_message_warning": "Este mensaje no es un mensaje envuelto como regalo.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "No se permite abrir la página de detalles propia",
+  "user_not_found": "Usuario no encontrado",
+  "image_not_found": "imagen no encontrada",
+  "get_image_data_failed": "Error al obtener los datos de la imagen",
+  "save_image_failed": "Error al guardar la imagen",
+  "delete_failed": "Error al eliminar: {error}",
+  "message_no_remote_id": "El mensaje no tiene ID remoto",
+  "get_image_from_clipboard_failed": "Error al obtener la imagen del portapapeles."
 }

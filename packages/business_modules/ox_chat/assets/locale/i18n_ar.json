@@ -100,5 +100,15 @@
   "delete_group_content": "حذف هذه المجموعة سيؤدي إلى إزالة جميع الأعضاء وستفقد جميع الرسائل. هل تريد حذف المجموعة؟",
   "leave_group_content": "لن تتلقى رسائل من هذه المجموعة وستحتاج إلى دعوة جديدة للانضمام مرة أخرى.",
   "cancel": "إلغاء",
-  "input_menu_select": "اختيار"
+  "input_menu_select": "اختيار",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

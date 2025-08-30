@@ -844,7 +844,11 @@ extension ChatMessageSendEx on ChatGeneralHandler {
       )).path;
     }
     
-    CacheManagerHelper.cacheFile(File(videoPath), videoURL, CacheFileType.video);
+    CacheManagerHelper.cacheFile(
+      file: File(videoPath),
+      url: videoURL,
+      fileType: CacheFileType.video,
+    );
 
     sendVideoMessageWithURL(
       videoURL: videoURL,

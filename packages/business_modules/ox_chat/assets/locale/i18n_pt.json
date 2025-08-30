@@ -100,5 +100,15 @@
   "delete_group_content": "Excluir este grupo removerá todos os membros e todas as mensagens serão perdidas. Você deseja excluir o grupo?",
   "leave_group_content": "Você não receberá mais mensagens deste grupo e precisará ser convidado novamente para participar.",
   "cancel": "Cancelar",
-  "input_menu_select": "Selecionar"
+  "input_menu_select": "Selecionar",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

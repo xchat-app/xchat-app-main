@@ -99,5 +99,16 @@
   "clear_history_content": "Bu hərəkət bütün mesaj tarixçəsini siləcək, amma söhbəti saxlayacaq.",
   "delete_group_content": "Bu qrupu silmək bütün üzvləri çıxaracaq və bütün mesajlar itiriləcək. Qrupu silmək istəyirsinizmi?",
   "leave_group_content": "Bu qrupdan daha çox mesaj almayacaqsınız və yenidən qoşulmaq üçün dəvət olunmalısınız.",
-  "cancel": "Ləğv et"
+  "cancel": "Ləğv et",
+  "input_menu_select": "Seç",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

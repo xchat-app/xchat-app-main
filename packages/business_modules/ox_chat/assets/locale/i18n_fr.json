@@ -100,5 +100,15 @@
   "delete_group_content": "Supprimer ce groupe supprimera tous les membres et tous les messages seront perdus. Voulez-vous supprimer le groupe ?",
   "leave_group_content": "Vous ne recevrez plus de messages de ce groupe et devrez être réinvité pour le rejoindre.",
   "cancel": "Annuler",
-  "input_menu_select": "Sélectionner"
+  "input_menu_select": "Sélectionner",
+  "gift_wrapped_message_warning": "Ce message n'est pas un message cadeau emballé.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Non autorisé à pousser sa propre page de détails",
+  "user_not_found": "Utilisateur non trouvé",
+  "image_not_found": "image non trouvée",
+  "get_image_data_failed": "Échec de l'obtention des données d'image",
+  "save_image_failed": "Échec de la sauvegarde de l'image",
+  "delete_failed": "Échec de la suppression : {error}",
+  "message_no_remote_id": "Le message n'a pas d'ID distant",
+  "get_image_from_clipboard_failed": "Échec de l'obtention de l'image depuis le presse-papiers."
 }

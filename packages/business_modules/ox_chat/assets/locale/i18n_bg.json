@@ -99,5 +99,16 @@
   "clear_history_content": "Това действие ще изтрие цялата история на съобщенията, но ще запази разговора.",
   "delete_group_content": "Изтриването на тази група ще премахне всички членове и всички съобщения ще бъдат загубени. Искате ли да изтриете групата?",
   "leave_group_content": "Няма да получавате повече съобщения от тази група и ще трябва да бъдете поканени отново, за да се присъедините.",
-  "cancel": "Отказ"
+  "cancel": "Отказ",
+  "input_menu_select": "Избери",
+  "gift_wrapped_message_warning": "This message is not a gift-wrapped message.",
+  "ok": "OK",
+  "not_allowed_push_own_detail": "Not allowed push own detail page",
+  "user_not_found": "User not found",
+  "image_not_found": "image not found",
+  "get_image_data_failed": "Failed to get image data",
+  "save_image_failed": "Failed to save image",
+  "delete_failed": "Delete failed: {error}",
+  "message_no_remote_id": "Message has no remote ID",
+  "get_image_from_clipboard_failed": "Get image from clipboard failure."
 }

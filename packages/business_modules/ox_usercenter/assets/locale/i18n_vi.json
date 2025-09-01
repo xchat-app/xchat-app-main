@@ -48,7 +48,7 @@
   "delete_circle": "Delete Circle",
   "my_avatar_in_circle": "My profile in circle",
   "relay_server": "Relay server",
-  "file_server_setting": "File server setting",
+  "file_server_setting": "File server",
   "circle_description_placeholder": "No description provided.",
   "delete_circle_confirm_title": "Delete Circle",
   "delete_circle_confirm_content": "This action will permanently delete this circle and cannot be undone. All your data within this circle, including chat messages and other related data, will be irreversibly lost.",

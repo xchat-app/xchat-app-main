@@ -158,19 +158,19 @@ class CircleDetailPage extends StatelessWidget {
   List<ListViewItem> _buildMainItems(BuildContext context) {
     return [
       // My Avatar in Circle
-      CustomItemModel(
-        leading: const Icon(CupertinoIcons.person_crop_circle),
-        titleWidget: CLText(Localized.text('ox_usercenter.my_avatar_in_circle')),
-        trailing: OXUserAvatar(
-          user: Account.sharedInstance.me,
-          size: 32.px,
-        ),
-        onTap: () {
-          OXNavigator.pushPage(context, (_) =>
-              ProfileSettingsPage(previousPageTitle: title));
-        },
-        isCupertinoAutoTrailing: true,
-      ),
+      // CustomItemModel(
+      //   leading: const Icon(CupertinoIcons.person_crop_circle),
+      //   titleWidget: CLText(Localized.text('ox_usercenter.my_avatar_in_circle')),
+      //   trailing: OXUserAvatar(
+      //     user: Account.sharedInstance.me,
+      //     size: 32.px,
+      //   ),
+      //   onTap: () {
+      //     OXNavigator.pushPage(context, (_) =>
+      //         ProfileSettingsPage(previousPageTitle: title));
+      //   },
+      //   isCupertinoAutoTrailing: true,
+      // ),
       // Relay Server
       LabelItemModel(
         icon: ListViewIcon.data(CupertinoIcons.antenna_radiowaves_left_right),

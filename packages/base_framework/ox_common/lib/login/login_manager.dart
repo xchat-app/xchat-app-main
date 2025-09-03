@@ -283,17 +283,16 @@ extension LoginManagerAccount on LoginManager {
     }
   }
 
-  /// Logout
-  Future<void> logout() async {
-
-    final loginState = _state$.value;
+  // Throws an [Exception] if the logout operation fails
+  Future<void> logoutAccount() async {
+    if (isLoginCircle) {
+      await logoutCircle();
+    }
 
     // Clear login state
+    final loginState = _state$.value;
     _state$.value = LoginState();
     LoginUserNotifier.instance.updateUserSource(null);
-
-    // Circle Logout
-    await logoutCircle();
 
     final account = loginState.account;
     if (account != null) {
@@ -313,22 +312,17 @@ extension LoginManagerAccount on LoginManager {
   }
 
   Future<bool> deleteAccount() async {
-    try {
-      final loginState = _state$.value;
-      final account = loginState.account;
-      if (account == null) return false;
+    final loginState = _state$.value;
+    final account = loginState.account;
+    if (account == null) return false;
 
-      final pubkey = account.pubkey;
-      
-      // First logout to clean up current state
-      await logout();
-      
-      // Delete account folder and all its contents
-      return await AccountPathManager.deleteAccountFolder(pubkey);
-    } catch (e) {
-      debugPrint('Failed to delete account: $e');
-      return false;
-    }
+    final pubkey = account.pubkey;
+
+    // First logout to clean up current state
+    await logoutAccount();
+
+    // Delete account folder and all its contents
+    return await AccountPathManager.deleteAccountFolder(pubkey);
   }
 
   Future<bool> savePushToken(String token) async {
@@ -497,7 +491,16 @@ extension LoginManagerCircle on LoginManager {
       );
     }
 
-    final originCircle = await logoutCircle();
+    Circle? originCircle;
+    try {
+      originCircle = await logoutCircle();
+    } catch (e) {
+      return LoginFailure(
+        type: LoginFailureType.errorEnvironment,
+        message: e.toString(),
+        circleId: circle.id,
+      );
+    }
 
     final success = await _loginToCircle(circle, currentState);
     if (!success) {
@@ -584,6 +587,7 @@ extension LoginManagerCircle on LoginManager {
     }
   }
 
+  // Throws an [Exception] if the logout operation fails
   Future<Circle?> logoutCircle() async {
     final originCircle = currentState.currentCircle;
     if (originCircle != null) {
@@ -617,6 +621,7 @@ extension LoginManagerCircle on LoginManager {
   ///
   /// [circleId] Circle ID to delete
   /// Returns true if deletion was successful, false otherwise
+  /// Throws an [Exception] if the logout operation fails
   Future<bool> deleteCircle(String circleId) async {
     try {
       final currentState = this.currentState;

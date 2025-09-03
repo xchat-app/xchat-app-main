@@ -8,6 +8,7 @@ import 'package:ox_common/navigator/navigator.dart';
 import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_common/utils/string_utils.dart';
 import 'package:ox_common/widgets/avatar.dart';
+import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 
 import 'file_server_page.dart';
@@ -103,7 +104,11 @@ class CircleDetailPage extends StatelessWidget {
     );
 
     if (confirmed == true) {
-      await LoginManager.instance.deleteCircle(circle.id);
+      try {
+        await LoginManager.instance.deleteCircle(circle.id);
+      } catch (e) {
+        CommonToast.instance.show(context, e.toString());
+      }
       OXNavigator.popToRoot(context);
     }
   }

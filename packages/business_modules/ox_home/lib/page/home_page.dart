@@ -8,6 +8,7 @@ import 'package:ox_common/push/push_integration.dart';
 import 'package:ox_common/utils/storage_key_tool.dart';
 import 'package:ox_common/component.dart';
 import 'package:ox_common/login/login_manager.dart';
+import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 import 'package:ox_login/page/login_page.dart';
 import 'package:ox_theme/ox_theme.dart';
@@ -66,9 +67,13 @@ class _HomePageState extends State<HomePage> {
       if (mounted && !isInstalled) {
         String showTitle = 'ox_common.open_singer_app_error_title';
         String showContent = 'ox_common.open_singer_app_error_content';
-        
-        await LoginManager.instance.logout();
-        
+
+        try {
+          await LoginManager.instance.logout();
+        } catch (e) {
+          CommonToast.instance.show(context, e.toString());
+        }
+
         if (mounted) {
           CLAlertDialog.show(
             context: context,

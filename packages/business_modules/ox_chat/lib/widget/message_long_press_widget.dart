@@ -17,18 +17,6 @@ class MessageLongPressMenu {
     ChatGeneralHandler handler,
   ) {
     final List<MenuElement> menuItems = [];
-
-    if (message is types.TextMessage || message.isImageMessage) {
-      menuItems.add(
-        MenuAction(
-          title: Localized.text('ox_chat.message_menu_copy'),
-          image: MenuImage.icon(CupertinoIcons.doc_on_doc),
-          callback: () {
-            handler.menuItemPressHandler(context, message, MessageLongPressEventType.copy);
-          },
-        ),
-      );
-    }
     
     // Quote action
     if (message.canReply) {
@@ -42,6 +30,18 @@ class MessageLongPressMenu {
               message,
               MessageLongPressEventType.quote,
             );
+          },
+        ),
+      );
+    }
+
+    if (message is types.TextMessage || message.isImageMessage) {
+      menuItems.add(
+        MenuAction(
+          title: Localized.text('ox_chat.message_menu_copy'),
+          image: MenuImage.icon(CupertinoIcons.doc_on_doc),
+          callback: () {
+            handler.menuItemPressHandler(context, message, MessageLongPressEventType.copy);
           },
         ),
       );

@@ -930,9 +930,10 @@ extension ChatInputHandlerEx on ChatGeneralHandler {
                 },
                 type: ContextMenuButtonType.paste,
               ),
-              // Add custom select option (select 2 characters by default) only when no text is selected
-              if (!editableTextState.textEditingValue.selection.isValid || 
-                  editableTextState.textEditingValue.selection.isCollapsed)
+              // Add custom select option (select 2 characters by default) only when no text is selected and text is not empty
+              if ((!editableTextState.textEditingValue.selection.isValid || 
+                  editableTextState.textEditingValue.selection.isCollapsed) && 
+                  editableTextState.textEditingValue.text.isNotEmpty)
                 ContextMenuButtonItem(
                   onPressed: () {
                     final text = editableTextState.textEditingValue.text;
@@ -972,9 +973,10 @@ extension ChatInputHandlerEx on ChatGeneralHandler {
         } else if (asyncSnapshot.data == false) {
           return AdaptiveTextSelectionToolbar.buttonItems(
             buttonItems: [
-              // Add custom select option (select 2 characters by default) only when no text is selected
-              if (!editableTextState.textEditingValue.selection.isValid || 
-                  editableTextState.textEditingValue.selection.isCollapsed)
+              // Add custom select option (select 2 characters by default) only when no text is selected and text is not empty
+              if ((!editableTextState.textEditingValue.selection.isValid || 
+                  editableTextState.textEditingValue.selection.isCollapsed) && 
+                  editableTextState.textEditingValue.text.isNotEmpty)
                 ContextMenuButtonItem(
                   onPressed: () {
                     final text = editableTextState.textEditingValue.text;

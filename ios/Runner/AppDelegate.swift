@@ -52,7 +52,7 @@ import ox_common
         
         var urlStr = url.isFileURL ? AppGroupHelper.shareScheme : url.absoluteString
         
-        if url.host == "shareLinkWithScheme" {
+        if url.host == AppGroupHelper.shareHost {
             if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) {
                 var queryItems = (urlComponents.queryItems ?? [])
             
@@ -78,6 +78,8 @@ import ox_common
                 urlComponents.queryItems = queryItems
                 urlStr = urlComponents.url?.absoluteString ?? urlStr
             }
+        } else {
+            return true
         }
         
         let userDefault = UserDefaults.standard

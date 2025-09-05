@@ -7,7 +7,6 @@ import 'package:ox_chat/manager/chat_data_cache.dart';
 import 'package:ox_chat/message_handler/chat_message_helper.dart';
 import 'package:ox_chat/page/contacts/contact_user_info_page.dart';
 import 'package:ox_chat/page/contacts/groups/group_info_page.dart';
-import 'package:ox_chat/page/session/chat_choose_share_page.dart';
 import 'package:ox_chat/page/session/chat_message_page.dart';
 import 'package:ox_chat/page/session/chat_video_play_page.dart';
 import 'package:ox_chat/utils/general_handler/chat_general_handler.dart';
@@ -30,7 +29,6 @@ class OXChat extends OXFlutterModule {
     super.setup();
     LoginManager.instance.addObserver(ChatDataCache.shared);
     OXChatBinding.sharedInstance.sessionMessageTextBuilder = ChatMessageHelper.sessionMessageTextBuilder;
-    SchemeHelper.register('shareLinkWithScheme', shareLinkWithScheme);
   }
 
   @override
@@ -147,18 +145,6 @@ class OXChat extends OXFlutterModule {
       encoding: Encoding.getByName('utf-8'),
     ).toString();
     return fileContent;
-  }
-
-  void shareLinkWithScheme(String scheme, String action, Map<String, String> queryParameters) {
-    final text = queryParameters['text'] ?? '';
-    final type = queryParameters['type'] ?? '';
-    final path = queryParameters['path'] ?? '';
-    if (text.isEmpty && path.isEmpty) return ;
-    OXNavigator.pushPage(null, (context) => ChatChooseSharePage(
-      msg: text,
-      type: type,
-      path: path,
-    ));
   }
 
   Future<String?> getTryDecodeNostrScheme(String content) async {

@@ -22,12 +22,9 @@ class SchemeHelper {
     );
     LogUtil.d("App open URL: $url");
 
-    if (url.isNotEmpty) {
-      LogUtil.d("Processing Universal Link: $url");
-      await handleAppURI(url);
-    } else {
-      LogUtil.d("No Universal Link to process");
-    }
+    if (url.isEmpty) return;
+
+    await handleAppURI(url);
   }
 
   static handleAppURI(String uri) async {
@@ -67,6 +64,8 @@ class SchemeHelper {
           return;
         }
       }
+
+      _handleWithAction(uri);
       
       return;
     }
@@ -90,6 +89,30 @@ class SchemeHelper {
     // If we reach here, it's an unknown scheme or format
     LogUtil.d('Unknown scheme or format: $uri');
     defaultHandler?.call(uri, 'unknown', {});
+  }
+
+  static void _handleWithAction(String uri) {
+    if (uri.isEmpty) return ;
+
+    String action = '';
+    Map<String, String> query = <String, String>{};
+
+    try {
+      final uriObj = Uri.parse(uri);
+      if (uriObj.scheme != CommonConstant.APP_SCHEME) return ;
+
+      action = uriObj.host.toLowerCase();
+      query = uriObj.queryParameters;
+    } catch (e) {
+      final appScheme = '${CommonConstant.APP_SCHEME}://';
+      if (uri.startsWith(appScheme)) {
+        action = uri.replaceFirst(appScheme, '');
+        uri = appScheme;
+      }
+    }
+
+    final handler = schemeAction[action];
+    handler?.call(uri, action, query);
   }
 }
 

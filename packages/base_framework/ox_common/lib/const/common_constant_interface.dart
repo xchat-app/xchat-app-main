@@ -7,7 +7,7 @@ abstract class ConstantInterface {
 
   String get njumpURL =>  'https://njump.me/';
 
-  String get APP_SCHEME => 'oxchat';
+  String get APP_SCHEME => 'xchat';
 
   /// share app link domain
   String get SHARE_APP_LINK_DOMAIN => 'https://www.0xchat.com/link';

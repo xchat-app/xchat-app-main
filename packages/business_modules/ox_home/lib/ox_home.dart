@@ -11,6 +11,8 @@ import 'package:ox_common/component.dart';
 import 'package:ox_module_service/ox_module_service.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 
+import 'page/chat_choose_share_page.dart';
+
 
 class OxChatHome extends OXFlutterModule {
   @override
@@ -23,6 +25,7 @@ class OxChatHome extends OXFlutterModule {
     SchemeHelper.register('nostr', nostrHandler);
     SchemeHelper.register('nprofile', nostrHandler);
     SchemeHelper.register('xchat', nostrHandler);
+    SchemeHelper.register('shareLinkWithScheme', shareLinkWithScheme);
   }
 
   @override
@@ -235,5 +238,17 @@ class OxChatHome extends OXFlutterModule {
   String _generateCircleId(String relayUrl) {
     // Simple hash of the relay URL to create a unique ID
     return relayUrl.hashCode.toString();
+  }
+
+  void shareLinkWithScheme(String scheme, String action, Map<String, String> queryParameters) {
+    final text = queryParameters['text'] ?? '';
+    final type = queryParameters['type'] ?? '';
+    final path = queryParameters['path'] ?? '';
+    if (text.isEmpty && path.isEmpty) return ;
+    OXNavigator.pushPage(null, (context) => ChatChooseSharePage(
+      msg: text,
+      type: type,
+      path: path,
+    ));
   }
 }

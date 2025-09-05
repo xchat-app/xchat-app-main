@@ -8,10 +8,17 @@
 import Foundation
 
 class AppGroupHelper {
-    static let appGroupId = "group.com.zhw.sharing"
-    static let shareScheme = "oxchat://shareLinkWithScheme"
+    static let appScheme = "xchat"
+    static let appGroupId = "group.0xchat.app"
+    static let shareHost = "shareLinkWithScheme"
     static let shareDataURLKey = "0xchatShareTempDataKey"
     static let shareDataFilePathKey = "0xchatShareTempFilePathKey"
+    
+    static var shareScheme: String {
+        get {
+            "\(appScheme)://\(shareHost)"
+        }
+    }
     
     static func saveDataForGourp(_ value: Any?, forKey key: String) {
         guard let userDefaults = UserDefaults(suiteName: AppGroupHelper.appGroupId) else {

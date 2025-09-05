@@ -10,7 +10,6 @@
 		0C3F4E902AC41D180059FC01 /* OXPerferencePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F4E8E2AC41D170059FC01 /* OXPerferencePlugin.m */; };
 		0C52EF982BFDF8FB00C2E301 /* OCXCrashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C52EF972BFDF8FB00C2E301 /* OCXCrashManager.swift */; };
 		0C52EF9A2BFDFC0B00C2E301 /* OXCLaunchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C52EF992BFDFC0B00C2E301 /* OXCLaunchCoordinator.swift */; };
-		0C829C2E2B8C95F70066C893 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C98C7542B8C6D3200950443 /* ShareViewController.swift */; };
 		0C829C322B8DBF5B0066C893 /* AppGroupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C829C312B8DBF5B0066C893 /* AppGroupHelper.swift */; };
 		0C829C342B8DBF690066C893 /* AppGroupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C829C312B8DBF5B0066C893 /* AppGroupHelper.swift */; };
 		0C98C7582B8C6D3200950443 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C98C7562B8C6D3200950443 /* MainInterface.storyboard */; };
@@ -23,6 +22,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		C5ED612427D884810008C42E /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C5ED612327D884810008C42E /* libc++.tbd */; };
+		C7368C4F2E6AC3B9007E0EEF /* CustomShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75BE8C42E69C13A002384AE /* CustomShareViewController.swift */; };
+		C75BE8C02E69C116002384AE /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75BE8BE2E69C116002384AE /* ShareViewController.swift */; };
 		CF0086EE267CCAD1006C7ED7 /* OXCNavigator.m in Sources */ = {isa = PBXBuildFile; fileRef = CF0086ED267CCAD1006C7ED7 /* OXCNavigator.m */; };
 		CF8DD7FE2664D91800EF6C1B /* OXCBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8DD7FC2664D91700EF6C1B /* OXCBaseNavigationController.m */; };
 		CF8DE5112673386100EF6C1B /* OXCFlutterEngineManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8DE5102673386100EF6C1B /* OXCFlutterEngineManager.m */; };
@@ -75,7 +76,6 @@
 		0C829C2F2B8C9A360066C893 /* OxChatShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OxChatShareExtension.entitlements; sourceTree = "<group>"; };
 		0C829C312B8DBF5B0066C893 /* AppGroupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppGroupHelper.swift; path = Runner/Common/AppGroupHelper.swift; sourceTree = SOURCE_ROOT; };
 		0C98C7522B8C6D3200950443 /* OxChatShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OxChatShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C98C7542B8C6D3200950443 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		0C98C7572B8C6D3200950443 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0C98C7592B8C6D3200950443 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
@@ -97,6 +97,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C5ED612327D884810008C42E /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		C75BE8BE2E69C116002384AE /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		C75BE8C42E69C13A002384AE /* CustomShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShareViewController.swift; sourceTree = "<group>"; };
 		CF0086EC267CCAD0006C7ED7 /* OXCNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OXCNavigator.h; sourceTree = "<group>"; };
 		CF0086ED267CCAD1006C7ED7 /* OXCNavigator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OXCNavigator.m; sourceTree = "<group>"; };
 		CF7D7861264AC52900F33C52 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
@@ -137,7 +139,8 @@
 			children = (
 				5E4C73E42DBE1526002EBDF1 /* OxChatShareExtensionDebug.entitlements */,
 				0C829C2F2B8C9A360066C893 /* OxChatShareExtension.entitlements */,
-				0C98C7542B8C6D3200950443 /* ShareViewController.swift */,
+				C75BE8BE2E69C116002384AE /* ShareViewController.swift */,
+				C75BE8C42E69C13A002384AE /* CustomShareViewController.swift */,
 				0C98C7562B8C6D3200950443 /* MainInterface.storyboard */,
 				0C98C7592B8C6D3200950443 /* Info.plist */,
 			);
@@ -439,8 +442,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C829C2E2B8C95F70066C893 /* ShareViewController.swift in Sources */,
+				C75BE8C02E69C116002384AE /* ShareViewController.swift in Sources */,
 				0C829C342B8DBF690066C893 /* AppGroupHelper.swift in Sources */,
+				C7368C4F2E6AC3B9007E0EEF /* CustomShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

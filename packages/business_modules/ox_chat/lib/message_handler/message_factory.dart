@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_types/src/message.dart' as UIMessage;
 import 'package:ox_common/business_interface/ox_chat/custom_message_type.dart';
-import 'package:ox_chat/message_handler/custom_message_utils.dart';
-import 'package:ox_common/business_interface/ox_chat/utils.dart';
-import 'package:ox_common/utils/ox_userinfo_manager.dart';
 import 'package:ox_common/utils/web_url_helper.dart';
 import 'package:ox_localizable/ox_localizable.dart';
+
+import 'custom_message_utils.dart';
+import 'system_message_interpreter.dart';
 
 abstract class MessageFactory {
   types.Message? createMessage({
@@ -358,24 +358,18 @@ class SystemMessageFactory implements MessageFactory {
     List<types.ZapsInfo> zapsInfoList = const [],
     bool isMe = false,
   }) {
-    var text = content;
-    final key = text;
-    if (key.isNotEmpty) {
-      text = Localized.text(key, useOrigin: true);
-      if (key == 'ox_chat.screen_record_hint_message' || key == 'ox_chat.screenshot_hint_message') {
-        final name =
-            isMe ? Localized.text('ox_common.you') : (author.sourceObject?.getUserShowName() ?? '');
-        text = text.replaceAll(r'${user}', name);
-      }
-    }
+    final effectiveId = remoteId ?? messageId ?? '';
+    final interpreter = SystemMessageInterpreter();
+    final meta = interpreter.interpret(effectiveId, content);
     return types.SystemMessage(
       author: author,
       createdAt: timestamp,
-      id: remoteId ?? messageId ?? '',
+      id: effectiveId,
       roomId: roomId,
       repliedMessage: repliedMessage,
       repliedMessageId: repliedMessageId,
-      text: text,
+      metadata: meta.toMap(),
+      text: '', // deprecated: UI renders system text via metadata
       expiration: expiration,
       reactions: reactions,
       zapsInfoList: zapsInfoList,

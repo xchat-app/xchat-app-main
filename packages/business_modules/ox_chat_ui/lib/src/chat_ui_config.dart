@@ -68,6 +68,9 @@ class ChatUIConfig {
     required bool currentUserIsAuthor,
   })? repliedMessageBuilder;
 
+  /// Build a system message inside predefined bubble.
+  final Widget Function(types.SystemMessage message)? systemMessageBuilder;
+
   /// Constructor: all fields are optional. The user can provide only what they need.
   const ChatUIConfig({
     this.nameBuilder,
@@ -79,5 +82,6 @@ class ChatUIConfig {
     this.codeBlockBuilder,
     this.moreButtonBuilder,
     this.repliedMessageBuilder,
+    this.systemMessageBuilder,
   });
 }

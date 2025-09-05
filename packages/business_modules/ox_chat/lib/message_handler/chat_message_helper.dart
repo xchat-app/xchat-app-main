@@ -11,13 +11,13 @@ import 'package:ox_chat/message_handler/custom_message_utils.dart';
 import 'package:ox_chat/utils/general_handler/chat_mention_handler.dart';
 import 'package:ox_chat/utils/general_handler/chat_nostr_scheme_handler.dart';
 import 'package:ox_chat/message_handler/message_factory.dart';
+import 'package:ox_chat/message_handler/system_message_interpreter.dart';
 import 'package:ox_chat/utils/widget_tool.dart';
 import 'package:ox_common/business_interface/ox_chat/call_message_type.dart';
 import 'package:ox_common/business_interface/ox_chat/custom_message_type.dart';
 import 'package:ox_common/business_interface/ox_chat/utils.dart';
 import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_common/model/chat_type.dart';
-import 'package:ox_common/utils/ox_userinfo_manager.dart';
 import 'package:ox_common/utils/web_url_helper.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 
@@ -78,26 +78,7 @@ class ChatMessageHelper {
       case MessageType.encryptedFile:
         return Localized.text('ox_common.message_type_file');
       case MessageType.system:
-        final key = contentText;
-        var text = '';
-        if (key.isNotEmpty) {
-          text = Localized.text(key, useOrigin: true);
-          if (key == 'ox_chat.screen_record_hint_message' ||
-              key == 'ox_chat.screenshot_hint_message') {
-            final sender = senderId;
-            var senderName = '';
-            final isMe = false;
-            final userDB = Account.sharedInstance.getUserInfo(sender);
-            if (userDB is UserDBISAR) {
-              senderName = userDB.name ?? '';
-            }
-            final name = isMe
-                ? Localized.text('ox_common.you')
-                : senderName;
-            text = text.replaceAll(r'${user}', name);
-          }
-        }
-        return text;
+        return SystemMessageInterpreter.getSystemMessageText(contentText);
       case MessageType.call:
         var contentMap;
         try {

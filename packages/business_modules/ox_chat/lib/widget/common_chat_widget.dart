@@ -217,6 +217,7 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
                 },
                 isSelfChat: handler.session.isSelfChat,
               ),
+              systemMessageBuilder: ChatMessageBuilder.buildSystemMessage,
               repliedMessageBuilder: ({
                 required types.Message message,
                 required int messageWidth,

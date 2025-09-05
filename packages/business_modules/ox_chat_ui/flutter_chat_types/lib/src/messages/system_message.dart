@@ -59,6 +59,7 @@ abstract class SystemMessage extends Message {
       throw UnimplementedError('JSON deserialization temporarily disabled');
 
   /// System message content (could be text or translation key).
+  @Deprecated('Always empty. Use metadata for system message rendering.')
   final String text;
 
   @override

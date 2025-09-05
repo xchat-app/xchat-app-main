@@ -10,7 +10,6 @@ import 'package:ox_common/component.dart';
 import 'package:ox_common/navigator/navigator.dart';
 import 'package:ox_common/upload/upload_utils.dart';
 import 'package:ox_common/utils/adapt.dart';
-import 'package:ox_common/utils/color_extension.dart';
 import 'package:ox_common/utils/date_utils.dart';
 import 'package:ox_common/utils/platform_utils.dart';
 import 'package:ox_common/utils/string_utils.dart';
@@ -19,6 +18,8 @@ import 'package:ox_common/utils/took_kit.dart';
 import 'package:ox_common/utils/widget_tool.dart';
 import 'package:ox_common/widgets/common_image.dart';
 import 'package:ox_common/widgets/common_long_content_page.dart';
+import 'package:ox_localizable/ox_localizable.dart';
+import 'package:ox_chat/page/technology_introduction_page.dart';
 
 import 'system_message_interpreter.dart';
 
@@ -210,7 +211,117 @@ class ChatMessageBuilder {
   }
 
   static Widget buildSystemMessage(types.SystemMessage message) {
-    return SizedBox();
+    Map<String, dynamic>? metaMap = message.metadata;
+    if (metaMap == null || metaMap.isEmpty) return SizedBox();
+
+    final meta = SystemMeta.fromMap(metaMap);
+    if (meta == null) return SizedBox();
+
+    Widget content;
+    switch (meta.sysType) {
+      case SystemType.invitePrivateChat: {
+        final params = meta.params as InviteChatParams;
+        final messageText = Localized.text('ox_chat.invite_private_chat')
+            .replaceAll(r'${userName}', params.inviter);
+        content = _buildInviteRichRow(
+          context: OXNavigator.navigatorKey.currentContext!,
+          messageText: messageText,
+          highlightText: params.inviter,
+        );
+        break;
+      }
+      case SystemType.invitePrivateGroup: {
+        final params = meta.params as InviteChatParams;
+        content = _buildInviteRichRow(
+          context: OXNavigator.navigatorKey.currentContext!,
+          messageText: meta.text,
+          highlightText: params.inviter,
+        );
+        break;
+      }
+      case SystemType.generic: {
+        content = _buildSystemTextWidget(meta.text);
+        break;
+      }
+    }
+
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: 24.px,
+        top: 8.px,
+        left: 8.px,
+        right: 8.px,
+      ),
+      child: content,
+    );
+  }
+
+  static Widget _buildSystemTextWidget(String text) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 6.px, horizontal: 8.px),
+      child: Center(
+        child: CLText.labelSmall(
+          text,
+          colorToken: ColorToken.onSurfaceVariant,
+        ),
+      ),
+    );
+  }
+
+  static Widget _buildInviteRichRow({
+    required BuildContext context,
+    required String messageText,
+    required String highlightText,
+  }) {
+    final learnMore = Localized.text('ox_login.learn_more');
+    final rich = CLText.labelSmall(
+      '$messageText $learnMore',
+      colorToken: ColorToken.onSurfaceVariant,
+    ).highlighted(
+      rules: [
+        // CLHighlightRule(
+        //   pattern: highlightText,
+        //   onTap: (match) => _onInviterNameTap(context, match),
+        //   cursor: SystemMouseCursors.click,
+        // ),
+        CLHighlightRule(
+          pattern: learnMore,
+          onTap: (_) => _onLearnMoreTap(context),
+          cursor: SystemMouseCursors.click,
+        ),
+      ],
+    );
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 6.px, horizontal: 8.px),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _systemTipIcon(context),
+          SizedBox(width: 6.px),
+          Flexible(child: rich),
+        ],
+      ),
+    );
+  }
+
+  static void _onLearnMoreTap(BuildContext context) {
+    OXNavigator.pushPage(
+      context,
+      (_) => TechnologyIntroductionPage(
+        previousPageTitle: Localized.text('ox_chat.technology_introduction'),
+      ),
+      type: OXPushPageType.present,
+    );
+  }
+
+  static Widget _systemTipIcon(BuildContext context) {
+    return Icon(
+      Icons.security,
+      size: 14,
+      color: ColorToken.onSurfaceVariant.of(context),
+    );
   }
 
   static InlineSpan moreButtonBuilder({

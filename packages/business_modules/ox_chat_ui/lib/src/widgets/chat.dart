@@ -117,7 +117,6 @@ class Chat extends StatefulWidget {
     this.scrollPhysics,
     this.scrollToUnreadOptions = const ScrollToUnreadOptions(),
     this.showUserNames = false,
-    this.systemMessageBuilder,
     this.textMessageBuilder,
     this.textMessageOptions = const TextMessageOptions(),
     this.theme = const DefaultChatTheme(),
@@ -333,9 +332,6 @@ class Chat extends StatefulWidget {
   /// Show user names for received messages. Useful for a group chat. Will be
   /// shown only on text messages.
   final bool showUserNames;
-
-  /// Builds a system message outside of any bubble.
-  final Widget Function(types.SystemMessage)? systemMessageBuilder;
 
   /// See [Message.textMessageBuilder].
   final Widget Function(
@@ -761,7 +757,7 @@ class ChatState extends State<Chat> {
 
       if (message is types.SystemMessage) {
         messageWidget =
-            widget.systemMessageBuilder?.call(message) ?? SystemMessage(message: message.text);
+            widget.uiConfig.systemMessageBuilder?.call(message) ?? SystemMessage(message: message.text);
       } else {
         final messageWidth = constraints.maxWidth.floor();
 

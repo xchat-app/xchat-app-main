@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:ox_common/component.dart';
-import 'package:ox_common/navigator/navigator.dart';
 import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 
@@ -11,6 +10,7 @@ class ChatSendImagePrepareDialog {
   static Future<bool> show(BuildContext context, File imageFile) async {
     final result = await CLAlertDialog.showWithWidget<bool>(
       context: context,
+      title: '',
       content: ConstrainedBox(
         constraints: BoxConstraints(
           maxHeight: 355.px,

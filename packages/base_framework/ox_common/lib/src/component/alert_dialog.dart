@@ -117,7 +117,8 @@ class CLAlertDialog {
     );
   }
 
-  static Widget _buildTitle(String title) {
+  static Widget? _buildTitle(String title) {
+    if (title.isEmpty) return null;
     if (PlatformStyle.isUseMaterial) {
       return CLText(
         title,

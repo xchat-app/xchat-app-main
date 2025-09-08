@@ -5,6 +5,7 @@ typedef Detector = bool Function(String content);
 // Record typedefs (tuples) for params of different system types
 typedef GenericParams = ({String text});
 typedef InviteChatParams = ({String inviter, String text});
+typedef CreateChatParams = ({String text});
 
 class SystemMessageInterpreter {
   // Regex: "<name> invite you to join the private chat|group"
@@ -40,14 +41,14 @@ class SystemMessageInterpreter {
   static final List<SystemSpec> _specs = [
     SystemSpec(
       detect: (content) => _rePrivateChatCreated.hasMatch(content),
-      sysType: SystemType.generic,
+      sysType: SystemType.createChat,
       toParams: (content) {
         return (text: Localized.text('ox_chat.private_chat_created'));
       },
     ),
     SystemSpec(
       detect: (content) => _rePrivateGroupCreated.hasMatch(content),
-      sysType: SystemType.generic,
+      sysType: SystemType.createChat,
       toParams: (content) {
         return (text: Localized.text('ox_chat.private_group_created'));
       },
@@ -143,6 +144,7 @@ enum SystemType {
   generic,
   invitePrivateChat,
   invitePrivateGroup,
+  createChat,
 }
 
 class SystemMeta {
@@ -152,12 +154,14 @@ class SystemMeta {
   /// Params are typed records (records/tuples) per sysType:
   /// - generic: GenericParams
   /// - inviteChat: InviteChatParams
+  /// - createChat: CreateChatParams
   final Object params;
 
   String get text => switch (sysType) {
     SystemType.generic => (params as GenericParams).text,
     SystemType.invitePrivateChat ||
     SystemType.invitePrivateGroup => (params as InviteChatParams).text,
+    SystemType.createChat => (params as CreateChatParams).text,
   };
 
   const SystemMeta({
@@ -184,6 +188,9 @@ class SystemMeta {
         return {'inviter': p.inviter, 'text': p.text};
       case SystemType.generic:
         final p = params as GenericParams;
+        return {'text': p.text};
+      case SystemType.createChat:
+        final p = params as CreateChatParams;
         return {'text': p.text};
     }
   }
@@ -215,6 +222,8 @@ class SystemMeta {
       case SystemType.invitePrivateGroup:
         return (inviter: (m['inviter'] as String?) ?? '', text: (m['text'] as String?) ?? '');
       case SystemType.generic:
+        return (text: (m['text'] as String?) ?? '');
+      case SystemType.createChat:
         return (text: (m['text'] as String?) ?? '');
     }
   }
@@ -253,6 +262,8 @@ extension SystemMetaMapX on Map<String, dynamic>? {
       (text: (metaParamsMap['text'] as String?) ?? '');
   InviteChatParams get inviteChatParams =>
       (inviter: (metaParamsMap['inviter'] as String?) ?? '', text: (metaParamsMap['text'] as String?) ?? '');
+  CreateChatParams get createChatParams =>
+      (text: (metaParamsMap['text'] as String?) ?? '');
 }
 
 class SystemSpec {

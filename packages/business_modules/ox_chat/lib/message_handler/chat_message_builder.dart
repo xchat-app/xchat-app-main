@@ -223,19 +223,23 @@ class ChatMessageBuilder {
         final params = meta.params as InviteChatParams;
         final messageText = Localized.text('ox_chat.invite_private_chat')
             .replaceAll(r'${userName}', params.inviter);
-        content = _buildInviteRichRow(
+        content = _buildNewChatRichRow(
           context: OXNavigator.navigatorKey.currentContext!,
           messageText: messageText,
-          highlightText: params.inviter,
         );
         break;
       }
       case SystemType.invitePrivateGroup: {
-        final params = meta.params as InviteChatParams;
-        content = _buildInviteRichRow(
+        content = _buildNewChatRichRow(
           context: OXNavigator.navigatorKey.currentContext!,
           messageText: meta.text,
-          highlightText: params.inviter,
+        );
+        break;
+      }
+      case SystemType.createChat: {
+        content = _buildNewChatRichRow(
+          context: OXNavigator.navigatorKey.currentContext!,
+          messageText: meta.text,
         );
         break;
       }
@@ -268,10 +272,9 @@ class ChatMessageBuilder {
     );
   }
 
-  static Widget _buildInviteRichRow({
+  static Widget _buildNewChatRichRow({
     required BuildContext context,
     required String messageText,
-    required String highlightText,
   }) {
     final learnMore = Localized.text('ox_login.learn_more');
     final rich = CLText.labelSmall(

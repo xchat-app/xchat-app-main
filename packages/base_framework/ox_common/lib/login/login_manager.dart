@@ -597,7 +597,7 @@ extension LoginManagerCircle on LoginManager {
       }
       await Account.sharedInstance.logout();
       CLUserPushNotificationManager.instance.dispose();
-      CLCacheManager.clearCircleCacheById(originCircle.id);
+      CLCacheManager.clearCircleMemCacheById(originCircle.id);
       AccountPathManager.clearCircleTempFolder(
         currentState.account!.pubkey,
         originCircle.id,

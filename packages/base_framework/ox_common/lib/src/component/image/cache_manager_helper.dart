@@ -8,6 +8,17 @@ import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_common/utils/string_utils.dart';
 import 'cache_manager.dart';
 
+/// Cache policy configuration for different file types
+class CachePolicy {
+  final Duration stalePeriod;
+  final int maxNrOfCacheObjects;
+
+  const CachePolicy({
+    required this.stalePeriod,
+    required this.maxNrOfCacheObjects,
+  });
+}
+
 class CacheManagerHelper {
   /// key: cacheKey(circleId, fileType), Value: CacheManager.config
   static Map<String, Config> _configCache = {};
@@ -27,7 +38,7 @@ class CacheManagerHelper {
     
     // Create new config if not cached
     final config = await _createConfig(circleId, fileType);
-    
+
     // Cache the config for future use
     _configCache[cacheKey] = config;
     
@@ -54,6 +65,8 @@ class CacheManagerHelper {
 
     return Config(
       cacheKey,
+      stalePeriod: const Duration(days: 3650),
+      maxNrOfCacheObjects: 1 << 15,
       repo: JsonCacheInfoRepository(
         path: cacheMetaPath,
       ),

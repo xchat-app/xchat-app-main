@@ -51,65 +51,55 @@ class CLCacheManager {
     return CircleDefaultCacheManager.get(circle.id, fileType);
   }
 
-  /// Empty cache for all circles
-  static Future<void> clearAllCircleCache() async {
+  static Future<void> clearAllDiskCaches() async {
     final currentState = LoginManager.instance.currentState;
     final account = currentState.account;
-    
-    if (account == null) {
-      return;
-    }
+    if (account == null) return;
 
-    // Clear all singleton instances after clearing cache
-    CircleDefaultCacheManager.clearInstances();
+    await CircleDefaultCacheManager.clearAllDiskCaches();
   }
   
-  /// Clear cache for a specific circle and remove its singleton instance
-  static Future<void> clearCircleCacheById(String circleId) async {
+  static Future<void> clearCircleMemCacheById(String circleId) async {
     final currentState = LoginManager.instance.currentState;
     final account = currentState.account;
     
-    if (account == null) {
-      return;
-    }
+    if (account == null) return;
 
-    try {
-      // Clear all file types for this circle
-      for (final fileType in CacheFileType.values) {
-        // Remove the singleton instance
-        CircleDefaultCacheManager.removeInstance(circleId, fileType);
-      }
-    } catch (e) {
-      print('Failed to clear cache for circle $circleId: $e');
+    for (final fileType in CacheFileType.values) {
+      await CircleDefaultCacheManager.disposeInstance(
+        circleId: circleId,
+        fileType: fileType,
+      );
     }
   }
 }
 
 /// Circle-specific default cache manager that stores cache in circle cache directory
-/// 
+///
 /// This class implements a singleton pattern to ensure consistent store and helper objects
 /// across different instances for the same circle and file type.
 class CircleDefaultCacheManager extends CacheManager with ImageCacheManager {
   final String circleId;
   final CacheFileType fileType;
-  
+
   // Static cache to store instances by circleId
   static final Map<String, CircleDefaultCacheManager> _instances = {};
 
   // Private constructor
   CircleDefaultCacheManager._internal(Config config, this.circleId, this.fileType)
     : super(config);
-  
+
   /// Factory constructor that returns singleton instance for the given circleId and fileType
   factory CircleDefaultCacheManager(Config config, String circleId, CacheFileType fileType) {
     final key = _generateCacheKey(circleId, fileType);
-    
-    if (!_instances.containsKey(key)) {
-      // Create new instance if it doesn't exist
-      _instances[key] = CircleDefaultCacheManager._internal(config, circleId, fileType);
-    }
-    
-    return _instances[key]!;
+    return _instances.putIfAbsent(
+      key,
+      () {
+        final newManager = CircleDefaultCacheManager._internal(config, circleId, fileType);
+        newManager.store.cleanupRunMinInterval = Duration(days: 3650);
+        return newManager;
+      },
+    );
   }
 
   static CircleDefaultCacheManager? get(String circleId, CacheFileType fileType) {
@@ -121,21 +111,43 @@ class CircleDefaultCacheManager extends CacheManager with ImageCacheManager {
   static String _generateCacheKey(String circleId, CacheFileType fileType) {
     return '${circleId}_${_getFileTypeString(fileType)}';
   }
-  
-  /// Clear all cached instances
-  /// This should be called when switching accounts or clearing all cache
-  static void clearInstances() {
-    final managers = [..._instances.values];
-    _instances.clear();
-    managers.forEach((e) => e.emptyCache());
+
+  Future<void> clearDiskCache() async {
+    await store.emptyCache();
+    store.emptyMemoryCache();
   }
-  
-  /// Remove specific circle instance for a file type
-  /// This should be called when deleting a specific circle or clearing specific cache type
-  static void removeInstance(String circleId, CacheFileType fileType) {
+
+  Future<void> dispose() async {
+    store.emptyMemoryCache();
+    await super.dispose();
+  }
+
+  static Future<void> clearDiskCacheFor({
+    required String circleId,
+    required CacheFileType fileType,
+  }) async {
+    final manager = get(circleId, fileType);
+    await manager?.clearDiskCache();
+  }
+
+  static Future<void> clearAllDiskCaches() async {
+    final managers = _instances.values.toList();
+    await Future.wait(managers.map((manager) => manager.clearDiskCache()));
+  }
+
+  static Future<void> disposeInstance({
+    required String circleId,
+    required CacheFileType fileType,
+  }) async {
     final key = _generateCacheKey(circleId, fileType);
     final manager = _instances.remove(key);
-    manager?.emptyCache();
+    manager?.dispose();
+  }
+
+  static Future<void> disposeAllInstance() async {
+    final managers = _instances.values.toList();
+    _instances.clear();
+    await Future.wait(managers.map((manager) => manager.dispose()));
   }
 
   /// Convert CacheFileType to string for instance key

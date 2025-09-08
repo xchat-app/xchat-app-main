@@ -147,7 +147,7 @@ class _GroupInfoPageState extends State<GroupInfoPage> {
             width: 48.px,
             height: 48.px,
             decoration: BoxDecoration(
-              color: ColorToken.surface.of(context),
+              color: ColorToken.surfaceContainer.of(context),
               borderRadius: BorderRadius.circular(24.px),
             ),
             child: CLIcon(

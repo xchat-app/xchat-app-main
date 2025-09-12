@@ -185,27 +185,60 @@ extension LoginManagerAccount on LoginManager {
     }
   }
 
-  /// Login with Amber (Android) or external signer
+  /// Login with Aegis (Android) or external signer
   ///
   /// Returns whether login succeeded, failure notified via observer callbacks
   Future<bool> loginWithAmber() async {
     try {
-      // Check if Amber is installed (Android only)
-      bool isInstalled = await CoreMethodChannel.isInstalledAmber();
-      if (!isInstalled) {
-        _notifyLoginFailure(const LoginFailure(
+      // Use the new signer configuration system with Aegis
+      return await loginWithSigner('nostr_aegis');
+    } catch (e) {
+      _notifyLoginFailure(LoginFailure(
+        type: LoginFailureType.errorEnvironment,
+        message: 'Aegis login failed: $e',
+      ));
+      return false;
+    }
+  }
+
+  /// Login with specific signer configuration
+  ///
+  /// [signerKey] The signer key (e.g., 'amber', 'nostr_aegis', 'custom')
+  /// Returns whether login succeeded, failure notified via observer callbacks
+  Future<bool> loginWithSigner(String signerKey) async {
+    try {
+      debugPrint('LoginWithSigner: Starting login with signer: $signerKey');
+      // Initialize and set signer configuration
+      ExternalSignerTool.initialize();
+      ExternalSignerTool.setSigner(signerKey);
+      
+      final config = ExternalSignerTool.getCurrentConfig();
+      debugPrint('LoginWithSigner: Config found: ${config?.displayName} (${config?.packageName})');
+      if (config == null) {
+        debugPrint('LoginWithSigner: Configuration not found for signer: $signerKey');
+        _notifyLoginFailure(LoginFailure(
           type: LoginFailureType.errorEnvironment,
-          message: 'Amber app is not installed',
+          message: 'Signer configuration not found: $signerKey',
         ));
         return false;
       }
 
-      // Get public key from Amber
+      // Check if signer app is installed
+      bool isInstalled = await CoreMethodChannel.isAppInstalled(config.packageName);
+      if (!isInstalled) {
+        _notifyLoginFailure(LoginFailure(
+          type: LoginFailureType.errorEnvironment,
+          message: '${config.displayName} app is not installed',
+        ));
+        return false;
+      }
+
+      // Get public key from signer
       String? signature = await ExternalSignerTool.getPubKey();
       if (signature == null) {
-        _notifyLoginFailure(const LoginFailure(
+        _notifyLoginFailure(LoginFailure(
           type: LoginFailureType.errorEnvironment,
-          message: 'Amber signature request was rejected',
+          message: '${config.displayName} signature request was rejected',
         ));
         return false;
       }
@@ -232,7 +265,7 @@ extension LoginManagerAccount on LoginManager {
     } catch (e) {
       _notifyLoginFailure(LoginFailure(
         type: LoginFailureType.errorEnvironment,
-        message: 'Amber login failed: $e',
+        message: 'Signer login failed: $e',
       ));
       return false;
     }

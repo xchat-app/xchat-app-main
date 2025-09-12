@@ -1,6 +1,9 @@
 {
   "login_button": "登录",
   "login_with_amber": "使用 Amber 登录",
+  "login_with_signer": "使用签名器登录",
+  "select_signer": "选择签名器",
+  "no_signer_installed": "未安装任何签名器应用。请安装 Amber、Aegis 或 Nowser 后继续。",
   "terms_of_service": "服务条款",
   "privacy_policy": "隐私政策",
   "create_account": "创建账户",

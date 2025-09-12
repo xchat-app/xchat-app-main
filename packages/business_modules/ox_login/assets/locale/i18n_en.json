@@ -1,6 +1,9 @@
 {
   "login_button": "LOGIN",
   "login_with_amber": "Login with Amber",
+  "login_with_signer": "Login with Signer",
+  "select_signer": "Select Signer",
+  "no_signer_installed": "No signer apps are installed. Please install Amber, Aegis, or Nowser to continue.",
   "terms_of_service": "Terms of Use",
   "privacy_policy": "Privacy Policy",
   "create_account": "Create Account",

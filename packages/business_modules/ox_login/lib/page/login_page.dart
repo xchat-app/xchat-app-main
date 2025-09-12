@@ -1,13 +1,10 @@
 import 'dart:io';
 
-import 'package:chatcore/chat-core.dart';
 import 'package:flutter/material.dart';
 import 'package:ox_common/component.dart';
-import 'package:ox_common/const/common_constant.dart';
 // ox_common
 import 'package:ox_common/navigator/navigator.dart';
 import 'package:ox_common/utils/adapt.dart';
-import 'package:ox_common/utils/nip46_status_notifier.dart';
 import 'package:ox_common/utils/widget_tool.dart';
 import 'package:ox_common/widgets/common_image.dart';
 import 'package:ox_common/widgets/common_toast.dart';
@@ -16,7 +13,8 @@ import 'package:ox_localizable/ox_localizable.dart';
 // ox_login
 import 'package:ox_login/page/account_key_login_page.dart';
 import 'package:ox_login/page/create_account_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:nostr_core_dart/src/channel/core_method_channel.dart';
+import 'package:nostr_core_dart/src/signer/signer_config.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage();
@@ -114,10 +112,9 @@ class _LoginPageState extends State<LoginPage> {
   );
 
   Widget buildAmberLoginWidget() {
-    bool isAndroid = Platform.isAndroid;
-    String text = isAndroid ? Localized.text('ox_login.login_with_amber') : Localized.text('ox_login.login_with_aegis');
-    GestureTapCallback? onTap = isAndroid ? _loginWithAmber : _loginWithNostrAegis;
-    String iconName = isAndroid ? "icon_login_amber.png" : "icon_login_aegis.png";
+    String text = Localized.text('ox_login.login_with_signer');
+    GestureTapCallback? onTap = _showSignerSelectionDialog;
+    String iconName = "icon_login_amber.png";
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: onTap,
@@ -164,44 +161,117 @@ class _LoginPageState extends State<LoginPage> {
     OXNavigator.pushPage(context, (context) => AccountKeyLoginPage());
   }
 
-  void _loginWithNostrAegis() async {
+
+  void _showSignerSelectionDialog() async {
+    // Check which signers are installed
+    final availableSigners = await _getAvailableSigners();
+    
+    if (availableSigners.isEmpty) {
+      // No signers installed, show error message
+      if (mounted) {
+        CommonToast.instance.show(context, Localized.text('ox_login.no_signer_installed'));
+      }
+      return;
+    }
+    
+    if (availableSigners.length == 1) {
+      // Only one signer installed, use it directly
+      final signer = availableSigners.first;
+      _loginWithSelectedSigner(signer['key']!);
+      return;
+    }
+    
+    // Multiple signers available, show selection dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(Localized.text('ox_login.select_signer')),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: availableSigners.map((signer) {
+              return Column(
+                children: [
+                  _buildSignerOption(signer['key']!, signer['displayName']!, signer['packageName']!, signer['icon']!),
+                  if (signer != availableSigners.last) SizedBox(height: 12.px),
+                ],
+              );
+            }).toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<List<Map<String, String>>> _getAvailableSigners() async {
+    final availableSigners = <Map<String, String>>[];
+    
+    // Get all signer configurations from SignerConfigs
+    final signerKeys = SignerConfigs.getAvailableSigners();
+    
+    // Check which signers are installed
+    for (final signerKey in signerKeys) {
+      try {
+        final config = SignerConfigs.getConfig(signerKey);
+        if (config != null) {
+          final isInstalled = await CoreMethodChannel.isAppInstalled(config.packageName);
+          if (isInstalled) {
+            availableSigners.add({
+              'key': signerKey,
+              'displayName': config.displayName,
+              'packageName': config.packageName,
+              'icon': config.iconName,
+            });
+          }
+        }
+      } catch (e) {
+        debugPrint('Error checking if $signerKey is installed: $e');
+      }
+    }
+    
+    return availableSigners;
+  }
+
+  Widget _buildSignerOption(String signerKey, String displayName, String packageName, String iconName) {
+    return ListTile(
+      leading: Container(
+        width: 40.px,
+        height: 40.px,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: ColorToken.surfaceContainer.of(context),
+        ),
+        child: ClipOval(
+          child: CommonImage(
+            iconName: iconName,
+            width: 32.px,
+            height: 32.px,
+            package: 'ox_login',
+          ),
+        ),
+      ),
+      title: Text(displayName),
+      subtitle: Text(packageName),
+      onTap: () {
+        Navigator.of(context).pop();
+        _loginWithSelectedSigner(signerKey);
+      },
+    );
+  }
+
+  void _loginWithSelectedSigner(String signerKey) async {
     try {
-      bool result = await NIP46StatusNotifier.remoteSignerTips(Localized.text('ox_login.wait_link_service'));
-      if (!result) return;
+      debugPrint('Starting login with signer: $signerKey');
       
-      String loginQRCodeUrl = AccountNIP46.createNostrConnectURI(relays:['ws://127.0.0.1:8081']);
-      final appScheme = '${CommonConstant.APP_SCHEME}://';
-      final uri = Uri.tryParse('aegis://${Uri.encodeComponent("${loginQRCodeUrl}&scheme=${appScheme}")}');
-      await _launchAppOrSafari(uri!);
-      
-      // Use LoginManager for NostrConnect login
-      await LoginManager.instance.loginWithNostrConnect(loginQRCodeUrl);
+      // Use LoginManager for signer login
+      final result = await LoginManager.instance.loginWithSigner(signerKey);
+      debugPrint('Signer login result: $result');
     } catch (e) {
-      debugPrint('NostrAegis login failed: $e');
+      debugPrint('Signer login failed: $e');
       if (mounted) {
         CommonToast.instance.show(context, 'Login failed: ${e.toString()}');
       }
     }
   }
 
-  Future<void> _launchAppOrSafari(Uri uri) async {
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      final Uri fallbackUri = Uri.parse('https://testflight.apple.com/join/DUzVMDMK');
-      await launchUrl(fallbackUri, mode: LaunchMode.externalApplication);
-    }
-  }
-
-  void _loginWithAmber() async {
-    try {
-      // Use LoginManager for Amber login
-      await LoginManager.instance.loginWithAmber();
-    } catch (e) {
-      debugPrint('Amber login failed: $e');
-      if (mounted) {
-        CommonToast.instance.show(context, 'Login failed: ${e.toString()}');
-      }
-    }
-  }
 }

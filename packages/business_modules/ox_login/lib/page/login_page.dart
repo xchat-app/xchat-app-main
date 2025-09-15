@@ -174,6 +174,17 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
     
+    // Check if we should use the last used signer
+    final lastSigner = await _getLastUsedSigner();
+    if (lastSigner != null) {
+      final lastSignerAvailable = availableSigners.any((signer) => signer['key'] == lastSigner);
+      if (lastSignerAvailable) {
+        // Last used signer is still available, use it directly
+        _loginWithSelectedSigner(lastSigner);
+        return;
+      }
+    }
+    
     if (availableSigners.length == 1) {
       // Only one signer installed, use it directly
       final signer = availableSigners.first;
@@ -230,6 +241,20 @@ class _LoginPageState extends State<LoginPage> {
     }
     
     return availableSigners;
+  }
+
+  Future<String?> _getLastUsedSigner() async {
+    try {
+      // Get current pubkey from LoginManager
+      final currentPubkey = LoginManager.instance.currentState.account?.pubkey;
+      if (currentPubkey == null) return null;
+      
+      // Get signer for this specific pubkey
+      return await LoginManager.instance.getSignerForPubkey(currentPubkey);
+    } catch (e) {
+      debugPrint('Error getting last used signer: $e');
+      return null;
+    }
   }
 
   Widget _buildSignerOption(String signerKey, String displayName, String packageName, String iconName) {

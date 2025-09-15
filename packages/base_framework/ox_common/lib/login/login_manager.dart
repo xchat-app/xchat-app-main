@@ -5,6 +5,7 @@ import 'package:chatcore/chat-core.dart';
 import 'package:ox_cache_manager/ox_cache_manager.dart';
 import 'package:isar/isar.dart';
 import 'package:nostr_core_dart/nostr.dart';
+import 'package:nostr_core_dart/src/signer/external_signer_tool.dart';
 import 'package:convert/convert.dart';
 import 'package:ox_common/component.dart';
 import 'package:ox_common/push/push_integration.dart';
@@ -109,6 +110,7 @@ class LoginManager {
 
   // Persistence storage keys
   static const String _keyLastPubkey = 'login_manager_last_pubkey';
+  static const String _keySignerPrefix = 'login_manager_signer_';
 }
 
 /// Account management related methods
@@ -260,6 +262,7 @@ extension LoginManagerAccount on LoginManager {
       return _loginAccount(
         pubkey: decodeSignature,
         loginType: LoginType.androidSigner,
+        signerKey: signerKey,
       );
 
     } catch (e) {
@@ -300,6 +303,9 @@ extension LoginManagerAccount on LoginManager {
       final loginState = LoginState(account: account);
       _state$.value = loginState;
 
+      // Set up signer configuration for this pubkey
+      await _setupSignerForPubkey(lastPubkey);
+
       // Try to login to last circle or first circle
       await _tryLoginLastCircle(loginState);
 
@@ -329,6 +335,8 @@ extension LoginManagerAccount on LoginManager {
 
     final account = loginState.account;
     if (account != null) {
+      // Clear signer info for this specific pubkey
+      await _clearSignerInfo(account.pubkey);
       await DatabaseUtils.closeAccountDatabase(account.db);
     }
 
@@ -379,6 +387,7 @@ extension LoginManagerAccount on LoginManager {
     required LoginType loginType,
     String? privateKey,
     String? nostrConnectUri,
+    String? signerKey,
   }) async {
     try {
       // 1. Initialize account database
@@ -433,6 +442,11 @@ extension LoginManagerAccount on LoginManager {
 
       // 5. Persist login information
       await _persistLoginInfo(pubkey);
+      
+      // 6. Persist signer selection if provided
+      if (signerKey != null) {
+        await _persistSignerInfo(pubkey, signerKey);
+      }
 
       // 6. Try to login to last circle or first circle
       await _tryLoginLastCircle(loginState);
@@ -987,10 +1001,27 @@ extension LoginManagerDatabase on LoginManager {
     );
   }
 
+  Future<void> _persistSignerInfo(String pubkey, String signerKey) async {
+    final key = '${LoginManager._keySignerPrefix}$pubkey';
+    await OXCacheManager.defaultOXCacheManager.saveForeverData(
+      key,
+      signerKey,
+    );
+  }
+
   /// Clear login information
   Future<void> _clearLoginInfo() async {
     await OXCacheManager.defaultOXCacheManager.saveForeverData(
       LoginManager._keyLastPubkey,
+      null,
+    );
+  }
+
+  /// Clear signer information for specific pubkey
+  Future<void> _clearSignerInfo(String pubkey) async {
+    final key = '${LoginManager._keySignerPrefix}$pubkey';
+    await OXCacheManager.defaultOXCacheManager.saveForeverData(
+      key,
       null,
     );
   }
@@ -1000,6 +1031,35 @@ extension LoginManagerDatabase on LoginManager {
     return await OXCacheManager.defaultOXCacheManager.getForeverData(
       LoginManager._keyLastPubkey,
     );
+  }
+
+  /// Get signer for specific pubkey
+  Future<String?> getSignerForPubkey(String pubkey) async {
+    final key = '${LoginManager._keySignerPrefix}$pubkey';
+    return await OXCacheManager.defaultOXCacheManager.getForeverData(
+      key,
+    );
+  }
+
+  /// Set up signer configuration for specific pubkey
+  Future<void> _setupSignerForPubkey(String pubkey) async {
+    try {
+      final signerKey = await getSignerForPubkey(pubkey);
+      if (signerKey != null) {
+        debugPrint('AutoLogin: Setting up signer $signerKey for pubkey $pubkey');
+        ExternalSignerTool.initialize();
+        ExternalSignerTool.setSigner(signerKey);
+      } else {
+        debugPrint('AutoLogin: No saved signer for pubkey $pubkey, using default');
+        ExternalSignerTool.initialize();
+        ExternalSignerTool.setSigner('amber'); // Default fallback
+      }
+    } catch (e) {
+      debugPrint('AutoLogin: Error setting up signer for pubkey $pubkey: $e');
+      // Fallback to default
+      ExternalSignerTool.initialize();
+      ExternalSignerTool.setSigner('amber');
+    }
   }
 
   /// Get encryption password from account

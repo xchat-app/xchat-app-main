@@ -31,9 +31,7 @@ class TechnologyIntroductionPage extends StatelessWidget {
                 SizedBox(height: 24.px),
                 _buildFeatures(),
                 SizedBox(height: 24.px),
-                _buildHowTo(),
-                SizedBox(height: 24.px),
-                _buildFAQ(context),
+                _buildDeleteGuide(context),
               ],
             ),
           ),
@@ -135,6 +133,7 @@ class TechnologyIntroductionPage extends StatelessWidget {
       children: [
         CLText.titleLarge(
           Localized.text('ox_chat.tech_intro_features_title'),
+          colorToken: ColorToken.xChat,
         ),
         SizedBox(height: 16.px),
         _buildFeatureItem(
@@ -182,105 +181,53 @@ class TechnologyIntroductionPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHowTo() {
-    return Builder(
-      builder: (context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CLText.titleLarge(
-            Localized.text('ox_chat.tech_intro_how_title'),
-          ),
-          SizedBox(height: 16.px),
-          Container(
-            padding: EdgeInsets.all(16.px),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.px),
-              border: Border.all(
-                color: ColorToken.onSurfaceVariant.of(context).withOpacity(0.2),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildStepItem(Localized.text('ox_chat.tech_intro_how_step_1')),
-                _buildStepItem(Localized.text('ox_chat.tech_intro_how_step_2')),
-                _buildStepItem(Localized.text('ox_chat.tech_intro_how_step_3')),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStepItem(String step) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8.px),
-      child: CLText.bodyMedium(step),
-    );
-  }
-
-  Widget _buildFAQ(BuildContext context) {
+  Widget _buildDeleteGuide(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CLText.titleLarge(
-          Localized.text('ox_chat.tech_intro_faq_title'),
+          Localized.text('ox_chat.tech_intro_delete_title'),
+          colorToken: ColorToken.xChat,
         ),
         SizedBox(height: 16.px),
-        _buildFAQItem(
-          context,
-          Localized.text('ox_chat.tech_intro_faq_question_1'),
-          Localized.text('ox_chat.tech_intro_faq_answer_1'),
+        _buildDeleteItem(
+          Localized.text('ox_chat.tech_intro_delete_1'),
+          Localized.text('ox_chat.tech_intro_delete_1_desc'),
         ),
-        SizedBox(height: 16.px),
-        _buildFAQItem(
-          context,
-          Localized.text('ox_chat.tech_intro_faq_question_2'),
-          Localized.text('ox_chat.tech_intro_faq_answer_2'),
+        _buildDeleteItem(
+          Localized.text('ox_chat.tech_intro_delete_2'),
+          Localized.text('ox_chat.tech_intro_delete_2_desc'),
+        ),
+        _buildDeleteItem(
+          Localized.text('ox_chat.tech_intro_delete_3'),
+          Localized.text('ox_chat.tech_intro_delete_3_desc'),
+        ),
+        _buildDeleteItem(
+          Localized.text('ox_chat.tech_intro_delete_4'),
+          Localized.text('ox_chat.tech_intro_delete_4_desc'),
         ),
       ],
     );
   }
 
-  Widget _buildFAQItem(BuildContext context, String question, String answer) {
-    return Container(
-      padding: EdgeInsets.all(16.px),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.px),
-        border: Border.all(
-          color: ColorToken.onSurfaceVariant.of(context).withOpacity(0.2),
-        ),
-      ),
-      child: Column(
+  Widget _buildDeleteItem(String title, String description) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 12.px),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 6.px,
-                height: 6.px,
-                margin: EdgeInsets.only(top: 8.px, right: 8.px),
-                decoration: BoxDecoration(
-                  color: ColorToken.xChat.of(context),
-                  shape: BoxShape.circle,
+          SizedBox(width: 4.px),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CLText.titleSmall(title),
+                SizedBox(height: 4.px),
+                CLText.bodySmall(
+                  description,
+                  colorToken: ColorToken.onSurfaceVariant,
                 ),
-              ),
-              Expanded(
-                child: CLText.titleSmall(
-                  question,
-                  colorToken: ColorToken.xChat,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 12.px),
-          Padding(
-            padding: EdgeInsets.only(left: 14.px),
-            child: CLText.bodyMedium(
-              answer,
-              maxLines: null,
+              ],
             ),
           ),
         ],

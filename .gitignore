@@ -118,3 +118,4 @@ Podfile.lock
 **/*.p12
 **/*.keystore
 **/*.jks
+/testautocorrect

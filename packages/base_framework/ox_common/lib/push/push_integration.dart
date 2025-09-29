@@ -89,13 +89,19 @@ class CLPushIntegration with WidgetsBindingObserver {
   // Lifecycle
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
+    if (state == AppLifecycleState.resumed && _initialized) {
       // cancel any notifications
       _decision.onAppBecameForeground();
     }
   }
 
   void putReceiveMessage(String title, MessageDBISAR message) {
+    // Check if the service is initialized before using _decision
+    if (!_initialized) {
+      // If not initialized, skip notification processing
+      return;
+    }
+    
     final msg = _mapToIncomingMessage(title, message);
     if (msg != null) {
       unawaited(_decision.onMessageArrived(msg));

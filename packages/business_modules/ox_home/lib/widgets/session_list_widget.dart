@@ -92,7 +92,8 @@ class _SessionListWidgetState extends State<SessionListWidget> {
         }
 
         return ListView.separated(
-          padding: EdgeInsets.only(bottom: Adapt.bottomSafeAreaHeightByKeyboard),
+          padding:
+              EdgeInsets.only(bottom: Adapt.bottomSafeAreaHeightByKeyboard),
           itemBuilder: (context, index) => itemBuilder(context, value[index]),
           separatorBuilder: separatorBuilder,
           itemCount: value.length,
@@ -110,18 +111,16 @@ class _SessionListWidgetState extends State<SessionListWidget> {
             buildMuteAction(item),
             buildDeleteAction(item),
           ],
-          child: Builder(
-              builder: (context) {
-                return GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    Slidable.of(context)?.close();
-                    widget.itemOnTap(item);
-                  },
-                  child: buildItemContent(item),
-                );
-              }
-          ),
+          child: Builder(builder: (context) {
+            return GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                Slidable.of(context)?.close();
+                widget.itemOnTap(item);
+              },
+              child: buildItemContent(item),
+            );
+          }),
         );
       },
     );
@@ -155,7 +154,6 @@ class _SessionListWidgetState extends State<SessionListWidget> {
         }
     );
   }
-
 
   Widget buildItemContent(SessionListViewModel item) {
     return ValueListenableBuilder(
@@ -261,7 +259,8 @@ class _SessionListWidgetState extends State<SessionListWidget> {
             ),
           TextSpan(
             text: subtitle,
-            style: style.copyWith(color: ColorToken.onSecondaryContainer.of(context)),
+            style: style.copyWith(
+                color: ColorToken.onSecondaryContainer.of(context)),
           ),
         ],
       ),
@@ -315,7 +314,10 @@ class _SessionListWidgetState extends State<SessionListWidget> {
                 size: 120.px,
                 color: PlatformStyle.isUseMaterial
                     ? ColorToken.primary.of(context)
-                    : CupertinoTheme.of(context).textTheme.actionSmallTextStyle.color,
+                    : CupertinoTheme.of(context)
+                        .textTheme
+                        .actionSmallTextStyle
+                        .color,
               ),
 
               SizedBox(height: 24.px),
@@ -345,7 +347,8 @@ class _SessionListWidgetState extends State<SessionListWidget> {
 }
 
 extension _SessionListWidgetStateEx on _SessionListWidgetState {
-  Future<void> _showDeleteOptions(BuildContext context, SessionListViewModel item) async {
+  Future<void> _showDeleteOptions(
+      BuildContext context, SessionListViewModel item) async {
     final isSingleChat = item.isSingleChat;
     bool isGroupOwner = false;
 
@@ -368,11 +371,13 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
 
   bool _isInGroup(SessionListViewModel item) {
     final groupId = item.sessionModel.groupId;
-    return groupId != null && groupId.isNotEmpty &&
+    return groupId != null &&
+        groupId.isNotEmpty &&
         Groups.sharedInstance.checkInMyGroupList(groupId);
   }
 
-  Future<void> _showSelfChatDeleteOptions(BuildContext context, SessionListViewModel item) async {
+  Future<void> _showSelfChatDeleteOptions(
+      BuildContext context, SessionListViewModel item) async {
     final result = await CLPicker.show<SessionDeleteAction>(
       context: context,
       items: [
@@ -393,7 +398,8 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
     }
   }
 
-  Future<void> _showPrivateChatDeleteOptions(BuildContext context, SessionListViewModel item) async {
+  Future<void> _showPrivateChatDeleteOptions(
+      BuildContext context, SessionListViewModel item) async {
     final entity = item.entity$.value;
     String otherUserName = '';
 
@@ -403,19 +409,20 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
 
     final result = await CLPicker.show<SessionDeleteAction>(
       context: context,
-      title: Localized.text('ox_chat.delete_private_chat_title').replaceAll(r'${userName}', otherUserName),
+      title: Localized.text('ox_chat.delete_private_chat_title')
+          .replaceAll(r'${userName}', otherUserName),
       items: [
         CLPickerItem(
           label: Localized.text('ox_chat.delete_just_for_me'),
           value: SessionDeleteAction.singleDeleteForMe,
           isDestructive: true,
         ),
-        if (_isInGroup(item))
-          CLPickerItem(
-            label: Localized.text('ox_chat.delete_for_me_and_user').replaceAll(r'${userName}', otherUserName),
-            value: SessionDeleteAction.singleDeleteForAll,
-            isDestructive: true,
-          ),
+        CLPickerItem(
+          label: Localized.text('ox_chat.delete_for_me_and_user')
+              .replaceAll(r'${userName}', otherUserName),
+          value: SessionDeleteAction.singleDeleteForAll,
+          isDestructive: true,
+        ),
       ],
     );
 
@@ -424,11 +431,13 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
     }
   }
 
-  Future<void> _showGroupOwnerDeleteOptions(BuildContext context, SessionListViewModel item) async {
+  Future<void> _showGroupOwnerDeleteOptions(
+      BuildContext context, SessionListViewModel item) async {
     String chatName = item.name;
     final result = await CLPicker.show<SessionDeleteAction>(
       context: context,
-      title: Localized.text('ox_chat.leave_and_delete_group_title').replaceAll(r'${chatName}', chatName),
+      title: Localized.text('ox_chat.leave_and_delete_group_title')
+          .replaceAll(r'${chatName}', chatName),
       items: [
         CLPickerItem(
           label: Localized.text('ox_chat.clear_history'),
@@ -448,12 +457,13 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
     }
   }
 
-
-  Future<void> _showGroupMemberDeleteOptions(BuildContext context, SessionListViewModel item) async {
+  Future<void> _showGroupMemberDeleteOptions(
+      BuildContext context, SessionListViewModel item) async {
     String chatName = item.name;
     final result = await CLPicker.show<SessionDeleteAction>(
       context: context,
-      title: Localized.text('ox_chat.leave_group_title').replaceAll(r'${chatName}', chatName),
+      title: Localized.text('ox_chat.leave_group_title')
+          .replaceAll(r'${chatName}', chatName),
       items: [
         CLPickerItem(
           label: Localized.text('ox_chat.clear_history'),
@@ -473,9 +483,9 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
   }
 
   Future<void> _handleSessionDeleteAction(
-      SessionListViewModel item,
-      SessionDeleteAction action,
-      ) async {
+    SessionListViewModel item,
+    SessionDeleteAction action,
+  ) async {
     switch (action) {
       case SessionDeleteAction.selfChatDelete:
         if (!await _confirmDeleteSelfChat(item)) return;
@@ -541,7 +551,8 @@ extension _SessionListWidgetStateEx on _SessionListWidgetState {
 
     final bool? confirmed = await CLAlertDialog.show(
       context: context,
-      content: Localized.text('ox_chat.delete_for_all_content').replaceAll(r'${userName}', otherUserName),
+      content: Localized.text('ox_chat.delete_for_all_content')
+          .replaceAll(r'${userName}', otherUserName),
       actions: [
         CLAlertAction.cancel(),
         CLAlertAction<bool>(

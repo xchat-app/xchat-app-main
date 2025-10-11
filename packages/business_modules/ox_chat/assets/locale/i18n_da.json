@@ -20,6 +20,8 @@
   "description": "Beskrivelse",
   "mute_item": "Slå lyd fra",
   "un_mute_item": "Slå lyd til",
+  "pin_item": "Fastgør",
+  "unpin_item": "Fjern fastgørelse",
   "public_key": "Offentlig nøgle",
   "bio": "Bio",
   "block_dialog_title": "Bloker ${userName}?",

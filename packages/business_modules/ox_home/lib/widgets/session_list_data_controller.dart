@@ -32,7 +32,7 @@ class SessionListDataController with OXChatObserver {
 
     final isar = DBISAR.sharedInstance.isar;
     await isar.writeAsync((isar) {
-       isar.chatSessionModelISARs
+      isar.chatSessionModelISARs
           .where()
           .anyOf(chatIds, (q, chatId) => q.chatIdEqualTo(chatId))
           .deleteAll();
@@ -91,7 +91,7 @@ class SessionListDataController with OXChatObserver {
     viewModel.sessionModel.updateWithMessage(message);
     viewModel.rebuild();
     _updateSessionPosition(viewModel);
-    
+
     ChatSessionModelISAR.saveChatSessionModelToDB(viewModel.sessionModel);
   }
 
@@ -190,10 +190,17 @@ extension SessionDCInterface on SessionListDataController {
         .chatSessionModelISARs
         .where()
         .findAll();
-    
-    // Filter out empty chatIds and sort by lastActivityTime descending
+
+    // Filter out empty chatIds and sort: first by alwaysTop (pinned first), then by lastActivityTime descending
     sessionList.removeWhere((session) => session.chatId.isEmpty);
-    sessionList.sort((a, b) => b.lastActivityTime.compareTo(a.lastActivityTime));
+    sessionList.sort((a, b) {
+      // First compare by alwaysTop (pinned sessions come first)
+      if (a.alwaysTop != b.alwaysTop) {
+        return b.alwaysTop ? 1 : -1;
+      }
+      // Then sort by lastActivityTime descending
+      return b.lastActivityTime.compareTo(a.lastActivityTime);
+    });
 
     final viewModelData = <SessionListViewModel>[];
     for (var sessionModel in sessionList) {
@@ -294,12 +301,12 @@ extension SessionDCInterface on SessionListDataController {
     sessionModel.lastActivityTime = lastActivityTime ?? sessionModel.lastActivityTime;
 
     viewModel.rebuild();
-    
-    // Update session position if lastActivityTime changed
-    if (lastActivityTime != null) {
+
+    // Update session position if lastActivityTime or alwaysTop changed
+    if (lastActivityTime != null || alwaysTop != null) {
       _updateSessionPosition(viewModel);
     }
-    
+
     ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
 
     return true;
@@ -320,7 +327,13 @@ extension _DataControllerEx on SessionListDataController {
     for (int index = 0; index < newList.length; index++) {
       final data = newList[index];
 
-      if (data.sessionModel.lastActivityTime < viewModel.sessionModel.lastActivityTime) {
+      // Compare by alwaysTop first, then by lastActivityTime
+      if (viewModel.sessionModel.alwaysTop && !data.sessionModel.alwaysTop) {
+        flagIndex = index;
+        break;
+      }
+      if (viewModel.sessionModel.alwaysTop == data.sessionModel.alwaysTop &&
+          data.sessionModel.lastActivityTime < viewModel.sessionModel.lastActivityTime) {
         flagIndex = index;
         break;
       }
@@ -345,25 +358,32 @@ extension _DataControllerEx on SessionListDataController {
   void _updateSessionPosition(SessionListViewModel viewModel) {
     final newList = [...sessionList$.value];
     final currentIndex = newList.indexOf(viewModel);
-    
+
     if (currentIndex == -1) return;
 
     // Remove the viewModel from its current position
     newList.removeAt(currentIndex);
-    
-    // Find the correct position to insert based on lastActivityTime
+
+    // Find the correct position to insert based on alwaysTop first, then lastActivityTime
     int insertIndex = 0;
     for (int i = 0; i < newList.length; i++) {
-      if (viewModel.sessionModel.lastActivityTime > newList[i].sessionModel.lastActivityTime) {
+      // Pinned sessions come first
+      if (viewModel.sessionModel.alwaysTop && !newList[i].sessionModel.alwaysTop) {
+        insertIndex = i;
+        break;
+      }
+      // Among same pin status, sort by lastActivityTime
+      if (viewModel.sessionModel.alwaysTop == newList[i].sessionModel.alwaysTop &&
+          viewModel.sessionModel.lastActivityTime > newList[i].sessionModel.lastActivityTime) {
         insertIndex = i;
         break;
       }
       insertIndex = i + 1;
     }
-    
+
     // Insert at the correct position
     newList.insert(insertIndex, viewModel);
-    
+
     // Only update if the position actually changed
     if (insertIndex != currentIndex) {
       sessionList$.value = newList;
@@ -382,7 +402,7 @@ extension _ChatSessionModelISAREx on ChatSessionModelISAR {
     final sessionMessageTextBuilder =
         OXChatBinding.sharedInstance.sessionMessageTextBuilder;
     final text = sessionMessageTextBuilder?.call(message) ?? '';
-    
+
     // Convert message createTime from seconds to milliseconds
     final createTimeInMs = message.createTime * 1000;
     if (createTime < createTimeInMs) {

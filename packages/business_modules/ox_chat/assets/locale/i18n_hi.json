@@ -20,6 +20,8 @@
   "description": "विवरण",
   "mute_item": "म्यूट",
   "un_mute_item": "म्यूट हटाएं",
+  "pin_item": "पिन करें",
+  "unpin_item": "अनपिन करें",
   "public_key": "सार्वजनिक कुंजी",
   "bio": "जीवनी",
   "block_dialog_title": "${userName} को ब्लॉक करें?",

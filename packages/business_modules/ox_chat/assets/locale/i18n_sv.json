@@ -20,6 +20,8 @@
   "description": "Beskrivning",
   "mute_item": "Stäng av",
   "un_mute_item": "Slå på ljudet",
+  "pin_item": "Fäst",
+  "unpin_item": "Ta bort fäst",
   "public_key": "Publik Nyckel",
   "bio": "Bio",
   "block_dialog_title": "Blockera ${userName}?",

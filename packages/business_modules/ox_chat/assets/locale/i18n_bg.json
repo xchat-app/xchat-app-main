@@ -20,6 +20,8 @@
   "description": "Описание",
   "mute_item": "Заглушаване",
   "un_mute_item": "Премахване на заглушаването",
+  "pin_item": "Закачи",
+  "unpin_item": "Откачи",
   "public_key": "Публичен ключ",
   "bio": "Био",
   "block_dialog_title": "Блокиране на ${userName}?",

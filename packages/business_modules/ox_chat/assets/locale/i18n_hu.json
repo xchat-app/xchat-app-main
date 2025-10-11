@@ -20,6 +20,8 @@
   "description": "Leírás",
   "mute_item": "Némítás",
   "un_mute_item": "Némítás feloldása",
+  "pin_item": "Rögzítés",
+  "unpin_item": "Rögzítés megszüntetése",
   "public_key": "Publikus Kulcs",
   "bio": "Bio",
   "block_dialog_title": "Blokkolja ${userName}-t?",

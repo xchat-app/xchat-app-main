@@ -20,20 +20,31 @@ class ItemAction {
 }
 
 /// Attach actions to a list item.
-/// - iOS: right-swipe (endActionPane) using flutter_slidable.
+/// - iOS: left-swipe (startActionPane) and right-swipe (endActionPane) using flutter_slidable.
 /// - Android: long-press BottomSheet (overridable by [onLongPress]).
 class CLListTileActions extends StatelessWidget {
   const CLListTileActions({
     super.key,
     required this.child,
-    required this.actions,
+    this.actions,
+    this.startActions,
+    this.endActions,
     this.semanticLabel,
     this.cupertinoExtentRatio = 0.44,
     this.cupertinoMotion = const ScrollMotion(),
   });
 
   final Widget child;
-  final List<ItemAction> actions;
+
+  /// Actions for Android long-press menu or iOS if startActions/endActions are not provided
+  final List<ItemAction>? actions;
+
+  /// Actions for iOS left-swipe (startActionPane)
+  final List<ItemAction>? startActions;
+
+  /// Actions for iOS right-swipe (endActionPane)
+  final List<ItemAction>? endActions;
+
   final String? semanticLabel;
 
   /// iOS only: total action pane width ratio.
@@ -45,8 +56,9 @@ class CLListTileActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
+      final allActions = actions ?? [...?startActions, ...?endActions];
       return CLPopupMenu<String>(
-        items: actions.map((action) => CLPopupMenuItem<String>(
+        items: allActions.map((action) => CLPopupMenuItem<String>(
           value: action.id,
           title: action.label,
           icon: action.icon,
@@ -60,14 +72,28 @@ class CLListTileActions extends StatelessWidget {
       );
     }
 
+    final start = startActions;
+    final end = endActions ?? actions;
+
     return Slidable(
-      endActionPane: ActionPane(
-        extentRatio: cupertinoExtentRatio,
-        motion: cupertinoMotion,
-        children: [
-          for (final action in actions) _buildCupertinoAction(context, action),
-        ],
-      ),
+      startActionPane: start != null && start.isNotEmpty
+          ? ActionPane(
+              extentRatio: cupertinoExtentRatio,
+              motion: cupertinoMotion,
+              children: [
+                for (final action in start) _buildCupertinoAction(context, action),
+              ],
+            )
+          : null,
+      endActionPane: end != null && end.isNotEmpty
+          ? ActionPane(
+              extentRatio: cupertinoExtentRatio,
+              motion: cupertinoMotion,
+              children: [
+                for (final action in end) _buildCupertinoAction(context, action),
+              ],
+            )
+          : null,
       child: child,
     );
   }

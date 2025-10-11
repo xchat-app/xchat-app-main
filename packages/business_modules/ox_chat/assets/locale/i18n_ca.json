@@ -20,6 +20,8 @@
   "description": "Descripció",
   "mute_item": "Silenciar",
   "un_mute_item": "Activar so",
+  "pin_item": "Fixar",
+  "unpin_item": "Deslligar",
   "public_key": "Clau Pública",
   "bio": "Bio",
   "block_dialog_title": "Bloquejar ${userName}?",

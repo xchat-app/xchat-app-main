@@ -20,6 +20,8 @@
   "description": "Beschrijving",
   "mute_item": "Demp",
   "un_mute_item": "Demp opheffen",
+  "pin_item": "Vastmaken",
+  "unpin_item": "Losmaken",
   "public_key": "Publieke sleutel",
   "bio": "Bio",
   "block_dialog_title": "${userName} blokkeren?",

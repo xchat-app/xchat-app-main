@@ -20,6 +20,8 @@
   "description": "توضیحات",
   "mute_item": "بی‌صدا کردن",
   "un_mute_item": "رفع بی‌صدا کردن",
+  "pin_item": "سنجاق کردن",
+  "unpin_item": "برداشتن سنجاق",
   "public_key": "کلید عمومی",
   "bio": "بیوگرافی",
   "block_dialog_title": "آیا می‌خواهید ${userName} را مسدود کنید؟",

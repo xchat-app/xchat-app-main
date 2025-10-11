@@ -20,6 +20,8 @@
   "description": "Deskripsi",
   "mute_item": "Bisukan",
   "un_mute_item": "Nyala suara",
+  "pin_item": "Pin",
+  "unpin_item": "Lepas Pin",
   "public_key": "Kunci Publik",
   "bio": "Bio",
   "block_dialog_title": "Blokir ${userName}?",

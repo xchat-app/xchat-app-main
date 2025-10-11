@@ -20,6 +20,8 @@
   "description": "설명",
   "mute_item": "무음",
   "un_mute_item": "무음 해제",
+  "pin_item": "고정",
+  "unpin_item": "고정 해제",
   "public_key": "공개 키",
   "bio": "자기 소개",
   "block_dialog_title": "${userName}을(를) 차단하시겠습니까?",

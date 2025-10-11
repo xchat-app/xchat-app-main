@@ -20,6 +20,8 @@
   "description": "Description",
   "mute_item": "Mute",
   "un_mute_item": "Unmute",
+  "pin_item": "Pin",
+  "unpin_item": "Unpin",
   "public_key": "Pubkey",
   "bio": "Bio",
   "block_dialog_title": "Block ${userName}?",

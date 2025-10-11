@@ -20,6 +20,8 @@
   "description": "Description",
   "mute_item": "Muet",
   "un_mute_item": "Activer le son",
+  "pin_item": "Épingler",
+  "unpin_item": "Désépingler",
   "public_key": "Clé publique",
   "bio": "Bio",
   "block_dialog_title": "Bloquer ${userName} ?",

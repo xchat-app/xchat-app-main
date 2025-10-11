@@ -20,6 +20,8 @@
   "description": "Popis",
   "mute_item": "Ztlumit",
   "un_mute_item": "Zrušit ztlumení",
+  "pin_item": "Připnout",
+  "unpin_item": "Odepnout",
   "public_key": "Veřejný klíč",
   "bio": "Bio",
   "block_dialog_title": "Zablokovat ${userName}?",

@@ -20,6 +20,8 @@
   "description": "Açıklama",
   "mute_item": "Sessiz",
   "un_mute_item": "Sesi aç",
+  "pin_item": "Sabitle",
+  "unpin_item": "Sabitlemeyi Kaldır",
   "public_key": "Genel Anahtar",
   "bio": "Biyografi",
   "block_dialog_title": "${userName} adlı kullanıcıyı engellemek istiyor musunuz?",

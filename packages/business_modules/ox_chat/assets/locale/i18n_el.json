@@ -20,6 +20,8 @@
   "description": "Περιγραφή",
   "mute_item": "Σίγαση",
   "un_mute_item": "Κατάργηση σίγασης",
+  "pin_item": "Καρφίτσωμα",
+  "unpin_item": "Ξεκαρφίτσωμα",
   "public_key": "Δημόσιο Κλειδί",
   "bio": "Βιογραφία",
   "block_dialog_title": "Φραγή του ${userName};",

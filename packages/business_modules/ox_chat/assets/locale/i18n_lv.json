@@ -20,6 +20,8 @@
   "description": "Apraksts",
   "mute_item": "Apklusināt",
   "un_mute_item": "Atklusināt",
+  "pin_item": "Piespraust",
+  "unpin_item": "Atspraust",
   "public_key": "Publiskā atslēga",
   "bio": "Bio",
   "block_dialog_title": "Bloķēt ${userName}?",

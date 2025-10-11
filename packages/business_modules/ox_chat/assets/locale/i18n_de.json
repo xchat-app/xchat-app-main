@@ -20,6 +20,8 @@
   "description": "Beschreibung",
   "mute_item": "Stummschalten",
   "un_mute_item": "Stummschaltung aufheben",
+  "pin_item": "Anheften",
+  "unpin_item": "Lösen",
   "public_key": "Öffentlicher Schlüssel",
   "bio": "Bio",
   "block_dialog_title": "${userName} blockieren?",

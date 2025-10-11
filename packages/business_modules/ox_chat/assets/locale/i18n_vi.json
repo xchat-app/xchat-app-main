@@ -20,6 +20,8 @@
   "description": "Mô tả",
   "mute_item": "Tắt tiếng",
   "un_mute_item": "Bật tiếng",
+  "pin_item": "Ghim",
+  "unpin_item": "Bỏ ghim",
   "public_key": "Khóa công khai",
   "bio": "Tiểu sử",
   "block_dialog_title": "Chặn ${userName}?",

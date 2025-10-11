@@ -20,6 +20,8 @@
   "description": "Опис",
   "mute_item": "Вимкнути звук",
   "un_mute_item": "Увімкнути звук",
+  "pin_item": "Закріпити",
+  "unpin_item": "Відкріпити",
   "public_key": "Відкритий ключ",
   "bio": "Біографія",
   "block_dialog_title": "Заблокувати ${userName}?",

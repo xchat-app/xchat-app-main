@@ -20,6 +20,8 @@
   "description": "描述",
   "mute_item": "靜音",
   "un_mute_item": "取消靜音",
+  "pin_item": "置頂",
+  "unpin_item": "取消置頂",
   "public_key": "公鑰",
   "bio": "簡介",
   "block_dialog_title": "封鎖 ${userName}？",

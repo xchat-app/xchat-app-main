@@ -20,6 +20,8 @@
   "description": "وصف",
   "mute_item": "كتم",
   "un_mute_item": "إلغاء الكتم",
+  "pin_item": "تثبيت",
+  "unpin_item": "إلغاء التثبيت",
   "public_key": "المفتاح العام",
   "bio": "السيرة الذاتية",
   "block_dialog_title": "حظر ${userName}؟",

@@ -20,6 +20,8 @@
   "description": "Opis",
   "mute_item": "Wycisz",
   "un_mute_item": "Wyłącz wyciszenie",
+  "pin_item": "Przypnij",
+  "unpin_item": "Odepnij",
   "public_key": "Klucz publiczny",
   "bio": "Bio",
   "block_dialog_title": "Zablokować ${userName}?",

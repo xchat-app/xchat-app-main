@@ -20,6 +20,8 @@
   "description": "Kirjeldus",
   "mute_item": "Vaigista",
   "un_mute_item": "Vaigistus eemaldamine",
+  "pin_item": "Kinnita",
+  "unpin_item": "Eemalda kinnitamine",
   "public_key": "Avalik võti",
   "bio": "Bio",
   "block_dialog_title": "Blokeeri ${userName}?",

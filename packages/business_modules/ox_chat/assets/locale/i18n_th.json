@@ -20,6 +20,8 @@
   "description": "คำอธิบาย",
   "mute_item": "ปิดเสียง",
   "un_mute_item": "เปิดเสียง",
+  "pin_item": "ปักหมุด",
+  "unpin_item": "เลิกปักหมุด",
   "public_key": "กุญแจสาธารณะ",
   "bio": "ประวัติ",
   "block_dialog_title": "บล็อก${userName}?",

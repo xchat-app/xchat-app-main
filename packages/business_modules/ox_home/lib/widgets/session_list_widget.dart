@@ -7,6 +7,7 @@ import 'package:ox_common/component.dart';
 import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_common/login/login_models.dart';
 import 'package:ox_common/utils/adapt.dart';
+import 'package:ox_common/utils/ox_chat_binding.dart';
 import 'package:ox_common/utils/widget_tool.dart';
 import 'package:ox_common/widgets/avatar.dart';
 import 'package:chatcore/chat-core.dart';
@@ -95,7 +96,7 @@ class _SessionListWidgetState extends State<SessionListWidget> {
           padding:
               EdgeInsets.only(bottom: Adapt.bottomSafeAreaHeightByKeyboard),
           itemBuilder: (context, index) => itemBuilder(context, value[index]),
-          separatorBuilder: separatorBuilder,
+          separatorBuilder: (context, index) => buildSeparator(context, index, value),
           itemCount: value.length,
         );
       },
@@ -108,6 +109,14 @@ class _SessionListWidgetState extends State<SessionListWidget> {
       builder: (context, value, _) {
         return CLListTileActions(
           actions: [
+            buildPinAction(item),
+            buildMuteAction(item),
+            buildDeleteAction(item),
+          ],
+          startActions: [
+            buildPinAction(item),
+          ],
+          endActions: [
             buildMuteAction(item),
             buildDeleteAction(item),
           ],
@@ -155,12 +164,31 @@ class _SessionListWidgetState extends State<SessionListWidget> {
     );
   }
 
+  ItemAction buildPinAction(SessionListViewModel item) {
+    bool isPinned = item.sessionModel.alwaysTop;
+    return ItemAction(
+        id: 'pin',
+        label: Localized.text(
+          isPinned ? 'ox_chat.unpin_item' : 'ox_chat.pin_item',
+        ),
+        icon: isPinned ? CupertinoIcons.pin_slash : CupertinoIcons.pin_fill,
+        onTap: (_) async {
+          await OXChatBinding.sharedInstance.updateChatSession(
+            item.sessionModel.chatId,
+            alwaysTop: !isPinned,
+          );
+          return true;
+        }
+    );
+  }
+
   Widget buildItemContent(SessionListViewModel item) {
     return ValueListenableBuilder(
         valueListenable: item.entity$,
         builder: (context, value, _) {
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 8.px),
+            color: item.isAlwaysTop ? ColorToken.surfaceContainer.of(context) : null,
             child: Row(
               children: [
                 _buildItemIcon(item),
@@ -286,8 +314,20 @@ class _SessionListWidgetState extends State<SessionListWidget> {
     return const SizedBox.shrink();
   }
 
-  Widget separatorBuilder(BuildContext context, int index) {
+  Widget buildSeparator(BuildContext context, int index, List<SessionListViewModel> sessionList) {
     if (PlatformStyle.isUseMaterial) return const SizedBox.shrink();
+
+    // Is between pinned and unpinned items
+    if (index < sessionList.length - 1) {
+      final currentItem = sessionList[index];
+      final nextItem = sessionList[index + 1];
+
+      // No separator between pinned and unpinned items
+      if (currentItem.isAlwaysTop && !nextItem.isAlwaysTop) {
+        return const SizedBox.shrink();
+      }
+    }
+
     return Padding(
       padding: EdgeInsets.only(left: 72.px),
       child: Container(

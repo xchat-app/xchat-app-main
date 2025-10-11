@@ -20,6 +20,8 @@
   "description": "Descrizione",
   "mute_item": "Muto",
   "un_mute_item": "Riattiva audio",
+  "pin_item": "Fissa",
+  "unpin_item": "Rimuovi",
   "public_key": "Chiave pubblica",
   "bio": "Bio",
   "block_dialog_title": "Bloccare ${userName}?",

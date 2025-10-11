@@ -43,6 +43,8 @@ class ChatSessionModelISAR {
 
   bool alwaysTop;
 
+  bool isArchived;
+
   String? draft;
   String? replyMessageId;
 
@@ -73,6 +75,7 @@ class ChatSessionModelISAR {
     this.messageType = 'text',
     this.avatar,
     this.alwaysTop = false,
+    this.isArchived = false,
     this.draft,
     this.replyMessageId,
     this.isMentioned = false,
@@ -97,7 +100,7 @@ class ChatSessionModelISAR {
 
   @override
   String toString() {
-    return 'ChatSessionModel{chatId: $chatId, chatName: $chatName, sender: $sender, receiver: $receiver, groupId: $groupId, content: $content, unreadCount: $unreadCount, createTime: $createTime, lastActivityTime: $lastActivityTime, chatType: $chatType, messageType: $messageType, avatar: $avatar, alwaysTop: $alwaysTop, draft: $draft, messageKind: $messageKind, expiration: $expiration}';
+    return 'ChatSessionModel{chatId: $chatId, chatName: $chatName, sender: $sender, receiver: $receiver, groupId: $groupId, content: $content, unreadCount: $unreadCount, createTime: $createTime, lastActivityTime: $lastActivityTime, chatType: $chatType, messageType: $messageType, avatar: $avatar, alwaysTop: $alwaysTop, isArchived: $isArchived, draft: $draft, messageKind: $messageKind, expiration: $expiration}';
   }
 
   @ignore
@@ -153,6 +156,7 @@ ChatSessionModelISAR _chatSessionModelFromMap(Map<String, dynamic> map) {
     messageType: map['messageType'],
     avatar: map['avatar'],
     alwaysTop: map['alwaysTop'] == 1,
+    isArchived: map['isArchived'] == 1,
     draft: map['draft'],
     replyMessageId: map['replyMessageId'],
     isMentioned: map['isMentioned'] == 1,

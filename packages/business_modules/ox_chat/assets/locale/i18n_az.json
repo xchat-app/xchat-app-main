@@ -20,6 +20,8 @@
   "description": "Təsvir",
   "mute_item": "Susdur",
   "un_mute_item": "Səsi aç",
+  "pin_item": "Pin",
+  "unpin_item": "Unpin",
   "public_key": "Publik Açar",
   "bio": "Bio",
   "block_dialog_title": "${userName} bloklamaq?",

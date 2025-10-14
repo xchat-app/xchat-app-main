@@ -1,4 +1,3 @@
-import 'package:chatcore/chat-core.dart';
 import 'package:isar/isar.dart';
 import 'package:ox_common/login/login_models.dart';
 import 'package:ox_common/model/chat_session_model_isar.dart';
@@ -13,32 +12,23 @@ class ArchivedSessionListController with OXChatObserver, SessionListMixin {
   final Circle circle;
 
   @override
-  bool get shouldPushNotification => true;
-
-  @override
   int compareSession(ChatSessionModelISAR a, ChatSessionModelISAR b) {
     return b.lastActivityTime.compareTo(a.lastActivityTime);
   }
 
   @override
-  Future<List<SessionListViewModel>> initializedSessionList() async {
-    final isar = DBISAR.sharedInstance.isar;
-    final List<ChatSessionModelISAR> archivedSessions = isar
-        .chatSessionModelISARs
-        .where()
-        .chatIdIsNotEmpty()
-        .isArchivedEqualTo(true)
-        .sortByLastActivityTimeDesc()
-        .findAll();
+  QueryBuilder<ChatSessionModelISAR, ChatSessionModelISAR, QAfterFilterCondition>
+    sessionListQuery(IsarCollection<int, ChatSessionModelISAR> collection) =>
+      collection
+      .where()
+      .chatIdIsNotEmpty()
+      .isArchivedEqualTo(true);
 
-    final viewModelData = <SessionListViewModel>[];
-    for (var sessionModel in archivedSessions) {
-      final viewModel = SessionListViewModel(sessionModel);
-      viewModelData.add(viewModel);
-    }
-
-    return viewModelData;
-  }
+  @override
+  QueryBuilder<ChatSessionModelISAR, ChatSessionModelISAR, QAfterSortBy>
+    sessionListSort(QueryBuilder<ChatSessionModelISAR, ChatSessionModelISAR, QAfterFilterCondition> query) =>
+      query
+      .sortByLastActivityTimeDesc();
 
   @override
   void didSessionUpdate(ChatSessionModelISAR session) {
@@ -50,4 +40,3 @@ class ArchivedSessionListController with OXChatObserver, SessionListMixin {
     }
   }
 }
-

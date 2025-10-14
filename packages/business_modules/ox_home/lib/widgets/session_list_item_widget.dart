@@ -261,14 +261,17 @@ class SessionListItemWidget extends StatelessWidget {
   }
 
   ItemAction buildArchiveAction() {
+    final isArchived = item.isArchived;
     return ItemAction(
         id: 'archive',
-        label: Localized.text('ox_chat.archive_item'),
+        label: isArchived
+            ? Localized.text('ox_chat.unarchive_item')
+            : Localized.text('ox_chat.archive_item'),
         icon: CupertinoIcons.archivebox,
         onTap: (_) async {
           await OXChatBinding.sharedInstance.updateChatSession(
             item.sessionModel.chatId,
-            isArchived: true,
+            isArchived: !isArchived,
           );
           return true;
         }

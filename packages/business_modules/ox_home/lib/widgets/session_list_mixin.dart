@@ -5,20 +5,15 @@ import 'package:chatcore/chat-core.dart';
 import 'package:isar/isar.dart';
 import 'package:ox_common/model/chat_session_model_isar.dart';
 import 'package:ox_common/model/chat_type.dart';
-import 'package:ox_common/push/push_integration.dart';
 import 'package:ox_common/utils/ox_chat_binding.dart';
 import 'package:ox_common/utils/ox_chat_observer.dart';
-import 'package:ox_common/utils/session_helper.dart';
 
 import 'session_view_model.dart';
 
 mixin SessionListMixin on OXChatObserver {
   ValueNotifier<List<SessionListViewModel>> sessionList$ = ValueNotifier([]);
-  
-  HashMap<String, SessionListViewModel> sessionCache = HashMap<String, SessionListViewModel>();
 
-  @protected
-  bool get shouldPushNotification;
+  HashMap<String, SessionListViewModel> sessionCache = HashMap<String, SessionListViewModel>();
 
   /// Compare two sessions to determine their order
   /// Returns:
@@ -29,14 +24,29 @@ mixin SessionListMixin on OXChatObserver {
   int compareSession(ChatSessionModelISAR a, ChatSessionModelISAR b);
 
   @protected
-  Future<List<SessionListViewModel>> initializedSessionList();
+  QueryBuilder<ChatSessionModelISAR, ChatSessionModelISAR, QAfterFilterCondition>
+    sessionListQuery(IsarCollection<int, ChatSessionModelISAR> collection);
+  
+  @protected
+  QueryBuilder<ChatSessionModelISAR, ChatSessionModelISAR, QAfterSortBy>
+    sessionListSort(QueryBuilder<ChatSessionModelISAR, ChatSessionModelISAR, QAfterFilterCondition> query);
 
   Future<void> initialized() async {
-    final sessionList = await initializedSessionList();
-    sessionList$.value = sessionList;
-    sessionCache.addAll(Map.fromEntries(
-      sessionList.map((e) => MapEntry(e.sessionModel.chatId, e)),
-    ));
+    final isar = DBISAR.sharedInstance.isar;
+    final sessionList = sessionListSort(
+      sessionListQuery(
+        isar.chatSessionModelISARs
+      )
+    ).findAll();
+
+    final viewModelData = <SessionListViewModel>[];
+    for (var sessionModel in sessionList) {
+      final viewModel = SessionListViewModel(sessionModel);
+      viewModelData.add(viewModel);
+      sessionCache[sessionModel.chatId] = viewModel;
+    }
+    sessionList$.value = viewModelData;
+
     OXChatBinding.sharedInstance.addObserver(this);
     OXChatBinding.sharedInstance.updateChatSessionFn.add(updateChatSession);
   }
@@ -140,35 +150,11 @@ mixin SessionListMixin on OXChatObserver {
 
   @override
   void didReceiveMessageCallback(MessageDBISAR message) async {
-    final messageIsRead =
-        OXChatBinding.sharedInstance.msgIsReaded?.call(message) ?? false;
-    if (messageIsRead) {
-      message.read = messageIsRead;
-      Messages.saveMessageToDB(message);
-    }
-
-    final chatType = message.chatType;
-    if (chatType == null) return;
-
-    final chatId = message.chatId;
-    var viewModel = sessionCache[chatId];
-    if (viewModel == null) {
-      final params = SessionCreateParams.fromMessage(message);
-      final sessionModel = await SessionHelper.createSessionModel(params);
-
-      viewModel = SessionListViewModel(sessionModel);
-      viewModel.sessionModel.updateWithMessage(message);
-      addViewModel(viewModel);
-    } else {
+    var viewModel = sessionCache[message.chatId];
+    if (viewModel != null) {
       viewModel.sessionModel.updateWithMessage(message);
       viewModel.rebuild();
       updateSessionPosition(viewModel);
-    }
-
-    ChatSessionModelISAR.saveChatSessionModelToDB(viewModel.sessionModel);
-
-    if (shouldPushNotification) {
-      CLPushIntegration.instance.putReceiveMessage(viewModel.name, message);
     }
   }
 
@@ -382,10 +368,8 @@ extension ChatSessionModelISARUpdateEx on ChatSessionModelISAR {
   }
 }
 
-extension _MessageDBISAREx on MessageDBISAR {
+extension MessageDBISAREx on MessageDBISAR {
   String get chatId {
     return groupId;
   }
 }
-
-

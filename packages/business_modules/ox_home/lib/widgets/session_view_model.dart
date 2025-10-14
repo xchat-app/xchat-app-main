@@ -27,6 +27,7 @@ class SessionListViewModel {
   bool get isMentioned => _raw.mentionMessageIds.isNotEmpty;
   bool get isMute => ChatSessionUtils.getChatMute(sessionModel);
   bool get isAlwaysTop => sessionModel.alwaysTop;
+  bool get isArchived => sessionModel.isArchivedSafe;
 
   String get updateTime =>
       OXDateUtils.convertTimeFormatString2(_raw.createTime,

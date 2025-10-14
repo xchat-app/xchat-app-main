@@ -183,32 +183,24 @@ class _SessionListWidgetState extends State<SessionListWidget> {
   }
 
   Widget _buildArchivedChatsFooter(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _navigateToArchivedChats(context),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 16.px),
-        color: Colors.transparent,
-        child: Row(
-          children: [
-            Icon(
-              CupertinoIcons.archivebox,
-              size: 24.px,
-              color: ColorToken.primary.of(context),
-            ),
-            SizedBox(width: 12.px),
-            Expanded(
-              child: CLText.bodyMedium(
-                Localized.text('ox_chat.archived_chats'),
-                customColor: ColorToken.primary.of(context),
-              ),
-            ),
-            Icon(
-              CupertinoIcons.chevron_right,
-              size: 20.px,
-              color: ColorToken.onSurfaceVariant.of(context),
-            ),
-          ],
-        ),
+    return CupertinoButton(
+      onPressed: () => _navigateToArchivedChats(context),
+      padding: EdgeInsets.symmetric(vertical: 8.px),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CLText.bodyMedium(
+            Localized.text('ox_chat.archived_chats'),
+            customColor: ColorToken.primary.of(context),
+          ),
+          SizedBox(width: 4.px),
+          Icon(
+            CupertinoIcons.chevron_right,
+            size: 16.px,
+            color: ColorToken.primary.of(context),
+          ),
+        ],
       ),
     );
   }

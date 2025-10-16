@@ -25,10 +25,10 @@ class ChatSessionModelISAR {
   String? content;
   int unreadCount;
 
-  //last message timestamp(ms)
+  // last message timestamp(ms)
   int createTime;
 
-  //last activity timestamp(ms)
+  // last activity timestamp(ms)
   int lastActivityTime;
 
   // 0 Chat  1 Normal Group  2 Channel Group  3 Secret Chat 4 Stranger Chat  5 Stranger secret Chat 7 Relay Group Chat
@@ -136,10 +136,6 @@ class ChatSessionModelISAR {
       chatType: type,
       sender: sender,
     );
-  }
-
-  static Future<void> saveChatSessionModelToDB(ChatSessionModelISAR chatSessionModel) async {
-    await DBISAR.sharedInstance.saveToDB(chatSessionModel);
   }
 }
 

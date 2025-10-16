@@ -13,7 +13,7 @@ import 'package:ox_common/utils/widget_tool.dart';
 import 'package:ox_common/widgets/avatar.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 
-import 'session_list_mixin.dart';
+import 'session_view_model_handler.dart';
 import 'session_view_model.dart';
 
 enum SessionDeleteAction {
@@ -34,7 +34,7 @@ class SessionListItemWidget extends StatelessWidget {
   });
 
   final SessionListViewModel item;
-  final SessionListMixin? sessionListController;
+  final SessionViewModelHandler? sessionListController;
   final bool showPinnedBackground;
 
   @override
@@ -251,9 +251,9 @@ class SessionListItemWidget extends StatelessWidget {
         ),
         icon: isPinned ? CupertinoIcons.pin_slash : CupertinoIcons.pin_fill,
         onTap: (_) async {
-          await OXChatBinding.sharedInstance.updateChatSession(
-            item.sessionModel.chatId,
-            alwaysTop: !isPinned,
+          await OXChatBinding.sharedInstance.updatePinStatus(
+            chatId: item.sessionModel.chatId,
+            isPinned: !isPinned,
           );
           return true;
         }
@@ -269,8 +269,8 @@ class SessionListItemWidget extends StatelessWidget {
             : Localized.text('ox_chat.archive_item'),
         icon: CupertinoIcons.archivebox,
         onTap: (_) async {
-          await OXChatBinding.sharedInstance.updateChatSession(
-            item.sessionModel.chatId,
+          OXChatBinding.sharedInstance.updateArchiveStatus(
+            chatId: item.sessionModel.chatId,
             isArchived: !isArchived,
           );
           return true;

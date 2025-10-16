@@ -268,22 +268,15 @@ extension ChatMessageSendEx on ChatGeneralHandler {
 
   void _updateSessionAfterSendMessage(types.Message message) {
     // Get the session model and update its lastActivityTime
-    final sessionModel = OXChatBinding.sharedInstance.getSessionModel(session.chatId);
-    if (sessionModel != null) {
-      // Trigger session list update through OXChatBinding
-      OXChatBinding.sharedInstance.updateChatSession(
-        session.chatId,
-        lastMessageTime: sessionModel.createTime < message.createdAt
-            ? message.createdAt : null,
-        lastActivityTime: sessionModel.lastActivityTime < message.createdAt
-            ? message.createdAt : null,
-        content: ChatMessageHelper.getMessagePreviewText(
-          message.content,
-          message.dbMessageType,
-          message.author.id,
-        ),
-      );
-    }
+    OXChatBinding.sharedInstance.updateLastMessageInfo(
+      chatId: session.chatId,
+      previewContent: ChatMessageHelper.getMessagePreviewText(
+        message.content,
+        message.dbMessageType,
+        message.author.id,
+      ), 
+      msgTime: DateTime.fromMillisecondsSinceEpoch(message.createdAt),
+    );
   }
 
   void _setMessageSendingStatusIfNeeded(OXValue<bool> sendFinish, types.Message message) {

@@ -10,7 +10,7 @@ import 'package:ox_common/utils/ox_chat_observer.dart';
 
 import 'session_view_model.dart';
 
-mixin SessionListMixin on OXChatObserver {
+mixin SessionViewModelHandler on OXChatObserver {
   ValueNotifier<List<SessionListViewModel>> sessionList$ = ValueNotifier([]);
 
   HashMap<String, SessionListViewModel> sessionCache = HashMap<String, SessionListViewModel>();
@@ -48,97 +48,27 @@ mixin SessionListMixin on OXChatObserver {
     sessionList$.value = viewModelData;
 
     OXChatBinding.sharedInstance.addObserver(this);
-    OXChatBinding.sharedInstance.updateChatSessionFn.add(updateChatSession);
   }
 
   void dispose() {
-    OXChatBinding.sharedInstance.updateChatSessionFn.remove(updateChatSession);
     OXChatBinding.sharedInstance.removeObserver(this);
   }
 
   @override
-  void deleteMessageHandler(MessageDBISAR delMessage, String newSessionSubtitle) {
-    final chatId = delMessage.groupId;
-
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return;
-
-    final sessionModel = viewModel.sessionModel;
-    sessionModel.content = newSessionSubtitle;
-
-    viewModel.rebuild();
-    ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
-  }
-
-  @override
-  void addReactionMessageCallback(String chatId, String messageId) async {
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return;
-
-    final sessionModel = viewModel.sessionModel;
-    final reactionMessageIds = [...sessionModel.reactionMessageIds];
-    if (!reactionMessageIds.contains(messageId)) {
-      sessionModel.reactionMessageIds = [messageId, ...reactionMessageIds];
-      viewModel.rebuild();
-      ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
+  @mustCallSuper
+  void didSessionUpdate(ChatSessionModelISAR session) {
+    final viewModel = sessionCache[session.chatId];
+    if (viewModel != null) {
+      viewModel.updateSessionRaw(session);
+      updateSessionPosition(viewModel);
     }
   }
 
   @override
-  void removeReactionMessageCallback(String chatId, [bool sendNotification = true]) async {
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return;
-
-    final sessionModel = viewModel.sessionModel;
-    sessionModel.reactionMessageIds = [];
-    if (sendNotification) {
-      viewModel.rebuild();
-    }
-    ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
-  }
-
-  @override
-  void addMentionMessageCallback(String chatId, String messageId) async {
-    if (chatId.isEmpty) return;
-
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return;
-
-    final sessionModel = viewModel.sessionModel;
-    final mentionMessageIds = [...sessionModel.mentionMessageIds];
-    if (!mentionMessageIds.contains(messageId)) {
-      sessionModel.mentionMessageIds = [messageId, ...sessionModel.mentionMessageIds];
-      viewModel.rebuild();
-      ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
-    }
-  }
-
-  @override
-  void removeMentionMessageCallback(String chatId, [bool sendNotification = true]) async {
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return;
-
-    final sessionModel = viewModel.sessionModel;
-    sessionModel.mentionMessageIds = [];
-    ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
-    if (sendNotification) {
-      viewModel.rebuild();
-    }
-  }
-
-
-  @override
+  @mustCallSuper
   Future deleteSessionCallback(List<String> chatIds) async {
     chatIds = chatIds.where((e) => e.isNotEmpty).toList();
     if (chatIds.isEmpty) return;
-
-    final isar = DBISAR.sharedInstance.isar;
-    await isar.writeAsync((isar) {
-      isar.chatSessionModelISARs
-          .where()
-          .anyOf(chatIds, (q, chatId) => q.chatIdEqualTo(chatId))
-          .deleteAll();
-    });
 
     for (var chatId in chatIds) {
       final viewModel = sessionCache[chatId];
@@ -146,44 +76,6 @@ mixin SessionListMixin on OXChatObserver {
 
       removeViewModel(viewModel);
     }
-  }
-
-  @override
-  void didReceiveMessageCallback(MessageDBISAR message) async {
-    var viewModel = sessionCache[message.chatId];
-    if (viewModel != null) {
-      viewModel.sessionModel.updateWithMessage(message);
-      viewModel.rebuild();
-      updateSessionPosition(viewModel);
-    }
-  }
-
-  @override
-  void didChatMessageUpdateCallBack(MessageDBISAR message, String replacedMessageId) {
-    final chatType = message.chatType;
-    if (chatType == null) return;
-
-    final chatId = message.chatId;
-
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return;
-
-    // Update session with the new message
-    viewModel.sessionModel.updateWithMessage(message);
-    viewModel.rebuild();
-    updateSessionPosition(viewModel);
-
-    ChatSessionModelISAR.saveChatSessionModelToDB(viewModel.sessionModel);
-  }
-
-  @override
-  void didCreateSessionCallBack(ChatSessionModelISAR session) {
-    final chatId = session.chatId;
-    if (sessionCache.containsKey(chatId)) return;
-
-    final viewModel = SessionListViewModel(session);
-    addViewModel(viewModel);
-    ChatSessionModelISAR.saveChatSessionModelToDB(session);
   }
 
   void addViewModel(SessionListViewModel viewModel) {
@@ -294,53 +186,6 @@ mixin SessionListMixin on OXChatObserver {
       group,
       requestDeleteForAll: isDeleteForRemote,
     );
-
-    return true;
-  }
-
-  Future<bool> updateChatSession(String chatId, {
-    String? chatName,
-    String? content,
-    String? pic,
-    int? unreadCount,
-    bool? alwaysTop,
-    bool? isArchived,
-    String? draft,
-    String? replyMessageId,
-    int? messageKind,
-    bool? isMentioned,
-    int? expiration,
-    int? lastMessageTime,
-    int? lastActivityTime,
-  }) async {
-    final viewModel = sessionCache[chatId];
-    if (viewModel == null) return false;
-
-    final sessionModel = viewModel.sessionModel;
-
-    sessionModel.chatName = chatName ?? sessionModel.chatName;
-    sessionModel.content = content ?? sessionModel.content;
-    sessionModel.avatar = pic ?? sessionModel.avatar;
-    sessionModel.unreadCount = unreadCount ?? sessionModel.unreadCount;
-    sessionModel.alwaysTop = alwaysTop ?? sessionModel.alwaysTop;
-    sessionModel.isArchived = isArchived ?? sessionModel.isArchived;
-    sessionModel.draft = draft ?? sessionModel.draft;
-    sessionModel.replyMessageId = replyMessageId ?? sessionModel.replyMessageId;
-    sessionModel.isMentioned = isMentioned ?? sessionModel.isMentioned;
-    sessionModel.messageKind = messageKind ?? sessionModel.messageKind;
-    sessionModel.expiration = expiration ?? sessionModel.expiration;
-    sessionModel.createTime = lastMessageTime ?? sessionModel.createTime;
-    sessionModel.lastActivityTime = lastActivityTime ?? sessionModel.lastActivityTime;
-
-    viewModel.rebuild();
-
-    if (lastActivityTime != null || alwaysTop != null) {
-      updateSessionPosition(viewModel);
-    }
-
-    await ChatSessionModelISAR.saveChatSessionModelToDB(sessionModel);
-
-    OXChatBinding.sharedInstance.notifySessionUpdate(sessionModel);
 
     return true;
   }

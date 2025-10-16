@@ -4,21 +4,42 @@ import 'package:chatcore/chat-core.dart';
 import 'package:ox_common/model/chat_session_model_isar.dart';
 import 'package:ox_common/utils/ox_chat_observer.dart';
 
-typedef UpdateSessionFn = Future<bool> Function(String chatId, {
-  String? chatName,
-  String? content,
-  String? pic,
-  int? unreadCount,
-  bool? alwaysTop,
-  bool? isArchived,
-  String? draft,
-  String? replyMessageId,
-  int? messageKind,
-  bool? isMentioned,
-  int? expiration,
-  int? lastMessageTime,
-  int? lastActivityTime,
-});
+abstract class CLSessionHandler {
+  Future<void> updateLastMessageInfo({
+    required String chatId,
+    required String previewContent,
+    required DateTime msgTime,
+  });
+
+  Future<void> updateDraft({
+    required String chatId,
+    required String? draftContent,
+  });
+
+  Future<void> updateReplyDraft({
+    required String chatId,
+    required String? replyMsgId,
+  });
+
+  Future<void> clearUnreadCount({
+    required String chatId,
+  });
+
+  Future<void> updateMentionStatus({
+    required String chatId,
+    required bool isMentioned,
+  });
+
+  Future<void> updatePinStatus({
+    required String chatId,
+    required bool isPinned,
+  });
+
+  Future<void> updateArchiveStatus({
+    required String chatId,
+    required bool isArchived,
+  });
+}
 
 class OXChatBinding {
   static final OXChatBinding sharedInstance = OXChatBinding._internal();
@@ -31,55 +52,83 @@ class OXChatBinding {
 
   final List<OXChatObserver> _observers = <OXChatObserver>[];
 
-  List<ChatSessionModelISAR> Function()? sessionListFetcher;
-  List<ChatSessionModelISAR> get sessionList => sessionListFetcher?.call() ?? [];
-
   String Function(MessageDBISAR messageDB)? sessionMessageTextBuilder;
   bool Function(MessageDBISAR messageDB)? msgIsReaded;
+
+  List<ChatSessionModelISAR> Function()? sessionListFetcher;
+  List<ChatSessionModelISAR> get sessionList => sessionListFetcher?.call() ?? [];
 
   ChatSessionModelISAR? Function(String chatId)? sessionModelFetcher;
   ChatSessionModelISAR? getSessionModel(String chatId) =>
       sessionModelFetcher?.call(chatId);
 
-  List<UpdateSessionFn> updateChatSessionFn = [];
+  CLSessionHandler? _handler;
 
-  Future<bool> updateChatSession(String chatId, {
-    String? chatName,
-    String? content,
-    String? pic,
-    int? unreadCount,
-    bool? alwaysTop,
-    bool? isArchived,
-    String? draft,
-    String? replyMessageId,
-    int? messageKind,
-    bool? isMentioned,
-    int? expiration,
-    int? lastMessageTime,
-    int? lastActivityTime,
-  }) async {
-    for (var fn in updateChatSessionFn) {
-      final result = await fn.call(
-        chatId,
-        chatName: chatName,
-        content: content,
-        pic: pic,
-        unreadCount: unreadCount,
-        alwaysTop: alwaysTop,
-        isArchived: isArchived,
-        draft: draft,
-        replyMessageId: replyMessageId,
-        messageKind: messageKind,
-        isMentioned: isMentioned,
-        expiration: expiration,
-        lastMessageTime: lastMessageTime,
-        lastActivityTime: lastActivityTime,
-      );
-      if (result) return true;
-    }
-
-    return false;
+  void attachHandler(CLSessionHandler handler) {
+    _handler = handler;
   }
+
+  void detachHandler(CLSessionHandler handler) {
+    if (_handler == handler) {
+      _handler = null;
+    }
+  }
+
+  Future<void> updateLastMessageInfo({
+    required String chatId,
+    required String previewContent,
+    required DateTime msgTime,
+  }) async => _handler?.updateLastMessageInfo(
+    chatId: chatId,
+    previewContent: previewContent,
+    msgTime: msgTime,
+  );
+
+  Future<void> updateDraft({
+    required String chatId,
+    required String? draftContent,
+  }) async => _handler?.updateDraft(
+    chatId: chatId,
+    draftContent: draftContent,
+  );
+
+  Future<void> updateReplyDraft({
+    required String chatId,
+    required String? replyMsgId,
+  }) async => _handler?.updateReplyDraft(
+    chatId: chatId,
+    replyMsgId: replyMsgId,
+  );
+
+  Future<void> clearUnreadCount({
+    required String chatId,
+  }) async => _handler?.clearUnreadCount(
+    chatId: chatId,
+  );
+
+  Future<void> updateMentionStatus({
+    required String chatId,
+    required bool isMentioned,
+  }) async => _handler?.updateMentionStatus(
+    chatId: chatId,
+    isMentioned: isMentioned,
+  );
+
+  Future<void> updatePinStatus({
+    required String chatId,
+    required bool isPinned,
+  }) async => _handler?.updatePinStatus(
+    chatId: chatId,
+    isPinned: isPinned,
+  );
+
+  Future<void> updateArchiveStatus({
+    required String chatId,
+    required bool isArchived,
+  }) async => _handler?.updateArchiveStatus(
+    chatId: chatId,
+    isArchived: isArchived,
+  );
 
   void addReactionMessage(String chatId, String messageId) {
     for (OXChatObserver observer in _observers) {

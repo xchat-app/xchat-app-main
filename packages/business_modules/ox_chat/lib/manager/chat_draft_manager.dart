@@ -49,7 +49,7 @@ class ChatDraftManager {
 
   Future updateSessionDraft(String chatId) async {
     final draft = tempDraft[chatId];
-    await OXChatBinding.sharedInstance.updateChatSession(chatId, draft: draft);
+    await OXChatBinding.sharedInstance.updateDraft(chatId: chatId, draftContent: draft);
 
     await _clearTempDraft(chatId);
   }

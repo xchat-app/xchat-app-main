@@ -12,7 +12,7 @@ class SessionListViewModel {
     updateGroupMemberIfNeeded();
   }
 
-  final ChatSessionModelISAR _raw;
+  ChatSessionModelISAR _raw;
   ChatSessionModelISAR get sessionModel => _raw;
 
   late ValueNotifier entity$ =
@@ -142,6 +142,10 @@ class SessionListViewModel {
     avatars.removeWhere((e) => e.isEmpty);
 
     groupMember$.value = avatars;
+  }
+
+  void updateSessionRaw(ChatSessionModelISAR session) {
+    _raw = session;
   }
 
   void rebuild() {

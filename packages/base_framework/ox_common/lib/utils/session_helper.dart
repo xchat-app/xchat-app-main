@@ -41,6 +41,7 @@ class SessionCreateParams {
       groupId: message.groupId,
       chatType: message.chatType!,
       content: message.content,
+      createTime: message.createTime * 1000,
       isSingleChat: false, // Will be determined later
     );
   }
@@ -63,6 +64,7 @@ class SessionCreateParams {
 
 class SessionHelper {
   static Future<ChatSessionModelISAR> createSessionModel(SessionCreateParams params) async {
+    final createTime = params.createTime ?? DateTime.now().millisecondsSinceEpoch;
     final sessionModel = ChatSessionModelISAR(
       chatId: params.chatId,
       chatName: params.chatName,
@@ -71,7 +73,8 @@ class SessionHelper {
       groupId: params.groupId,
       chatType: params.chatType,
       content: params.content,
-      createTime: params.createTime ?? DateTime.now().millisecondsSinceEpoch,
+      createTime: createTime,
+      lastActivityTime: createTime,
       avatar: params.avatar,
       isSingleChat: params.isSingleChat,
     );

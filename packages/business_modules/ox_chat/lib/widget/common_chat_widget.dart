@@ -101,10 +101,8 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       handler.chatWidgetKey = chatWidgetKey;
 
-      session.unreadCount = 0;
-      OXChatBinding.sharedInstance.updateChatSession(
-        session.chatId,
-        unreadCount: 0,
+      OXChatBinding.sharedInstance.clearUnreadCount(
+        chatId: session.chatId,
       );
     });
 
@@ -131,7 +129,10 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
 
   void mentionStateInitialize() {
     if (session.isMentioned) {
-      OXChatBinding.sharedInstance.updateChatSession(session.chatId, isMentioned: false);
+      OXChatBinding.sharedInstance.updateMentionStatus(
+        chatId: session.chatId,
+        isMentioned: false,
+      );
     }
   }
 

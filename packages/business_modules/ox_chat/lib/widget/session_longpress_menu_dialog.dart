@@ -205,7 +205,7 @@ class SessionMenuOptionModel {
       } else {
         unreadCount = 1;
       }
-      OXChatBinding.sharedInstance.updateChatSession(sessionModelISAR.chatId, unreadCount: unreadCount);
+      // OXChatBinding.sharedInstance.updateChatSession(sessionModelISAR.chatId, unreadCount: unreadCount);
     } else if (optionModel == LongPressOptionEnum.muteOrUnmute) {
       bool value = !isMute;
       ChatSessionUtils.setChatMute(sessionModelISAR, value);

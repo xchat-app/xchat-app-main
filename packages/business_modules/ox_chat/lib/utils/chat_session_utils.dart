@@ -305,9 +305,6 @@ class ChatSessionUtils {
       final params = SessionCreateParams.fromGroup(groupDB, user);
       final sessionModel = await SessionHelper.createSessionModel(params);
 
-      // Trigger session creation callback
-      OXChatBinding.sharedInstance.createSessionCallBack(sessionModel);
-
       // Navigate to chat page
       ChatMessagePage.open(
         context: null,

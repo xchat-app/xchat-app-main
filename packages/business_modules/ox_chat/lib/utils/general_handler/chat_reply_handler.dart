@@ -19,9 +19,9 @@ class ChatReplyHandler {
     if (replyMessage == message) return ;
     replyMessage = message;
     replyMessageNotifier.value = message?.replyDisplayContent;
-    await OXChatBinding.sharedInstance.updateChatSession(
-      chatId,
-      replyMessageId: message?.remoteId ?? '',
+    await OXChatBinding.sharedInstance.updateReplyDraft(
+      chatId: chatId,
+      replyMsgId: message?.remoteId ?? '',
     );
   }
 

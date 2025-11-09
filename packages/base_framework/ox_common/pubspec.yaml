@@ -43,7 +43,7 @@ dependencies:
   permission_handler: ^11.0.0
   flutter_easyloading: ^3.0.0
   archive: ^3.1.2
-  flutter_zxing: 1.4.1
+  mobile_scanner: ^5.1.1
   pretty_qr_code: ^3.4.0
   dart_ping: 9.0.1
   dart_ping_ios: 4.0.2

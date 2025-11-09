@@ -11,7 +11,7 @@ import 'package:ox_common/utils/permission_utils.dart';
 import 'package:ox_common/utils/string_utils.dart';
 import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_localizable/ox_localizable.dart';
-import 'package:flutter_zxing/flutter_zxing.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -22,10 +22,12 @@ class CommonScanPage extends StatefulWidget {
   CommonScanPageState createState() => CommonScanPageState();
 }
 
-class CommonScanPageState extends State<CommonScanPage> with SingleTickerProviderStateMixin{
+class CommonScanPageState extends State<CommonScanPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  late AnimationController _controller;
+  late final MobileScannerController _scannerController;
   late double _scanArea;
+  bool _isProcessingScan = false;
+  String? _lastErrorMessage;
 
   @override
   void initState() {
@@ -34,27 +36,27 @@ class CommonScanPageState extends State<CommonScanPage> with SingleTickerProvide
         Adapt.screenH < 400)
         ? Adapt.px(160)
         : Adapt.px(260);
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 3),
-    )..addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _controller.reset();
-        _controller.forward();
-      }
-    });
-    _controller.forward();
+    _scannerController = MobileScannerController(
+      detectionSpeed: DetectionSpeed.normal,
+      facing: CameraFacing.back,
+      formats: const [BarcodeFormat.qrCode],
+      autoStart: true,
+    );
 
   }
 
   @override
   void reassemble() {
     super.reassemble();
+    if (Platform.isAndroid) {
+      _scannerController.stop();
+    }
+    _scannerController.start();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _scannerController.dispose();
     super.dispose();
   }
 
@@ -79,28 +81,28 @@ class CommonScanPageState extends State<CommonScanPage> with SingleTickerProvide
                 children: [
                   Expanded(
                       child: GestureDetector(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: Adapt.px(20),
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: Adapt.px(20),
+                              ),
+                              _itemView('icon_business_card.png'),
+                              SizedBox(
+                                height: Adapt.px(7),
+                              ),
+                              CLText.labelSmall(
+                                'str_my_idcard'.commonLocalized(),
+                                colorToken: ColorToken.white,
+                              ),
+                            ],
                           ),
-                          _itemView('icon_business_card.png'),
-                          SizedBox(
-                            height: Adapt.px(7),
-                          ),
-                          CLText.labelSmall(
-                            'str_my_idcard'.commonLocalized(),
-                            colorToken: ColorToken.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      OXUserCenterInterface.pushQRCodeDisplayPage(context);
-                    },
-                  )),
+                        ),
+                        onTap: () {
+                          OXUserCenterInterface.pushQRCodeDisplayPage(context);
+                        },
+                      )),
                   Container(
                     width: 0.5,
                     height: 80.px,
@@ -108,26 +110,26 @@ class CommonScanPageState extends State<CommonScanPage> with SingleTickerProvide
                   ),
                   Expanded(
                       child: GestureDetector(
-                    child: Container(
-                      color: Colors.transparent,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: Adapt.px(20),
+                        child: Container(
+                          color: Colors.transparent,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: Adapt.px(20),
+                              ),
+                              _itemView('icon_scan_qr.png'),
+                              SizedBox(
+                                height: Adapt.px(7),
+                              ),
+                              CLText.labelSmall(
+                                'str_album'.commonLocalized(),
+                                colorToken: ColorToken.white,
+                              ),
+                            ],
                           ),
-                          _itemView('icon_scan_qr.png'),
-                          SizedBox(
-                            height: Adapt.px(7),
-                          ),
-                          CLText.labelSmall(
-                            'str_album'.commonLocalized(),
-                            colorToken: ColorToken.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: _onPicTap,
-                  )),
+                        ),
+                        onTap: _onPicTap,
+                      )),
                 ],
               ),
             ),
@@ -217,38 +219,53 @@ class CommonScanPageState extends State<CommonScanPage> with SingleTickerProvide
   }
 
   Widget _buildQrView(BuildContext context) {
-    return ReaderWidget(
-      onScan: _onScanSuccess,
-      onScanFailure: _onScanFailure,
-      scanDelay: Duration(milliseconds: 500),
-      resolution: ResolutionPreset.high,
-      lensDirection: CameraLensDirection.back,
-      scannerOverlay: FixedScannerOverlay(
-        borderColor: Colors.white,
-        overlayColor: Colors.black45,
-        borderRadius: 1,
-        borderLength: 20,
-        borderWidth: 4.px,
-        cutOutSize: _scanArea,
-      ),
-      showFlashlight: false,
-      showGallery: false,
-      showToggleCamera: false,
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        MobileScanner(
+          controller: _scannerController,
+          fit: BoxFit.cover,
+          onDetect: _handleBarcodeDetection,
+          errorBuilder: (context, error, child) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _handleScannerError(error);
+            });
+            return child ?? Container(color: Colors.black);
+          },
+        ),
+        _ScannerOverlay(
+          cutOutSize: _scanArea,
+        ),
+      ],
     );
   }
 
-  _onScanSuccess(Code? code) {
-    if (code != null) {
-      OXNavigator.pop(context, code.text);
-    } else {
-      CommonToast.instance.show(context, "str_invalid_qr_code".commonLocalized());
+  void _handleBarcodeDetection(BarcodeCapture capture) {
+    if (_isProcessingScan) return;
+    for (final barcode in capture.barcodes) {
+      final value = barcode.rawValue ?? barcode.displayValue;
+      if (value != null && value.isNotEmpty) {
+        _isProcessingScan = true;
+        _scannerController.stop();
+        OXNavigator.pop(context, value);
+        return;
+      }
     }
   }
 
-  _onScanFailure(Code? code) {
-    if (code?.error?.isNotEmpty == true) {
-      _showMessage(context, '${"str_error".commonLocalized()}: ${code?.error}');
+  void _handleScannerError(MobileScannerException error) {
+    final details = error.errorDetails?.toString();
+    final message = (details != null && details.trim().isNotEmpty)
+        ? details
+        : error.errorCode.name;
+    if (message.isEmpty) {
+      return;
     }
+    if (_lastErrorMessage == message) {
+      return;
+    }
+    _lastErrorMessage = message;
+    _showMessage(context, '${"str_error".commonLocalized()}: $message');
   }
 
   _showMessage(BuildContext context, String message) {
@@ -257,5 +274,145 @@ class CommonScanPageState extends State<CommonScanPage> with SingleTickerProvide
       SnackBar(content: Text(message)),
     );
   }
+}
 
+class _ScannerOverlay extends StatelessWidget {
+  final double cutOutSize;
+
+  const _ScannerOverlay({
+    required this.cutOutSize,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final height = constraints.maxHeight;
+        final left = (width - cutOutSize) / 2;
+        final top = (height - cutOutSize) / 2 - 50;
+        final cornerLength = Adapt.px(24);
+        final strokeWidth = 4.px;
+
+        return Stack(
+          children: [
+            CustomPaint(
+              size: Size(width, height),
+              painter: _ScannerOverlayBackgroundPainter(
+                left: left,
+                top: top,
+                cutOutSize: cutOutSize,
+              ),
+            ),
+            _CornerBorder(
+              top: top,
+              left: left,
+              size: cornerLength,
+              border: Border(
+                top: BorderSide(color: Colors.white, width: strokeWidth),
+                left: BorderSide(color: Colors.white, width: strokeWidth),
+              ),
+            ),
+            _CornerBorder(
+              top: top,
+              right: left,
+              size: cornerLength,
+              border: Border(
+                top: BorderSide(color: Colors.white, width: strokeWidth),
+                right: BorderSide(color: Colors.white, width: strokeWidth),
+              ),
+            ),
+            _CornerBorder(
+              top: top + cutOutSize - cornerLength,
+              left: left,
+              size: cornerLength,
+              border: Border(
+                bottom: BorderSide(color: Colors.white, width: strokeWidth),
+                left: BorderSide(color: Colors.white, width: strokeWidth),
+              ),
+            ),
+            _CornerBorder(
+              top: top + cutOutSize - cornerLength,
+              right: left,
+              size: cornerLength,
+              border: Border(
+                bottom: BorderSide(color: Colors.white, width: strokeWidth),
+                right: BorderSide(color: Colors.white, width: strokeWidth),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class _CornerBorder extends StatelessWidget {
+  final double size;
+  final double? left;
+  final double? top;
+  final double? right;
+  final double? bottom;
+  final Border border;
+
+  const _CornerBorder({
+    required this.size,
+    required this.border,
+    this.left,
+    this.top,
+    this.right,
+    this.bottom,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      left: left,
+      top: top,
+      right: right,
+      bottom: bottom,
+      child: SizedBox(
+        width: size,
+        height: size,
+        child: DecoratedBox(
+          decoration: BoxDecoration(border: border),
+        ),
+      ),
+    );
+  }
+}
+
+class _ScannerOverlayBackgroundPainter extends CustomPainter {
+  final double left;
+  final double top;
+  final double cutOutSize;
+
+  _ScannerOverlayBackgroundPainter({
+    required this.left,
+    required this.top,
+    required this.cutOutSize,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final overlayPath = Path()
+      ..fillType = PathFillType.evenOdd
+      ..addRect(Rect.fromLTWH(0, 0, size.width, size.height))
+      ..addRect(Rect.fromLTWH(left, top, cutOutSize, cutOutSize));
+
+    final backgroundPaint = Paint()
+      ..color = Colors.black45;
+
+    canvas.drawPath(overlayPath, backgroundPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    if (oldDelegate is! _ScannerOverlayBackgroundPainter) {
+      return true;
+    }
+    return left != oldDelegate.left ||
+        top != oldDelegate.top ||
+        cutOutSize != oldDelegate.cutOutSize;
+  }
 }

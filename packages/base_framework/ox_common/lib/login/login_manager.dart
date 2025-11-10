@@ -338,6 +338,10 @@ extension LoginManagerAccount on LoginManager {
 
   // Throws an [Exception] if the logout operation fails
   Future<void> logoutAccount() async {
+    // Close the push notifications
+    final event = await NotificationHelper.sharedInstance.removeNotification();
+    if (!event.status) throw Exception('Push service error: ${event.message}');
+
     if (isLoginCircle) {
       await logoutCircle();
     }

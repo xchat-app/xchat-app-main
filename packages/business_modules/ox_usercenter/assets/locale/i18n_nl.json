@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "Deze actie zal uw account en lokale gegevens permanent verwijderen, inclusief berichten en media. Dit kan niet ongedaan worden gemaakt. Weet u zeker dat u wilt doorgaan?",
   "delete_account_failed": "Account verwijderen mislukt",
   "about_xchat": "Over XChat",
-  "contact_us": "Neem contact met ons op"
+  "contact_us": "Neem contact met ons op",
+  "advanced_settings": "Geavanceerde instellingen",
+  "show_message_info_option": "Toon berichtinfo-optie"
 }

@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "This action will permanently delete your account and local data, including messages and media. This cannot be undone. Are you sure you want to continue?",
   "delete_account_failed": "Failed to delete account",
   "about_xchat": "About XChat",
-  "contact_us": "Contact Us"
+  "contact_us": "Contact Us",
+  "advanced_settings": "Розширені налаштування",
+  "show_message_info_option": "Показати опцію інформації про повідомлення"
 }

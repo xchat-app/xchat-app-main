@@ -17,6 +17,7 @@ import 'package:ox_usercenter/page/settings/language_settings_page.dart';
 import 'package:ox_usercenter/page/settings/theme_settings_page.dart';
 import 'package:ox_usercenter/page/settings/notification_settings_page.dart';
 import 'package:ox_usercenter/page/settings/about_xchat_page.dart';
+import 'package:ox_usercenter/page/settings/advanced_settings_page.dart';
 
 import 'keys_page.dart';
 import 'circle_detail_page.dart';
@@ -156,6 +157,13 @@ class SettingSliderState extends State<SettingSlider> {
           icon: ListViewIcon.data(CupertinoIcons.info),
           title: Localized.text('ox_usercenter.about_xchat'),
           onTap: aboutXChatItemOnTap,
+        ),
+      ]),
+      SectionListViewItem(data: [
+        LabelItemModel(
+          icon: ListViewIcon.data(CupertinoIcons.gear_alt),
+          title: Localized.text('ox_usercenter.advanced_settings'),
+          onTap: advancedSettingsItemOnTap,
         ),
       ]),
       SectionListViewItem.button(
@@ -334,6 +342,10 @@ class SettingSliderState extends State<SettingSlider> {
 
   void aboutXChatItemOnTap() {
     OXNavigator.pushPage(context, (_) => AboutXChatPage(previousPageTitle: title,));
+  }
+
+  void advancedSettingsItemOnTap() {
+    OXNavigator.pushPage(context, (_) => AdvancedSettingsPage(previousPageTitle: title,));
   }
 
   void logoutItemOnTap() async {

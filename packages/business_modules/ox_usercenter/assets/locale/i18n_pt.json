@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "Esta ação excluirá permanentemente sua conta e dados locais, incluindo mensagens e mídia. Isso não pode ser desfeito. Tem certeza de que deseja continuar?",
   "delete_account_failed": "Falha ao excluir conta",
   "about_xchat": "Sobre XChat",
-  "contact_us": "Entre em contato conosco"
+  "contact_us": "Entre em contato conosco",
+  "advanced_settings": "Configurações avançadas",
+  "show_message_info_option": "Mostrar opção de informações da mensagem"
 }

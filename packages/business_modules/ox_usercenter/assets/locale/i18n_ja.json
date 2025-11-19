@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "この操作により、アカウントとローカルデータ（メッセージやメディアを含む）が永久的に削除されます。これは元に戻すことができません。続行してもよろしいですか？",
   "delete_account_failed": "アカウントの削除に失敗しました",
   "about_xchat": "XChatについて",
-  "contact_us": "お問い合わせ"
+  "contact_us": "お問い合わせ",
+  "advanced_settings": "詳細設定",
+  "show_message_info_option": "メッセージ情報オプションを表示"
 }

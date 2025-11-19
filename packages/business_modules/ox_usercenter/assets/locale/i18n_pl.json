@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "Ta akcja trwale usunie Twoje konto i dane lokalne, w tym wiadomości i multimedia. To nie może być cofnięte. Czy na pewno chcesz kontynuować?",
   "delete_account_failed": "Nie udało się usunąć konta",
   "about_xchat": "O XChat",
-  "contact_us": "Skontaktuj się z nami"
+  "contact_us": "Skontaktuj się z nami",
+  "advanced_settings": "Zaawansowane ustawienia",
+  "show_message_info_option": "Pokaż opcję informacji o wiadomości"
 }

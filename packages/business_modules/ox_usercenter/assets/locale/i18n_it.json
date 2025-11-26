@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "Questa azione eliminerà permanentemente il tuo account e i dati locali, inclusi messaggi e media. Questo non può essere annullato. Sei sicuro di voler continuare?",
   "delete_account_failed": "Impossibile eliminare account",
   "about_xchat": "Informazioni su XChat",
-  "contact_us": "Contattaci"
+  "contact_us": "Contattaci",
+  "advanced_settings": "Impostazioni avanzate",
+  "show_message_info_option": "Mostra opzione informazioni messaggio"
 }

@@ -234,6 +234,9 @@ class _ListViewItemBaseWidgetState extends State<_ListViewItemBaseWidget>
                 ? animationController.value * defaultLeadingSize
                 : defaultLeadingSize,
             trailing: effectiveTrailing,
+            padding: effectiveLeading != null
+                ? CLLayout.kNotchedPadding
+                : CLLayout.kNotchedPaddingWithoutLeading,
             onTap: onTap,
           );
         }

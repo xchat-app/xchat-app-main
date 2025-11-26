@@ -5,6 +5,7 @@ import 'package:ox_chat/message_handler/chat_message_helper.dart';
 import 'package:ox_chat/model/constant.dart';
 import 'package:ox_chat/utils/general_handler/chat_general_handler.dart';
 import 'package:ox_localizable/ox_localizable.dart';
+import 'package:ox_usercenter/utils/app_config_helper.dart';
 import 'package:super_context_menu/super_context_menu.dart';
 
 class MessageLongPressMenu {
@@ -65,6 +66,19 @@ class MessageLongPressMenu {
           image: MenuImage.icon(CupertinoIcons.exclamationmark_circle),
           callback: () {
             handler.menuItemPressHandler(context, message, MessageLongPressEventType.report);
+          },
+        ),
+      );
+    }
+
+    // Info action (if enabled in settings)
+    if (AppConfigHelper.showMessageInfoOptionNotifier().value) {
+      menuItems.add(
+        MenuAction(
+          title: Localized.text('ox_chat.message_menu_info'),
+          image: MenuImage.icon(CupertinoIcons.info),
+          callback: () {
+            handler.menuItemPressHandler(context, message, MessageLongPressEventType.info);
           },
         ),
       );

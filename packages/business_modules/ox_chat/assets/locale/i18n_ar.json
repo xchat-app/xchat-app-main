@@ -6,6 +6,7 @@
   "message_menu_save": "حفظ الصورة",
   "message_menu_delete": "حذف",
   "message_menu_report": "تبليغ",
+  "message_menu_info": "معلومات",
   "report_reason_title": "ماذا تريد التبليغ عنه؟",
   "report_reason_spam": "بريد مزعج",
   "report_reason_violence": "عنف",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "مالك المجموعة يحذف الرسالة ويخطر جميع الأعضاء، الذين سيحذفون جميعاً الرسالة عند الاستلام",
   "tech_intro_delete_4": "حذف المجموعة",
   "tech_intro_delete_4_desc": "مالك المجموعة يحذف المجموعة ويخطر جميع الأعضاء، الذين سيحذفون جميعاً محادثة المجموعة عند الاستلام",
-  "str_share_msg_confirm_content": "تأكيد مشاركة الرسالة مع \"${name}\""
+  "str_share_msg_confirm_content": "تأكيد مشاركة الرسالة مع \"${name}\"",
+  "message_detail": "تفاصيل الرسالة",
+  "message_detail_not_found": "الرسالة غير موجودة",
+  "message_properties": "خصائص الرسالة",
+  "send_event_info": "معلومات حدث الإرسال"
 }

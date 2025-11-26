@@ -6,6 +6,7 @@
   "message_menu_save": "Gem billede",
   "message_menu_delete": "Slet",
   "message_menu_report": "Rapport",
+  "message_menu_info": "Info",
   "report_reason_title": "HVAD VIL DU RAPPORTERE?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Vold",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "Gruppeejer sletter beskeden og underretter alle medlemmer, som alle vil slette beskeden ved modtagelse",
   "tech_intro_delete_4": "Sletning af gruppe",
   "tech_intro_delete_4_desc": "Gruppeejer sletter gruppen og underretter alle medlemmer, som alle vil slette gruppechatten ved modtagelse",
-  "str_share_msg_confirm_content": "Bekræft deling af besked med \"${name}\""
+  "str_share_msg_confirm_content": "Bekræft deling af besked med \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

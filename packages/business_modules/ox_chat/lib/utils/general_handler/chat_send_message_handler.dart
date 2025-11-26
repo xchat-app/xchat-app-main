@@ -233,6 +233,13 @@ extension ChatMessageSendEx on ChatGeneralHandler {
       status: event.status ? types.Status.sent : types.Status.error,
     );
     dataController.updateMessage(updatedMessage, originMessageId: originMessageId);
+
+    // Save OKEvent to database
+    final messageDB = await Messages.sharedInstance.loadMessageDBFromDB(originMessageId);
+    if (messageDB != null) {
+      messageDB.sendOkEvent = event.serialize();
+      await Messages.saveMessageToDB(messageDB);
+    }
   }
 
   void _sendActionFinishHandler({

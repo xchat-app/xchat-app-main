@@ -7,6 +7,7 @@ enum MessageLongPressEventType {
   quote,
   report,
   save,
+  info,
   // zaps,
 }
 

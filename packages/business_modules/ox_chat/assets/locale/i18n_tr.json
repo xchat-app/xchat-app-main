@@ -6,6 +6,7 @@
   "message_menu_save": "Resmi Kaydet",
   "message_menu_delete": "Sil",
   "message_menu_report": "Bildir",
+  "message_menu_info": "Info",
   "report_reason_title": "NEYİ BİLDİRMEK İSTERSİNİZ?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Şiddet",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "Grup sahibi mesajı siler ve tüm üyeleri bilgilendirir, hepsi alındığında mesajı silecektir",
   "tech_intro_delete_4": "Grup silme",
   "tech_intro_delete_4_desc": "Grup sahibi grubu siler ve tüm üyeleri bilgilendirir, hepsi alındığında grup sohbetini silecektir",
-  "str_share_msg_confirm_content": "Mesajı \"${name}\" ile paylaşmayı onayla"
+  "str_share_msg_confirm_content": "Mesajı \"${name}\" ile paylaşmayı onayla",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

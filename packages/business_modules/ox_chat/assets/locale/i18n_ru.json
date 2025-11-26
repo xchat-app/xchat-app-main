@@ -6,6 +6,7 @@
   "message_menu_save": "Сохранить изображение",
   "message_menu_delete": "Удалить",
   "message_menu_report": "Пожаловаться",
+  "message_menu_info": "Info",
   "report_reason_title": "НА ЧТО ВЫ ЖАЛУЕТЕСЬ?",
   "report_reason_spam": "Спам",
   "report_reason_violence": "Насилие",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "Владелец группы удаляет сообщение и уведомляет всех участников, которые все удалят сообщение при получении",
   "tech_intro_delete_4": "Удаление группы",
   "tech_intro_delete_4_desc": "Владелец группы удаляет группу и уведомляет всех участников, которые все удалят групповой чат при получении",
-  "str_share_msg_confirm_content": "Подтвердить отправку сообщения \"${name}\""
+  "str_share_msg_confirm_content": "Подтвердить отправку сообщения \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

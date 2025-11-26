@@ -6,6 +6,7 @@
   "message_menu_save": "Spara bild",
   "message_menu_delete": "Radera",
   "message_menu_report": "Rapportera",
+  "message_menu_info": "Info",
   "report_reason_title": "VAD VILL DU RAPPORTERA?",
   "report_reason_spam": "Skräppost",
   "report_reason_violence": "Våld",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "Gruppägaren tar bort meddelandet och meddelar alla medlemmar, som alla kommer att ta bort meddelandet vid mottagning",
   "tech_intro_delete_4": "Grupp borttagning",
   "tech_intro_delete_4_desc": "Gruppägaren tar bort gruppen och meddelar alla medlemmar, som alla kommer att ta bort gruppchatt vid mottagning",
-  "str_share_msg_confirm_content": "Bekräfta delning av meddelande med \"${name}\""
+  "str_share_msg_confirm_content": "Bekräfta delning av meddelande med \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

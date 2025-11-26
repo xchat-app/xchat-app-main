@@ -6,6 +6,7 @@
   "message_menu_save": "Guardar imagen",
   "message_menu_delete": "Eliminar",
   "message_menu_report": "Denunciar",
+  "message_menu_info": "Info",
   "report_reason_title": "¿QUÉ QUIERES DENUNCIAR?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Violencia",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "El propietario del grupo elimina el mensaje y notifica a todos los miembros, quienes eliminarán todos el mensaje al recibirlo",
   "tech_intro_delete_4": "Eliminación de grupo",
   "tech_intro_delete_4_desc": "El propietario del grupo elimina el grupo y notifica a todos los miembros, quienes eliminarán todos el chat de grupo al recibirlo",
-  "str_share_msg_confirm_content": "Confirmar compartir el mensaje con \"${name}\""
+  "str_share_msg_confirm_content": "Confirmar compartir el mensaje con \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

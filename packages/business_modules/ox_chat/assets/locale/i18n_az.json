@@ -6,6 +6,7 @@
   "message_menu_save": "Şəkli saxla",
   "message_menu_delete": "Sil",
   "message_menu_report": "Bildir",
+  "message_menu_info": "Info",
   "report_reason_title": "NƏ BİLDİRƏCƏKSİNİZ?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Zorakılıq",
@@ -147,5 +148,9 @@
   "tech_intro_faq_answer_1": "Bəli! Mesajlarınız son-ə-son şifrələnib, yəni yalnız siz və söhbət tərəfdaşlarınız onları oxuya bilərsiniz. Hətta biz də mesajlarınıza giriş edə bilmirik.",
   "tech_intro_faq_question_2": "Cihazımı itirsəm nə baş verər?",
   "tech_intro_faq_answer_2": "Təəssüf ki, cihazınızı itirsəniz, söhbətləriniz və mesajlarınız bərpa edilə bilməz. Bunun səbəbi mesajlarınızın cihazınızda yerli olaraq saxlanılması və heç bir mərkəzi serverə yedəklənməməsidir. Mühüm söhbətləri müntəzəm olaraq yedəkləməyi tövsiyə edirik.",
-  "str_share_msg_confirm_content": "Mesajı \"${name}\" ilə paylaşmağı təsdiq edin"
+  "str_share_msg_confirm_content": "Mesajı \"${name}\" ilə paylaşmağı təsdiq edin",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

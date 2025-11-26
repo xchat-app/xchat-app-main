@@ -48,6 +48,7 @@ import 'package:ox_chat/manager/chat_data_cache.dart';
 import 'package:ox_chat_ui/ox_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:ox_chat/page/contacts/contact_user_info_page.dart';
+import 'package:ox_chat/page/message_detail_page.dart';
 import 'package:ox_chat/utils/chat_log_utils.dart';
 import 'package:ox_chat/utils/message_report.dart';
 import 'package:ox_chat/utils/widget_tool.dart';
@@ -62,7 +63,9 @@ import 'package:ox_common/widgets/common_loading.dart';
 import 'package:ox_common/model/chat_type.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 import 'package:chatcore/chat-core.dart';
+import 'package:isar/isar.dart' hide Filter;
 import 'package:nostr_core_dart/nostr.dart';
+import 'package:sqflite_sqlcipher/sqlite_api.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:ox_usercenter/page/settings/file_server_page.dart';
 import 'package:ox_common/utils/file_server_helper.dart';
@@ -522,6 +525,9 @@ extension ChatMenuHandlerEx on ChatGeneralHandler {
       case MessageLongPressEventType.quote:
         replyHandler.quoteMenuItemPressHandler(message);
         break;
+      case MessageLongPressEventType.info:
+        _infoMenuItemPressHandler(context, message);
+        break;
       // case MessageLongPressEventType.zaps:
       //   _zapMenuItemPressHandler(context, message);
       //   break;
@@ -777,6 +783,13 @@ extension ChatMenuHandlerEx on ChatGeneralHandler {
   }
 
   /// Handles the press event for the "Report" button in a menu item.
+  void _infoMenuItemPressHandler(BuildContext context, types.Message message) {
+    OXNavigator.pushPage(
+      context,
+      (context) => MessageDetailPage(message: message),
+    );
+  }
+
   void _reportMenuItemPressHandler(BuildContext context, types.Message message) async {
 
     ChatLogUtils.info(

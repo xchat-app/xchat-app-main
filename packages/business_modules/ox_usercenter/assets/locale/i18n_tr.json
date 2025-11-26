@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "Bu işlem hesabınızı ve yerel verilerinizi kalıcı olarak silecek, mesajlar ve medya dahil. Bu geri alınamaz. Devam etmek istediğinizden emin misiniz?",
   "delete_account_failed": "Hesap silinemedi",
   "about_xchat": "XChat hakkında",
-  "contact_us": "Bizimle iletişime geçin"
+  "contact_us": "Bizimle iletişime geçin",
+  "advanced_settings": "Gelişmiş ayarlar",
+  "show_message_info_option": "Mesaj bilgisi seçeneğini göster"
 }

@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "이 작업은 귀하의 계정과 로컬 데이터(메시지 및 미디어 포함)를 영구적으로 삭제합니다. 이것은 취소할 수 없습니다. 계속하시겠습니까?",
   "delete_account_failed": "계정 삭제에 실패했습니다",
   "about_xchat": "XChat 정보",
-  "contact_us": "문의하기"
+  "contact_us": "문의하기",
+  "advanced_settings": "고급 설정",
+  "show_message_info_option": "메시지 정보 옵션 표시"
 }

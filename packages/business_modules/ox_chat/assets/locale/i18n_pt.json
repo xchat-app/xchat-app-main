@@ -6,6 +6,7 @@
   "message_menu_save": "Salvar imagem",
   "message_menu_delete": "Excluir",
   "message_menu_report": "Denunciar",
+  "message_menu_info": "Info",
   "report_reason_title": "O QUE DESEJA DENUNCIAR?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Violência",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "O proprietário do grupo exclui a mensagem e notifica todos os membros, que todos excluirão a mensagem ao receber",
   "tech_intro_delete_4": "Exclusão de grupo",
   "tech_intro_delete_4_desc": "O proprietário do grupo exclui o grupo e notifica todos os membros, que todos excluirão o chat do grupo ao receber",
-  "str_share_msg_confirm_content": "Confirmar compartilhar a mensagem com \"${name}\""
+  "str_share_msg_confirm_content": "Confirmar compartilhar a mensagem com \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

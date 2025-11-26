@@ -6,6 +6,7 @@
   "message_menu_save": "Запазване на изображение",
   "message_menu_delete": "Изтриване",
   "message_menu_report": "Докладвай",
+  "message_menu_info": "Info",
   "report_reason_title": "КАКВО ИСКАТЕ ДА ДОКЛАДВАТЕ?",
   "report_reason_spam": "Спам",
   "report_reason_violence": "Насилие",
@@ -147,5 +148,9 @@
   "tech_intro_faq_answer_1": "Да! Вашите съобщения са криптирани от край до край, което означава, че само вие и вашите партньори в разговора можете да ги четете. Дори ние не можем да получим достъп до вашите съобщения.",
   "tech_intro_faq_question_2": "Какво се случва, ако загубя устройството си?",
   "tech_intro_faq_answer_2": "За съжаление, ако загубите устройството си, вашите разговори и съобщения не могат да бъдат възстановени. Това е така, защото вашите съобщения се съхраняват локално на вашето устройство и не се архивират на нито един централен сървър. Препоръчваме редовно архивиране на важни разговори.",
-  "str_share_msg_confirm_content": "Потвърдете споделянето на съобщението с \"${name}\""
+  "str_share_msg_confirm_content": "Потвърдете споделянето на съобщението с \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

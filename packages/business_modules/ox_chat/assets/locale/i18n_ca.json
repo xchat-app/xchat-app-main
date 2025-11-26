@@ -6,6 +6,7 @@
   "message_menu_save": "Desa imatge",
   "message_menu_delete": "Elimina",
   "message_menu_report": "Informa",
+  "message_menu_info": "Info",
   "report_reason_title": "QUÈ VOLS INFORMAR?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Violència",
@@ -147,5 +148,9 @@
   "tech_intro_faq_answer_1": "Sí! Els vostres missatges estan xifrats de punt a punt, el que significa que només vosaltres i els vostres companys de conversa els podeu llegir. Fins i tot nosaltres no podem accedir als vostres missatges.",
   "tech_intro_faq_question_2": "Què passa si perdo el meu dispositiu?",
   "tech_intro_faq_answer_2": "Desafortunadament, si perdeu el vostre dispositiu, les vostres converses i missatges no es poden recuperar. Això és perquè els vostres missatges s'emmagatzemen localment al vostre dispositiu i no es copien a cap servidor central. Recomanem fer còpies de seguretat regulars de converses importants.",
-  "str_share_msg_confirm_content": "Confirma compartir el missatge amb \"${name}\""
+  "str_share_msg_confirm_content": "Confirma compartir el missatge amb \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

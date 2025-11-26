@@ -6,6 +6,7 @@
   "message_menu_save": "Lưu hình ảnh",
   "message_menu_delete": "Xóa",
   "message_menu_report": "Báo cáo",
+  "message_menu_info": "Info",
   "report_reason_title": "BÁO CÁO VỀ ĐIỀU GÌ?",
   "report_reason_spam": "Spam",
   "report_reason_violence": "Bạo lực",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "Chủ sở hữu nhóm xóa tin nhắn và thông báo cho tất cả thành viên, tất cả sẽ xóa tin nhắn khi nhận được",
   "tech_intro_delete_4": "Xóa nhóm",
   "tech_intro_delete_4_desc": "Chủ sở hữu nhóm xóa nhóm và thông báo cho tất cả thành viên, tất cả sẽ xóa cuộc trò chuyện nhóm khi nhận được",
-  "str_share_msg_confirm_content": "Xác nhận chia sẻ tin nhắn với \"${name}\""
+  "str_share_msg_confirm_content": "Xác nhận chia sẻ tin nhắn với \"${name}\"",
+  "message_detail": "Message Detail",
+  "message_detail_not_found": "Message not found",
+  "message_properties": "Message Properties",
+  "send_event_info": "Send Event Info"
 }

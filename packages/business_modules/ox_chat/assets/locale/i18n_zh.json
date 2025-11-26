@@ -6,6 +6,7 @@
   "message_menu_save": "保存图片",
   "message_menu_delete": "删除",
   "message_menu_report": "举报",
+  "message_menu_info": "信息",
   "report_reason_title": "您想举报什么？",
   "report_reason_spam": "垃圾信息",
   "report_reason_violence": "暴力",
@@ -147,5 +148,9 @@
   "tech_intro_delete_3_desc": "群主删除消息并通知所有成员，所有成员收到后都会删除该消息",
   "tech_intro_delete_4": "群聊删除群",
   "tech_intro_delete_4_desc": "群主删除群并通知所有成员，所有成员收到后都会删除群聊",
-  "str_share_msg_confirm_content": "确认与\"${name}\"分享消息"
+  "str_share_msg_confirm_content": "确认与\"${name}\"分享消息",
+  "message_detail": "消息详情",
+  "message_detail_not_found": "消息未找到",
+  "message_properties": "消息属性",
+  "send_event_info": "发送事件信息"
 }

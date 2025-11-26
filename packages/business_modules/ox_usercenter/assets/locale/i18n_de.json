@@ -98,5 +98,7 @@
   "delete_account_confirm_content": "Diese Aktion wird Ihr Konto und lokale Daten dauerhaft löschen, einschließlich Nachrichten und Medien. Dies kann nicht rückgängig gemacht werden. Sind Sie sicher, dass Sie fortfahren möchten?",
   "delete_account_failed": "Konto konnte nicht gelöscht werden",
   "about_xchat": "Über XChat",
-  "contact_us": "Kontaktieren Sie uns"
+  "contact_us": "Kontaktieren Sie uns",
+  "advanced_settings": "Erweiterte Einstellungen",
+  "show_message_info_option": "Nachrichteninfo-Option anzeigen"
 }

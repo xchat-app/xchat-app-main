@@ -99,6 +99,8 @@
   "delete_account_failed": "Misslyckades med att ta bort konto",
   "about_xchat": "Om XChat",
   "contact_us": "Kontakta oss",
-  "advanced_settings": "Avancerade inställningar",
-  "show_message_info_option": "Visa meddelandeinfo-alternativ"
+  "advanced_settings": "Avancerat",
+  "show_message_info_option": "Visa meddelandeinfo-alternativ",
+  "account": "Konto",
+  "chat": "Chatt"
 }

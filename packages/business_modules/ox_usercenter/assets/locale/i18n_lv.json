@@ -99,6 +99,8 @@
   "delete_account_failed": "Neizdevās dzēst kontu",
   "about_xchat": "Par XChat",
   "contact_us": "Sazinieties ar mums",
-  "advanced_settings": "Papildu iestatījumi",
-  "show_message_info_option": "Rādīt ziņojuma informācijas opciju"
+  "advanced_settings": "Papildu",
+  "show_message_info_option": "Rādīt ziņojuma informācijas opciju",
+  "account": "Konts",
+  "chat": "Tērzēšana"
 }

@@ -99,6 +99,8 @@
   "delete_account_failed": "Nepodařilo se smazat účet",
   "about_xchat": "O XChat",
   "contact_us": "Kontaktujte nás",
-  "advanced_settings": "Pokročilá nastavení",
-  "show_message_info_option": "Zobrazit možnost informací o zprávě"
+  "advanced_settings": "Pokročilé",
+  "show_message_info_option": "Zobrazit možnost informací o zprávě",
+  "account": "Účet",
+  "chat": "Chat"
 }

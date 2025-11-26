@@ -99,6 +99,8 @@
   "delete_account_failed": "Hesap silinemedi",
   "about_xchat": "XChat hakkında",
   "contact_us": "Bizimle iletişime geçin",
-  "advanced_settings": "Gelişmiş ayarlar",
-  "show_message_info_option": "Mesaj bilgisi seçeneğini göster"
+  "advanced_settings": "Gelişmiş",
+  "show_message_info_option": "Mesaj bilgisi seçeneğini göster",
+  "account": "Hesap",
+  "chat": "Sohbet"
 }

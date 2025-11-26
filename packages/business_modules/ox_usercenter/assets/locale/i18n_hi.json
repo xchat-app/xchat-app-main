@@ -99,6 +99,8 @@
   "delete_account_failed": "खाता हटाने में विफल",
   "about_xchat": "XChat के बारे में",
   "contact_us": "हमसे संपर्क करें",
-  "advanced_settings": "उन्नत सेटिंग्स",
-  "show_message_info_option": "संदेश जानकारी विकल्प दिखाएं"
+  "advanced_settings": "उन्नत",
+  "show_message_info_option": "संदेश जानकारी विकल्प दिखाएं",
+  "account": "खाता",
+  "chat": "चैट"
 }

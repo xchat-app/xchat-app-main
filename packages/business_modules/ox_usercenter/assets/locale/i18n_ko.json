@@ -99,6 +99,8 @@
   "delete_account_failed": "계정 삭제에 실패했습니다",
   "about_xchat": "XChat 정보",
   "contact_us": "문의하기",
-  "advanced_settings": "고급 설정",
-  "show_message_info_option": "메시지 정보 옵션 표시"
+  "advanced_settings": "고급",
+  "show_message_info_option": "메시지 정보 옵션 표시",
+  "account": "계정",
+  "chat": "채팅"
 }

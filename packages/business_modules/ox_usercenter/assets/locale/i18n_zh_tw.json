@@ -99,6 +99,8 @@
   "delete_account_failed": "刪除帳戶失敗",
   "about_xchat": "關於 XChat",
   "contact_us": "聯絡我們",
-  "advanced_settings": "進階設定",
-  "show_message_info_option": "顯示訊息資訊選項"
+  "advanced_settings": "進階",
+  "show_message_info_option": "顯示訊息資訊選項",
+  "account": "帳號",
+  "chat": "聊天"
 }

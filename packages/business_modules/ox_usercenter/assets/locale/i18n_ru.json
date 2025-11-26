@@ -99,6 +99,8 @@
   "delete_account_failed": "Не удалось удалить аккаунт",
   "about_xchat": "О XChat",
   "contact_us": "Связаться с нами",
-  "advanced_settings": "Расширенные настройки",
-  "show_message_info_option": "Показать опцию информации о сообщении"
+  "advanced_settings": "Расширенные",
+  "show_message_info_option": "Показать опцию информации о сообщении",
+  "account": "Аккаунт",
+  "chat": "Чат"
 }

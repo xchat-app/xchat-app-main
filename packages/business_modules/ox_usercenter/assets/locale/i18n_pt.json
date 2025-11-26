@@ -99,6 +99,8 @@
   "delete_account_failed": "Falha ao excluir conta",
   "about_xchat": "Sobre XChat",
   "contact_us": "Entre em contato conosco",
-  "advanced_settings": "Configurações avançadas",
-  "show_message_info_option": "Mostrar opção de informações da mensagem"
+  "advanced_settings": "Avançado",
+  "show_message_info_option": "Mostrar opção de informações da mensagem",
+  "account": "Conta",
+  "chat": "Chat"
 }

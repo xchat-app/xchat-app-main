@@ -99,6 +99,8 @@
   "delete_account_failed": "Gagal menghapus akun",
   "about_xchat": "Tentang XChat",
   "contact_us": "Hubungi Kami",
-  "advanced_settings": "Pengaturan lanjutan",
-  "show_message_info_option": "Tampilkan opsi info pesan"
+  "advanced_settings": "Lanjutan",
+  "show_message_info_option": "Tampilkan opsi info pesan",
+  "account": "Akun",
+  "chat": "Obrolan"
 }

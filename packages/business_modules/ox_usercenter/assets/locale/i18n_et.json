@@ -99,6 +99,8 @@
   "delete_account_failed": "Konto kustutamine ebaõnnestus",
   "about_xchat": "XChat-ist",
   "contact_us": "Võtke meiega ühendust",
-  "advanced_settings": "Täpsemad seaded",
-  "show_message_info_option": "Kuva sõnumi info valik"
+  "advanced_settings": "Täpsem",
+  "show_message_info_option": "Kuva sõnumi info valik",
+  "account": "Konto",
+  "chat": "Vestlus"
 }

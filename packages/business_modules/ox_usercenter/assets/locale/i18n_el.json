@@ -99,6 +99,8 @@
   "delete_account_failed": "Αποτυχία διαγραφής λογαριασμού",
   "about_xchat": "Σχετικά με το XChat",
   "contact_us": "Επικοινωνήστε μαζί μας",
-  "advanced_settings": "Προχωρημένες ρυθμίσεις",
-  "show_message_info_option": "Εμφάνιση επιλογής πληροφοριών μηνύματος"
+  "advanced_settings": "Προχωρημένα",
+  "show_message_info_option": "Εμφάνιση επιλογής πληροφοριών μηνύματος",
+  "account": "Λογαριασμός",
+  "chat": "Συνομιλία"
 }

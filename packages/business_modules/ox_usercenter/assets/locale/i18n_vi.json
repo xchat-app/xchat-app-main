@@ -99,6 +99,8 @@
   "delete_account_failed": "Xóa tài khoản thất bại",
   "about_xchat": "Về XChat",
   "contact_us": "Liên hệ chúng tôi",
-  "advanced_settings": "Cài đặt nâng cao",
-  "show_message_info_option": "Hiển thị tùy chọn thông tin tin nhắn"
+  "advanced_settings": "Nâng cao",
+  "show_message_info_option": "Hiển thị tùy chọn thông tin tin nhắn",
+  "account": "Tài khoản",
+  "chat": "Trò chuyện"
 }

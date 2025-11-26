@@ -99,6 +99,8 @@
   "delete_account_failed": "Account verwijderen mislukt",
   "about_xchat": "Over XChat",
   "contact_us": "Neem contact met ons op",
-  "advanced_settings": "Geavanceerde instellingen",
-  "show_message_info_option": "Toon berichtinfo-optie"
+  "advanced_settings": "Geavanceerd",
+  "show_message_info_option": "Toon berichtinfo-optie",
+  "account": "Account",
+  "chat": "Chat"
 }

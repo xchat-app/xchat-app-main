@@ -99,6 +99,8 @@
   "delete_account_failed": "Hesabın silinməsi uğursuz oldu",
   "about_xchat": "XChat haqqında",
   "contact_us": "Bizimlə əlaqə saxlayın",
-  "advanced_settings": "Qabaqcıl parametrlər",
-  "show_message_info_option": "Mesaj məlumatı seçimini göstər"
+  "advanced_settings": "Qabaqcıl",
+  "show_message_info_option": "Mesaj məlumatı seçimini göstər",
+  "account": "Hesab",
+  "chat": "Söhbət"
 }

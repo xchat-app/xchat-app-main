@@ -99,6 +99,8 @@
   "delete_account_failed": "Неуспешно изтриване на акаунт",
   "about_xchat": "За XChat",
   "contact_us": "Свържете се с нас",
-  "advanced_settings": "Разширени настройки",
-  "show_message_info_option": "Покажи опция за информация за съобщението"
+  "advanced_settings": "Разширени",
+  "show_message_info_option": "Покажи опция за информация за съобщението",
+  "account": "Акаунт",
+  "chat": "Чат"
 }

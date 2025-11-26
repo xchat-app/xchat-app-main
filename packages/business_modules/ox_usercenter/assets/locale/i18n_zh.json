@@ -99,6 +99,8 @@
   "delete_account_failed": "删除账户失败",
   "about_xchat": "关于 XChat",
   "contact_us": "联系我们",
-  "advanced_settings": "高级设置",
-  "show_message_info_option": "显示消息信息选项"
+  "advanced_settings": "高级",
+  "show_message_info_option": "显示消息信息选项",
+  "account": "账号",
+  "chat": "聊天"
 }

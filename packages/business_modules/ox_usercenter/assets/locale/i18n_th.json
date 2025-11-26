@@ -99,6 +99,8 @@
   "delete_account_failed": "ลบบัญชีล้มเหลว",
   "about_xchat": "เกี่ยวกับ XChat",
   "contact_us": "ติดต่อเรา",
-  "advanced_settings": "การตั้งค่าขั้นสูง",
-  "show_message_info_option": "แสดงตัวเลือกข้อมูลข้อความ"
+  "advanced_settings": "ขั้นสูง",
+  "show_message_info_option": "แสดงตัวเลือกข้อมูลข้อความ",
+  "account": "บัญชี",
+  "chat": "แชท"
 }

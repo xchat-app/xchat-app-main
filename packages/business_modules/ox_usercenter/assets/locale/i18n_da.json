@@ -99,6 +99,8 @@
   "delete_account_failed": "Kunne ikke slette konto",
   "about_xchat": "Om XChat",
   "contact_us": "Kontakt os",
-  "advanced_settings": "Avancerede indstillinger",
-  "show_message_info_option": "Vis beskedinfo-option"
+  "advanced_settings": "Avanceret",
+  "show_message_info_option": "Vis beskedinfo-option",
+  "account": "Konto",
+  "chat": "Chat"
 }

@@ -99,6 +99,8 @@
   "delete_account_failed": "Fiók törlése sikertelen",
   "about_xchat": "Az XChat-ról",
   "contact_us": "Lépjen kapcsolatba velünk",
-  "advanced_settings": "Haladó beállítások",
-  "show_message_info_option": "Üzenet információ opció megjelenítése"
+  "advanced_settings": "Haladó",
+  "show_message_info_option": "Üzenet információ opció megjelenítése",
+  "account": "Fiók",
+  "chat": "Csevegés"
 }

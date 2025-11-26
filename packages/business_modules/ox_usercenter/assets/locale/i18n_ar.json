@@ -99,6 +99,8 @@
   "delete_account_failed": "فشل حذف الحساب",
   "about_xchat": "حول XChat",
   "contact_us": "اتصل بنا",
-  "advanced_settings": "الإعدادات المتقدمة",
-  "show_message_info_option": "إظهار خيار معلومات الرسالة"
+  "advanced_settings": "متقدم",
+  "show_message_info_option": "إظهار خيار معلومات الرسالة",
+  "account": "الحساب",
+  "chat": "الدردشة"
 }

@@ -100,9 +100,3 @@
 
 -keep class org.unifiedpush.** { *; }
 -keep class io.flutter.** { *; }
-
-# Jackson for JSON serialization
--dontwarn com.fasterxml.jackson.**
--keep class com.fasterxml.jackson.** { *; }
--keep class com.fasterxml.jackson.databind.** { *; }
--keep class com.fasterxml.jackson.core.** { *; }

@@ -15,11 +15,14 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 
 import androidx.core.app.NotificationCompat;
 
 import com.oxchat.lite.R;
+import com.oxchat.lite.KeystoreHelper;
 import com.oxchat.nostr.MainActivity;
 
 import org.json.JSONArray;
@@ -28,12 +31,23 @@ import org.json.JSONObject;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
+
+import fr.acinq.secp256k1.Secp256k1;
 
 /**
  * Foreground service for push notification monitoring
@@ -43,6 +57,10 @@ public class PushNotificationService extends Service {
     private static final String TAG = "PushNotificationService";
     private static final String CHANNEL_ID = "PushNotificationServiceChannel";
     private static final String PUSH_NOTIFICATION_CHANNEL_ID = "PushNotificationChannel";
+    
+    // Jackson ObjectMapper for JSON serialization (matching nostr-java EventJsonMapper)
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
+    private static final JsonNodeFactory JSON_NODE_FACTORY = JsonNodeFactory.instance;
     private static final int NOTIFICATION_ID = 1001;
     private static final int PUSH_NOTIFICATION_ID = 1002;
     
@@ -64,11 +82,15 @@ public class PushNotificationService extends Service {
     private boolean regenerateSubscriptionId; // Flag to regenerate subscription ID after AUTH
     private boolean isConnecting = false; // Track if we're currently connecting
     private boolean isReconnecting = false; // Track if we're reconnecting (to avoid duplicate reconnects)
+    private Secp256k1 secp256k1; // For Schnorr signature
+    private Handler authRetryHandler; // Handler for retrying AUTH challenge when privatekey is not available
+    private Runnable authRetryRunnable; // Runnable for retrying AUTH challenge
 
     private static final String PREFS_NAME = "push_service";
     private static final String KEY_SERVER_RELAY = "server_relay";
     private static final String KEY_DEVICE_ID = "device_id";
     private static final String KEY_PUBKEY = "pubkey";
+    // Note: private key is stored in Android Keystore, not in SharedPreferences
     
     @Override
     public void onCreate() {
@@ -83,6 +105,33 @@ public class PushNotificationService extends Service {
                 .build();
         
         reconnectHandler = new Handler(Looper.getMainLooper());
+        authRetryHandler = new Handler(Looper.getMainLooper());
+        
+        // Initialize secp256k1 for Schnorr signature
+        try {
+            secp256k1 = Secp256k1.get();
+            Log.d(TAG, "Secp256k1 initialized");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to initialize Secp256k1", e);
+        }
+        
+        // Load config from SharedPreferences early in onCreate
+        // This ensures privatekey is available even if Service is restarted by system
+        loadConfigFromPrefs();
+        
+        // If config exists, try to start the service
+        if (serverRelay != null && !serverRelay.isEmpty() && pubkey != null && !pubkey.isEmpty()) {
+            Log.d(TAG, "Service restarted by system, config loaded from prefs in onCreate");
+            if (deviceId == null || deviceId.isEmpty()) {
+                deviceId = pubkey;
+            }
+            // Start foreground service and connect
+            startForeground(NOTIFICATION_ID, createNotification());
+            if (!isConnecting && webSocket == null) {
+                Log.d(TAG, "Auto-connecting to relay after system restart: " + serverRelay);
+                connectToRelay();
+            }
+        }
     }
 
     @Override
@@ -90,44 +139,47 @@ public class PushNotificationService extends Service {
         Log.d(TAG, "PushNotificationService started");
         
         if (intent != null) {
-            String action = intent.getAction();
-            if ("com.oxchat.nostr.SEND_AUTH".equals(action)) {
-                // Handle AUTH response from Flutter
-                String authJson = intent.getStringExtra("authJson");
-                sendAuthResponse(authJson);
-                return START_STICKY;
-            }
-            
+            // New start from Flutter app
             serverRelay = intent.getStringExtra(EXTRA_SERVER_RELAY);
             deviceId = intent.getStringExtra(EXTRA_DEVICE_ID);
             pubkey = intent.getStringExtra(EXTRA_PUBKEY);
             persistConfig();
-        } else {
-            // Service restarted by system, load config from prefs
-            loadConfigFromPrefs();
-        }
-        
-        if (serverRelay == null || serverRelay.isEmpty() || pubkey == null || pubkey.isEmpty()) {
-            Log.e(TAG, "Missing required config, cannot start service");
-            stopSelf();
-            return START_STICKY;
-        }
             
-        // For Android, if deviceId is not provided, use pubkey as deviceId
-        if (deviceId == null || deviceId.isEmpty()) {
-            deviceId = pubkey;
-        }
-        
-        // Only connect if not already connecting
-        if (!isConnecting && webSocket == null) {
-            Log.d(TAG, "Connecting to relay: " + serverRelay + ", deviceId: " + deviceId);
-            connectToRelay();
+            if (serverRelay == null || serverRelay.isEmpty() || pubkey == null || pubkey.isEmpty()) {
+                Log.e(TAG, "Missing required config, cannot start service");
+                stopSelf();
+                return START_STICKY;
+            }
+            
+            // For Android, if deviceId is not provided, use pubkey as deviceId
+            if (deviceId == null || deviceId.isEmpty()) {
+                deviceId = pubkey;
+            }
+            
+            // Only connect if not already connecting
+            if (!isConnecting && webSocket == null) {
+                Log.d(TAG, "Connecting to relay: " + serverRelay + ", deviceId: " + deviceId);
+                connectToRelay();
+            } else {
+                Log.d(TAG, "WebSocket already connected or connecting, skipping connection");
+            }
+            
+            // Start foreground service
+            startForeground(NOTIFICATION_ID, createNotification());
         } else {
-            Log.d(TAG, "WebSocket already connected or connecting, skipping connection");
+            // Service restarted by system
+            // Config should already be loaded in onCreate(), but double-check
+            if (serverRelay == null || serverRelay.isEmpty() || pubkey == null || pubkey.isEmpty()) {
+                loadConfigFromPrefs();
+                if (serverRelay == null || serverRelay.isEmpty() || pubkey == null || pubkey.isEmpty()) {
+                    Log.e(TAG, "Missing required config after system restart, cannot start service");
+                    stopSelf();
+                    return START_STICKY;
+                }
+            }
+            // Service should already be started in onCreate(), just ensure foreground
+            startForeground(NOTIFICATION_ID, createNotification());
         }
-        
-        // Start foreground service
-        startForeground(NOTIFICATION_ID, createNotification());
         
         return START_STICKY;
     }
@@ -145,8 +197,13 @@ public class PushNotificationService extends Service {
         if (reconnectRunnable != null) {
             reconnectHandler.removeCallbacks(reconnectRunnable);
         }
+        if (authRetryRunnable != null) {
+            authRetryHandler.removeCallbacks(authRetryRunnable);
+        }
         isConnecting = false;
         isReconnecting = false;
+        // Clear private key from file system when service is destroyed
+        KeystoreHelper.clearPrivateKey(this);
         stopForeground(true);
     }
 
@@ -309,10 +366,7 @@ public class PushNotificationService extends Service {
                 regenerateSubscriptionId = false;
             }
             
-            // Get current timestamp in seconds
-            // long now = System.currentTimeMillis() / 1000;
-            
-            // Build Request: ["REQ", subscriptionId, {"kinds": [20284], "#h": [pubkey], "since": now}]
+            // Build Request: ["REQ", subscriptionId, {"kinds": [20285, 20284], "#h": [pubkey]}]
             JSONArray requestArray = new JSONArray();
             requestArray.put("REQ");
             requestArray.put(subscriptionId);
@@ -328,9 +382,6 @@ public class PushNotificationService extends Service {
             JSONArray hArray = new JSONArray();
             hArray.put(pubkey);
             filter.put("#h", hArray);
-            
-            // since: current timestamp
-            // filter.put("since", now);
             
             requestArray.put(filter);
             
@@ -370,7 +421,6 @@ public class PushNotificationService extends Service {
                 Log.d(TAG, "Relay notice: " + notice);
             } else if ("CLOSED".equals(messageType)) {
                 Log.d(TAG, "Subscription closed");
-                // scheduleReconnect();
             } else if ("AUTH".equals(messageType)) {
                 // Handle AUTH challenge
                 String challenge = jsonArray.getString(1);
@@ -399,47 +449,330 @@ public class PushNotificationService extends Service {
     }
 
     /**
-     * Handle AUTH challenge by requesting authJson from Flutter via MethodChannel
+     * Handle AUTH challenge by creating and sending AUTH response
+     * If privatekey is not available, retry after a delay
      */
     private void handleAuthChallenge(String challenge) {
+        Log.d(TAG, "Handling AUTH challenge: challenge=" + challenge + ", relay=" + serverRelay);
+        
+        // Store challenge for retry
         pendingAuthChallenge = challenge;
-        // Request authJson from Flutter via MethodChannel
-        // Note: This requires the app to be running. For background service,
-        // we'll need to use a different approach or store the challenge for later
-        Log.d(TAG, "AUTH challenge received: challenge=" + challenge + ", relay=" + serverRelay);
-        // For now, we'll need Flutter to poll or use EventChannel
-        // Store challenge for Flutter to retrieve
-        android.content.SharedPreferences prefs = getSharedPreferences("push_service", MODE_PRIVATE);
-        prefs.edit()
-            .putString("auth_challenge", challenge)
-            .putString("auth_relay", serverRelay)
-            .apply();
-        Log.d(TAG, "Stored AUTH challenge for Flutter to retrieve");
+        
+        // Get private key from Android Keystore (stored in private file)
+        String privkey = getPrivateKey();
+        if (privkey == null || privkey.isEmpty()) {
+            Log.w(TAG, "Private key not found in Android Keystore file, will retry after delay");
+            Log.w(TAG, "Private key may not have been stored yet. Retrying in 2 seconds...");
+            
+            // Cancel any existing retry
+            if (authRetryRunnable != null) {
+                authRetryHandler.removeCallbacks(authRetryRunnable);
+            }
+            
+            // Retry after 2 seconds
+            authRetryRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if (pendingAuthChallenge != null) {
+                        Log.d(TAG, "Retrying AUTH challenge handling");
+                        handleAuthChallenge(pendingAuthChallenge);
+                    }
+                }
+            };
+            authRetryHandler.postDelayed(authRetryRunnable, 2000);
+            return;
+        }
+        
+        // Clear pending challenge and retry runnable
+        pendingAuthChallenge = null;
+        if (authRetryRunnable != null) {
+            authRetryHandler.removeCallbacks(authRetryRunnable);
+            authRetryRunnable = null;
+        }
+        
+        try {
+            // Create AUTH event
+            String authJson = createAuthEvent(challenge, serverRelay, pubkey, privkey);
+            if (authJson != null && !authJson.isEmpty()) {
+                Log.d(TAG, "Created AUTH event, sending to relay");
+                sendAuthResponse(authJson);
+            } else {
+                Log.e(TAG, "Failed to create AUTH event");
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error handling AUTH challenge", e);
+        }
+    }
+
+    /**
+     * Create AUTH event for NIP-42
+     * Uses Jackson ObjectMapper for JSON serialization (matching nostr-java)
+     * Format: ["AUTH", {"id": "...", "pubkey": "...", "created_at": ..., "kind": 22242, "tags": [["relay", "..."], ["challenge", "..."]], "content": "", "sig": "..."}]
+     * Reference: nostr-java NIP42.createCanonicalAuthenticationEvent() and CanonicalAuthenticationMessage
+     */
+    private String createAuthEvent(String challenge, String relay, String pubkey, String privkey) {
+        try {
+            // Get current timestamp in seconds
+            long createdAt = System.currentTimeMillis() / 1000;
+            
+            // Create tags: [["relay", relay], ["challenge", challenge]]
+            // Using JSONArray for calculateEventId compatibility, then convert to Jackson format
+            JSONArray tags = new JSONArray();
+            JSONArray relayTag = new JSONArray();
+            relayTag.put("relay");
+            relayTag.put(relay);
+            tags.put(relayTag);
+            JSONArray challengeTag = new JSONArray();
+            challengeTag.put("challenge");
+            challengeTag.put(challenge);
+            tags.put(challengeTag);
+            
+            // Calculate event ID: SHA256 of [0, pubkey, created_at, kind, tags, content]
+            // This must be done before creating the final event JSON
+            String eventId = calculateEventId(pubkey.toLowerCase(), createdAt, 22242, tags, "");
+            if (eventId == null) {
+                Log.e(TAG, "Failed to calculate event ID");
+                return null;
+            }
+            
+            // Sign the event ID with private key
+            String signature = signEventId(eventId, privkey);
+            if (signature == null || signature.isEmpty()) {
+                Log.e(TAG, "Failed to sign event ID");
+                return null;
+            }
+            
+            // Create event JSON using Jackson (matching nostr-java format)
+            ObjectNode eventNode = JSON_NODE_FACTORY.objectNode();
+            eventNode.put("id", eventId);
+            eventNode.put("pubkey", pubkey.toLowerCase());
+            eventNode.put("created_at", createdAt);
+            eventNode.put("kind", 22242);
+            
+            // Convert tags to Jackson ArrayNode format
+            ArrayNode tagsNode = JSON_NODE_FACTORY.arrayNode();
+            for (int i = 0; i < tags.length(); i++) {
+                JSONArray tagArray = tags.getJSONArray(i);
+                ArrayNode tagNode = JSON_NODE_FACTORY.arrayNode();
+                for (int j = 0; j < tagArray.length(); j++) {
+                    tagNode.add(tagArray.getString(j));
+                }
+                tagsNode.add(tagNode);
+            }
+            eventNode.set("tags", tagsNode);
+            eventNode.put("content", "");
+            eventNode.put("sig", signature);
+            
+            // Create AUTH message: ["AUTH", event]
+            // Reference: nostr-java CanonicalAuthenticationMessage.encode()
+            ArrayNode authArray = JSON_NODE_FACTORY.arrayNode();
+            authArray.add("AUTH");
+            authArray.add(eventNode);
+            
+            // Serialize to JSON string using Jackson
+            String authJson = JSON_MAPPER.writeValueAsString(authArray);
+            
+            // Store event ID for OK response matching
+            authEventId = eventId;
+            
+            Log.d(TAG, "Created AUTH event JSON: " + authJson);
+            return authJson;
+        } catch (JsonProcessingException e) {
+            Log.e(TAG, "Failed to serialize AUTH event", e);
+            return null;
+        } catch (JSONException e) {
+            Log.e(TAG, "Failed to create AUTH event", e);
+            return null;
+        }
+    }
+
+    /**
+     * Calculate event ID: SHA256 of [0, pubkey, created_at, kind, tags, content]
+     * Uses Jackson ObjectMapper for serialization (matching nostr-java EventSerializer)
+     * Reference: nostr-java EventSerializer.serialize() and computeEventId()
+     */
+    private String calculateEventId(String pubkey, long createdAt, int kind, JSONArray tags, String content) {
+        try {
+            // Ensure pubkey is lowercase (matching nostr-java and Flutter)
+            String pubkeyLower = pubkey.toLowerCase();
+            
+            // Create array node: [0, pubkey, created_at, kind, tags, content]
+            // Reference: nostr-java EventSerializer.serialize() using JsonNodeFactory
+            ArrayNode arrayNode = JSON_NODE_FACTORY.arrayNode();
+            arrayNode.add(0); // Protocol version
+            arrayNode.add(pubkeyLower);
+            arrayNode.add(createdAt);
+            arrayNode.add(kind);
+            
+            // Convert JSONArray tags to Jackson ArrayNode
+            // Tags format: [["relay","..."],["challenge","..."]]
+            ArrayNode tagsNode = JSON_NODE_FACTORY.arrayNode();
+            for (int i = 0; i < tags.length(); i++) {
+                JSONArray tagArray = tags.getJSONArray(i);
+                ArrayNode tagNode = JSON_NODE_FACTORY.arrayNode();
+                for (int j = 0; j < tagArray.length(); j++) {
+                    Object tagValue = tagArray.get(j);
+                    if (tagValue instanceof String) {
+                        tagNode.add((String) tagValue);
+                    } else if (tagValue instanceof Number) {
+                        tagNode.add(((Number) tagValue).longValue());
+                    } else {
+                        tagNode.add(tagValue.toString());
+                    }
+                }
+                tagsNode.add(tagNode);
+            }
+            arrayNode.add(tagsNode);
+            arrayNode.add(content);
+            
+            // Serialize to JSON string using Jackson (matching nostr-java)
+            // Reference: nostr-java EventSerializer: MAPPER.writeValueAsString(arrayNode)
+            String serialized = JSON_MAPPER.writeValueAsString(arrayNode);
+            
+            // Debug: Log serialized JSON to compare with nostr-java/Flutter
+            Log.d(TAG, "Event ID calculation - serialized JSON: " + serialized);
+            
+            // SHA256 hash of UTF-8 encoded string
+            // Reference: nostr-java EventSerializer.computeEventId()
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(serialized.getBytes(StandardCharsets.UTF_8));
+            
+            // Convert to hex string (lowercase)
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            
+            String eventId = hexString.toString();
+            Log.d(TAG, "Calculated event ID: " + eventId);
+            return eventId;
+        } catch (JsonProcessingException e) {
+            Log.e(TAG, "Failed to serialize event for ID calculation", e);
+            return null;
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to calculate event ID", e);
+            return null;
+        }
+    }
+
+    /**
+     * Sign event ID with private key using Schnorr signature (BIP340)
+     * Reference: nostr-java Identity.sign() and Schnorr.sign()
+     * 
+     * Process:
+     * 1. Event ID is already a SHA256 hash (64 hex chars = 32 bytes)
+     * 2. Convert event ID hex string to 32-byte array
+     * 3. Generate random 32-byte aux parameter (BIP340 requirement)
+     * 4. Sign the 32-byte event ID hash with private key and aux
+     * 
+     * Note: The event ID itself is already a hash, so we sign the hash bytes directly
+     */
+    private String signEventId(String eventId, String privkey) {
+        try {
+            if (secp256k1 == null) {
+                Log.e(TAG, "Secp256k1 not initialized");
+                return null;
+            }
+            
+            // Convert event ID hex string to 32-byte array
+            // Event ID is already a SHA256 hash (64 hex chars = 32 bytes)
+            byte[] eventIdBytes = hexStringToByteArray(eventId);
+            if (eventIdBytes.length != 32) {
+                Log.e(TAG, "Event ID must be 32 bytes (64 hex chars), got: " + eventIdBytes.length);
+                return null;
+            }
+            
+            // Convert private key hex string to 32-byte array
+            byte[] privkeyBytes = hexStringToByteArray(privkey);
+            if (privkeyBytes.length != 32) {
+                Log.e(TAG, "Private key must be 32 bytes (64 hex chars), got: " + privkeyBytes.length);
+                return null;
+            }
+            
+            // Generate random 32-byte aux parameter (BIP340 requirement)
+            // Reference: nostr-java Identity.generateAuxRand() -> NostrUtil.createRandomByteArray(32)
+            SecureRandom secureRandom = new SecureRandom();
+            byte[] aux = new byte[32];
+            secureRandom.nextBytes(aux);
+            
+            // Sign the 32-byte event ID hash using Schnorr with aux parameter
+            // Reference: nostr-java Schnorr.sign(msg, secKey, auxRand)
+            byte[] signature = secp256k1.signSchnorr(eventIdBytes, privkeyBytes, aux);
+            
+            if (signature == null) {
+                Log.e(TAG, "Signature is null");
+                return null;
+            }
+            
+            // Signature should be 64 bytes (R || s)
+            if (signature.length != 64) {
+                Log.e(TAG, "Signature must be 64 bytes, got: " + signature.length);
+                return null;
+            }
+            
+            // Convert signature to hex string (lowercase)
+            String sigHex = byteArrayToHexString(signature);
+            Log.d(TAG, "Signed event ID, signature length: " + sigHex.length() + " chars (expected 128)");
+            return sigHex;
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to sign event ID", e);
+            return null;
+        }
+    }
+
+    /**
+     * Convert hex string to byte array
+     */
+    private byte[] hexStringToByteArray(String hex) {
+        int len = hex.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+                    + Character.digit(hex.charAt(i + 1), 16));
+        }
+        return data;
+    }
+
+    /**
+     * Convert byte array to hex string
+     */
+    private String byteArrayToHexString(byte[] bytes) {
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : bytes) {
+            String hex = Integer.toHexString(0xff & b);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
+    /**
+     * Get private key from Android Keystore (decrypted from private file)
+     */
+    private String getPrivateKey() {
+        String privkey = KeystoreHelper.getPrivateKey(this);
+        if (privkey == null || privkey.isEmpty()) {
+            Log.e(TAG, "Private key not found in Android Keystore file");
+            Log.e(TAG, "This may happen if Service was restarted by system before Flutter app stored the private key");
+            return null;
+        }
+        Log.d(TAG, "Private key retrieved successfully from Android Keystore");
+        return privkey;
     }
 
     /**
      * Send AUTH response to relay
-     * Called from Flutter via MethodChannel
-     * After sending AUTH, wait for OK response before resending subscription
      */
-    public void sendAuthResponse(String authJson) {
+    private void sendAuthResponse(String authJson) {
         if (webSocket != null && authJson != null && !authJson.isEmpty()) {
-            try {
-                // Extract event ID from authJson: ["AUTH", {"id": "...", ...}]
-                JSONArray authArray = new JSONArray(authJson);
-                if (authArray.length() >= 2) {
-                    JSONObject eventObj = authArray.getJSONObject(1);
-                    authEventId = eventObj.getString("id");
-                    Log.d(TAG, "Extracted AUTH event ID: " + authEventId);
-                }
-            } catch (JSONException e) {
-                Log.e(TAG, "Failed to extract event ID from authJson", e);
-            }
-            
             Log.d(TAG, "Sending AUTH response: " + authJson);
             webSocket.send(authJson);
-            // Don't clear pendingAuthChallenge here, wait for OK response
-            // The OK response handler will resend subscription request
         }
     }
 
@@ -504,13 +837,9 @@ public class PushNotificationService extends Service {
     private void activateApp() {
         try {
             // Create a fresh Intent for MainActivity
-            // Use the same pattern as AndroidManifest launcher intent
             Intent intent = new Intent(this, MainActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            // FLAG_ACTIVITY_NEW_TASK is required when starting from Service
-            // FLAG_ACTIVITY_CLEAR_TOP with singleTop launchMode will reuse existing instance if on top
-            // or bring it to front if it exists in the stack
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             
             // Create PendingIntent for notification
@@ -596,7 +925,7 @@ public class PushNotificationService extends Service {
         if (pubkey == null || pubkey.isEmpty()) {
             pubkey = prefs.getString(KEY_PUBKEY, null);
         }
+        // Note: privatekey is loaded on-demand in getPrivateKey() method
+        // We don't store it in instance variable for security reasons
     }
-
 }
-

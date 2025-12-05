@@ -120,3 +120,4 @@ Podfile.lock
 **/*.keystore
 **/*.jks
 /testautocorrect
+/nostr-java-main

@@ -13,6 +13,7 @@ import com.oxchat.nostr.MultiEngineActivity;
 import com.oxchat.nostr.util.SharedPreUtils;
 import com.oxchat.nostr.VoiceCallService;
 import com.oxchat.lite.PushNotificationService;
+import com.oxchat.lite.KeystoreHelper;
 import java.util.HashMap;
 import java.util.List;
 
@@ -106,12 +107,25 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
             case "startPushNotificationService" -> {
                 String serverRelay = "";
                 String pubkey = "";
+                String privkey = "";
                 if (paramsMap != null) {
                     if (paramsMap.containsKey("serverRelay")) {
                         serverRelay = (String) paramsMap.get("serverRelay");
                     }
                     if (paramsMap.containsKey("pubkey")) {
                         pubkey = (String) paramsMap.get("pubkey");
+                    }
+                    if (paramsMap.containsKey("privkey")) {
+                        privkey = (String) paramsMap.get("privkey");
+                    }
+                }
+                // Store private key in Android Keystore (encrypted in memory, not in SharedPreferences)
+                if (!privkey.isEmpty()) {
+                    boolean success = KeystoreHelper.storePrivateKey(mContext, privkey);
+                    if (success) {
+                        Log.d("AppPreferences", "Private key stored in Android Keystore");
+                    } else {
+                        Log.e("AppPreferences", "Failed to store private key in Android Keystore");
                     }
                 }
                 // For Android, deviceId is optional, will use pubkey if not provided

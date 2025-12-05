@@ -40,7 +40,7 @@ class CLPushIntegration with WidgetsBindingObserver {
 
     // 1) Init base kit
     await LocalPushKit.instance.ensureInitialized(
-      androidDefaultIcon: '@drawable/ic_notification',
+      androidDefaultIcon: '@mipmap/ic_launcher',
       androidChannelId: 'message_channel',
       androidChannelName: 'Messages',
       androidChannelDescription: 'General message notifications',

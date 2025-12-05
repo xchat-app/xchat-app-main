@@ -103,10 +103,18 @@ class CLUserPushNotificationManager implements PushPermissionChecker {
         return;
       }
 
+      // Get private key from Account
+      final privkey = Account.sharedInstance.currentPrivkey;
+      if (privkey.isEmpty) {
+        LogUtil.e('ensurePushService: Private key not available');
+        return;
+      }
+
       const MethodChannel channel = MethodChannel('com.oxchat.global/perferences');
       await channel.invokeMethod('startPushNotificationService', {
         'serverRelay': serverRelay,
         'pubkey': account.pubkey,
+        'privkey': privkey,
       });
     } catch (e) {
       LogUtil.e('ensurePushService failed to start service: $e');
@@ -224,10 +232,17 @@ class CLUserPushNotificationManager implements PushPermissionChecker {
             return event.message;
           }
 
+          // Get private key from Account
+          final privkey = Account.sharedInstance.currentPrivkey;
+          if (privkey.isEmpty) {
+            return 'Private key not available';
+          }
+
           const MethodChannel channel = MethodChannel('com.oxchat.global/perferences');
           await channel.invokeMethod('startPushNotificationService', {
             'serverRelay': serverRelay,
             'pubkey': account.pubkey,
+            'privkey': privkey,
           });
         } catch (e) {
           return 'Failed to start push service: $e';

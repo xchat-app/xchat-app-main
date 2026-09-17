@@ -26,8 +26,8 @@ android {
   buildFeatures {
     buildConfig true
   }
-  compileSdk 35
-  buildToolsVersion "35.0.0"
+  compileSdk 36
+  buildToolsVersion "36.0.0"
   ndkVersion "27.0.12077973"
 
   //disable resource file check
@@ -36,7 +36,7 @@ android {
   defaultConfig {
     applicationId "com.oxchat.lite"
     minSdk 28
-    targetSdk 35
+    targetSdk 36
     multiDexEnabled true
     versionCode versionParts[1] as Integer
     versionName versionParts[0]

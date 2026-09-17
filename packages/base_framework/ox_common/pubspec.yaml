@@ -99,8 +99,12 @@ dependencies:
   photo_manager: ^3.5.0
   path_provider: ^2.1.0
   socks5_proxy: 2.1.1
-  in_app_purchase: 3.2.3
-  in_app_purchase_android: 0.4.0+5  # for basePlanId (subscription offer); same as in_app_purchase's transitive
+  # Play policy (deadline 2026-08-31) requires Billing Library >= 8.0.0.
+  # Billing 8 first lands in in_app_purchase_android 0.5.0, which needs Flutter >= 3.38.
+  # Pinned to the OLDEST Billing-8 pair on purpose, to keep the required Flutter jump as
+  # small as possible (0.5.0+1 and later would force Flutter >= 3.44).
+  in_app_purchase: 3.3.0
+  in_app_purchase_android: 0.5.0  # for basePlanId (subscription offer); same as in_app_purchase's transitive
 
   chatcore:
     path: ../../0xchat-core

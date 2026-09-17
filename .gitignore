@@ -94,11 +94,12 @@ build/
 **/*.r.dart
 **/*.m.dart
 **/pubspec.lock
+# ...except the app's own, which pins what a release is built from.
+!/pubspec.lock
 **/.flutter-plugins-dependencies
 .idea/0xchat-main.iml
 .idea/libraries/Dart_SDK.xml
 .idea/workspace.xml
-pubspec.lock
 Podfile.lock
 /bitchat-main
 .vscode/settings.json

@@ -82,6 +82,12 @@ jobs:
           "$bin/sdkmanager" "ndk;${NDK_VERSION}" "platforms;android-36" "build-tools;36.0.0"
           test -d "$sdk/ndk/${NDK_VERSION}" || { echo "::error::NDK ${NDK_VERSION} missing"; exit 1; }
 
+          # Dart's native-assets build resolves the NDK through native_toolchain_c,
+          # which looks only for ndk-build on PATH or for $HOME/Android/Sdk/ndk/*/.
+          # It reads neither ANDROID_NDK_HOME nor ANDROID_SDK_ROOT, and the runner
+          # image keeps the SDK somewhere else entirely, so put ndk-build on PATH.
+          echo "$sdk/ndk/${NDK_VERSION}" >> "$GITHUB_PATH"
+
       - name: Cache Flutter SDK
         id: flutter-cache
         uses: actions/cache@v4

@@ -10,6 +10,7 @@ import 'package:ox_common/utils/color_extension.dart';
 import 'package:ox_common/widgets/common_loading.dart';
 import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_localizable/ox_localizable.dart';
+import 'package:ox_usercenter/utils/invite_link_manager.dart';
 import 'package:share_plus/share_plus.dart';
 
 class CircleActivatedPage extends StatefulWidget {
@@ -418,10 +419,8 @@ class _CircleActivatedPageState extends State<CircleActivatedPage> {
       return;
     }
 
-    // Generate invite link (this is a placeholder - you may need to implement actual invite link generation)
-    final inviteLink = 'https://0xchat.com/lite/invite?circle=${circle.id}';
-
     // iOS/iPad requires a non-zero sharePositionOrigin for the share sheet popover.
+    // Measured before the await below, while the button is certainly laid out.
     Rect sharePositionOrigin;
     final box = _shareButtonKey.currentContext?.findRenderObject() as RenderBox?;
     if (box != null && box.hasSize) {
@@ -442,12 +441,30 @@ class _CircleActivatedPageState extends State<CircleActivatedPage> {
       );
     }
 
+    // Ask the relay for an invitation code and build a link that carries both
+    // the code and the relay address. A link without them cannot be resolved
+    // by the recipient's app, which is what the previous placeholder produced.
+    String inviteLink;
+    OXLoading.show();
+    try {
+      final result = await InviteLinkManager.generateCircleInviteLink(circle: circle);
+      inviteLink = result['inviteLink'] as String;
+    } catch (e) {
+      OXLoading.dismiss();
+      if (!mounted) return;
+      CommonToast.instance.show(context, e.toString());
+      return;
+    }
+    OXLoading.dismiss();
+    if (!mounted) return;
+
     try {
       await Share.share(
         inviteLink,
         sharePositionOrigin: sharePositionOrigin,
       );
     } catch (e) {
+      if (!mounted) return;
       CommonToast.instance.show(context, 'Failed to share: $e');
     }
   }

@@ -82,11 +82,20 @@ jobs:
           "$bin/sdkmanager" "ndk;${NDK_VERSION}" "platforms;android-36" "build-tools;36.0.0"
           test -d "$sdk/ndk/${NDK_VERSION}" || { echo "::error::NDK ${NDK_VERSION} missing"; exit 1; }
 
-          # Dart's native-assets build resolves the NDK through native_toolchain_c,
-          # which looks only for ndk-build on PATH or for $HOME/Android/Sdk/ndk/*/.
-          # It reads neither ANDROID_NDK_HOME nor ANDROID_SDK_ROOT, and the runner
-          # image keeps the SDK somewhere else entirely, so put ndk-build on PATH.
-          echo "$sdk/ndk/${NDK_VERSION}" >> "$GITHUB_PATH"
+          # flutter_tools resolves the NDK for the native-assets build through
+          # AndroidSdk.getNdkBinaryPath, which consults the android-ndk config
+          # key, then ANDROID_NDK_HOME / ANDROID_NDK_PATH / ANDROID_NDK_ROOT,
+          # and only then <sdk>/ndk/<newest>. PATH is not one of them, so say it
+          # outright instead of relying on the directory scan.
+          ndk="$sdk/ndk/${NDK_VERSION}"
+          echo "ANDROID_NDK_HOME=$ndk" >> "$GITHUB_ENV"
+
+          # Fail here, where the message is about the NDK, rather than eight
+          # minutes into Gradle with "Android NDK Clang could not be found".
+          clang="$ndk/toolchains/llvm/prebuilt/linux-x86_64/bin/clang"
+          ls -la "$ndk" || true
+          test -x "$clang" || { echo "::error::no clang at $clang"; ls -R "$ndk/toolchains" | head -40; exit 1; }
+          echo "clang: $clang"
 
       - name: Cache Flutter SDK
         id: flutter-cache

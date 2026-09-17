@@ -1,0 +1,193 @@
+# Build a signed Android App Bundle and hand it to Google Play.
+#
+# Manual only. This repository is public, so a workflow holding the upload
+# keystore and a Play service account must never be reachable from a fork's
+# pull request; workflow_dispatch and tag pushes both run only on code that is
+# already in this repository.
+#
+# The default track is `internal`. Shipping to production is a decision with a
+# staged rollout attached to it, not a default.
+
+name: Android release
+
+on:
+  workflow_dispatch:
+    inputs:
+      track:
+        description: Play track
+        type: choice
+        default: internal
+        options: [internal, alpha, beta, production]
+      status:
+        description: Release status (inProgress needs a rollout share)
+        type: choice
+        default: completed
+        options: [completed, draft, inProgress]
+      user_fraction:
+        description: Rollout share for inProgress, e.g. 0.2
+        default: "0.2"
+      version_name:
+        description: Version name, e.g. 0.3.5. Leave empty to keep pubspec's.
+        default: ""
+      dry_run:
+        description: Build and upload, then discard the edit without publishing
+        type: boolean
+        default: false
+  push:
+    tags: ["v*"]
+
+concurrency:
+  group: android-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      FLUTTER_REF: "3.38.10"
+      NDK_VERSION: "28.2.13676358"
+      PACKAGE: com.oxchat.lite
+
+    steps:
+      - name: Reclaim runner disk
+        # The image ships tens of GB of toolchains this build never touches, and
+        # a cold Rust build for three Android targets plus the NDK does not fit
+        # alongside them.
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android/sdk/ndk \
+                      /opt/ghc /usr/local/share/boost
+          df -h /
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install Android NDK
+        run: |
+          yes | sdkmanager --licenses > /dev/null
+          sdkmanager "ndk;${NDK_VERSION}" "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Cache Flutter SDK
+        id: flutter-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/flutter
+          key: flutter-${{ env.FLUTTER_REF }}
+
+      - name: Install Flutter
+        if: steps.flutter-cache.outputs.cache-hit != 'true'
+        run: git clone --depth 1 --branch "$FLUTTER_REF" https://github.com/flutter/flutter.git ~/flutter
+
+      - name: Put Flutter on PATH
+        run: |
+          echo "$HOME/flutter/bin" >> "$GITHUB_PATH"
+          git config --global --add safe.directory "$HOME/flutter"
+
+      - name: Add Rust Android targets
+        # nostr-mls-package and super_native_extensions build native code
+        # through cargokit, once per ABI in the bundle.
+        run: rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android
+
+      - name: Cache pub, Gradle and Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: build-${{ runner.os }}-${{ hashFiles('pubspec.yaml', 'android/**/*.gradle', '**/Cargo.lock') }}
+          restore-keys: build-${{ runner.os }}-
+
+      - name: Restore the upload keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          umask 077
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          cat > android/key.properties <<EOF
+          storeFile=$RUNNER_TEMP/upload.jks
+          keyAlias=$KEY_ALIAS
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Choose the version
+        id: version
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          # Ask Play what it already has rather than trusting the repo. The
+          # committed value has drifted before, because for a long time it only
+          # ever existed on whichever machine cut the release.
+          code=$(python3 tool/play_publish.py --package "$PACKAGE" next-version-code)
+
+          name="${{ inputs.version_name }}"
+          if [ -z "$name" ] && [ "${GITHUB_REF_TYPE:-}" = "tag" ]; then
+            name="${GITHUB_REF_NAME#v}"
+          fi
+          if [ -z "$name" ]; then
+            name=$(grep '^version:' pubspec.yaml | sed 's/^version: *//' | cut -d+ -f1)
+          fi
+
+          # android/app/build.gradle reads the version out of pubspec.yaml and
+          # ignores --build-name/--build-number, so this has to be a file edit.
+          sed -i "s/^version:.*/version: ${name}+${code}/" pubspec.yaml
+          grep '^version:' pubspec.yaml
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+
+      - name: Build the App Bundle
+        run: |
+          flutter --version
+          flutter pub get
+          flutter build appbundle --release
+
+      - name: Check the signing certificate
+        # A build with no keystore falls back to debug signing, and Play rejects
+        # it only after the upload. More importantly, the fingerprint below is
+        # the one registered in 0xchat.com/.well-known/assetlinks.json: sign
+        # with anything else and Android App Links stop verifying, which
+        # silently breaks every invite link in the wild.
+        env:
+          EXPECTED: CC:E2:D4:08:11:66:90:30:B9:E2:3E:C1:BA:74:11:40:AA:FE:63:E0:E0:46:0A:86:B3:F5:D3:58:CC:2C:8F:5F
+        run: |
+          aab=build/app/outputs/bundle/release/app-release.aab
+          sig=$(unzip -l "$aab" | awk '/META-INF\/.*\.(RSA|DSA|EC)$/{print $NF; exit}')
+          actual=$(unzip -p "$aab" "$sig" | keytool -printcert | awk '/SHA256:/{print $2}')
+          echo "expected $EXPECTED"
+          echo "actual   $actual"
+          [ "$actual" = "$EXPECTED" ] || { echo "::error::wrong signing certificate"; exit 1; }
+
+      - name: Keep the bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-${{ steps.version.outputs.code }}
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 14
+
+      - name: Publish to Play
+        env:
+          PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python3 tool/play_publish.py --package "$PACKAGE" publish \
+            --aab build/app/outputs/bundle/release/app-release.aab \
+            --track "${{ inputs.track || 'internal' }}" \
+            --status "${{ inputs.status || 'completed' }}" \
+            --user-fraction "${{ inputs.user_fraction || '0.2' }}" \
+            --release-name "${{ steps.version.outputs.code }} (${{ steps.version.outputs.name }})" \
+            ${{ inputs.dry_run && '--dry-run' || '' }}

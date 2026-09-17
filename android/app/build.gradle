@@ -21,6 +21,18 @@ if (flutterVersionName == null) {
   flutterVersionName = '1.0'
 }
 
+// Release signing credentials, kept in android/key.properties, which is
+// gitignored. A checkout without the keystore still builds: the release type
+// falls back to debug signing below, which is fine for local work and cannot
+// be uploaded to Play by accident.
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+  keystorePropertiesFile.withReader('UTF-8') { reader ->
+    keystoreProperties.load(reader)
+  }
+}
+
 android {
   namespace 'com.oxchat.lite'
   buildFeatures {
@@ -54,8 +66,20 @@ android {
     }
   }
 
+  signingConfigs {
+    if (keystorePropertiesFile.exists()) {
+      release {
+        storeFile file(keystoreProperties['storeFile'])
+        storePassword keystoreProperties['storePassword']
+        keyAlias keystoreProperties['keyAlias']
+        keyPassword keystoreProperties['keyPassword']
+      }
+    }
+  }
+
   buildTypes {
     release {
+      signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
       minifyEnabled false
       shrinkResources false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

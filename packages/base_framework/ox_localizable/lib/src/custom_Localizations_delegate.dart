@@ -136,4 +136,10 @@ class _DefaultCupertinoLocalizations extends CupertinoLocalizations {
 
   @override
   String get shareButtonLabel => _en.shareButtonLabel;
+
+  @override
+  String get backButtonLabel => _en.backButtonLabel;
+
+  @override
+  String get cancelButtonLabel => _en.cancelButtonLabel;
 }

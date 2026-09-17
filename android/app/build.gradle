@@ -28,7 +28,9 @@ android {
   }
   compileSdk 36
   buildToolsVersion "36.0.0"
-  ndkVersion "27.0.12077973"
+  // NDK r28+ defaults to 16 KB page alignment, which Play requires by 2027-02-01.
+  // The `jni` plugin also asks for exactly this version.
+  ndkVersion "28.2.13676358"
 
   //disable resource file check
   def version = parsePubspecVersion()

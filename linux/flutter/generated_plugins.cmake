@@ -5,8 +5,9 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   emoji_picker_flutter
-  file_selector_linux
   flutter_secure_storage_linux
+  flutter_sound
+  flutter_webrtc
   irondash_engine_context
   isar_flutter_libs
   screen_retriever_linux
@@ -16,6 +17,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
+  jni
   nostr_mls_package
   tor
 )

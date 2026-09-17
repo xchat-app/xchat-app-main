@@ -6,9 +6,9 @@ Private messenger based on NIP-EE. Connect with friends and family through priva
 
 ### System Requirements
 
-- Flutter 3.29.3
-- Dart 3.7.2 
-- iOS 12.0+ / Android 5.0+ / macOS 10.14+
+- Flutter 3.38.10
+- Dart 3.10.9
+- iOS 12.0+ / Android 9.0+ / macOS 10.14+
 
 ### Installation
 

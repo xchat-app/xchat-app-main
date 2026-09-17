@@ -74,8 +74,13 @@ jobs:
 
       - name: Install Android NDK
         run: |
-          yes | sdkmanager --licenses > /dev/null
-          sdkmanager "ndk;${NDK_VERSION}" "platforms;android-36" "build-tools;36.0.0"
+          # The runner image has the SDK but leaves cmdline-tools off PATH.
+          sdk="${ANDROID_SDK_ROOT:-$ANDROID_HOME}"
+          bin="$sdk/cmdline-tools/latest/bin"
+          echo "$bin" >> "$GITHUB_PATH"
+          yes | "$bin/sdkmanager" --licenses > /dev/null 2>&1 || true
+          "$bin/sdkmanager" "ndk;${NDK_VERSION}" "platforms;android-36" "build-tools;36.0.0"
+          test -d "$sdk/ndk/${NDK_VERSION}" || { echo "::error::NDK ${NDK_VERSION} missing"; exit 1; }
 
       - name: Cache Flutter SDK
         id: flutter-cache

@@ -10,6 +10,7 @@ import 'package:ox_localizable/ox_localizable.dart';
 import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_chat/page/session/find_people_page.dart';
 import '../controller/onboarding_controller.dart';
+import 'nostr_relay_introduction_page.dart';
 import '../utils/circle_entry_helper.dart';
 import 'circle_restore_page.dart';
 import 'private_cloud_overview_page.dart';
@@ -82,6 +83,31 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
           colorToken: ColorToken.onSurfaceVariant,
           textAlign: TextAlign.center,
           maxLines: null,
+        ),
+        SizedBox(height: 12.px),
+        // This screen asks people to pick between an invite link, a hosted
+        // circle and a relay address, in those words. "Can't work out how to
+        // use it" is 23% of one- and two-star reviews outside the April
+        // traffic spike — "что за круги? , что за реле?" — and this is where
+        // they meet the words. The answer was already written, translated
+        // into all 31 languages, and unreachable: nothing opened
+        // NostrRelayIntroductionPage.
+        GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () => OXNavigator.pushPage(
+            context,
+            (context) => NostrRelayIntroductionPage(
+              previousPageTitle: Localized.text('ox_login.add_circle_title'),
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.px),
+            child: CLText.bodyMedium(
+              Localized.text('ox_login.relay_intro_title'),
+              colorToken: ColorToken.primary,
+              textAlign: TextAlign.center,
+            ),
+          ),
         ),
       ],
     );

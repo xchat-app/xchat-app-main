@@ -14,6 +14,7 @@ import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_common/utils//string_utils.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 import 'package:ox_module_service/ox_module_service.dart';
+import 'package:ox_common/const/app_config.dart';
 import 'package:ox_common/log_util.dart';
 import 'package:ox_common/component.dart';
 import 'package:ox_common/utils/compression_utils.dart';
@@ -53,7 +54,11 @@ class ScanUtils {
     
     for (var handler in handlers) {
       if (await handler.matcher(url)) {
-        handler.action(url, context);
+        // Awaited. The actions are async, and callers wrap this in a
+        // try/finally that dismisses a loading spinner — without the await
+        // that finally runs before the work starts, so the spinner goes away
+        // immediately and the caller's catch can never see a failure.
+        await handler.action(url, context);
         return;
       }
     }
@@ -80,11 +85,17 @@ extension ScanAnalysisHandlerEx on ScanUtils {
       try {
         final uri = Uri.parse(str);
         
-        // Handle invite links
-        if (uri.path == '/x/invite' || uri.path == '/lite/invite') {
+        // startsWith, like AppConfig.isInviteLink and SchemeHelper — not an
+        // exact match. The matcher above admits anything containing the invite
+        // path, so an equality test here drops the difference (a trailing
+        // slash is enough) out of the bottom of this function without a
+        // message, a log, or a dismissed spinner.
+        if (AppConfig.isInviteLink(uri.path)) {
           await _handleInviteLinkFromScan(uri, context);
           return;
         }
+        LogUtil.e('Invite link matched but its path is not one: ${uri.path}');
+        CommonToast.instance.show(context, Localized.text('ox_common.invalid_invite_link'));
       } catch (e) {
         LogUtil.e('Error handling invite link from scan: $e');
         CommonToast.instance.show(context, Localized.text('ox_common.invalid_invite_link'));

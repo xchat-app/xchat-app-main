@@ -236,8 +236,16 @@ class MainState extends State<MainApp>
     switch (state) {
       case AppLifecycleState.resumed:
         PromptToneManager.sharedInstance.isAppPaused = false;
+        // Ahead of the circle check, because an invite link is the one thing
+        // that can put someone into a circle: gating it on already being in
+        // one meant tapping an invite did nothing at all for exactly the
+        // people it is meant for. Still gated on having an account, since the
+        // native side clears the pending URL as it hands it over — reading it
+        // while signed out would discard the invite rather than defer it.
+        if (LoginManager.instance.currentState.account != null) {
+          SchemeHelper.tryHandlerForOpenAppScheme();
+        }
         if (!LoginManager.instance.isLoginCircle) return;
-        SchemeHelper.tryHandlerForOpenAppScheme();
         keepHeartBeat();
         CLUserPushNotificationManager.instance.updatePushTokenIfNeeded();
         // For handling notification permission being granted

@@ -225,9 +225,19 @@ class InviteLinkManager {
         throw Exception(Localized.text('ox_usercenter.invite_link_generation_failed'));
       }
 
-      // Get relay URL
+      // Get relay URL. getCurrentCircleRelay always returns one element, which
+      // is the empty string when there is no current circle, so isNotEmpty is
+      // always true and the old fallback here could never run — the link was
+      // built with relay= and nothing after it, which the receiving app
+      // rejects as invalid_invite_link_missing_relay. Match the check that
+      // generateKeyPackageInviteLink already does and fail loudly instead.
+      // (The fallback it named, wss://relay.0xchat.com, is shut down anyway.)
       List<String> relays = Account.sharedInstance.getCurrentCircleRelay();
-      String relayUrl = relays.isNotEmpty ? relays.first : 'wss://relay.0xchat.com';
+      String? relayUrl = relays.firstOrNull;
+      if (relayUrl == null || relayUrl.isEmpty) {
+        await OXLoading.dismiss();
+        throw Exception('Error circle info');
+      }
 
       // Generate new invite link
       final inviteLink = '${AppConfig.inviteBaseUrl}?eventid=${Uri.encodeComponent(keyPackageEvent.eventId)}&relay=${Uri.encodeComponent(relayUrl)}';

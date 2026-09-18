@@ -19,5 +19,9 @@
   "circle_status_connecting": "正在連接 ${circle}…",
   "circle_status_disconnecting": "正在斷開連接…",
   "circle_status_disconnected": "未連接",
-  "circle_status_unknown": "連接狀態未知"
+  "circle_status_unknown": "連接狀態未知",
+  "back_up_key_title": "儲存你的帳號金鑰",
+  "back_up_key_desc": "你的帳號就是這台裝置上的一串金鑰。如果手機遺失而你沒有副本，帳號將無法復原——我們也做不到。",
+  "back_up_key_action": "立即儲存",
+  "back_up_key_later": "稍後"
 }

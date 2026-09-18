@@ -5,6 +5,7 @@ import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_common/utils/took_kit.dart';
 import 'package:ox_localizable/ox_localizable.dart';
+import 'package:ox_common/utils/key_backup_state.dart';
 
 class KeysPage extends StatefulWidget {
 
@@ -170,6 +171,11 @@ class _KeysPageState extends State<KeysPage> {
     await TookKit.copyKey(
       context,
       encodedPrivkey$.value,
+    );
+    // Taking a copy is the only thing that makes an account recoverable, so
+    // it is also what stops the home banner asking.
+    await KeyBackupState.markBackedUp(
+      LoginManager.instance.currentState.account?.pubkey ?? '',
     );
   }
 }

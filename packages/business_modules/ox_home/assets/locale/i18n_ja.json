@@ -19,5 +19,9 @@
   "circle_status_connecting": "${circle} に接続中...",
   "circle_status_disconnecting": "切断中...",
   "circle_status_disconnected": "未接続",
-  "circle_status_unknown": "接続状態不明"
+  "circle_status_unknown": "接続状態不明",
+  "back_up_key_title": "アカウントキーを保存してください",
+  "back_up_key_desc": "アカウントはこの端末にある鍵そのものです。控えがないまま端末を失うと、アカウントは復元できません。私たちにもできません。",
+  "back_up_key_action": "今すぐ保存",
+  "back_up_key_later": "後で"
 }

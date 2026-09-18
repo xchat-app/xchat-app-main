@@ -19,5 +19,9 @@
   "circle_status_connecting": "Connecting to ${circle}...",
   "circle_status_disconnecting": "Disconnecting...",
   "circle_status_disconnected": "Disconnected",
-  "circle_status_unknown": "Connection status unknown"
+  "circle_status_unknown": "Connection status unknown",
+  "back_up_key_title": "Save your account key",
+  "back_up_key_desc": "Your account is a key on this device. If you lose the phone without a copy, the account cannot be restored — not by us, not by anyone.",
+  "back_up_key_action": "Save it now",
+  "back_up_key_later": "Later"
 }

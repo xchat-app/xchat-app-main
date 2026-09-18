@@ -19,5 +19,9 @@
   "circle_status_connecting": "${circle} bağlanılıyor...",
   "circle_status_disconnecting": "Bağlantı kesiliyor...",
   "circle_status_disconnected": "Bağlantı kesildi",
-  "circle_status_unknown": "Bağlantı durumu bilinmiyor"
+  "circle_status_unknown": "Bağlantı durumu bilinmiyor",
+  "back_up_key_title": "Hesap anahtarınızı kaydedin",
+  "back_up_key_desc": "Hesabınız bu cihazdaki bir anahtardır. Telefonu kopyası olmadan kaybederseniz hesap kurtarılamaz — bizim tarafımızdan da.",
+  "back_up_key_action": "Şimdi kaydet",
+  "back_up_key_later": "Daha sonra"
 }

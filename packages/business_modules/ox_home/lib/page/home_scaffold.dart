@@ -19,6 +19,7 @@ import 'home_header_components.dart';
 import '../widgets/session_list_widget.dart';
 import '../widgets/circle_empty_widget.dart';
 import 'package:ox_common/utils/relay_latency_handler.dart';
+import '../widgets/key_backup_banner.dart';
 
 class HomeScaffold extends StatefulWidget {
   const HomeScaffold({
@@ -204,6 +205,15 @@ class _HomeScaffoldState extends State<HomeScaffold> {
         ) : CircleEmptyWidget(
           onJoinCircle: _handleJoinCircle,
           onCreatePaidCircle: _handleCreatePaidCircle,
+        );
+
+        // Above the list rather than inside it, so it survives an empty circle
+        // and does not scroll away from someone who has not read it yet.
+        body = Column(
+          children: [
+            const KeyBackupBanner(),
+            Expanded(child: body),
+          ],
         );
 
         if (isFirstJoin) {

@@ -19,5 +19,9 @@
   "circle_status_connecting": "Verbinde mit ${circle}...",
   "circle_status_disconnecting": "Trenne Verbindung...",
   "circle_status_disconnected": "Getrennt",
-  "circle_status_unknown": "Verbindungsstatus unbekannt"
+  "circle_status_unknown": "Verbindungsstatus unbekannt",
+  "back_up_key_title": "Sichere deinen Kontoschlüssel",
+  "back_up_key_desc": "Dein Konto ist ein Schlüssel auf diesem Gerät. Geht das Telefon ohne Kopie verloren, lässt sich das Konto nicht wiederherstellen — auch nicht von uns.",
+  "back_up_key_action": "Jetzt sichern",
+  "back_up_key_later": "Später"
 }

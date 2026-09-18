@@ -19,5 +19,9 @@
   "circle_status_connecting": "Menghubungkan ke ${circle}...",
   "circle_status_disconnecting": "Memutuskan koneksi...",
   "circle_status_disconnected": "Terputus",
-  "circle_status_unknown": "Status koneksi tidak diketahui"
+  "circle_status_unknown": "Status koneksi tidak diketahui",
+  "back_up_key_title": "Simpan kunci akun Anda",
+  "back_up_key_desc": "Akun Anda adalah kunci di perangkat ini. Jika ponsel hilang dan Anda tidak punya salinan, akun tidak bisa dipulihkan — oleh kami pun tidak.",
+  "back_up_key_action": "Simpan sekarang",
+  "back_up_key_later": "Nanti"
 }

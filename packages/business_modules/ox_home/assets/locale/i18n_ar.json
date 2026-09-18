@@ -19,5 +19,9 @@
   "circle_status_connecting": "جارٍ الاتصال بـ ${circle}...",
   "circle_status_disconnecting": "جارٍ قطع الاتصال...",
   "circle_status_disconnected": "غير متصل",
-  "circle_status_unknown": "حالة الاتصال غير معروفة"
+  "circle_status_unknown": "حالة الاتصال غير معروفة",
+  "back_up_key_title": "احفظ مفتاح حسابك",
+  "back_up_key_desc": "حسابك هو مفتاح على هذا الجهاز. إذا فقدت الهاتف دون نسخة، لا يمكن استعادة الحساب — لا من قِبلنا ولا من قِبل أي شخص.",
+  "back_up_key_action": "احفظه الآن",
+  "back_up_key_later": "لاحقًا"
 }

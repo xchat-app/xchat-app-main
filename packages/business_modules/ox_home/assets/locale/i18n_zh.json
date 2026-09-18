@@ -19,5 +19,9 @@
   "circle_status_connecting": "正在连接 ${circle}…",
   "circle_status_disconnecting": "正在断开连接…",
   "circle_status_disconnected": "未连接",
-  "circle_status_unknown": "连接状态未知"
+  "circle_status_unknown": "连接状态未知",
+  "back_up_key_title": "保存你的账号密钥",
+  "back_up_key_desc": "你的账号就是这台设备上的一串密钥。如果手机丢失而你没有副本，账号将无法恢复——我们也做不到。",
+  "back_up_key_action": "现在保存",
+  "back_up_key_later": "稍后"
 }

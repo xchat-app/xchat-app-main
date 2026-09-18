@@ -19,5 +19,9 @@
   "circle_status_connecting": "Conectando a ${circle}...",
   "circle_status_disconnecting": "Desconectando...",
   "circle_status_disconnected": "Desconectado",
-  "circle_status_unknown": "Estado de conexión desconocido"
+  "circle_status_unknown": "Estado de conexión desconocido",
+  "back_up_key_title": "Guarda la clave de tu cuenta",
+  "back_up_key_desc": "Tu cuenta es una clave en este dispositivo. Si pierdes el teléfono sin una copia, la cuenta no se puede recuperar — ni por nosotros ni por nadie.",
+  "back_up_key_action": "Guardar ahora",
+  "back_up_key_later": "Más tarde"
 }

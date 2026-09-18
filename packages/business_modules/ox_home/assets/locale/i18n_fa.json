@@ -19,5 +19,9 @@
   "circle_status_connecting": "در حال اتصال به ${circle}...",
   "circle_status_disconnecting": "در حال قطع اتصال...",
   "circle_status_disconnected": "قطع شده",
-  "circle_status_unknown": "وضعیت اتصال نامشخص"
+  "circle_status_unknown": "وضعیت اتصال نامشخص",
+  "back_up_key_title": "کلید حساب خود را ذخیره کنید",
+  "back_up_key_desc": "حساب شما یک کلید روی همین دستگاه است. اگر گوشی را بدون نسخه پشتیبان از دست بدهید، حساب قابل بازیابی نیست — نه توسط ما و نه هیچ‌کس دیگر.",
+  "back_up_key_action": "همین حالا ذخیره کن",
+  "back_up_key_later": "بعداً"
 }

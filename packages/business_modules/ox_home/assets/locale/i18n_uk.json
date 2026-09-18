@@ -19,5 +19,9 @@
   "circle_status_connecting": "Підключення до ${circle}...",
   "circle_status_disconnecting": "Відключення...",
   "circle_status_disconnected": "Відключено",
-  "circle_status_unknown": "Невідомий статус підключення"
+  "circle_status_unknown": "Невідомий статус підключення",
+  "back_up_key_title": "Збережіть ключ свого облікового запису",
+  "back_up_key_desc": "Ваш обліковий запис — це ключ на цьому пристрої. Якщо телефон загубиться, а копії немає, відновити його неможливо — ні нам, ні будь-кому.",
+  "back_up_key_action": "Зберегти зараз",
+  "back_up_key_later": "Пізніше"
 }

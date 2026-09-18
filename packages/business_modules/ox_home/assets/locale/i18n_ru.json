@@ -19,5 +19,9 @@
   "circle_status_connecting": "Подключение к ${circle}...",
   "circle_status_disconnecting": "Отключение...",
   "circle_status_disconnected": "Отключено",
-  "circle_status_unknown": "Неизвестный статус подключения"
+  "circle_status_unknown": "Неизвестный статус подключения",
+  "back_up_key_title": "Сохраните ключ аккаунта",
+  "back_up_key_desc": "Ваш аккаунт — это ключ на этом устройстве. Если телефон потеряется, а копии нет, аккаунт восстановить нельзя — ни нам, ни кому-либо ещё.",
+  "back_up_key_action": "Сохранить сейчас",
+  "back_up_key_later": "Позже"
 }

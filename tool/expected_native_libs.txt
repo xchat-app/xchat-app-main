@@ -1,0 +1,25 @@
+# Native libraries every release build must contain, in every ABI it ships.
+#
+# Written down on purpose. Version 44 reached all of production without
+# libnostr_mls_package.so — CargoKit skipped the Rust build, printed one line
+# and returned, and Gradle exited 0. A list derived from the artifact under
+# test would have agreed with the broken artifact; only a list kept separately
+# can notice that something stopped being built.
+#
+# Adding a dependency that ships a .so? Add it here in the same commit.
+# Removing one? Take it out here, and say why in the commit message.
+
+libapp.so
+libbarhopper_v3.so
+libdartjni.so
+libdatastore_shared_counter.so
+libflutter.so
+libimage_processing_util_jni.so
+libirondash_engine_context_native.so
+libisar.so
+libjingle_peerconnection_so.so
+libnostr_mls_package.so
+libsecp256k1-jni.so
+libsqlcipher.so
+libsuper_native_extensions.so
+libsurface_util_jni.so

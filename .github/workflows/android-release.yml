@@ -177,21 +177,16 @@ jobs:
           flutter pub get
           flutter build appbundle --release
 
-      - name: Check the signing certificate
-        # A build with no keystore falls back to debug signing, and Play rejects
-        # it only after the upload. More importantly, the fingerprint below is
-        # the one registered in 0xchat.com/.well-known/assetlinks.json: sign
-        # with anything else and Android App Links stop verifying, which
-        # silently breaks every invite link in the wild.
-        env:
-          EXPECTED: CC:E2:D4:08:11:66:90:30:B9:E2:3E:C1:BA:74:11:40:AA:FE:63:E0:E0:46:0A:86:B3:F5:D3:58:CC:2C:8F:5F
+      - name: Check the artifact is what it should be
+        # Not just the signature. Version 44 was signed with the right key,
+        # built with exit 0, and shipped to everyone without
+        # libnostr_mls_package.so — it died on launch for every user. The
+        # script checks the file itself: every expected library present in
+        # every ABI, 64-bit libraries linked for 16 KB pages, and the
+        # certificate registered in assetlinks.json.
         run: |
-          aab=build/app/outputs/bundle/release/app-release.aab
-          sig=$(unzip -l "$aab" | awk '/META-INF\/.*\.(RSA|DSA|EC)$/{print $NF; exit}')
-          actual=$(unzip -p "$aab" "$sig" | keytool -printcert | awk '/SHA256:/{print $2}')
-          echo "expected $EXPECTED"
-          echo "actual   $actual"
-          [ "$actual" = "$EXPECTED" ] || { echo "::error::wrong signing certificate"; exit 1; }
+          python3 tool/verify_bundle.py \
+            build/app/outputs/bundle/release/app-release.aab
 
       - name: Keep the bundle
         uses: actions/upload-artifact@v4

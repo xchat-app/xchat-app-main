@@ -1151,7 +1151,7 @@ packages:
     description:
       path: "packages/isar"
       ref: "4.0.3-fix"
-      resolved-ref: "30ec12030a37d98fb9f769271d1b034d6cbaae9b"
+      resolved-ref: "9a2548c89a899b4f9629a94d0fad8a0e769f9c47"
       url: "https://github.com/wcat7/isar.git"
     source: git
     version: "0.0.0-placeholder"
@@ -1160,7 +1160,7 @@ packages:
     description:
       path: "packages/isar_flutter_libs"
       ref: "4.0.3-fix"
-      resolved-ref: "30ec12030a37d98fb9f769271d1b034d6cbaae9b"
+      resolved-ref: "9a2548c89a899b4f9629a94d0fad8a0e769f9c47"
       url: "https://github.com/wcat7/isar.git"
     source: git
     version: "0.0.0-placeholder"

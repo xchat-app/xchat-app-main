@@ -21,11 +21,9 @@
   "carousel_title_4": "Custom Servers",
   "carousel_text_4": "Customize your relays and file servers. You have complete control over where your data is stored.",
   "account_key_placeholder": "Enter nsec or bunker:// URI",
-  
   "get_started": "Get Started",
   "have_account": "I have a Nostr account",
   "sign_in_with_apple": "Sign in with Apple",
-
   "apple_login_set_password_title": "Set recovery passphrase",
   "apple_login_set_password_hint": "Set a passphrase to recover your XChat identity on a new device.",
   "apple_password_placeholder": "Recovery passphrase",
@@ -33,14 +31,12 @@
   "apple_password_required": "Please enter a recovery passphrase",
   "apple_password_min_length": "Recovery passphrase must be at least 8 characters",
   "apple_password_mismatch": "Passwords do not match",
-
   "profile_setup_title": "Create Your Profile",
   "profile_setup_subtitle": "Enter your name to get started. Your nostr account is being created automatically.",
   "profile_setup_avatar_hint": "Your unique avatar",
   "profile_setup_name_hint": "This is how others will see you. You can change this anytime.",
   "first_name_placeholder": "First Name",
   "last_name_placeholder": "Last Name (Optional)",
-  
   "join_circle": "Join Circle",
   "join_circle_subtitle": "Connect to your circle using an invite link or choose a relay provider.",
   "circle_selection_title": "Join a Circle",
@@ -51,6 +47,8 @@
   "invitation_code": "Invitation Link",
   "invitation_code_empty": "Please enter an invitation link",
   "or_connect_via": "OR CONNECT VIA",
+  "public_network": "Start free",
+  "public_network_desc": "Start messaging on the public network now. Move to a private circle whenever you want.",
   "private_cloud": "Get Private Circle",
   "private_cloud_desc": "Hosted dedicated high-speed relay with built-in secure media server",
   "custom_relay": "Custom Relay",
@@ -61,7 +59,6 @@
   "use_private_circle_desc": "Self-hosted or personal relay for maximum control.",
   "recommended": "RECOMMENDED",
   "connect": "Continue",
-  
   "add_circle_title": "Add Circle",
   "add_circle_description": "Enter the circle address to join.",
   "circle_url_placeholder": "Enter circle URL or name",
@@ -74,7 +71,6 @@
   "join": "Join",
   "what_is_circle": "What is a Circle?",
   "what_is_relay": "What is a Relay?",
-
   "relay_intro_title": "What is a Circle?",
   "relay_intro_subtitle": "Your private communication hub",
   "relay_intro_description": "A Circle is like your own private mailroom that handles all your encrypted messages. It helps you chat with friends while keeping everything secure and private.",
@@ -103,10 +99,8 @@
   "how_to_use_step_1": "Enter your nsec private key for direct login",
   "how_to_use_step_2": "Or use a bunker:// URI for remote signer login",
   "how_to_use_step_3": "The app will securely connect and authenticate you",
-  
   "select_avatar": "Select Avatar",
   "camera": "Camera",
-  
   "private_relay": "Private Relay",
   "upgrade_your_circle": "Upgrade your Circle",
   "upgrade_description": "High-speed private relay, encrypted storage, and zero logging. Full control to delete your data anytime.",
@@ -145,7 +139,6 @@
   "share_invite_link": "Share Invite Link",
   "invite_more_people": "Invite up to {count} more people to share this circle.",
   "enter_my_private_circle": "Enter My Private Circle",
-  
   "capacity_selection_title": "How big is your circle?",
   "capacity_selection_subtitle": "Choose a capacity that fits your needs.",
   "capacity_2_members": "2 Members",
@@ -154,14 +147,12 @@
   "capacity_6_members_desc": "Complete privacy for home.",
   "capacity_50_members": "20 Members",
   "capacity_50_members_desc": "For groups & creators.",
-  
   "duration_selection_title": "How often to pay?",
   "duration_selection_subtitle": "Save up to {percent}% with yearly billing.",
   "duration_selection_subtitle_fallback": "Save with yearly billing.",
   "save_20_percent": "SAVE 17%",
   "billed_every_month": "Billed every month",
   "billed_every_12_months": "Billed every 12 months",
-  
   "checkout_title": "Review Order",
   "checkout_subtitle": "You won't be charged until you confirm.",
   "plan": "Plan",
@@ -176,7 +167,6 @@
   "private_cloud_overview_desc_2": "Starts at just {price}/mo.",
   "configure_plan": "CONFIGURE PLAN",
   "subscription_limit_reached": "Subscription server limit reached",
-  
   "welcome_back": "Welcome Back",
   "found_circles_description": "We found {count} circles linked to your account. Select the ones you want to restore to this device.",
   "set_up_as_new_device": "Set up as a new device instead",
@@ -186,7 +176,6 @@
   "member": "Member",
   "skip": "Skip",
   "expired": "Expired",
-  
   "private_circle_learn_more": "Learn More",
   "private_circle_features_title": "Features",
   "private_circle_features_1": "Dedicated hosted relay server",

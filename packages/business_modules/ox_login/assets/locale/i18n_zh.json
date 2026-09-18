@@ -134,6 +134,8 @@
   "invitation_code": "邀请链接",
   "invitation_code_empty": "请输入邀请链接",
   "or_connect_via": "或通过以下方式连接",
+  "public_network": "免费开始",
+  "public_network_desc": "现在就能在公共网络上聊天，随时可以换成私密圈子。",
   "private_cloud": "获取私密圈子",
   "private_cloud_desc": "托管专用高速中继，内置安全媒体服务器",
   "custom_relay_desc": "社区或自托管节点",

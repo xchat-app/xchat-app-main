@@ -81,6 +81,8 @@
   "invitation_code": "Lien d'Invitation",
   "invitation_code_empty": "Veuillez entrer un lien d'invitation",
   "or_connect_via": "OU CONNECTEZ-VOUS VIA",
+  "public_network": "Commencer gratuitement",
+  "public_network_desc": "Discutez dès maintenant sur le réseau public. Passez à un cercle privé quand vous voulez.",
   "private_cloud": "Obtenir un Cercle Privé",
   "private_cloud_desc": "Relais dédié haute vitesse hébergé avec serveur multimédia sécurisé intégré",
   "custom_relay": "Relais Personnalisé",

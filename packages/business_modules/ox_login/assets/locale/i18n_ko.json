@@ -81,6 +81,8 @@
   "invitation_code": "초대 링크",
   "invitation_code_empty": "초대 링크를 입력하세요",
   "or_connect_via": "또는 연결",
+  "public_network": "무료로 시작",
+  "public_network_desc": "지금 바로 공개 네트워크에서 대화를 시작하세요. 언제든지 프라이빗 서클로 옮길 수 있습니다.",
   "private_cloud": "프라이빗 서클 받기",
   "private_cloud_desc": "통합된 안전한 미디어 서버가 있는 호스팅 전용 고속 릴레이",
   "custom_relay": "사용자 정의 릴레이",

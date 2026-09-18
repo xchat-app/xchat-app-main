@@ -81,6 +81,8 @@
   "invitation_code": "Link de Convite",
   "invitation_code_empty": "Por favor, digite um link de convite",
   "or_connect_via": "OU CONECTE VIA",
+  "public_network": "Começar grátis",
+  "public_network_desc": "Comece a conversar na rede pública agora. Mude para um círculo privado quando quiser.",
   "private_cloud": "Obter Círculo Privado",
   "private_cloud_desc": "Relay dedicado de alta velocidade hospedado com servidor de mídia seguro integrado",
   "custom_relay": "Relay Personalizado",

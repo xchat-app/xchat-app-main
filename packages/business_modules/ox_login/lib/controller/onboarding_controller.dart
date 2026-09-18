@@ -9,6 +9,11 @@ import 'package:ox_common/login/login_models.dart';
 import 'package:ox_common/utils/circle_join_utils.dart';
 import 'package:ox_common/upload/upload_utils.dart';
 
+/// Where an account goes when it arrives with no invite and no subscription.
+/// A public relay is the only entry that costs nothing, and without one the
+/// choices on the circle page are "pay" or "run your own server".
+const kPublicRelayUrl = 'wss://relay.damus.io';
+
 class OnboardingResult {
   final bool success;
   final String? errorMessage;
@@ -93,7 +98,7 @@ extension OnboardingControllerProfileEx on OnboardingController {
 extension OnboardingControllerCircleEx on OnboardingController {
   Future<OnboardingResult> joinPublicCircle() async {
     final result = await _joinCircle(
-      relayUrl: 'wss://relay.damus.io',
+      relayUrl: kPublicRelayUrl,
       forceJoin: true,
     );
     return result;

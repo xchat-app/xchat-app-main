@@ -81,6 +81,8 @@
   "invitation_code": "Davet Bağlantısı",
   "invitation_code_empty": "Lütfen bir davet bağlantısı girin",
   "or_connect_via": "VEYA ŞUNUNLA BAĞLAN",
+  "public_network": "Ücretsiz başla",
+  "public_network_desc": "Hemen herkese açık ağda sohbete başlayın. İstediğiniz zaman özel çembere geçebilirsiniz.",
   "private_cloud": "Özel Çember Al",
   "private_cloud_desc": "Yerleşik güvenli medya sunucusu ile barındırılan özel yüksek hızlı relay",
   "custom_relay": "Özel Relay",

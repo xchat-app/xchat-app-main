@@ -81,6 +81,8 @@
   "invitation_code": "Tautan Undangan",
   "invitation_code_empty": "Silakan masukkan tautan undangan",
   "or_connect_via": "ATAU HUBUNGKAN MELALUI",
+  "public_network": "Mulai gratis",
+  "public_network_desc": "Mulai mengobrol di jaringan publik sekarang. Pindah ke lingkaran pribadi kapan saja.",
   "private_cloud": "Dapatkan Lingkaran Pribadi",
   "private_cloud_desc": "Relay berkecepatan tinggi khusus yang dihosting dengan server media aman terintegrasi",
   "custom_relay": "Relay Kustom",

@@ -81,6 +81,8 @@
   "invitation_code": "招待リンク",
   "invitation_code_empty": "招待リンクを入力してください",
   "or_connect_via": "または接続",
+  "public_network": "無料で始める",
+  "public_network_desc": "今すぐ公開ネットワークで会話できます。いつでもプライベートサークルに移行できます。",
   "private_cloud": "プライベートサークルを取得",
   "private_cloud_desc": "統合された安全なメディアサーバーを備えたホスト型専用高速リレー",
   "custom_relay": "カスタムリレー",

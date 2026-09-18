@@ -81,6 +81,8 @@
   "invitation_code": "Enlace de Invitación",
   "invitation_code_empty": "Por favor ingrese un enlace de invitación",
   "or_connect_via": "O CONÉCTESE A TRAVÉS DE",
+  "public_network": "Empezar gratis",
+  "public_network_desc": "Empieza a chatear en la red pública ahora. Cambia a un círculo privado cuando quieras.",
   "private_cloud": "Obtener Círculo Privado",
   "private_cloud_desc": "Relé dedicado de alta velocidad alojado con servidor multimedia seguro integrado",
   "custom_relay": "Relé Personalizado",

@@ -81,6 +81,8 @@
   "invitation_code": "Einladungslink",
   "invitation_code_empty": "Bitte geben Sie einen Einladungslink ein",
   "or_connect_via": "ODER VERBINDEN SIE SICH ÜBER",
+  "public_network": "Kostenlos starten",
+  "public_network_desc": "Chatte jetzt im öffentlichen Netzwerk. Wechsle jederzeit in einen privaten Kreis.",
   "private_cloud": "Privaten Kreis Erhalten",
   "private_cloud_desc": "Gehosteter dedizierter Hochgeschwindigkeits-Relay mit integriertem sicherem Medienserver",
   "custom_relay": "Benutzerdefiniertes Relay",

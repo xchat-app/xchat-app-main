@@ -100,6 +100,8 @@
   "invitation_code": "邀請連結",
   "invitation_code_empty": "請輸入邀請連結",
   "or_connect_via": "或透過以下方式連線",
+  "public_network": "免費開始",
+  "public_network_desc": "現在就能在公共網路上聊天，隨時可以換成私密圈子。",
   "private_cloud": "取得私密圈子",
   "private_cloud_desc": "託管專用高速中繼，內建安全媒體伺服器",
   "custom_relay_desc": "社群或自託管節點",

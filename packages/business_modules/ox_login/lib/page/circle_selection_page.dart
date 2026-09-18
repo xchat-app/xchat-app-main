@@ -14,7 +14,7 @@ import '../utils/circle_entry_helper.dart';
 import 'circle_restore_page.dart';
 import 'private_cloud_overview_page.dart';
 
-enum CircleType { invite, private, custom }
+enum CircleType { invite, public, private, custom }
 
 class CircleSelectionPage extends StatefulWidget {
   const CircleSelectionPage({
@@ -94,6 +94,8 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
         SizedBox(height: 24.px),
         _buildSeparator(),
         SizedBox(height: 24.px),
+        _buildPublicOption(),
+        SizedBox(height: 16.px),
         _buildPrivateCloudOption(),
         SizedBox(height: 16.px),
         _buildCustomRelayOption(),
@@ -182,6 +184,21 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
           ),
         ),
       ],
+    );
+  }
+
+  /// The only option here that costs nothing and needs nobody else. Without
+  /// it a new arrival with no invite can either pay or leave, which is what
+  /// the one-star reviews describe.
+  Widget _buildPublicOption() {
+    return _buildOptionCard(
+      icon: Icons.public_rounded,
+      iconColor: ColorToken.primary.of(context),
+      title: Localized.text('ox_login.public_network'),
+      subtitle: Localized.text('ox_login.public_network_desc'),
+      showArrow: false,
+      isSelected: _selectedCircleType == CircleType.public,
+      onTap: () => setState(() => _selectedCircleType = CircleType.public),
     );
   }
 
@@ -427,6 +444,9 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
       case CircleType.invite:
         await _onUseInvite();
         break;
+      case CircleType.public:
+        await _onUsePublicCircle();
+        break;
       case CircleType.private:
         await _onUsePrivateCircle();
         break;
@@ -441,6 +461,27 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
       context,
       (context) => const FindPeoplePage(joinCircleMode: true),
     );
+  }
+
+  Future<void> _onUsePublicCircle() async {
+    setState(() => _isProcessing = true);
+    OXLoading.show();
+    try {
+      if (_controller != null) {
+        _handleOnboardingResult(await _controller!.joinPublicCircle());
+      } else {
+        await CircleJoinUtils.processJoinCircle(
+          input: kPublicRelayUrl,
+          context: context,
+        );
+        if (mounted) Navigator.of(context).pop(true);
+      }
+    } catch (e) {
+      if (mounted) CommonToast.instance.show(context, e.toString());
+    } finally {
+      OXLoading.dismiss();
+      if (mounted) setState(() => _isProcessing = false);
+    }
   }
 
   Future<void> _onUsePrivateCircle() async {

@@ -75,7 +75,6 @@ class MainState extends State<MainApp>
   late StreamSubscription wsSwitchStateListener;
   StreamSubscription? cacheTimeEventListener;
   int lastUserInteractionTime = 0;
-  Timer? timer;
 
   List<OXErrorInfo> initializeErrors = [];
 
@@ -88,9 +87,6 @@ class MainState extends State<MainApp>
     if (LoginManager.instance.isLoginCircle) {
       notNetworInitWow();
     }
-    timer = Timer.periodic(Duration(seconds: 5), (Timer t) {
-      printMemoryUsage();
-    });
     showErrorDialogIfNeeded();
 
     if (!Adapt.isInitialized) {
@@ -155,8 +151,6 @@ class MainState extends State<MainApp>
 
   @override
   void dispose() {
-    timer?.cancel();
-    timer = null;
     super.dispose();
     OXUserInfoManager.sharedInstance.removeObserver(this);
     WidgetsBinding.instance.removeObserver(this);
@@ -267,12 +261,6 @@ class MainState extends State<MainApp>
     await ThreadPoolManager.sharedInstance.initialize();
     Connect.sharedInstance.checkAndReconnectIfNeeded();
     Account.sharedInstance.startHeartBeat();
-  }
-
-  void printMemoryUsage() {
-    final memoryUsage = ProcessInfo.currentRss;
-    // print('Current RSS memory usage: ${memoryUsage / (1024 * 1024)} MB');
-    // print('Max RSS memory usage: ${ProcessInfo.maxRss / (1024 * 1024)} MB');
   }
 
   void nip46ConnectStatusInit() {

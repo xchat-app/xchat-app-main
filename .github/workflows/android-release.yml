@@ -177,6 +177,14 @@ jobs:
           flutter pub get
           flutter build appbundle --release
 
+      - name: Refuse new analyzer findings
+        # Not a clean-tree check — the tree is not clean, and 3543 findings
+        # cannot be a release gate. This freezes that number and fails only on
+        # what a change adds. The timer that woke every install every five
+        # seconds to read its memory and discard it was reported on every run
+        # for sixteen months; a warning among thousands is not a signal.
+        run: python3 tool/analyze_guard.py
+
       - name: Check the artifact is what it should be
         # Not just the signature. Version 44 was signed with the right key,
         # built with exit 0, and shipped to everyone without

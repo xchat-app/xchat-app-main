@@ -38,7 +38,7 @@
   "add_circle_title": "Çember Ekle",
   "add_circle_description": "Katılmak için çember adresini girin.",
   "circle_url_placeholder": "Çember URL'si veya adı girin",
-  "circle_url_hint": "Tam bir URL girebilir (örn. wss://relay.example.com) veya 0xchat veya damus gibi bir kısayol kullanabilirsiniz.",
+  "circle_url_hint": "Tam bir URL girebilir (örn. wss://relay.example.com) veya 0xchat veya nos gibi bir kısayol kullanabilirsiniz.",
   "circle_url_empty": "Lütfen bir çember adresi girin",
   "join": "Katıl",
   "what_is_circle": "Çember nedir?",

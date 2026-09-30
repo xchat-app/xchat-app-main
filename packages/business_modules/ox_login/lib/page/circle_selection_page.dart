@@ -426,9 +426,10 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
             cursor: SystemMouseCursors.click,
           ),
           CLHighlightRule(
-            pattern: RegExp(r'damus'),
+            // Whole word: "nos" is also a pronoun in fr/es/pt.
+            pattern: RegExp(r'\bnos\b'),
             onTap: (match) {
-              controller.text = 'damus';
+              controller.text = 'nos';
               controller.selection = TextSelection.fromPosition(
                 TextPosition(offset: controller.text.length),
               );
@@ -592,7 +593,7 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
       description: null,
       descriptionWidget: _buildCircleDialogDescription(),
       inputLabel: Localized.text('ox_login.relay_url_placeholder'),
-      initialValue: 'damus',
+      initialValue: 'nos',
       confirmText: Localized.text('ox_login.join'),
       onConfirm: (input) async {
         final trimmedInput = input.trim();

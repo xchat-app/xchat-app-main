@@ -39,7 +39,7 @@
   "add_circle_title": "新增圈子",
   "add_circle_description": "輸入圈子地址以加入。",
   "circle_url_placeholder": "輸入圈子 URL 或名稱",
-  "circle_url_hint": "您可以輸入完整的 URL（例如 wss://relay.example.com）或使用快捷名稱如 0xchat 或 damus。",
+  "circle_url_hint": "您可以輸入完整的 URL（例如 wss://relay.example.com）或使用快捷名稱如 0xchat 或 nos。",
   "circle_url_empty": "請輸入圈子地址",
   "join": "加入",
   "what_is_circle": "什麼是圈子？",

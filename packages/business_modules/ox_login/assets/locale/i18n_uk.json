@@ -38,7 +38,7 @@
   "add_circle_title": "Додати Коло",
   "add_circle_description": "Введіть адресу кола для приєднання.",
   "circle_url_placeholder": "Введіть URL або назву кола",
-  "circle_url_hint": "Ви можете ввести повний URL (наприклад, wss://relay.example.com) або використати скорочення, наприклад 0xchat або damus.",
+  "circle_url_hint": "Ви можете ввести повний URL (наприклад, wss://relay.example.com) або використати скорочення, наприклад 0xchat або nos.",
   "circle_url_empty": "Будь ласка, введіть адресу кола",
   "join": "Приєднатися",
   "what_is_circle": "Що таке Коло?",

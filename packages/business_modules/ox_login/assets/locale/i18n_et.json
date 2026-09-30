@@ -38,7 +38,7 @@
   "add_circle_title": "Lisa ring",
   "add_circle_description": "Sisesta ringi aadress liitumiseks.",
   "circle_url_placeholder": "Sisesta ringi URL või nimi",
-  "circle_url_hint": "Saad sisestada täis-URL-i (nt wss://relay.example.com) või kasutada otseteed nagu 0xchat või damus.",
+  "circle_url_hint": "Saad sisestada täis-URL-i (nt wss://relay.example.com) või kasutada otseteed nagu 0xchat või nos.",
   "circle_url_empty": "Palun sisesta ringi aadress",
   "join": "Liitu",
   "what_is_circle": "Mis on ring?",

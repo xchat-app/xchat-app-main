@@ -38,7 +38,7 @@
   "add_circle_title": "Afegir Cercle",
   "add_circle_description": "Introduïu l'adreça del cercle per unir-vos.",
   "circle_url_placeholder": "Introduïu URL o nom del cercle",
-  "circle_url_hint": "Podeu introduir una URL completa (p. ex. wss://relay.example.com) o utilitzar una drecera com 0xchat o damus.",
+  "circle_url_hint": "Podeu introduir una URL completa (p. ex. wss://relay.example.com) o utilitzar una drecera com 0xchat o nos.",
   "circle_url_empty": "Introduïu una adreça de cercle",
   "join": "Unir-se",
   "what_is_circle": "Què és un Cercle?",

@@ -38,7 +38,7 @@
   "add_circle_title": "Circle toevoegen",
   "add_circle_description": "Voer het circle-adres in om lid te worden.",
   "circle_url_placeholder": "Voer circle URL of naam in",
-  "circle_url_hint": "Je kunt een volledige URL invoeren (bijv. wss://relay.example.com) of een snelkoppeling gebruiken zoals 0xchat of damus.",
+  "circle_url_hint": "Je kunt een volledige URL invoeren (bijv. wss://relay.example.com) of een snelkoppeling gebruiken zoals 0xchat of nos.",
   "circle_url_empty": "Voer een circle-adres in",
   "join": "Deelnemen",
   "what_is_circle": "Wat is een Circle?",

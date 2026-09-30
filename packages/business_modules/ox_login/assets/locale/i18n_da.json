@@ -38,7 +38,7 @@
   "add_circle_title": "Tilføj Cirkel",
   "add_circle_description": "Indtast cirkeladressen for at deltage.",
   "circle_url_placeholder": "Indtast cirkel-URL eller navn",
-  "circle_url_hint": "Du kan indtaste en fuld URL (f.eks. wss://relay.example.com) eller bruge en genvej som 0xchat eller damus.",
+  "circle_url_hint": "Du kan indtaste en fuld URL (f.eks. wss://relay.example.com) eller bruge en genvej som 0xchat eller nos.",
   "circle_url_empty": "Indtast venligst en cirkeladresse",
   "join": "Deltag",
   "what_is_circle": "Hvad er en Cirkel?",

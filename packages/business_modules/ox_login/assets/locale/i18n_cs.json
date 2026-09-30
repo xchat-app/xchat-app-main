@@ -38,7 +38,7 @@
   "add_circle_title": "Přidat Kruh",
   "add_circle_description": "Zadejte adresu kruhu pro připojení.",
   "circle_url_placeholder": "Zadejte URL nebo název kruhu",
-  "circle_url_hint": "Můžete zadat úplnou URL (např. wss://relay.example.com) nebo použít zkratku jako 0xchat nebo damus.",
+  "circle_url_hint": "Můžete zadat úplnou URL (např. wss://relay.example.com) nebo použít zkratku jako 0xchat nebo nos.",
   "circle_url_empty": "Zadejte prosím adresu kruhu",
   "join": "Připojit se",
   "what_is_circle": "Co je Kruh?",

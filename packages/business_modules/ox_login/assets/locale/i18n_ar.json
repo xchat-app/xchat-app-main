@@ -38,7 +38,7 @@
   "add_circle_title": "إضافة دائرة",
   "add_circle_description": "أدخل عنوان الدائرة للانضمام.",
   "circle_url_placeholder": "أدخل URL أو اسم الدائرة",
-  "circle_url_hint": "يمكنك إدخال URL كامل (مثل wss://relay.example.com) أو استخدام اختصار مثل 0xchat أو damus.",
+  "circle_url_hint": "يمكنك إدخال URL كامل (مثل wss://relay.example.com) أو استخدام اختصار مثل 0xchat أو nos.",
   "circle_url_empty": "الرجاء إدخال عنوان دائرة",
   "join": "انضم",
   "what_is_circle": "ما هي الدائرة؟",

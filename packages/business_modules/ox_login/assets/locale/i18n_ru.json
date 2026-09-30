@@ -38,7 +38,7 @@
   "add_circle_title": "Добавить Круг",
   "add_circle_description": "Введите адрес круга для присоединения.",
   "circle_url_placeholder": "Введите URL или имя круга",
-  "circle_url_hint": "Вы можете ввести полный URL (например, wss://relay.example.com) или использовать сокращение, например 0xchat или damus.",
+  "circle_url_hint": "Вы можете ввести полный URL (например, wss://relay.example.com) или использовать сокращение, например 0xchat или nos.",
   "circle_url_empty": "Пожалуйста, введите адрес круга",
   "join": "Присоединиться",
   "what_is_circle": "Что такое Круг?",

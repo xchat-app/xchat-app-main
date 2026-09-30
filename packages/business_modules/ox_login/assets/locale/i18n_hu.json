@@ -38,7 +38,7 @@
   "add_circle_title": "Kör hozzáadása",
   "add_circle_description": "Adja meg a kör címét a csatlakozáshoz.",
   "circle_url_placeholder": "Adja meg a kör URL-jét vagy nevét",
-  "circle_url_hint": "Megadhat teljes URL-t (pl. wss://relay.example.com) vagy használhat rövidítést, mint 0xchat vagy damus.",
+  "circle_url_hint": "Megadhat teljes URL-t (pl. wss://relay.example.com) vagy használhat rövidítést, mint 0xchat vagy nos.",
   "circle_url_empty": "Kérjük, adjon meg egy körcímet",
   "join": "Csatlakozás",
   "what_is_circle": "Mi az a Kör?",

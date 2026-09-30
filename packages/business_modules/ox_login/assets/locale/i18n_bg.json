@@ -38,7 +38,7 @@
   "add_circle_title": "Добавяне на Кръг",
   "add_circle_description": "Въведете адреса на кръга за присъединяване.",
   "circle_url_placeholder": "Въведете URL или име на кръг",
-  "circle_url_hint": "Можете да въведете пълен URL (напр. wss://relay.example.com) или да използвате пряк път като 0xchat или damus.",
+  "circle_url_hint": "Можете да въведете пълен URL (напр. wss://relay.example.com) или да използвате пряк път като 0xchat или nos.",
   "circle_url_empty": "Моля, въведете адрес на кръг",
   "join": "Присъединяване",
   "what_is_circle": "Какво е Кръг?",

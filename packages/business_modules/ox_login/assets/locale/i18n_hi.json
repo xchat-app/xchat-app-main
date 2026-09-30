@@ -38,7 +38,7 @@
   "add_circle_title": "Circle जोड़ें",
   "add_circle_description": "शामिल होने के लिए circle पता दर्ज करें।",
   "circle_url_placeholder": "Circle URL या नाम दर्ज करें",
-  "circle_url_hint": "आप पूर्ण URL दर्ज कर सकते हैं (जैसे wss://relay.example.com) या 0xchat या damus जैसे शॉर्टकट का उपयोग कर सकते हैं।",
+  "circle_url_hint": "आप पूर्ण URL दर्ज कर सकते हैं (जैसे wss://relay.example.com) या 0xchat या nos जैसे शॉर्टकट का उपयोग कर सकते हैं।",
   "circle_url_empty": "कृपया एक circle पता दर्ज करें",
   "join": "शामिल हों",
   "what_is_circle": "Circle क्या है?",

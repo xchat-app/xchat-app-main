@@ -38,7 +38,7 @@
   "add_circle_title": "Adicionar Círculo",
   "add_circle_description": "Digite o endereço do círculo para entrar.",
   "circle_url_placeholder": "Digite URL ou nome do círculo",
-  "circle_url_hint": "Você pode digitar uma URL completa (ex. wss://relay.example.com) ou usar um atalho como 0xchat ou damus.",
+  "circle_url_hint": "Você pode digitar uma URL completa (ex. wss://relay.example.com) ou usar um atalho como 0xchat ou nos.",
   "circle_url_empty": "Por favor digite um endereço de círculo",
   "join": "Entrar",
   "what_is_circle": "O que é um Círculo?",

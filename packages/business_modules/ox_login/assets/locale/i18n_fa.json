@@ -53,7 +53,7 @@
   "add_circle_title": "افزودن Circle",
   "add_circle_description": "آدرس circle را برای پیوستن وارد کنید.",
   "circle_url_placeholder": "URL یا نام circle را وارد کنید",
-  "circle_url_hint": "می‌توانید URL کامل وارد کنید (مثلاً wss://relay.example.com) یا از میانبر مثل 0xchat یا damus استفاده کنید.",
+  "circle_url_hint": "می‌توانید URL کامل وارد کنید (مثلاً wss://relay.example.com) یا از میانبر مثل 0xchat یا nos استفاده کنید.",
   "circle_url_empty": "لطفاً آدرس circle وارد کنید",
   "join": "پیوستن",
   "what_is_circle": "Circle چیست؟",

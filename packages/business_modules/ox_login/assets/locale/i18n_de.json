@@ -38,7 +38,7 @@
   "add_circle_title": "Kreis hinzufügen",
   "add_circle_description": "Geben Sie die Kreisadresse ein, um beizutreten.",
   "circle_url_placeholder": "Kreis-URL oder Name eingeben",
-  "circle_url_hint": "Sie können eine vollständige URL eingeben (z.B. wss://relay.example.com) oder eine Abkürzung wie 0xchat oder damus verwenden.",
+  "circle_url_hint": "Sie können eine vollständige URL eingeben (z.B. wss://relay.example.com) oder eine Abkürzung wie 0xchat oder nos verwenden.",
   "circle_url_empty": "Bitte geben Sie eine Kreisadresse ein",
   "join": "Beitreten",
   "what_is_circle": "Was ist ein Kreis?",

@@ -38,7 +38,7 @@
   "add_circle_title": "Aggiungi Cerchio",
   "add_circle_description": "Inserisci l'indirizzo del cerchio per unirti.",
   "circle_url_placeholder": "Inserisci URL o nome del cerchio",
-  "circle_url_hint": "Puoi inserire un URL completo (es. wss://relay.example.com) o usare una scorciatoia come 0xchat o damus.",
+  "circle_url_hint": "Puoi inserire un URL completo (es. wss://relay.example.com) o usare una scorciatoia come 0xchat o nos.",
   "circle_url_empty": "Inserisci un indirizzo del cerchio",
   "join": "Unisciti",
   "what_is_circle": "Cos'è un Cerchio?",

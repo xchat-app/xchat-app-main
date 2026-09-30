@@ -38,7 +38,7 @@
   "add_circle_title": "Προσθήκη Κύκλου",
   "add_circle_description": "Εισάγετε τη διεύθυνση του κύκλου για να εγγραφείτε.",
   "circle_url_placeholder": "Εισάγετε URL ή όνομα κύκλου",
-  "circle_url_hint": "Μπορείτε να εισάγετε πλήρες URL (π.χ. wss://relay.example.com) ή να χρησιμοποιήσετε συντόμευση όπως 0xchat ή damus.",
+  "circle_url_hint": "Μπορείτε να εισάγετε πλήρες URL (π.χ. wss://relay.example.com) ή να χρησιμοποιήσετε συντόμευση όπως 0xchat ή nos.",
   "circle_url_empty": "Εισάγετε μια διεύθυνση κύκλου",
   "join": "Εγγραφή",
   "what_is_circle": "Τι είναι ένας Κύκλος;",

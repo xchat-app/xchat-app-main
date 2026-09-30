@@ -38,7 +38,7 @@
   "add_circle_title": "Lägg till Cirkel",
   "add_circle_description": "Ange cirkeladressen för att gå med.",
   "circle_url_placeholder": "Ange cirkel-URL eller namn",
-  "circle_url_hint": "Du kan ange en fullständig URL (t.ex. wss://relay.example.com) eller använda en genväg som 0xchat eller damus.",
+  "circle_url_hint": "Du kan ange en fullständig URL (t.ex. wss://relay.example.com) eller använda en genväg som 0xchat eller nos.",
   "circle_url_empty": "Vänligen ange en cirkeladress",
   "join": "Gå med",
   "what_is_circle": "Vad är en Cirkel?",

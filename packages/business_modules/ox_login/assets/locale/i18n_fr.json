@@ -38,7 +38,7 @@
   "add_circle_title": "Ajouter un Cercle",
   "add_circle_description": "Entrez l'adresse du cercle pour le rejoindre.",
   "circle_url_placeholder": "Entrez l'URL ou le nom du cercle",
-  "circle_url_hint": "Vous pouvez entrer une URL complète (par ex. wss://relay.example.com) ou utiliser un raccourci comme 0xchat ou damus.",
+  "circle_url_hint": "Vous pouvez entrer une URL complète (par ex. wss://relay.example.com) ou utiliser un raccourci comme 0xchat ou nos.",
   "circle_url_empty": "Veuillez entrer une adresse de cercle",
   "join": "Rejoindre",
   "what_is_circle": "Qu'est-ce qu'un Cercle ?",

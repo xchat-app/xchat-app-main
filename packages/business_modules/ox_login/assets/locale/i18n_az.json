@@ -38,7 +38,7 @@
   "add_circle_title": "Dairə əlavə et",
   "add_circle_description": "Qoşulmaq üçün dairə ünvanını daxil edin.",
   "circle_url_placeholder": "Dairə URL-i və ya adını daxil edin",
-  "circle_url_hint": "Tam URL daxil edə bilərsiniz (məs. wss://relay.example.com) və ya 0xchat və ya damus kimi qısayol istifadə edə bilərsiniz.",
+  "circle_url_hint": "Tam URL daxil edə bilərsiniz (məs. wss://relay.example.com) və ya 0xchat və ya nos kimi qısayol istifadə edə bilərsiniz.",
   "circle_url_empty": "Zəhmət olmasa dairə ünvanı daxil edin",
   "join": "Qoşul",
   "what_is_circle": "Dairə nədir?",

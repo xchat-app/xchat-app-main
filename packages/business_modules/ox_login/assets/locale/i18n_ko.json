@@ -38,7 +38,7 @@
   "add_circle_title": "서클 추가",
   "add_circle_description": "참여할 서클 주소를 입력하세요.",
   "circle_url_placeholder": "서클 URL 또는 이름 입력",
-  "circle_url_hint": "전체 URL(예: wss://relay.example.com)을 입력하거나 0xchat 또는 damus와 같은 바로가기를 사용할 수 있습니다.",
+  "circle_url_hint": "전체 URL(예: wss://relay.example.com)을 입력하거나 0xchat 또는 nos와 같은 바로가기를 사용할 수 있습니다.",
   "circle_url_empty": "서클 주소를 입력해 주세요",
   "join": "참여",
   "what_is_circle": "서클이란?",

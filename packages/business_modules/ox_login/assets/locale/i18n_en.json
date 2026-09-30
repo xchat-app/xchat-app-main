@@ -62,7 +62,7 @@
   "add_circle_title": "Add Circle",
   "add_circle_description": "Enter the circle address to join.",
   "circle_url_placeholder": "Enter circle URL or name",
-  "circle_url_hint": "You can enter a full URL (e.g., wss://relay.example.com) or use a shortcut like 0xchat or damus.",
+  "circle_url_hint": "You can enter a full URL (e.g., wss://relay.example.com) or use a shortcut like 0xchat or nos.",
   "circle_url_empty": "Please enter a circle address",
   "add_relay_title": "Add Custom Relay",
   "add_relay_description": "Enter the relay address to join.",

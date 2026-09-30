@@ -38,7 +38,7 @@
   "add_circle_title": "Tambah Circle",
   "add_circle_description": "Masukkan alamat circle untuk bergabung.",
   "circle_url_placeholder": "Masukkan URL atau nama circle",
-  "circle_url_hint": "Anda dapat memasukkan URL lengkap (mis. wss://relay.example.com) atau menggunakan pintasan seperti 0xchat atau damus.",
+  "circle_url_hint": "Anda dapat memasukkan URL lengkap (mis. wss://relay.example.com) atau menggunakan pintasan seperti 0xchat atau nos.",
   "circle_url_empty": "Silakan masukkan alamat circle",
   "join": "Bergabung",
   "what_is_circle": "Apa itu Circle?",

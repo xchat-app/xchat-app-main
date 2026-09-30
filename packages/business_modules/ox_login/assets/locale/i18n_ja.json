@@ -38,7 +38,7 @@
   "add_circle_title": "サークルを追加",
   "add_circle_description": "参加するサークルのアドレスを入力してください。",
   "circle_url_placeholder": "サークルURLまたは名前を入力",
-  "circle_url_hint": "完全なURL（例：wss://relay.example.com）を入力するか、0xchatやdamusなどのショートカットを使用できます。",
+  "circle_url_hint": "完全なURL（例：wss://relay.example.com）を入力するか、0xchatやnosなどのショートカットを使用できます。",
   "circle_url_empty": "サークルアドレスを入力してください",
   "join": "参加",
   "what_is_circle": "サークルとは？",

@@ -38,7 +38,7 @@
   "add_circle_title": "Dodaj Krąg",
   "add_circle_description": "Wprowadź adres kręgu, aby dołączyć.",
   "circle_url_placeholder": "Wprowadź URL lub nazwę kręgu",
-  "circle_url_hint": "Możesz wprowadzić pełny URL (np. wss://relay.example.com) lub użyć skrótu jak 0xchat lub damus.",
+  "circle_url_hint": "Możesz wprowadzić pełny URL (np. wss://relay.example.com) lub użyć skrótu jak 0xchat lub nos.",
   "circle_url_empty": "Wprowadź adres kręgu",
   "join": "Dołącz",
   "what_is_circle": "Czym jest Krąg?",

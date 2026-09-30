@@ -38,7 +38,7 @@
   "add_circle_title": "เพิ่ม Circle",
   "add_circle_description": "ป้อนที่อยู่ circle เพื่อเข้าร่วม",
   "circle_url_placeholder": "ป้อน URL หรือชื่อ circle",
-  "circle_url_hint": "คุณสามารถป้อน URL เต็ม (เช่น wss://relay.example.com) หรือใช้ทางลัดเช่น 0xchat หรือ damus",
+  "circle_url_hint": "คุณสามารถป้อน URL เต็ม (เช่น wss://relay.example.com) หรือใช้ทางลัดเช่น 0xchat หรือ nos",
   "circle_url_empty": "กรุณาป้อนที่อยู่ circle",
   "join": "เข้าร่วม",
   "what_is_circle": "Circle คืออะไร?",

@@ -12,7 +12,12 @@ import 'package:ox_common/upload/upload_utils.dart';
 /// Where an account goes when it arrives with no invite and no subscription.
 /// A public relay is the only entry that costs nothing, and without one the
 /// choices on the circle page are "pay" or "run your own server".
-const kPublicRelayUrl = 'wss://relay.damus.io';
+///
+/// Not relay.damus.io: it accepts gift wraps (kind 1059) but only serves them
+/// after NIP-42 AUTH, and its AUTH is broken ("relay needs serviceUrl to be
+/// configured"), so a friend invite is stored and never delivered. Whatever
+/// this points at must pass a 443 / 1059 / 445 write-then-read round trip.
+const kPublicRelayUrl = 'wss://nos.lol';
 
 class OnboardingResult {
   final bool success;

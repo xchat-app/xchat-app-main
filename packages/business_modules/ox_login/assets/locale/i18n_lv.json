@@ -38,7 +38,7 @@
   "add_circle_title": "Pievienot apli",
   "add_circle_description": "Ievadiet apļa adresi, lai pievienotos.",
   "circle_url_placeholder": "Ievadiet apļa URL vai nosaukumu",
-  "circle_url_hint": "Varat ievadīt pilnu URL (piem., wss://relay.example.com) vai izmantot saīsni, piemēram, 0xchat vai damus.",
+  "circle_url_hint": "Varat ievadīt pilnu URL (piem., wss://relay.example.com) vai izmantot saīsni, piemēram, 0xchat vai nos.",
   "circle_url_empty": "Lūdzu, ievadiet apļa adresi",
   "join": "Pievienoties",
   "what_is_circle": "Kas ir aplis?",

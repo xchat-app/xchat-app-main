@@ -38,7 +38,7 @@
   "add_circle_title": "Thêm Circle",
   "add_circle_description": "Nhập địa chỉ circle để tham gia.",
   "circle_url_placeholder": "Nhập URL hoặc tên circle",
-  "circle_url_hint": "Bạn có thể nhập URL đầy đủ (ví dụ: wss://relay.example.com) hoặc dùng lối tắt như 0xchat hoặc damus.",
+  "circle_url_hint": "Bạn có thể nhập URL đầy đủ (ví dụ: wss://relay.example.com) hoặc dùng lối tắt như 0xchat hoặc nos.",
   "circle_url_empty": "Vui lòng nhập địa chỉ circle",
   "join": "Tham gia",
   "what_is_circle": "Circle là gì?",

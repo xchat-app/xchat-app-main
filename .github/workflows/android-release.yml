@@ -172,10 +172,16 @@ jobs:
           echo "name=$name" >> "$GITHUB_OUTPUT"
 
       - name: Build the App Bundle
+        env:
+          # The TURN password lives here, not in the public source. Without it
+          # the app builds with STUN only and calls quietly fail behind
+          # symmetric NAT, so refuse to build a release without it.
+          TURN_CREDENTIAL: ${{ secrets.TURN_CREDENTIAL }}
         run: |
+          [ -n "$TURN_CREDENTIAL" ] || { echo "::error::TURN_CREDENTIAL secret is not set"; exit 1; }
           flutter --version
           flutter pub get
-          flutter build appbundle --release
+          flutter build appbundle --release --dart-define=TURN_CREDENTIAL="$TURN_CREDENTIAL"
 
       - name: Refuse new analyzer findings
         # Not a clean-tree check — the tree is not clean, and 3543 findings

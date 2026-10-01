@@ -75,6 +75,11 @@ class IceServerConfig {
     });
   }
 
+  /// Injected at build time with --dart-define=TURN_CREDENTIAL=..., from
+  /// the TURN_CREDENTIAL secret in CI, because this repository is public.
+  /// Empty in a local build, which then has STUN only.
+  static const _turnCredential = String.fromEnvironment('TURN_CREDENTIAL');
+
   static IceServerConfig defaultPublicConfig(Circle circle) => IceServerConfig(
     servers: [
       // STUN server (free, for NAT traversal)
@@ -82,25 +87,35 @@ class IceServerConfig {
         circleId: circle.id,
         url: 'stun:stun.l.google.com:19302',
       ),
-      // TURN servers (for relay when direct connection fails)
+      // Our own STUN, for networks where Google's is blocked.
       ICEServerDBISAR(
         circleId: circle.id,
-        url: 'turn:52.76.210.159:5349',
-        username: '0xchat',
-        credential: 'Prettyvs511',
+        url: 'stun:relay.xchat.chat:3478',
       ),
-      ICEServerDBISAR(
-        circleId: circle.id,
-        url: 'turn:13.213.17.140:5349',
-        username: '0xchat',
-        credential: 'Prettyvs511',
-      ),
-      ICEServerDBISAR(
-        circleId: circle.id,
-        url: 'turn:15.222.242.167:5349',
-        username: '0xchat',
-        credential: 'Prettyvs511',
-      ),
+      // TURN, for when no direct path exists (symmetric NAT, most mobile
+      // carriers). coturn on the relay server, addressed by name so the
+      // server can move without an app release. UDP first, then TCP, then
+      // TLS on 5349 for networks that only let TLS out.
+      if (_turnCredential.isNotEmpty) ...[
+        ICEServerDBISAR(
+          circleId: circle.id,
+          url: 'turn:relay.xchat.chat:3478?transport=udp',
+          username: 'xchat',
+          credential: _turnCredential,
+        ),
+        ICEServerDBISAR(
+          circleId: circle.id,
+          url: 'turn:relay.xchat.chat:3478?transport=tcp',
+          username: 'xchat',
+          credential: _turnCredential,
+        ),
+        ICEServerDBISAR(
+          circleId: circle.id,
+          url: 'turns:relay.xchat.chat:5349?transport=tcp',
+          username: 'xchat',
+          credential: _turnCredential,
+        ),
+      ],
     ],
   );
 }

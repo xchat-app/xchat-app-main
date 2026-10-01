@@ -60,11 +60,27 @@ public class MainActivity extends FlutterFragmentActivity {
         return route + "?" + jsonObject.toString();
     }
 
+    // While this activity exists the Flutter side is running and posts its own
+    // message notifications; PushNotificationService reads this to avoid
+    // posting a second one for the same message.
+    private static volatile int liveInstances = 0;
+
+    public static boolean isAlive() {
+        return liveInstances > 0;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         super.onCreate(savedInstanceState);
+        liveInstances++;
+    }
+
+    @Override
+    protected void onDestroy() {
+        liveInstances--;
+        super.onDestroy();
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import java.nio.charset.StandardCharsets;
@@ -64,6 +65,10 @@ public class PushNotificationService extends Service {
     private static final JsonNodeFactory JSON_NODE_FACTORY = JsonNodeFactory.instance;
     private static final int NOTIFICATION_ID = 1001;
     private static final int PUSH_NOTIFICATION_ID = 1002;
+    // The Flutter side's message channel (CLPushIntegration) and how long to
+    // give it to post before this service posts its own.
+    private static final String APP_MESSAGE_CHANNEL_ID = "message_channel";
+    private static final long APP_NOTIFICATION_GRACE_MS = 5000;
     
     public static final String EXTRA_SERVER_RELAY = "server_relay";
     public static final String EXTRA_DEVICE_ID = "device_id";
@@ -446,11 +451,26 @@ public class PushNotificationService extends Service {
             if ("EVENT".equals(messageType)) {
                 // Received an event, only wake app if process is not running
                 Log.d(TAG, "Received EVENT");
-                if (!isAppProcessRunning()) {
+                if (isAppProcessRunning()) {
+                    Log.d(TAG, "App process already running, skipping activation");
+                } else if (MainActivity.isAlive()) {
+                    // In the background but alive, the app gets the message over
+                    // its own connection and posts a notification naming the
+                    // sender, so this generic one made two. Its socket can be
+                    // dead while ours is not, though: stand in only if it has
+                    // posted nothing after a few seconds.
+                    final long receivedAt = System.currentTimeMillis();
+                    reconnectHandler.postDelayed(() -> {
+                        if (isAppProcessRunning() || hasAppMessageNotificationSince(receivedAt - 3000)) {
+                            Log.d(TAG, "App posted its own notification, skipping activation");
+                            return;
+                        }
+                        Log.d(TAG, "App posted nothing, activating");
+                        activateApp();
+                    }, APP_NOTIFICATION_GRACE_MS);
+                } else {
                     Log.d(TAG, "App process not running, activating");
                     activateApp();
-                } else {
-                    Log.d(TAG, "App process already running, skipping activation");
                 }
             } else if ("EOSE".equals(messageType)) {
                 // End of stored events
@@ -865,9 +885,9 @@ public class PushNotificationService extends Service {
         // Stop foreground notification as early as possible to avoid timeout crashes
         stopForegroundSafely();
 
-        // Cancel all pending operations
-        if (reconnectRunnable != null && reconnectHandler != null) {
-            reconnectHandler.removeCallbacks(reconnectRunnable);
+        // Cancel all pending operations, including delayed activations
+        if (reconnectHandler != null) {
+            reconnectHandler.removeCallbacksAndMessages(null);
             reconnectRunnable = null;
         }
         if (authRetryRunnable != null && authRetryHandler != null) {
@@ -980,6 +1000,26 @@ public class PushNotificationService extends Service {
         } catch (Exception e) {
             Log.e(TAG, "Failed to show notification", e);
         }
+    }
+
+    /**
+     * Whether the app itself has a message notification up that it posted at
+     * or after {@code since}.
+     */
+    private boolean hasAppMessageNotificationSince(long since) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager == null) return false;
+        try {
+            for (StatusBarNotification sbn : notificationManager.getActiveNotifications()) {
+                if (sbn.getPostTime() >= since
+                        && APP_MESSAGE_CHANNEL_ID.equals(sbn.getNotification().getChannelId())) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Could not read active notifications", e);
+        }
+        return false;
     }
 
     /**

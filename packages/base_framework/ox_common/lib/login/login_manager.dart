@@ -120,6 +120,10 @@ class LoginManager {
   // Observer management
   final List<LoginManagerObserver> _observers = [];
 
+  /// Profile from the circle just left, waiting for the next circle's relay
+  /// to answer. See [LoginManagerCircle._carryProfileInto].
+  (String circleId, UserDBISAR profile)? _profileToCarry;
+
   // Persistence storage keys
   static const String _keyLastPubkey = 'login_manager_last_pubkey';
   static const String _keySignerPrefix = 'login_manager_signer_';
@@ -614,6 +618,16 @@ extension LoginManagerCircle on LoginManager {
       );
     }
 
+    // Read before logging out: the profile belongs to the circle being left.
+    // Set before logging in, because the new circle can connect before
+    // switchToCircle gets control back.
+    final previousProfile = Account.sharedInstance.me;
+    _profileToCarry = circle.type == CircleType.relay &&
+            previousProfile != null &&
+            _hasChosenName(previousProfile)
+        ? (circle.id, previousProfile)
+        : null;
+
     Circle? originCircle;
     try {
       originCircle = await logoutCircle();
@@ -627,6 +641,7 @@ extension LoginManagerCircle on LoginManager {
 
     final success = await _loginToCircle(circle);
     if (!success) {
+      _profileToCarry = null;
       if (originCircle != null) {
         _loginToCircle(originCircle);
       }
@@ -638,6 +653,40 @@ extension LoginManagerCircle on LoginManager {
     }
 
     return null;
+  }
+
+  /// Each circle has its own database, and a profile reaches a circle's relay
+  /// only when it is edited there. So in a circle joined later you appear —
+  /// to yourself and to everyone in it — as a bare npub. Called once the
+  /// circle's relay has answered the profile reload: if it holds no name for
+  /// you either, publish the profile from the circle you came from.
+  void _carryProfileInto(Circle circle) {
+    final carry = _profileToCarry;
+    if (carry == null || carry.$1 != circle.id) return;
+    _profileToCarry = null;
+
+    final previous = carry.$2;
+    final current = Account.sharedInstance.me;
+    if (current == null || current.pubKey != previous.pubKey) return;
+    if (_hasChosenName(current)) return;
+
+    () async {
+      try {
+        final saved = await Account.sharedInstance
+            .updateProfile(previous)
+            .timeout(const Duration(seconds: 30), onTimeout: () => null);
+        if (saved == null) debugPrint('[LoginManager] profile not accepted by ${circle.relayUrl}');
+      } catch (e) {
+        debugPrint('[LoginManager] carrying profile into ${circle.relayUrl} failed: $e');
+      }
+    }();
+  }
+
+  /// A user row with no profile is not empty: getUserFromDB fills `name`
+  /// with the short npub, so treat that placeholder as no name.
+  bool _hasChosenName(UserDBISAR user) {
+    final name = (user.name ?? '').trim();
+    return name.isNotEmpty && name != user.shortEncodedPubkey;
   }
 
   Future<(bool isSuccess, List<Circle> originCircles)> addCircle(List<Circle> newCircles) async {
@@ -1086,7 +1135,9 @@ extension LoginManagerCircle on LoginManager {
       circleRelay: relayUrl,
       circleConnectCallback: (isConnected) {
         if (isConnected) {
-          Account.sharedInstance.reloadProfileFromRelay(pubkey);
+          Account.sharedInstance
+              .reloadProfileFromRelay(pubkey)
+              .then((_) => _carryProfileInto(circle));
         }
         _notifyCircleConnectedChange(isConnected);
       },

@@ -159,6 +159,7 @@
   "subscription_limit_reached": "تم الوصول إلى حد خادم الاشتراك",
   "welcome_back": "مرحباً بعودتك",
   "found_circles_description": "وجدنا {count} دوائر مرتبطة بحسابك. اختر تلك التي تريد استعادتها على هذا الجهاز.",
+  "found_circle_description": "وجدنا دائرة واحدة مرتبطة بحسابك. اخترها لاستعادتها على هذا الجهاز.",
   "set_up_as_new_device": "إعداد كجهاز جديد بدلاً من ذلك",
   "restore_circles": "استعادة {count} دوائر",
   "restore_circle": "استعادة الدائرة",

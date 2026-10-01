@@ -161,6 +161,7 @@
   "subscription_limit_reached": "Batas server langganan tercapai",
   "welcome_back": "Selamat Datang Kembali",
   "found_circles_description": "Kami menemukan {count} lingkaran yang terhubung ke akun Anda. Pilih yang ingin Anda pulihkan ke perangkat ini.",
+  "found_circle_description": "Kami menemukan {count} lingkaran yang terhubung ke akun Anda. Pilih yang ingin Anda pulihkan ke perangkat ini.",
   "set_up_as_new_device": "Sebagai gantinya, atur sebagai perangkat baru",
   "restore_circles": "Pulihkan {count} Lingkaran",
   "restore_circle": "Pulihkan Lingkaran",

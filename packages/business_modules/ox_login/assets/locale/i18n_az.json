@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Abunə server limitinə çatıldı",
   "welcome_back": "Yenidən Xoş Gəlmisiniz",
   "found_circles_description": "Hesabınıza bağlı {count} dairə tapdıq. Bu cihazda bərpa etmək istədiyinizləri seçin.",
+  "found_circle_description": "Hesabınıza bağlı {count} dairə tapdıq. Bu cihazda bərpa etmək istədiyinizləri seçin.",
   "set_up_as_new_device": "Bunun əvəzinə yeni cihaz kimi quraşdırın",
   "restore_circles": "{count} Dairəni Bərpa Et",
   "restore_circle": "Dairəni Bərpa Et",

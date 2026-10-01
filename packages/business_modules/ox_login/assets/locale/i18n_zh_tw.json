@@ -161,6 +161,7 @@
   "subscription_limit_reached": "已達到訂閱伺服器限制",
   "welcome_back": "歡迎回來",
   "found_circles_description": "我們找到了 {count} 個與您帳戶關聯的圈子。選擇要還原到此裝置的圈子。",
+  "found_circle_description": "我們找到了 {count} 個與您帳戶關聯的圈子。選擇要還原到此裝置的圈子。",
   "set_up_as_new_device": "改為設定為新裝置",
   "restore_circles": "還原 {count} 個圈子",
   "restore_circle": "還原圈子",

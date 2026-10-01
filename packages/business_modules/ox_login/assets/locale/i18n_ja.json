@@ -161,6 +161,7 @@
   "subscription_limit_reached": "サブスクリプションサーバー制限に達しました",
   "welcome_back": "おかえりなさい",
   "found_circles_description": "アカウントにリンクされた{count}個のサークルが見つかりました。このデバイスに復元するものを選択してください。",
+  "found_circle_description": "アカウントにリンクされた{count}個のサークルが見つかりました。このデバイスに復元するものを選択してください。",
   "set_up_as_new_device": "代わりに新しいデバイスとして設定",
   "restore_circles": "{count}個のサークルを復元",
   "restore_circle": "サークルを復元",

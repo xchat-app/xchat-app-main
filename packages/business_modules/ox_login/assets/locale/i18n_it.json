@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Limite server abbonamento raggiunto",
   "welcome_back": "Bentornato",
   "found_circles_description": "Abbiamo trovato {count} cerchi collegati al tuo account. Seleziona quelli che desideri ripristinare su questo dispositivo.",
+  "found_circle_description": "Abbiamo trovato {count} cerchia collegata al tuo account. Selezionala per ripristinarla su questo dispositivo.",
   "set_up_as_new_device": "Configura come nuovo dispositivo invece",
   "restore_circles": "Ripristina {count} Cerchi",
   "restore_circle": "Ripristina Cerchio",

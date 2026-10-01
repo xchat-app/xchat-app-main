@@ -105,6 +105,7 @@
   "subscription_limit_reached": "已达到订阅服务器限制",
   "welcome_back": "欢迎回来",
   "found_circles_description": "我们找到了 {count} 个与您账户关联的圈子。选择要恢复到此设备的圈子。",
+  "found_circle_description": "我们找到了 {count} 个与您账户关联的圈子。选择要恢复到此设备的圈子。",
   "set_up_as_new_device": "改为设置为新设备",
   "restore_circles": "恢复 {count} 个圈子",
   "restore_circle": "恢复圈子",

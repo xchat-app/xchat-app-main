@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Prenumerationsservergräns nådd",
   "welcome_back": "Välkommen Tillbaka",
   "found_circles_description": "Vi hittade {count} cirklar kopplade till ditt konto. Välj de du vill återställa till denna enhet.",
+  "found_circle_description": "Vi hittade {count} cirklar kopplade till ditt konto. Välj de du vill återställa till denna enhet.",
   "set_up_as_new_device": "Konfigurera som ny enhet istället",
   "restore_circles": "Återställ {count} Cirklar",
   "restore_circle": "Återställ Cirkel",

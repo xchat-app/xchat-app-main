@@ -161,6 +161,7 @@
   "subscription_limit_reached": "Abonnement-Serverlimit erreicht",
   "welcome_back": "Willkommen Zurück",
   "found_circles_description": "Wir haben {count} Kreise gefunden, die mit Ihrem Konto verknüpft sind. Wählen Sie die aus, die Sie auf diesem Gerät wiederherstellen möchten.",
+  "found_circle_description": "Wir haben {count} Kreis gefunden, der mit deinem Konto verknüpft ist. Wähle ihn aus, um ihn auf diesem Gerät wiederherzustellen.",
   "set_up_as_new_device": "Stattdessen als neues Gerät einrichten",
   "restore_circles": "{count} Kreise Wiederherstellen",
   "restore_circle": "Kreis Wiederherstellen",

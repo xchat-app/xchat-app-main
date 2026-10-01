@@ -161,6 +161,7 @@
   "subscription_limit_reached": "Limite de serveur d'abonnement atteinte",
   "welcome_back": "Bon Retour",
   "found_circles_description": "Nous avons trouvé {count} cercles liés à votre compte. Sélectionnez ceux que vous souhaitez restaurer sur cet appareil.",
+  "found_circle_description": "Nous avons trouvé {count} cercle lié à votre compte. Sélectionnez-le pour le restaurer sur cet appareil.",
   "set_up_as_new_device": "Configurer comme nouvel appareil à la place",
   "restore_circles": "Restaurer {count} Cercles",
   "restore_circle": "Restaurer le Cercle",

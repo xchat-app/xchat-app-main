@@ -161,6 +161,7 @@
   "subscription_limit_reached": "Limite de servidor de assinatura atingido",
   "welcome_back": "Bem-vindo de Volta",
   "found_circles_description": "Encontramos {count} círculos vinculados à sua conta. Selecione os que deseja restaurar neste dispositivo.",
+  "found_circle_description": "Encontramos {count} círculo vinculado à sua conta. Selecione-o para restaurá-lo neste dispositivo.",
   "set_up_as_new_device": "Configurar como novo dispositivo",
   "restore_circles": "Restaurar {count} Círculos",
   "restore_circle": "Restaurar Círculo",

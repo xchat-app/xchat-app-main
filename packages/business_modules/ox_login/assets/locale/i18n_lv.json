@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Sasniegts abonementa servera limits",
   "welcome_back": "Laipni Lūdzam Atpakaļ",
   "found_circles_description": "Mēs atradām {count} apļus, kas saistīti ar jūsu kontu. Izvēlieties tos, kurus vēlaties atjaunot šajā ierīcē.",
+  "found_circle_description": "Mēs atradām {count} apļus, kas saistīti ar jūsu kontu. Izvēlieties tos, kurus vēlaties atjaunot šajā ierīcē.",
   "set_up_as_new_device": "Tā vietā iestatīt kā jaunu ierīci",
   "restore_circles": "Atjaunot {count} Apļus",
   "restore_circle": "Atjaunot Apli",

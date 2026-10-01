@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Abonnementsservergrænse nået",
   "welcome_back": "Velkommen Tilbage",
   "found_circles_description": "Vi fandt {count} cirkler knyttet til din konto. Vælg dem, du vil gendanne på denne enhed.",
+  "found_circle_description": "Vi fandt {count} cirkler knyttet til din konto. Vælg dem, du vil gendanne på denne enhed.",
   "set_up_as_new_device": "Indstil som ny enhed i stedet",
   "restore_circles": "Gendan {count} Cirkler",
   "restore_circle": "Gendan Cirkel",

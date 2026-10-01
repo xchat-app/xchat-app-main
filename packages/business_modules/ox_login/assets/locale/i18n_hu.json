@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Előfizetési szerver korlát elérve",
   "welcome_back": "Üdvözöljük Vissza",
   "found_circles_description": "{count} kört találtunk, amelyek a fiókjához kapcsolódnak. Válassza ki azokat, amelyeket ezen az eszközön szeretne visszaállítani.",
+  "found_circle_description": "{count} kört találtunk, amelyek a fiókjához kapcsolódnak. Válassza ki azokat, amelyeket ezen az eszközön szeretne visszaállítani.",
   "set_up_as_new_device": "Helyette új eszközként állítsa be",
   "restore_circles": "{count} Kör Visszaállítása",
   "restore_circle": "Kör Visszaállítása",

@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Abonnementsserverlimiet bereikt",
   "welcome_back": "Welkom Terug",
   "found_circles_description": "We hebben {count} cirkels gevonden die aan uw account zijn gekoppeld. Selecteer degene die u op dit apparaat wilt herstellen.",
+  "found_circle_description": "We hebben {count} kring gevonden die aan je account is gekoppeld. Selecteer deze om hem op dit apparaat te herstellen.",
   "set_up_as_new_device": "In plaats daarvan instellen als nieuw apparaat",
   "restore_circles": "Herstel {count} Cirkels",
   "restore_circle": "Herstel Cirkel",

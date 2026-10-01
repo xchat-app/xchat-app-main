@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Đã đạt giới hạn máy chủ đăng ký",
   "welcome_back": "Chào mừng trở lại",
   "found_circles_description": "Chúng tôi đã tìm thấy {count} vòng tròn được liên kết với tài khoản của bạn. Chọn những vòng tròn bạn muốn khôi phục trên thiết bị này.",
+  "found_circle_description": "Chúng tôi đã tìm thấy {count} vòng tròn được liên kết với tài khoản của bạn. Chọn những vòng tròn bạn muốn khôi phục trên thiết bị này.",
   "set_up_as_new_device": "Thay vào đó thiết lập như thiết bị mới",
   "restore_circles": "Khôi phục {count} Vòng tròn",
   "restore_circle": "Khôi phục Vòng tròn",

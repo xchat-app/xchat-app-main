@@ -161,6 +161,7 @@
   "subscription_limit_reached": "Abonelik sunucu limitine ulaşıldı",
   "welcome_back": "Tekrar Hoş Geldiniz",
   "found_circles_description": "Hesabınıza bağlı {count} çember bulduk. Bu cihaza geri yüklemek istediklerinizi seçin.",
+  "found_circle_description": "Hesabınıza bağlı {count} çember bulduk. Bu cihaza geri yüklemek istediklerinizi seçin.",
   "set_up_as_new_device": "Bunun yerine yeni cihaz olarak ayarla",
   "restore_circles": "{count} Çemberi Geri Yükle",
   "restore_circle": "Çemberi Geri Yükle",

@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Tellimuse serveri piirang saavutatud",
   "welcome_back": "Tere Tulemast Tagasi",
   "found_circles_description": "Leidsime {count} ringi, mis on seotud teie kontoga. Valige need, mida soovite sellel seadmel taastada.",
+  "found_circle_description": "Leidsime {count} ringi, mis on seotud teie kontoga. Valige need, mida soovite sellel seadmel taastada.",
   "set_up_as_new_device": "Seadistage selle asemel uue seadmena",
   "restore_circles": "Taasta {count} Ringi",
   "restore_circle": "Taasta Ring",

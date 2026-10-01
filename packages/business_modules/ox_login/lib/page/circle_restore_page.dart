@@ -143,7 +143,9 @@ class _CircleRestorePageState extends State<CircleRestorePage> {
         SizedBox(height: 12.px),
         // Description
         CLText.bodyMedium(
-          Localized.text('ox_login.found_circles_description')
+          Localized.text(widget.circles.length == 1
+                  ? 'ox_login.found_circle_description'
+                  : 'ox_login.found_circles_description')
               .replaceAll('{count}', '${widget.circles.length}'),
           colorToken: ColorToken.onSurfaceVariant,
           maxLines: null,
@@ -306,7 +308,7 @@ class _CircleRestorePageState extends State<CircleRestorePage> {
         children: [
           // Restore button
           CLButton.filled(
-            text: _selectedCount > 0
+            text: _selectedCount > 1
                 ? Localized.text('ox_login.restore_circles')
                 .replaceAll('{count}', '$_selectedCount')
                 : Localized.text('ox_login.restore_circle'),

@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Límit de servidor de subscripció assolit",
   "welcome_back": "Benvingut de Tornada",
   "found_circles_description": "Hem trobat {count} cercles vinculats al vostre compte. Seleccioneu els que voleu restaurar en aquest dispositiu.",
+  "found_circle_description": "Hem trobat {count} cercles vinculats al vostre compte. Seleccioneu els que voleu restaurar en aquest dispositiu.",
   "set_up_as_new_device": "Configurar com a nou dispositiu en lloc",
   "restore_circles": "Restaurar {count} Cercles",
   "restore_circle": "Restaurar Cercle",

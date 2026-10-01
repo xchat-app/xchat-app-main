@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Osiągnięto limit serwera subskrypcji",
   "welcome_back": "Witamy Z Powrotem",
   "found_circles_description": "Znaleźliśmy {count} kręgów powiązanych z Twoim kontem. Wybierz te, które chcesz przywrócić na tym urządzeniu.",
+  "found_circle_description": "Znaleźliśmy {count} krąg powiązany z Twoim kontem. Wybierz go, aby przywrócić go na tym urządzeniu.",
   "set_up_as_new_device": "Zamiast tego skonfiguruj jako nowe urządzenie",
   "restore_circles": "Przywróć {count} Kręgów",
   "restore_circle": "Przywróć Krąg",

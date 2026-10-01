@@ -169,6 +169,7 @@
   "subscription_limit_reached": "Subscription server limit reached",
   "welcome_back": "Welcome Back",
   "found_circles_description": "We found {count} circles linked to your account. Select the ones you want to restore to this device.",
+  "found_circle_description": "We found {count} circle linked to your account. Select it to restore it to this device.",
   "set_up_as_new_device": "Set up as a new device instead",
   "restore_circles": "Restore {count} Circles",
   "restore_circle": "Restore Circle",

@@ -159,6 +159,7 @@
   "subscription_limit_reached": "Dosažen limit serveru předplatného",
   "welcome_back": "Vítejte Zpět",
   "found_circles_description": "Našli jsme {count} kruhů propojených s vaším účtem. Vyberte ty, které chcete obnovit na tomto zařízení.",
+  "found_circle_description": "Našli jsme {count} kruhů propojených s vaším účtem. Vyberte ty, které chcete obnovit na tomto zařízení.",
   "set_up_as_new_device": "Místo toho nastavit jako nové zařízení",
   "restore_circles": "Obnovit {count} Kruhů",
   "restore_circle": "Obnovit Kruh",

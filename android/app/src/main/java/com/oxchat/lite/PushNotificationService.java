@@ -964,7 +964,7 @@ public class PushNotificationService extends Service {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, PUSH_NOTIFICATION_CHANNEL_ID)
                     .setContentTitle(getString(R.string.push_notification_title))
                     .setContentText(getString(R.string.push_notification_text))
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)

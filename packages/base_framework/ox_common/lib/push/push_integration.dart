@@ -42,7 +42,10 @@ class CLPushIntegration with WidgetsBindingObserver {
 
     // 1) Init base kit
     await LocalPushKit.instance.ensureInitialized(
-      androidDefaultIcon: '@mipmap/ic_launcher',
+      // Android draws the small icon from its alpha channel alone, so the
+      // full-colour launcher icon came out as a blank disc. This is the
+      // white chat bubble made for it, which nothing was using.
+      androidDefaultIcon: '@drawable/ic_notification',
       androidChannelId: 'message_channel',
       androidChannelName: 'Messages',
       androidChannelDescription: 'General message notifications',
@@ -164,8 +167,13 @@ class CLPushIntegration with WidgetsBindingObserver {
 }
 
 class _ForegroundStateImpl implements ForegroundState {
+  // This was hard-wired to false, so every message raised a system
+  // notification — including one from the person whose chat you were
+  // reading. On screen, the chat list and the open conversation already
+  // show it.
   @override
-  bool isAppInForeground() => false;
+  bool isAppInForeground() =>
+      WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
 
   @override
   bool isThreadOpen(String threadId) => false;

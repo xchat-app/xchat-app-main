@@ -195,6 +195,9 @@ class LocalPushKit {
       priority: high ? Priority.high : Priority.defaultPriority,
       groupKey: androidGroupKey,
       styleInformation: const DefaultStyleInformation(true, true),
+      // Mark it sensitive so a lock screen set to hide sensitive content
+      // hides the sender and the message.
+      visibility: NotificationVisibility.private,
     );
 
     final darwinDetails = DarwinNotificationDetails(

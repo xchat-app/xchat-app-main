@@ -1145,7 +1145,9 @@ extension LoginManagerCircle on LoginManager {
       channelsUpdatedCallBack: Channels.sharedInstance.myChannelsUpdatedCallBack,
       groupsUpdatedCallBack: Groups.sharedInstance.myGroupsUpdatedCallBack,
       relayGroupsUpdatedCallBack: RelayGroup.sharedInstance.myGroupsUpdatedCallBack,
-      pushServerRelay: 'ws://www.0xchat.com:9090',
+      // nopu on the relay box (deploy/install-nopu.sh in private-relay). The
+      // old ws://www.0xchat.com:9090 server is shut down.
+      pushServerRelay: 'wss://push.xchat.chat',
     );
     await ChatCoreManager().initChatCoreWithConfig(config);
     LoginUserNotifier.instance.updateUserSource(Account.sharedInstance.getUserNotifier(pubkey));

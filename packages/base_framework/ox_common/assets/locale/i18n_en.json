@@ -124,6 +124,7 @@
   "failed_to_switch_circle": "Failed to switch circle: ${message}",
   "join_circle": "Join Circle",
   "join_circle_dialog_content": "This user is from circle \"${relay}\". Would you like to join this circle to chat with them?",
+  "circle_invite_dialog_content": "You've been invited to join a private circle. Join it now?",
   "failed_to_join_circle": "Failed to join circle: ${message}",
   "user_not_found": "User not found",
   "error": "Error",

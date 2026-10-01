@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "Falha ao mudar de círculo: ${message}",
   "join_circle": "Entrar no Círculo",
   "join_circle_dialog_content": "Este usuário é do círculo \"${relay}\". Você gostaria de entrar neste círculo para conversar com eles?",
+  "circle_invite_dialog_content": "Você foi convidado para entrar em um círculo privado. Entrar agora?",
   "failed_to_join_circle": "Falha ao entrar no círculo: ${message}",
   "user_not_found": "Usuário não encontrado",
   "error": "Erro",

@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "Daire değiştirme başarısız: ${message}",
   "join_circle": "Daireye Katıl",
   "join_circle_dialog_content": "Bu kullanıcı \"${relay}\" dairesinden. Onlarla sohbet etmek için bu daireye katılmak ister misiniz?",
+  "circle_invite_dialog_content": "Özel bir daireye katılmaya davet edildiniz. Şimdi katılmak ister misiniz?",
   "failed_to_join_circle": "Daireye katılma başarısız: ${message}",
   "user_not_found": "Kullanıcı bulunamadı",
   "error": "Hata",

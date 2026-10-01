@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "サークルの切り替えに失敗しました：${message}",
   "join_circle": "サークルに参加",
   "join_circle_dialog_content": "このユーザーはサークル \"${relay}\" からのものです。このサークルに参加して彼らとチャットしますか？",
+  "circle_invite_dialog_content": "プライベートサークルに招待されました。今すぐ参加しますか？",
   "failed_to_join_circle": "サークルへの参加に失敗しました：${message}",
   "user_not_found": "ユーザーが見つかりません",
   "error": "エラー",

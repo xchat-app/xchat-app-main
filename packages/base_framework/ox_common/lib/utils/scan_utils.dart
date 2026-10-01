@@ -140,6 +140,14 @@ extension ScanAnalysisHandlerEx on ScanUtils {
 
       // Handle invitation code (new format)
       if (code != null && code.isNotEmpty) {
+        // Ask before redeeming. The API call below makes you a member and
+        // uses up one of the code's uses, so asking afterwards meant Cancel
+        // left you in the circle anyway. It also used the dialog meant for a
+        // *person* from another circle ("This user is from circle …").
+        OXLoading.dismiss();
+        final agreeJoin = await _showCircleInviteDialogFromScan(context);
+        if (agreeJoin != true) return;
+        OXLoading.show();
         try {
           // Get credentials for HTTP API call
           final credentials = await AccountCredentialsUtils.getCredentials();
@@ -173,16 +181,8 @@ extension ScanAnalysisHandlerEx on ScanUtils {
             }
           }
           
-          // If circle doesn't exist, show dialog to join
+          // Already agreed above, so join or switch without asking again.
           if (targetCircle == null) {
-            OXLoading.dismiss();
-            final agreeJoin = await _showJoinCircleDialogFromScan(context, [resultRelayUrl], '');
-            if (agreeJoin != true) {
-              return;
-            }
-            
-            // Join the circle
-            OXLoading.show();
             final failure = await LoginManager.instance.joinCircle(resultRelayUrl);
             if (failure != null) {
               OXLoading.dismiss();
@@ -190,14 +190,6 @@ extension ScanAnalysisHandlerEx on ScanUtils {
               return;
             }
           } else if (targetCircle != currentCircle) {
-            // Need to switch to target circle
-            OXLoading.dismiss();
-            final agreeSwitch = await _showSwitchCircleDialogFromScan(context, targetCircle, '');
-            if (agreeSwitch != true) {
-              return;
-            }
-            
-            OXLoading.show();
             final switchResult = await _switchToCircleFromScan(context, targetCircle);
             if (!switchResult) {
               return;
@@ -343,6 +335,23 @@ extension ScanAnalysisHandlerEx on ScanUtils {
       OXLoading.dismiss();
               CommonToast.instance.show(context, Localized.text('ox_common.failed_to_process_invite_link'));
     }
+  }
+
+  static Future<bool> _showCircleInviteDialogFromScan(BuildContext context) async {
+    final result = await CLAlertDialog.show<bool>(
+      context: context,
+      title: Localized.text('ox_common.join_circle'),
+      content: Localized.text('ox_common.circle_invite_dialog_content'),
+      actions: [
+        CLAlertAction.cancel(),
+        CLAlertAction<bool>(
+          label: Localized.text('ox_common.join_circle'),
+          value: true,
+          isDefaultAction: true,
+        ),
+      ],
+    );
+    return result == true;
   }
 
   static Future<bool> _showSwitchCircleDialogFromScan(BuildContext context, Circle targetCircle, String pubkey) async {

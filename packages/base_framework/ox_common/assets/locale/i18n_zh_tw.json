@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "切換圈子失敗：${message}",
   "join_circle": "加入圈子",
   "join_circle_dialog_content": "此使用者來自圈子 \"${relay}\"。您是否要加入此圈子與他們聊天？",
+  "circle_invite_dialog_content": "你被邀請加入一個私密圈子。現在加入嗎？",
   "failed_to_join_circle": "加入圈子失敗：${message}",
   "user_not_found": "使用者未找到",
   "error": "錯誤",

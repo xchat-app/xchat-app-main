@@ -123,6 +123,7 @@
   "failed_to_switch_circle": "Gagal beralih lingkaran: ${message}",
   "join_circle": "Bergabung dengan Lingkaran",
   "join_circle_dialog_content": "Pengguna ini dari lingkaran \"${relay}\". Apakah Anda ingin bergabung dengan lingkaran ini untuk mengobrol dengan mereka?",
+  "circle_invite_dialog_content": "Anda diundang untuk bergabung dengan lingkaran pribadi. Bergabung sekarang?",
   "failed_to_join_circle": "Gagal bergabung dengan lingkaran: ${message}",
   "user_not_found": "Pengguna tidak ditemukan",
   "error": "Kesalahan",

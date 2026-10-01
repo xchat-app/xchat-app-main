@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "فشل في تبديل الدائرة: ${message}",
   "join_circle": "الانضمام إلى الدائرة",
   "join_circle_dialog_content": "هذا المستخدم من الدائرة \"${relay}\". هل تريد الانضمام إلى هذه الدائرة للدردشة معهم؟",
+  "circle_invite_dialog_content": "تمت دعوتك للانضمام إلى دائرة خاصة. هل تريد الانضمام الآن؟",
   "failed_to_join_circle": "فشل في الانضمام إلى الدائرة: ${message}",
   "user_not_found": "لم يتم العثور على المستخدم",
   "error": "خطأ",

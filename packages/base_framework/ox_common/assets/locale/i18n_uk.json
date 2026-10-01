@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "Не вдалося перемкнути коло: ${message}",
   "join_circle": "Приєднатися до Кола",
   "join_circle_dialog_content": "Цей користувач з кола \"${relay}\". Чи хочете приєднатися до цього кола, щоб чатувати з ними?",
+  "circle_invite_dialog_content": "Вас запросили до закритого кола. Приєднатися зараз?",
   "failed_to_join_circle": "Не вдалося приєднатися до кола: ${message}",
   "user_not_found": "Користувача не знайдено",
   "error": "Помилка",

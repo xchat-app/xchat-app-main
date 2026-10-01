@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "Échec du changement de cercle : ${message}",
   "join_circle": "Rejoindre le cercle",
   "join_circle_dialog_content": "Cet utilisateur est du cercle \"${relay}\". Voulez-vous rejoindre ce cercle pour discuter avec eux ?",
+  "circle_invite_dialog_content": "Vous avez été invité à rejoindre un cercle privé. Le rejoindre maintenant ?",
   "failed_to_join_circle": "Échec de la jonction au cercle : ${message}",
   "user_not_found": "Utilisateur non trouvé",
   "error": "Erreur",

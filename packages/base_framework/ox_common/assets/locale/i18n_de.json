@@ -122,6 +122,7 @@
   "failed_to_switch_circle": "Kreiswechsel fehlgeschlagen: ${message}",
   "join_circle": "Kreis beitreten",
   "join_circle_dialog_content": "Dieser Benutzer ist aus dem Kreis \"${relay}\". Möchten Sie diesem Kreis beitreten, um mit ihnen zu chatten?",
+  "circle_invite_dialog_content": "Du wurdest in einen privaten Kreis eingeladen. Jetzt beitreten?",
   "failed_to_join_circle": "Kreisbeitritt fehlgeschlagen: ${message}",
   "user_not_found": "Benutzer nicht gefunden",
   "error": "Fehler",

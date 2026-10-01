@@ -123,6 +123,7 @@
   "failed_to_switch_circle": "تغییر دایره ناموفق بود: ${message}",
   "join_circle": "پیوستن به دایره",
   "join_circle_dialog_content": "این کاربر از دایره \"${relay}\" است. آیا می‌خواهید به این دایره بپیوندید تا با آن‌ها چت کنید؟",
+  "circle_invite_dialog_content": "شما برای پیوستن به یک دایرهٔ خصوصی دعوت شده‌اید. همین حالا بپیوندید؟",
   "failed_to_join_circle": "پیوستن به دایره ناموفق بود: ${message}",
   "user_not_found": "کاربر یافت نشد",
   "error": "خطا",

@@ -9,6 +9,7 @@ import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_common/utils/circle_join_utils.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 import 'package:ox_chat/page/session/find_people_page.dart';
+import 'package:ox_chat/page/session/lite_new_message_page.dart';
 import 'package:ox_usercenter/page/settings/qr_code_display_page.dart';
 import 'package:ox_usercenter/utils/invite_link_manager.dart';
 import 'package:ox_common/widgets/common_image.dart';
@@ -201,6 +202,32 @@ class _SessionListWidgetState extends State<SessionListWidget> {
                     ],
                   ),
                 ),
+              // A member who did not pay cannot invite, and before this got
+              // nothing at all — the way to the other members was the "+" in
+              // the corner, which nothing pointed to.
+              if (isPaidRelay && !isAdmin)
+                CLButton.filled(
+                  expanded: true,
+                  onTap: () => _navigateToNewMessage(context),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        PlatformStyle.isUseMaterial
+                            ? Icons.chat_bubble_outline
+                            : CupertinoIcons.chat_bubble,
+                        size: 20.px,
+                        color: ColorToken.white.of(context),
+                      ),
+                      SizedBox(width: 8.px),
+                      CLText.bodyMedium(
+                        Localized.text('ox_chat.str_title_new_message'),
+                        customColor: ColorToken.white.of(context),
+                      ),
+                    ],
+                  ),
+                ),
               if (!isPaidRelay)
                 CupertinoButton(
                   onPressed: () => _navigateToInviteFriends(context, isPaidRelay),
@@ -214,6 +241,14 @@ class _SessionListWidgetState extends State<SessionListWidget> {
           ),
         ),
       ),
+    );
+  }
+
+  void _navigateToNewMessage(BuildContext context) {
+    OXNavigator.pushPage(
+      context,
+      (context) => const CLNewMessagePage(),
+      type: OXPushPageType.present,
     );
   }
 

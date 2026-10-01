@@ -78,8 +78,10 @@ class _ChatGroupMessagePageState extends State<ChatGroupMessagePage> {
         (){}
       );
     } else if (!Groups.sharedInstance.checkInMyGroupList(groupId)) {
+      // To the person invited, a one-to-one chat is not a group to join.
+      final isPrivateChat = session.isSingleChat || group.isDirectMessage;
       return ChatHintParam(
-        Localized.text('ox_chat_ui.group_join'),
+        Localized.text(isPrivateChat ? 'ox_chat_ui.private_chat_accept' : 'ox_chat_ui.group_join'),
         onJoinGroupTap,
       );
     } else if (session.isSingleChat) {

@@ -17,7 +17,7 @@ import com.oxchat.lite.R;
 /**
  * The ringing notification for a call that arrives while the app is not on
  * screen. Before it, such a call showed nothing: the call page opened inside
- * the backgrounded app and the caller waited out the 30-second timeout.
+ * the backgrounded app and the caller waited out the ring timeout.
  *
  * It shows the caller with Answer and Decline, plays the ringtone until one of
  * them (or the caller giving up) clears it, and carries a full-screen intent so
@@ -38,7 +38,7 @@ public final class IncomingCallNotification {
     private static final String CHANNEL_ID = "IncomingCallChannel";
     // 1001/1002 are PushNotificationService's, 1003 VoiceCallService's.
     private static final int NOTIFICATION_ID = 1004;
-    // The caller gives up after 30 s and Flutter cancels this then; the
+    // The caller gives up after 45 s and Flutter cancels this then; the
     // timeout only covers the case where nothing does.
     private static final long TIMEOUT_MS = 60_000;
 

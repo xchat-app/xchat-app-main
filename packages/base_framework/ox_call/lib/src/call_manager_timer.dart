@@ -3,7 +3,9 @@ part of 'call_manager.dart';
 /// Extension for managing offer timeout timers.
 extension CallManagerTimer on CallManager {
 
-  static const int _offerTimeoutSeconds = 30;
+  /// How long a call rings. 30 s left too little time to answer from the
+  /// incoming-call notification, which opens the app before it can accept.
+  static const int _offerTimeoutSeconds = 45;
 
   void _startOfferTimer(String sessionId) {
     _cancelOfferTimer(sessionId);
@@ -23,6 +25,16 @@ extension CallManagerTimer on CallManager {
         return;
       }
       
+      // The caller tells the other side, so it stops ringing now and both
+      // record the call as unanswered; the callee's timer is only a backstop.
+      if (!session.isIncoming) {
+        Contacts.sharedInstance.sendDisconnect(
+          sessionId,
+          session.remotePubkey,
+          session.privateGroupId,
+          jsonEncode({'reason': 'timeout'}),
+        );
+      }
       _endCall(sessionId, CallEndReason.timeout);
     });
   }

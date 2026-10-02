@@ -32,9 +32,17 @@ class PromptToneManager {
   static final PromptToneManager sharedInstance = PromptToneManager._internal();
 
   final AudioPlayer _player;
+  /// The call ringtone has a player of its own. On Android, audioplayers
+  /// writes the system audio mode and speakerphone whenever a player changes
+  /// context, so with one player shared by ringtone and message sounds every
+  /// call began by putting the phone back in normal mode with the speaker off,
+  /// right after WebRTC had set it up for the call.
+  final AudioPlayer _callPlayer;
   final _throttle = ThrottleUtils(delay: Duration(milliseconds: 3000));
 
-  PromptToneManager._internal() : _player = AudioPlayer();
+  PromptToneManager._internal()
+      : _player = AudioPlayer(),
+        _callPlayer = AudioPlayer();
 
   SoundTheme _currentSoundTheme = SoundTheme.classic;
 
@@ -53,6 +61,10 @@ class PromptToneManager {
 
   Future setup() async {
     await AudioPlayer.global.setAudioContext(_defaultAudioContext);
+    // Each player gets its context once, here, before any call, so a later
+    // play() never changes it.
+    await _player.setAudioContext(_defaultAudioContext);
+    await _callPlayer.setAudioContext(_callingAudioContext);
   }
 
   initSoundTheme() {
@@ -94,7 +106,7 @@ class PromptToneManager {
       }
       if (_player.state != PlayerState.playing) {
         _player.setReleaseMode(ReleaseMode.release);
-        await AudioPlayer.global.setAudioContext(_defaultAudioContext);
+        await _setGlobalAudioContext(_defaultAudioContext);
         _player.play(
           AssetSource(source),
           ctx: _defaultAudioContext,
@@ -114,17 +126,28 @@ class PromptToneManager {
 
   Future<void> playCalling() async {
     if (!OXUserInfoManager.sharedInstance.canSound) return;
-    await _player.stop();
-    _player.setReleaseMode(ReleaseMode.loop);
-    await AudioPlayer.global.setAudioContext(_callingAudioContext);
-    await _player.play(
+    await _callPlayer.stop();
+    _callPlayer.setReleaseMode(ReleaseMode.loop);
+    await _setGlobalAudioContext(_callingAudioContext);
+    await _callPlayer.play(
       AssetSource('sounds/${_currentSoundTheme.name}/calling.mp3'),
       ctx: _callingAudioContext,
     );
   }
 
   Future<void> stopPlay() async {
+    await _callPlayer.stop();
     await _player.stop();
-    await AudioPlayer.global.setAudioContext(_defaultAudioContext);
+    await _setGlobalAudioContext(_defaultAudioContext);
+  }
+
+  /// On Android the global context writes the system audio mode and the
+  /// speakerphone. stopPlay() runs as a call connects, so it took the live
+  /// call out of communication mode and switched its speaker off; a message
+  /// sound mid-call did the same. Each play passes its own context, which is
+  /// all Android needs, and setup() sets the global one once at start.
+  Future<void> _setGlobalAudioContext(AudioContext context) async {
+    if (Platform.isAndroid) return;
+    await AudioPlayer.global.setAudioContext(context);
   }
 }

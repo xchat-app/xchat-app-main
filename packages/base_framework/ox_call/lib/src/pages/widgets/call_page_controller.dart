@@ -22,6 +22,8 @@ class CallPageController {
         _context = context {
     callState$.value = _session.state;
     isConnected$.value = _session.state == CallState.connected;
+    // A video call is held at arm's length, a voice call at the ear.
+    isSpeakerOn$.value = _session.isVideo;
     _initialize();
   }
 
@@ -135,6 +137,7 @@ class CallPageController {
 
   void _onLocalStreamReady(MediaStream stream) {
     localRenderer.srcObject = stream;
+    _applySpeaker();
 
     // For outgoing calls: send offer after local stream is ready
     if (!isIncoming) {
@@ -170,6 +173,7 @@ class CallPageController {
     if (session.state == CallState.connected) {
       _startDurationTimer();
       _updateStreams();
+      _applySpeaker();
     }
 
     if (session.state == CallState.ended && !hasPopped$.value) {
@@ -304,8 +308,17 @@ class CallPageController {
   }
 
   Future<void> toggleSpeaker() async {
-    // TODO: Implement speaker toggle / device selection
     isSpeakerOn$.value = !isSpeakerOn$.value;
+    await CallManager().setSpeakerOn(isSpeakerOn$.value);
+  }
+
+  /// The audio route follows [isSpeakerOn$]. Applied once audio starts, and
+  /// again on connect: WebRTC picks its own route when the call's audio
+  /// comes up, and the button showed one thing while the sound came from
+  /// the other.
+  void _applySpeaker() {
+    final on = isSpeakerOn$.value;
+    CallManager().setSpeakerOn(on, preferBluetooth: on);
   }
 
   Future<void> switchCamera() async {

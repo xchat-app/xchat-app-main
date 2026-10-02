@@ -38,6 +38,10 @@ extension CallManagerDevice on CallManager {
     await DeviceManager().setAudioInputDevice(sessionId, _localStream!, deviceId);
   }
 
+  Future<void> setSpeakerOn(bool on, {bool preferBluetooth = false}) async {
+    await DeviceManager().setSpeakerOn(on, preferBluetooth: preferBluetooth);
+  }
+
   Future<void> setAudioOutputDevice(String deviceId) async {
     await DeviceManager().setAudioOutputDevice(deviceId);
   }

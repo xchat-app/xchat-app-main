@@ -140,6 +140,21 @@ class DeviceManager {
     }
   }
 
+  /// [preferBluetooth] keeps a connected headset over the speaker; it is for
+  /// the default route, not for the user asking for the speaker.
+  Future<void> setSpeakerOn(bool on, {bool preferBluetooth = false}) async {
+    try {
+      if (on && preferBluetooth) {
+        await Helper.setSpeakerphoneOnButPreferBluetooth();
+      } else {
+        await Helper.setSpeakerphoneOn(on);
+      }
+      CallLogger.info('Speaker ${on ? 'on' : 'off'}');
+    } catch (e) {
+      CallLogger.error('Failed to switch the speaker: $e');
+    }
+  }
+
   Future<void> setMuted(String sessionId, MediaStream localStream, bool muted) async {
     try {
       localStream.getAudioTracks().forEach((track) {

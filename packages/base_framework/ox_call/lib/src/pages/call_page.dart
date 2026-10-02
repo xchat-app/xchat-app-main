@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:ox_call/ox_call.dart';
 import 'package:ox_call/src/models/call_session.dart';
 import 'package:ox_call/src/services/call_service.dart';
+import 'package:ox_call/src/utils/call_logger.dart';
 import 'widgets/call_page_controller.dart';
 import 'widgets/call_top_bar.dart';
 import 'widgets/call_content_area.dart';
@@ -34,6 +36,7 @@ class _CallPageState extends State<CallPage> {
     super.initState();
     _controller = CallPageController(widget.session, context);
     _controller.hasPopped$.addListener(_onHasPopped);
+    _setKeepScreenOn(true);
 
     // For incoming calls: check permission after first frame is rendered
     if (widget.session.isIncoming) {
@@ -55,6 +58,16 @@ class _CallPageState extends State<CallPage> {
     }
   }
 
+  /// Nobody touches the screen during a video call, so Android's screen
+  /// timeout blanked it mid-call and it looked as if the call had dropped.
+  /// Voice calls are left alone: that phone is held to the ear.
+  void _setKeepScreenOn(bool on) {
+    if (!widget.session.isVideo) return;
+    (on ? WakelockPlus.enable() : WakelockPlus.disable()).catchError((Object e) {
+      CallLogger.warning('Failed to ${on ? 'keep the screen on' : 'release the screen'}', e);
+    });
+  }
+
   void _onMinimize() {
     // TODO: Implement minimize to PiP
   }
@@ -62,6 +75,7 @@ class _CallPageState extends State<CallPage> {
   @override
   void dispose() {
     _controller.hasPopped$.removeListener(_onHasPopped);
+    _setKeepScreenOn(false);
     _controller.dispose();
     // Notify CallService that call page is dismissed
     CallService.instance.notifyCallPageDismissed();

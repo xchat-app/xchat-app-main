@@ -450,6 +450,8 @@ extension ChatGestureHandlerEx on ChatGeneralHandler {
   // }
 
   Future<void> callMessagePressHandler(BuildContext context, types.CustomMessage message) async {
+    // Calling back is a call like any other: paid circles only.
+    if (!CallManager.isAvailableInCurrentCircle) return;
     try {
       // Get call type from message
       final CallMessageType? callMessageType = CallMessageEx(message).callType;

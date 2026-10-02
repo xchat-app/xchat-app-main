@@ -13,6 +13,10 @@ extension CallManagerCallLifecycle on CallManager {
     required CallType callType,
     List<UserDBISAR>? additionalParticipants,
   }) async {
+    if (!CallManager.isAvailableInCurrentCircle) {
+      CallLogger.warning('Calls are only available in paid circles');
+      return;
+    }
     // Check permission before starting call
     final mediaType = callType == CallType.video
         ? CallMessageType.video.text

@@ -345,6 +345,9 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
     
     // Don't show call buttons for self chat
     if (session.isSelfChat) return [];
+
+    // Calls are a paid-circle feature.
+    if (!CallManager.isAvailableInCurrentCircle) return [];
     
     final otherUser = handler.otherUser;
     if (otherUser == null) return [];

@@ -94,6 +94,12 @@ class CallManager {
     return () => _localStreamCallbacks.remove(callback);
   }
 
+  /// Calls are a paid-circle feature: they run over the paid relay and its
+  /// TURN server, which carries the call wherever a direct connection fails.
+  /// Free circles (public relays) do not offer them.
+  static bool get isAvailableInCurrentCircle =>
+      CircleApi.isPaidRelay(LoginManager.instance.currentCircle?.relayUrl ?? '');
+
   /// Initialize the call manager.
   Future<void> initialize() async {
     if (_initialized) return;

@@ -21,8 +21,28 @@ class CallService with WidgetsBindingObserver {
 
   /// The incoming call the user answered from the notification. The call page
   /// accepts it once it has the microphone, which it only gets after the app
-  /// is back on screen.
+  /// is back on screen. [_answerAny] stands for "the next incoming call": Answer
+  /// on a call the push service rang, before the app had the call itself.
   final ValueNotifier<String?> answerRequested$ = ValueNotifier<String?>(null);
+  static const String _answerAny = '*';
+  DateTime? _answerAnyUntil;
+
+  bool isAnswerRequestedFor(CallSession session) {
+    final requested = answerRequested$.value;
+    if (requested == session.sessionId) return true;
+    return requested == _answerAny &&
+        session.isIncoming &&
+        (_answerAnyUntil?.isAfter(DateTime.now()) ?? false);
+  }
+
+  void _requestAnswer(String sessionId) {
+    if (sessionId.isEmpty) {
+      _answerAnyUntil = DateTime.now().add(const Duration(seconds: 60));
+      answerRequested$.value = _answerAny;
+    } else {
+      answerRequested$.value = sessionId;
+    }
+  }
 
   /// Initialize the call service.
   /// Should be called after CallManager is initialized.
@@ -36,10 +56,21 @@ class CallService with WidgetsBindingObserver {
           await CallManager().endCall(session.sessionId);
         }
       },
-      onAnswer: (sessionId) => answerRequested$.value = sessionId,
+      onAnswer: _requestAnswer,
       onDecline: (sessionId) => CallManager().rejectCall(sessionId),
     );
     _initialized = true;
+    CallNotifications.takePendingAnswer().then((answer) {
+      if (answer) _requestAnswer('');
+    });
+    // Started from a call the push service rang: its notification keeps
+    // ringing until the call page takes over (below), or is cleared here if
+    // no call turns up, the caller having hung up meanwhile.
+    Future.delayed(const Duration(seconds: 15), () {
+      final ringing = CallManager().getActiveSessions().any(
+          (session) => session.isIncoming && session.state == CallState.ringing);
+      if (!ringing) CallNotifications.cancelIncoming();
+    });
   }
 
   /// Cleanup the call service.
@@ -58,8 +89,14 @@ class CallService with WidgetsBindingObserver {
     // Handle incoming call - show call page
     if (session.state == CallState.ringing && session.isIncoming) {
       _showCallPage(session);
-      // Off screen, the page is pushed but nobody sees or hears it.
-      if (!CallNotifications.isAppOnScreen) CallNotifications.showIncoming(session);
+      // Off screen, the page is pushed but nobody sees or hears it. On screen
+      // it rings itself, so a ringing notification the push service posted
+      // before the app was running goes.
+      if (CallNotifications.isAppOnScreen) {
+        CallNotifications.cancelIncoming();
+      } else {
+        CallNotifications.showIncoming(session);
+      }
       return;
     }
 
@@ -116,7 +153,7 @@ class CallService with WidgetsBindingObserver {
     if (state == AppLifecycleState.resumed) {
       // Back on screen: the call page rings, unless this is the user answering.
       CallNotifications.cancelIncoming();
-      if (answerRequested$.value != session.sessionId) {
+      if (!isAnswerRequestedFor(session)) {
         PromptToneManager.sharedInstance.playCalling();
       }
     } else if (state == AppLifecycleState.paused) {

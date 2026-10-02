@@ -161,6 +161,7 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
                 IncomingCallNotification.cancel(mContext);
                 result.success(null);
             }
+            case "takePendingCallAnswer" -> result.success(com.oxchat.nostr.MainActivity.takePendingAnswer());
             case "startPushNotificationService" -> {
                 String serverRelay = "";
                 String pubkey = "";

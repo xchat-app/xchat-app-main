@@ -24,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.oxchat.lite.R;
 import com.oxchat.lite.KeystoreHelper;
+import com.oxchat.nostr.IncomingCallNotification;
 import com.oxchat.nostr.MainActivity;
 
 import org.json.JSONArray;
@@ -449,7 +450,8 @@ public class PushNotificationService extends Service {
             
             if ("EVENT".equals(messageType)) {
                 // Received an event, only wake app if process is not running
-                Log.d(TAG, "Received EVENT");
+                final boolean isCall = isCallOffer(jsonArray);
+                Log.d(TAG, "Received EVENT" + (isCall ? " (call)" : ""));
                 if (isAppProcessRunning()) {
                     Log.d(TAG, "App process already running, skipping activation");
                 } else if (MainActivity.isAlive()) {
@@ -465,11 +467,11 @@ public class PushNotificationService extends Service {
                             return;
                         }
                         Log.d(TAG, "App posted nothing, activating");
-                        activateApp();
+                        notifyFromPush(isCall);
                     }, APP_NOTIFICATION_GRACE_MS);
                 } else {
                     Log.d(TAG, "App process not running, activating");
-                    activateApp();
+                    notifyFromPush(isCall);
                 }
             } else if ("EOSE".equals(messageType)) {
                 // End of stored events
@@ -998,6 +1000,40 @@ public class PushNotificationService extends Service {
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to show notification", e);
+        }
+    }
+
+    /**
+     * Whether the push is for a call offer: the sender marks those with the
+     * call's kind (k 25050, the same tag the relay sees on the group message).
+     * The 20284 carries the sender's 20285 as JSON in its content.
+     */
+    private boolean isCallOffer(JSONArray message) {
+        try {
+            JSONObject wrapper = message.getJSONObject(2);
+            JSONObject push = new JSONObject(wrapper.optString("content", "{}"));
+            JSONArray tags = push.optJSONArray("tags");
+            if (tags == null) return false;
+            for (int i = 0; i < tags.length(); i++) {
+                JSONArray tag = tags.optJSONArray(i);
+                if (tag != null && tag.length() >= 2
+                        && "k".equals(tag.optString(0)) && "25050".equals(tag.optString(1))) {
+                    return true;
+                }
+            }
+        } catch (JSONException e) {
+            Log.w(TAG, "Could not read the push event", e);
+        }
+        return false;
+    }
+
+    /** A call rings; anything else is the generic "New message". */
+    private void notifyFromPush(boolean isCall) {
+        if (isCall) {
+            IncomingCallNotification.showFromPush(this);
+            Log.d(TAG, "Incoming call notification shown");
+        } else {
+            activateApp();
         }
     }
 

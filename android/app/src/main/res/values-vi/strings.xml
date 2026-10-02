@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">Tin nhắn mới</string>
+    <string name="push_notification_text">Bạn có tin nhắn mới</string>
+    <string name="incoming_call">Cuộc gọi đến</string>
+    <string name="call_answer">Chấp nhận</string>
+    <string name="call_decline">Từ chối</string>
+</resources>

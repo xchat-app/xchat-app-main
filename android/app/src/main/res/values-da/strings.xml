@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">Ny besked</string>
+    <string name="push_notification_text">Du har en ny besked</string>
+    <string name="incoming_call">Indgående opkald</string>
+    <string name="call_answer">Accepter</string>
+    <string name="call_decline">Afvis</string>
+</resources>

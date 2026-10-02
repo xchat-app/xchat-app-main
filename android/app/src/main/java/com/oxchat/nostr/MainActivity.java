@@ -104,12 +104,27 @@ public class MainActivity extends FlutterFragmentActivity {
         handleIntent(intent);
     }
 
+    // Answer tapped on a call rung from a push, when the app was not running:
+    // the call itself only arrives once the app has started and synced, so
+    // Flutter asks for this (takePendingAnswer) and answers that call.
+    private static volatile long pendingAnswerAt = 0;
+
+    public static boolean takePendingAnswer() {
+        boolean recent = System.currentTimeMillis() - pendingAnswerAt < 60_000;
+        pendingAnswerAt = 0;
+        return recent;
+    }
+
     /** Answer, from the incoming-call notification: Flutter accepts the call. */
     private void handleCallIntent(Intent intent) {
         if (intent == null || !IncomingCallNotification.ACTION_ANSWER.equals(intent.getAction())) return;
         IncomingCallNotification.cancel(this);
-        AppPreferences.sendCallEvent("onAnswerFromNotification",
-                intent.getStringExtra(IncomingCallNotification.EXTRA_SESSION_ID));
+        String sessionId = intent.getStringExtra(IncomingCallNotification.EXTRA_SESSION_ID);
+        if (sessionId == null || sessionId.isEmpty()) {
+            pendingAnswerAt = System.currentTimeMillis();
+            sessionId = "";
+        }
+        AppPreferences.sendCallEvent("onAnswerFromNotification", sessionId);
         intent.setAction(Intent.ACTION_MAIN); // not again if the activity is recreated
     }
 

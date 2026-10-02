@@ -41,11 +41,32 @@ public final class IncomingCallNotification {
     // The caller gives up after 45 s and Flutter cancels this then; the
     // timeout only covers the case where nothing does.
     private static final long TIMEOUT_MS = 60_000;
+    // Posted from a push with the app not running, nothing will cancel it
+    // when the caller gives up, so it ends when the caller's ringing does.
+    private static final long PUSH_TIMEOUT_MS = 45_000;
 
     private IncomingCallNotification() {}
 
     public static void show(Context context, String sessionId, String remoteName, boolean isVideo,
                             String content, String answerLabel, String declineLabel) {
+        post(context, sessionId, remoteName, content, answerLabel, declineLabel, TIMEOUT_MS);
+    }
+
+    /**
+     * Rung by PushNotificationService for a call offer while the app is not
+     * running. The push carries no caller (only that it is a call), so this
+     * says "Incoming call". Answer starts the app, which picks up the offer
+     * from the relay (kept there 60 s) and answers it; Decline only silences
+     * it, since nothing that could tell the caller is running.
+     */
+    public static void showFromPush(Context context) {
+        post(context, null, "XChat", context.getString(R.string.incoming_call),
+                context.getString(R.string.call_answer), context.getString(R.string.call_decline),
+                PUSH_TIMEOUT_MS);
+    }
+
+    private static void post(Context context, String sessionId, String remoteName, String content,
+                             String answerLabel, String declineLabel, long timeoutMs) {
         NotificationManager manager = context.getSystemService(NotificationManager.class);
         if (manager == null) return;
         NotificationChannel channel = new NotificationChannel(
@@ -62,13 +83,12 @@ public final class IncomingCallNotification {
         int flags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
         Intent answer = new Intent(context, MainActivity.class)
                 .setAction(ACTION_ANSWER)
-                .putExtra(EXTRA_SESSION_ID, sessionId)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        if (sessionId != null) answer.putExtra(EXTRA_SESSION_ID, sessionId);
         PendingIntent answerIntent = PendingIntent.getActivity(context, 2, answer, flags);
-        PendingIntent declineIntent = PendingIntent.getBroadcast(context, 4,
-                new Intent(context, CallActionReceiver.class)
-                        .setAction(ACTION_DECLINE)
-                        .putExtra(EXTRA_SESSION_ID, sessionId), flags);
+        Intent decline = new Intent(context, CallActionReceiver.class).setAction(ACTION_DECLINE);
+        if (sessionId != null) decline.putExtra(EXTRA_SESSION_ID, sessionId);
+        PendingIntent declineIntent = PendingIntent.getBroadcast(context, 4, decline, flags);
         Intent open = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
         if (open == null) open = new Intent(context, MainActivity.class);
         open.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -92,7 +112,7 @@ public final class IncomingCallNotification {
                 .setVisibility(Notification.VISIBILITY_PRIVATE)
                 .setPublicVersion(publicVersion)
                 .setContentIntent(openIntent)
-                .setTimeoutAfter(TIMEOUT_MS);
+                .setTimeoutAfter(timeoutMs);
 
         // Android 14 takes the full-screen permission away from apps Play has
         // not approved as calling apps; without it CallStyle is refused too.

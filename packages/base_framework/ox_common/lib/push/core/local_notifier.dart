@@ -31,5 +31,5 @@ class LocalNotifier implements Notifier {
   }
 
   @override
-  Future<void> cancelAll() => _kit.cancelAll();
+  Future<void> cancelAll() => _kit.cancelAllExceptCalls();
 }

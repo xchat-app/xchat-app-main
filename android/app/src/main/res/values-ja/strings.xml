@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">新しいメッセージ</string>
+    <string name="push_notification_text">新しいメッセージがあります</string>
+    <string name="incoming_call">着信</string>
+    <string name="call_answer">受け入れる</string>
+    <string name="call_decline">拒否</string>
+</resources>

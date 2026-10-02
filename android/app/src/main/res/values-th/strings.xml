@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">ข้อความใหม่</string>
+    <string name="push_notification_text">คุณมีข้อความใหม่</string>
+    <string name="incoming_call">สายเรียกเข้า</string>
+    <string name="call_answer">ยอมรับ</string>
+    <string name="call_decline">ปฏิเสธ</string>
+</resources>

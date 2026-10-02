@@ -5,4 +5,7 @@
     <string name="push_service_text">Listening for push notifications</string>
     <string name="push_notification_title">New message</string>
     <string name="push_notification_text">You have a new message</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="call_answer">Accept</string>
+    <string name="call_decline">Decline</string>
 </resources>

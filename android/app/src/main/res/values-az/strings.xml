@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">Yeni mesaj</string>
+    <string name="push_notification_text">Yeni mesajınız var</string>
+    <string name="incoming_call">Gələn zəng</string>
+    <string name="call_answer">Qəbul et</string>
+    <string name="call_decline">Rədd et</string>
+</resources>

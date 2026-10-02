@@ -81,7 +81,8 @@ class CallPageController {
 
     // Init: start ringtone. An incoming call that arrives off screen rings
     // through its notification instead.
-    if (!isIncoming || CallNotifications.isAppOnScreen) {
+    if (!isIncoming ||
+        (CallNotifications.isAppOnScreen && !CallService.instance.isAnswerRequestedFor(_session))) {
       PromptToneManager.sharedInstance.playCalling();
     }
 
@@ -113,7 +114,7 @@ class CallPageController {
   /// microphone, which this page only gets once the app is back on screen, so
   /// this runs on the request and again when the local stream is ready.
   void _answerIfRequested() {
-    if (!isIncoming || CallService.instance.answerRequested$.value != _session.sessionId) return;
+    if (!isIncoming || !CallService.instance.isAnswerRequestedFor(_session)) return;
     if (CallManager().getLocalStream() == null || _session.state != CallState.ringing) return;
     CallService.instance.answerRequested$.value = null;
     accept();

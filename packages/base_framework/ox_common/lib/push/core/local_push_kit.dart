@@ -295,6 +295,20 @@ class LocalPushKit {
   /// Cancel all notifications.
   Future<void> cancelAll() => _plugin.cancelAll();
 
+  /// Cancel the app's notifications except the ones that belong to a call
+  /// (the ringing notification of an incoming call and the ongoing call's,
+  /// both posted natively) and the push service's own. Opening the app used
+  /// to clear everything, which stopped a call ringing before its page was up.
+  Future<void> cancelAllExceptCalls() async {
+    if (!Platform.isAndroid) return cancelAll();
+    const keep = {'IncomingCallChannel', 'OngoingCallChannel', 'PushNotificationServiceChannel'};
+    for (final notification in await _plugin.getActiveNotifications()) {
+      final id = notification.id;
+      if (id == null || keep.contains(notification.channelId)) continue;
+      await _plugin.cancel(id, tag: notification.tag);
+    }
+  }
+
   /// Cancel all pending (scheduled) notifications.
   Future<void> cancelAllPending() => _plugin.cancelAllPendingNotifications();
 

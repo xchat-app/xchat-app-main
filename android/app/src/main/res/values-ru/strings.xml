@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">Новое сообщение</string>
+    <string name="push_notification_text">У вас новое сообщение</string>
+    <string name="incoming_call">Входящий звонок</string>
+    <string name="call_answer">Принять</string>
+    <string name="call_decline">Отклонить</string>
+</resources>

@@ -21,7 +21,6 @@ class CallNotifications {
 
   static const MethodChannel _channel = MethodChannel('com.oxchat.global/call');
   static bool _ongoing = false;
-  static bool _ringing = false;
 
   /// Whether the app is in front of the user, so the call page itself rings.
   static bool get isAppOnScreen {
@@ -45,10 +44,9 @@ class CallNotifications {
         case 'onHangUpFromNotification':
           await onHangUp();
         case 'onAnswerFromNotification':
-          _ringing = false;
-          if (sessionId.isNotEmpty) onAnswer(sessionId);
+          // Empty when the push service rang it: answer the call that arrives.
+          onAnswer(sessionId);
         case 'onDeclineFromNotification':
-          _ringing = false;
           if (sessionId.isNotEmpty) await onDecline(sessionId);
       }
     });
@@ -81,7 +79,6 @@ class CallNotifications {
 
   static Future<void> showIncoming(CallSession session) async {
     if (!Platform.isAndroid) return;
-    _ringing = true;
     try {
       await _channel.invokeMethod('showIncomingCall', {
         ..._describe(session),
@@ -94,13 +91,25 @@ class CallNotifications {
     }
   }
 
+  /// Also clears one the push service rang while the app was not running.
   static Future<void> cancelIncoming() async {
-    if (!Platform.isAndroid || !_ringing) return;
-    _ringing = false;
+    if (!Platform.isAndroid) return;
     try {
       await _channel.invokeMethod('cancelIncomingCall');
     } catch (e) {
       CallLogger.error('Failed to cancel the incoming call: $e');
+    }
+  }
+
+  /// Whether the app was started by Answer on a call the push service rang
+  /// (no session yet: the offer arrives once the app has synced).
+  static Future<bool> takePendingAnswer() async {
+    if (!Platform.isAndroid) return false;
+    try {
+      return await _channel.invokeMethod<bool>('takePendingCallAnswer') ?? false;
+    } catch (e) {
+      CallLogger.error('Failed to read a pending answer: $e');
+      return false;
     }
   }
 

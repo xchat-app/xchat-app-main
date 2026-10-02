@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">Jauna ziņa</string>
+    <string name="push_notification_text">Jums ir jauna ziņa</string>
+    <string name="incoming_call">Ienākošais zvans</string>
+    <string name="call_answer">Pieņemt</string>
+    <string name="call_decline">Noraidīt</string>
+</resources>

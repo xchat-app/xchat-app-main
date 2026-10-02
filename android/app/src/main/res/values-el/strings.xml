@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notifications the push service posts while the app is not running. -->
+<resources>
+    <string name="push_notification_title">Νέο μήνυμα</string>
+    <string name="push_notification_text">Έχετε νέο μήνυμα</string>
+    <string name="incoming_call">Εισερχόμενη κλήση</string>
+    <string name="call_answer">Αποδοχή</string>
+    <string name="call_decline">Απόρριψη</string>
+</resources>

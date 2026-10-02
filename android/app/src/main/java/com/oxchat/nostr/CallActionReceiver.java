@@ -12,7 +12,11 @@ public class CallActionReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (!IncomingCallNotification.ACTION_DECLINE.equals(intent.getAction())) return;
         IncomingCallNotification.cancel(context);
-        AppPreferences.sendCallEvent("onDeclineFromNotification",
-                intent.getStringExtra(IncomingCallNotification.EXTRA_SESSION_ID));
+        // Without a session (rung from a push, the app not running) there is
+        // no call here to reject yet: silencing it is all Decline can do.
+        String sessionId = intent.getStringExtra(IncomingCallNotification.EXTRA_SESSION_ID);
+        if (sessionId != null && !sessionId.isEmpty()) {
+            AppPreferences.sendCallEvent("onDeclineFromNotification", sessionId);
+        }
     }
 }

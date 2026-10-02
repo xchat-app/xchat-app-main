@@ -36,6 +36,8 @@ dependencies:
     path: ../ox_common
   ox_cache_manager:
     path: ../ox_cache_manager
+  ox_localizable:
+    path: ../ox_localizable
 
   # Audio session for background keep-alive
   audio_session: ^0.1.18

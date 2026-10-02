@@ -36,21 +36,31 @@ import io.flutter.plugin.common.MethodChannel;
  */
 public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterPlugin, ActivityAware {
     private static final String OX_PERFERENCES_CHANNEL = "com.oxchat.global/perferences";
+    // Its own channel: the Dart side of the one above already has a handler
+    // (push AUTH), and a channel takes only one.
+    private static final String OX_CALL_CHANNEL = "com.oxchat.global/call";
     private Context mContext;
     private Activity mActivity;
     private MethodChannel.Result mMethodChannelResult;
     private MethodChannel mChannel;
+    private MethodChannel mCallChannel;
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
         mContext = binding.getApplicationContext();
         mChannel = new MethodChannel(binding.getBinaryMessenger(), OX_PERFERENCES_CHANNEL);
         mChannel.setMethodCallHandler(this);
+        mCallChannel = new MethodChannel(binding.getBinaryMessenger(), OX_CALL_CHANNEL);
+        mCallChannel.setMethodCallHandler(this);
     }
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
-
+        if (mCallChannel != null) {
+            mCallChannel.setMethodCallHandler(null);
+            mCallChannel = null;
+        }
+        VoiceCallService.onHangUp = null;
     }
 
     @Override
@@ -87,22 +97,29 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
                 result.success(isAppInBackground);
             }
             case "startVoiceCallService" -> {
-                String title = "";
-                String content = "";
-                if (paramsMap != null && paramsMap.containsKey(VoiceCallService.VOICE_TITLE_STR)) {
-                    title = (String) paramsMap.get(VoiceCallService.VOICE_TITLE_STR);
-                }
-                if (paramsMap != null && paramsMap.containsKey(VoiceCallService.VOICE_CONTENT_STR)) {
-                    content = (String) paramsMap.get(VoiceCallService.VOICE_CONTENT_STR);
-                }
                 Intent serviceIntent = new Intent(mContext, VoiceCallService.class);
-                serviceIntent.putExtra(VoiceCallService.VOICE_TITLE_STR, title);
-                serviceIntent.putExtra(VoiceCallService.VOICE_CONTENT_STR, content);
-                mContext.startForegroundService(serviceIntent);
+                if (paramsMap != null) {
+                    serviceIntent.putExtra(VoiceCallService.EXTRA_REMOTE_NAME, (String) paramsMap.get("remoteName"));
+                    serviceIntent.putExtra(VoiceCallService.EXTRA_IS_VIDEO, Boolean.TRUE.equals(paramsMap.get("isVideo")));
+                    serviceIntent.putExtra(VoiceCallService.EXTRA_CONTENT, (String) paramsMap.get("content"));
+                    serviceIntent.putExtra(VoiceCallService.EXTRA_HANG_UP_LABEL, (String) paramsMap.get("hangUpLabel"));
+                }
+                MethodChannel callChannel = mCallChannel;
+                VoiceCallService.onHangUp = () -> {
+                    if (callChannel != null) callChannel.invokeMethod("onHangUpFromNotification", null);
+                };
+                try {
+                    mContext.startForegroundService(serviceIntent);
+                    result.success(true);
+                } catch (Exception e) {
+                    Log.e("AppPreferences", "Could not start the call service", e);
+                    result.success(false);
+                }
             }
             case "stopVoiceCallService" -> {
                 Intent serviceIntent = new Intent(mContext, VoiceCallService.class);
                 mContext.stopService(serviceIntent);
+                result.success(null);
             }
             case "startPushNotificationService" -> {
                 String serverRelay = "";

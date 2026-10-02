@@ -10,6 +10,7 @@ import 'package:ox_call/src/models/call_session.dart';
 import 'package:ox_call/src/models/call_device_info.dart';
 import 'package:ox_call/src/utils/call_logger.dart';
 import 'package:ox_call/src/utils/background_keep_alive.dart';
+import 'package:ox_call/src/utils/call_foreground_service.dart';
 import 'package:ox_call/src/utils/ice_server_config.dart';
 import 'package:ox_call/src/device_manager.dart';
 import 'package:ox_common/utils/permission_utils.dart';
@@ -97,6 +98,11 @@ class CallManager {
   Future<void> initialize() async {
     if (_initialized) return;
     _setupSignalingListener();
+    CallForegroundService.listenForHangUp(() async {
+      for (final session in getActiveSessions()) {
+        await endCall(session.sessionId);
+      }
+    });
     _initialized = true;
     CallLogger.info('CallManager initialized');
   }

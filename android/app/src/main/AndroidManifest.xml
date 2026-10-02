@@ -34,7 +34,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
-    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/> -->
+    <!-- VoiceCallService: keeps the microphone (and camera) during a call while the app is off screen -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA"/>
     <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/> -->
     <!-- <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> -->
 
@@ -202,7 +204,8 @@
         </provider>
 
         <service android:name="com.oxchat.nostr.VoiceCallService"
-            android:foregroundServiceType="mediaPlayback"/>
+            android:foregroundServiceType="microphone|camera"
+            android:exported="false"/>
 
         <service android:name="com.oxchat.lite.PushNotificationService"
             android:foregroundServiceType="dataSync"

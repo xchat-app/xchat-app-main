@@ -56,6 +56,7 @@ extension CallManagerCallLifecycle on CallManager {
     try {
       await _backgroundKeepAlive.configureForCall();
       await _backgroundKeepAlive.activate();
+      await CallForegroundService.start(session);
     } catch (e) {
       CallLogger.error('Failed to start call: $e');
       await _handleError(sessionId, CallErrorType.unknown, 'Failed to start call: $e', e);
@@ -184,6 +185,7 @@ extension CallManagerCallLifecycle on CallManager {
 
       await _backgroundKeepAlive.configureForCall();
       await _backgroundKeepAlive.activate();
+      await CallForegroundService.start(session);
 
       CallLogger.info('Answer sent: sessionId=${session.sessionId}');
     } catch (e) {
@@ -267,6 +269,7 @@ extension CallManagerCallLifecycle on CallManager {
 
       if (!_hasActiveSessions()) {
         await _backgroundKeepAlive.deactivate();
+        await CallForegroundService.stop();
       }
     } finally {
       // Always remove from ending set, even if an error occurred

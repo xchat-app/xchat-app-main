@@ -8,8 +8,7 @@ extension CallManagerWebRTC on CallManager {
       throw 'No active circle for creating peer connection';
     }
 
-    final iceServerConfig = await IceServerConfig.load()
-        ?? IceServerConfig.defaultPublicConfig(circle);
+    final iceServerConfig = await IceServerConfig.forCircle(circle);
 
     final iceServers = iceServerConfig.toRTCIceServers();
     CallLogger.debug('Creating PeerConnection with ${iceServers.length} ICE servers: $iceServers');

@@ -6,7 +6,7 @@ import 'package:ox_chat/message_handler/chat_message_helper.dart';
 import 'package:ox_chat/manager/chat_page_config.dart';
 import 'package:ox_chat/page/contacts/contact_user_info_page.dart';
 import 'package:ox_chat/page/contacts/groups/group_info_page.dart';
-import 'package:ox_chat/utils/call_private_circle_prompt.dart';
+import 'package:ox_chat/utils/call_server_prompt.dart';
 import 'package:ox_chat/utils/chat_voice_helper.dart';
 import 'package:ox_chat/utils/general_handler/chat_general_handler.dart';
 import 'package:ox_chat/widget/chat_highlight_message_widget.dart';
@@ -366,9 +366,9 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
   }
 
   Future<void> _startCall(UserDBISAR user, CallType callType) async {
-    // Calls are a Private Circle feature; in a free circle, say so.
-    if (!CallManager.isAvailableInCurrentCircle) {
-      await showCallsNeedPrivateCircle(context, isVideo: callType == CallType.video);
+    // A call needs a TURN server: a Private Circle's, or the free circle's own.
+    if (!await CallManager.canStartCallInCurrentCircle()) {
+      if (mounted) await showCallNeedsServer(context, isVideo: callType == CallType.video);
       return;
     }
     try {

@@ -44,12 +44,6 @@ extension CallManagerSignaling on CallManager {
     }
 
     CallLogger.info('Received offer: offerId=$offerId');
-    // A call from an older version in a free circle: this one no longer
-    // offers calls there, so it does not ring for them either.
-    if (!CallManager.isAvailableInCurrentCircle) {
-      CallLogger.info('Ignoring offer outside a paid circle: offerId=$offerId');
-      return;
-    }
     String privateGroupId = '';
 
     try {

@@ -94,11 +94,15 @@ class CallManager {
     return () => _localStreamCallbacks.remove(callback);
   }
 
-  /// Calls are a paid-circle feature: they run over the paid relay and its
-  /// TURN server, which carries the call wherever a direct connection fails.
-  /// Free circles (public relays) do not offer them.
-  static bool get isAvailableInCurrentCircle =>
-      CircleApi.isPaidRelay(LoginManager.instance.currentCircle?.relayUrl ?? '');
+  /// Whether this circle can start calls. A call needs a TURN server
+  /// wherever two phones cannot connect directly: a Private Circle has ours,
+  /// a free circle only the one its owner added under Call Server.
+  static Future<bool> canStartCallInCurrentCircle() async {
+    final circle = LoginManager.instance.currentCircle;
+    if (circle == null) return false;
+    if (CircleApi.isPaidRelay(circle.relayUrl)) return true;
+    return (await IceServerConfig.customServers(circle.id)).isNotEmpty;
+  }
 
   /// Initialize the call manager.
   Future<void> initialize() async {

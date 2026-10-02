@@ -13,8 +13,8 @@ extension CallManagerCallLifecycle on CallManager {
     required CallType callType,
     List<UserDBISAR>? additionalParticipants,
   }) async {
-    if (!CallManager.isAvailableInCurrentCircle) {
-      CallLogger.warning('Calls are only available in paid circles');
+    if (!await CallManager.canStartCallInCurrentCircle()) {
+      CallLogger.warning('No TURN server for calls in this circle');
       return;
     }
     // Check permission before starting call
@@ -22,7 +22,8 @@ extension CallManagerCallLifecycle on CallManager {
         ? CallMessageType.video.text
         : CallMessageType.audio.text;
     final context = OXNavigator.rootContext;
-    
+    if (!context.mounted) return;
+
     final hasPermission = await PermissionUtils.getCallPermission(
       context,
       mediaType: mediaType,

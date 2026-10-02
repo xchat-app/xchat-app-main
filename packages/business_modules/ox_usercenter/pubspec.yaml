@@ -1,6 +1,7 @@
 name: ox_usercenter
 description: A new Flutter project.
 version: 0.0.1
+publish_to: none # internal package
 homepage:
 
 environment:
@@ -28,6 +29,8 @@ dependencies:
     path: ../../base_framework/ox_cache_manager
   ox_chat:
     path: ../ox_chat
+  ox_call:
+    path: ../../base_framework/ox_call
   ox_login:
     path: ../ox_login
 

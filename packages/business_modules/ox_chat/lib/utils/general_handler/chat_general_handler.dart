@@ -55,7 +55,7 @@ import 'package:ox_chat/widget/report_dialog.dart';
 import 'package:ox_common/business_interface/ox_chat/custom_message_type.dart';
 import 'package:ox_common/model/chat_session_model_isar.dart';
 import 'package:ox_call/ox_call.dart';
-import 'package:ox_chat/utils/call_private_circle_prompt.dart';
+import 'package:ox_chat/utils/call_server_prompt.dart';
 import 'package:ox_common/navigator/navigator.dart';
 import 'package:ox_common/utils/permission_utils.dart';
 import 'package:ox_common/widgets/common_toast.dart';
@@ -451,10 +451,12 @@ extension ChatGestureHandlerEx on ChatGeneralHandler {
   // }
 
   Future<void> callMessagePressHandler(BuildContext context, types.CustomMessage message) async {
-    // Calling back is a call like any other: Private Circles only.
-    if (!CallManager.isAvailableInCurrentCircle) {
-      await showCallsNeedPrivateCircle(context,
-          isVideo: CallMessageEx(message).callType == CallMessageType.video);
+    // Calling back is a call like any other: it needs a TURN server.
+    if (!await CallManager.canStartCallInCurrentCircle()) {
+      if (context.mounted) {
+        await showCallNeedsServer(context,
+            isVideo: CallMessageEx(message).callType == CallMessageType.video);
+      }
       return;
     }
     try {

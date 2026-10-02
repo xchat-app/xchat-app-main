@@ -23,6 +23,7 @@ import 'dart:io';
 import 'package:ox_login/ox_login.dart';
 
 import 'file_server_page.dart';
+import 'call_server_page.dart';
 import 'profile_settings_page.dart';
 import 'qr_code_display_page.dart';
 import '../../utils/invite_link_manager.dart';
@@ -564,6 +565,15 @@ class _CircleDetailPageState extends State<CircleDetailPage>
                 )).then((_) {
                   _loadFileServerInfo();
                 });
+              },
+            ),
+            LabelItemModel(
+              icon: ListViewIcon.data(CupertinoIcons.phone),
+              title: Localized.text('ox_usercenter.call_server'),
+              onTap: () {
+                OXNavigator.pushPage(context, (_) => CallServerPage(
+                  previousPageTitle: widget.title,
+                ));
               },
             ),
           ],

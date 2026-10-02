@@ -75,6 +75,7 @@ public class MainActivity extends FlutterFragmentActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         super.onCreate(savedInstanceState);
         liveInstances++;
+        handleCallIntent(getIntent());
     }
 
     @Override
@@ -97,15 +98,25 @@ public class MainActivity extends FlutterFragmentActivity {
     @Override
     protected void onNewIntent(@NonNull Intent intent) {
         super.onNewIntent(intent);
+        handleCallIntent(intent);
         // Use the passed intent parameter for deep link processing
         getOpenData(intent);
         handleIntent(intent);
     }
 
+    /** Answer, from the incoming-call notification: Flutter accepts the call. */
+    private void handleCallIntent(Intent intent) {
+        if (intent == null || !IncomingCallNotification.ACTION_ANSWER.equals(intent.getAction())) return;
+        IncomingCallNotification.cancel(this);
+        AppPreferences.sendCallEvent("onAnswerFromNotification",
+                intent.getStringExtra(IncomingCallNotification.EXTRA_SESSION_ID));
+        intent.setAction(Intent.ACTION_MAIN); // not again if the activity is recreated
+    }
+
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine);
-        flutterEngine.getPlugins().add(new AppPreferences());
+        flutterEngine.getPlugins().add(new AppPreferences(true));
 
     }
 

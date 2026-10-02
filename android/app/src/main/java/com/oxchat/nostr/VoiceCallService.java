@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.oxchat.lite.R;
+import com.oxchat.nostr.channel.AppPreferences;
 
 /**
  * Foreground service held for the length of a call (voice or video).
@@ -41,9 +42,6 @@ public class VoiceCallService extends Service {
     public static final String EXTRA_HANG_UP_LABEL = "hang_up_label";
     public static final String ACTION_HANG_UP = "com.oxchat.nostr.ACTION_HANG_UP";
 
-    /** Set by AppPreferences: tells Flutter the user hung up from the notification. */
-    public static volatile Runnable onHangUp;
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent == null) {
@@ -52,12 +50,8 @@ public class VoiceCallService extends Service {
             return START_NOT_STICKY;
         }
         if (ACTION_HANG_UP.equals(intent.getAction())) {
-            Runnable hangUp = onHangUp;
-            if (hangUp != null) {
-                hangUp.run(); // Flutter ends the call, then stops this service
-            } else {
-                stopSelf();
-            }
+            // Flutter ends the call, then stops this service.
+            if (!AppPreferences.sendCallEvent("onHangUpFromNotification", null)) stopSelf();
             return START_NOT_STICKY;
         }
 

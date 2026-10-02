@@ -9,6 +9,8 @@ import 'package:ox_common/utils/chat_prompt_tone.dart';
 import 'package:ox_common/utils/permission_utils.dart';
 import 'package:ox_common/business_interface/ox_chat/call_message_type.dart';
 import 'package:ox_call/src/utils/call_logger.dart';
+import 'package:ox_call/src/utils/call_notifications.dart';
+import 'package:ox_call/src/services/call_service.dart';
 
 /// Controller for managing call page state and business logic.
 ///
@@ -77,8 +79,11 @@ class CallPageController {
     _setupListeners();
     _updateStreams();
 
-    // Init: start ringtone
-    PromptToneManager.sharedInstance.playCalling();
+    // Init: start ringtone. An incoming call that arrives off screen rings
+    // through its notification instead.
+    if (!isIncoming || CallNotifications.isAppOnScreen) {
+      PromptToneManager.sharedInstance.playCalling();
+    }
 
     // Start auto-hide timer for video calls
     if (isVideoCall) {
@@ -101,6 +106,17 @@ class CallPageController {
     _removeStateListener = CallManager().addStateListener(_onCallStateChanged);
     _removeStreamListener = CallManager().addStreamListener(_onRemoteStreamReady);
     _removeLocalStreamListener = CallManager().addLocalStreamListener(_onLocalStreamReady);
+    CallService.instance.answerRequested$.addListener(_answerIfRequested);
+  }
+
+  /// Answer, tapped in the incoming-call notification. Accepting needs the
+  /// microphone, which this page only gets once the app is back on screen, so
+  /// this runs on the request and again when the local stream is ready.
+  void _answerIfRequested() {
+    if (!isIncoming || CallService.instance.answerRequested$.value != _session.sessionId) return;
+    if (CallManager().getLocalStream() == null || _session.state != CallState.ringing) return;
+    CallService.instance.answerRequested$.value = null;
+    accept();
   }
 
   /// Check permission and get local stream for incoming calls.
@@ -142,6 +158,8 @@ class CallPageController {
     // For outgoing calls: send offer after local stream is ready
     if (!isIncoming) {
       CallManager().sendOfferWhenLocalStreamReady(_session.sessionId);
+    } else {
+      _answerIfRequested();
     }
   }
 
@@ -334,6 +352,7 @@ class CallPageController {
     _removeStateListener?.call();
     _removeStreamListener?.call();
     _removeLocalStreamListener?.call();
+    CallService.instance.answerRequested$.removeListener(_answerIfRequested);
 
     localRenderer.dispose();
     remoteRenderer.dispose();

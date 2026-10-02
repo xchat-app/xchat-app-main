@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
 import com.oxchat.nostr.MultiEngineActivity;
 import com.oxchat.nostr.util.SharedPreUtils;
+import com.oxchat.nostr.IncomingCallNotification;
 import com.oxchat.nostr.VoiceCallService;
 import com.oxchat.lite.PushNotificationService;
 import com.oxchat.lite.KeystoreHelper;
@@ -44,6 +47,30 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
     private MethodChannel.Result mMethodChannelResult;
     private MethodChannel mChannel;
     private MethodChannel mCallChannel;
+    private static volatile MethodChannel sCallChannel;
+    // Only the main engine runs the call code; MultiEngineActivity's second
+    // engine must not take the call events over.
+    private final boolean ownsCallEvents;
+
+    public AppPreferences() {
+        this(false);
+    }
+
+    public AppPreferences(boolean ownsCallEvents) {
+        this.ownsCallEvents = ownsCallEvents;
+    }
+
+    /**
+     * Tells Flutter about a call action taken outside the app (the call
+     * notifications' Hang Up, Answer and Decline). Returns false if no
+     * Flutter engine is listening.
+     */
+    public static boolean sendCallEvent(String method, Object arguments) {
+        MethodChannel channel = sCallChannel;
+        if (channel == null) return false;
+        new Handler(Looper.getMainLooper()).post(() -> channel.invokeMethod(method, arguments));
+        return true;
+    }
 
     @Override
     public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
@@ -52,15 +79,16 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
         mChannel.setMethodCallHandler(this);
         mCallChannel = new MethodChannel(binding.getBinaryMessenger(), OX_CALL_CHANNEL);
         mCallChannel.setMethodCallHandler(this);
+        if (ownsCallEvents) sCallChannel = mCallChannel;
     }
 
     @Override
     public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
         if (mCallChannel != null) {
             mCallChannel.setMethodCallHandler(null);
+            if (sCallChannel == mCallChannel) sCallChannel = null;
             mCallChannel = null;
         }
-        VoiceCallService.onHangUp = null;
     }
 
     @Override
@@ -104,10 +132,6 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
                     serviceIntent.putExtra(VoiceCallService.EXTRA_CONTENT, (String) paramsMap.get("content"));
                     serviceIntent.putExtra(VoiceCallService.EXTRA_HANG_UP_LABEL, (String) paramsMap.get("hangUpLabel"));
                 }
-                MethodChannel callChannel = mCallChannel;
-                VoiceCallService.onHangUp = () -> {
-                    if (callChannel != null) callChannel.invokeMethod("onHangUpFromNotification", null);
-                };
                 try {
                     mContext.startForegroundService(serviceIntent);
                     result.success(true);
@@ -119,6 +143,22 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
             case "stopVoiceCallService" -> {
                 Intent serviceIntent = new Intent(mContext, VoiceCallService.class);
                 mContext.stopService(serviceIntent);
+                result.success(null);
+            }
+            case "showIncomingCall" -> {
+                if (paramsMap != null) {
+                    IncomingCallNotification.show(mContext,
+                            (String) paramsMap.get("sessionId"),
+                            (String) paramsMap.get("remoteName"),
+                            Boolean.TRUE.equals(paramsMap.get("isVideo")),
+                            (String) paramsMap.get("content"),
+                            (String) paramsMap.get("answerLabel"),
+                            (String) paramsMap.get("declineLabel"));
+                }
+                result.success(null);
+            }
+            case "cancelIncomingCall" -> {
+                IncomingCallNotification.cancel(mContext);
                 result.success(null);
             }
             case "startPushNotificationService" -> {

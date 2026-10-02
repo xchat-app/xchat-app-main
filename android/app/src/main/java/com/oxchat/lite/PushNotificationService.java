@@ -65,9 +65,8 @@ public class PushNotificationService extends Service {
     private static final JsonNodeFactory JSON_NODE_FACTORY = JsonNodeFactory.instance;
     private static final int NOTIFICATION_ID = 1001;
     private static final int PUSH_NOTIFICATION_ID = 1002;
-    // The Flutter side's message channel (CLPushIntegration) and how long to
-    // give it to post before this service posts its own.
-    private static final String APP_MESSAGE_CHANNEL_ID = "message_channel";
+    // How long to give the app to post its own notification (a message, or a
+    // ringing call) before this service posts its own.
     private static final long APP_NOTIFICATION_GRACE_MS = 5000;
     
     public static final String EXTRA_SERVER_RELAY = "server_relay";
@@ -461,7 +460,7 @@ public class PushNotificationService extends Service {
                     // posted nothing after a few seconds.
                     final long receivedAt = System.currentTimeMillis();
                     reconnectHandler.postDelayed(() -> {
-                        if (isAppProcessRunning() || hasAppMessageNotificationSince(receivedAt - 3000)) {
+                        if (isAppProcessRunning() || hasAppNotificationSince(receivedAt - 3000)) {
                             Log.d(TAG, "App posted its own notification, skipping activation");
                             return;
                         }
@@ -1003,18 +1002,20 @@ public class PushNotificationService extends Service {
     }
 
     /**
-     * Whether the app itself has a message notification up that it posted at
-     * or after {@code since}.
+     * Whether the app itself has a notification up that it posted at or after
+     * {@code since}: a message, or the ringing notification for a call (which
+     * is what a push for a call offer is about). This service's own two do not
+     * count.
      */
-    private boolean hasAppMessageNotificationSince(long since) {
+    private boolean hasAppNotificationSince(long since) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager == null) return false;
         try {
             for (StatusBarNotification sbn : notificationManager.getActiveNotifications()) {
-                if (sbn.getPostTime() >= since
-                        && APP_MESSAGE_CHANNEL_ID.equals(sbn.getNotification().getChannelId())) {
-                    return true;
-                }
+                if (sbn.getId() == NOTIFICATION_ID || sbn.getId() == PUSH_NOTIFICATION_ID) continue;
+                // The summary Android adds when it bundles the app's notifications.
+                if ((sbn.getNotification().flags & Notification.FLAG_GROUP_SUMMARY) != 0) continue;
+                if (sbn.getPostTime() >= since) return true;
             }
         } catch (Exception e) {
             Log.w(TAG, "Could not read active notifications", e);

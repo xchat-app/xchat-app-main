@@ -6,6 +6,7 @@ import 'package:ox_chat/message_handler/chat_message_helper.dart';
 import 'package:ox_chat/manager/chat_page_config.dart';
 import 'package:ox_chat/page/contacts/contact_user_info_page.dart';
 import 'package:ox_chat/page/contacts/groups/group_info_page.dart';
+import 'package:ox_chat/utils/call_private_circle_prompt.dart';
 import 'package:ox_chat/utils/chat_voice_helper.dart';
 import 'package:ox_chat/utils/general_handler/chat_general_handler.dart';
 import 'package:ox_chat/widget/chat_highlight_message_widget.dart';
@@ -345,9 +346,6 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
     
     // Don't show call buttons for self chat
     if (session.isSelfChat) return [];
-
-    // Calls are a paid-circle feature.
-    if (!CallManager.isAvailableInCurrentCircle) return [];
     
     final otherUser = handler.otherUser;
     if (otherUser == null) return [];
@@ -368,6 +366,11 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
   }
 
   Future<void> _startCall(UserDBISAR user, CallType callType) async {
+    // Calls are a Private Circle feature; in a free circle, say so.
+    if (!CallManager.isAvailableInCurrentCircle) {
+      await showCallsNeedPrivateCircle(context, isVideo: callType == CallType.video);
+      return;
+    }
     try {
       String groupId = session.groupId ?? '';
       if (groupId.isEmpty) {

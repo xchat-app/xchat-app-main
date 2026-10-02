@@ -229,6 +229,7 @@
   "call_speaker_off": "Speaker Off",
   "call_camera_on": "Camera On",
   "call_camera_off": "Camera Off",
+  "call_private_circle_only": "Voice and video calls are available in Private Circles.",
   "find_by_username": "Find by Username",
   "username": "Username",
   "see_all": "See All",

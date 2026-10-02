@@ -2,6 +2,7 @@ name: ox_chat
 description: A new Flutter project.
 version: 0.0.1
 homepage:
+publish_to: none # internal package, like ox_common and ox_chat_ui
 
 environment:
   sdk: ">=3.0.5 <4.0.0"
@@ -23,6 +24,8 @@ dependencies:
     path: ../../base_framework/ox_module_service
   ox_common:
     path: ../../base_framework/ox_common
+  chatcore:
+    path: ../../0xchat-core
   ox_theme:
     path: ../../base_framework/ox_theme
   ox_localizable:

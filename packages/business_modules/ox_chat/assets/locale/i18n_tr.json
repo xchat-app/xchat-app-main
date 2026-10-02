@@ -226,6 +226,7 @@
   "call_speaker_off": "Hoparlör Kapalı",
   "call_camera_on": "Kamera Açık",
   "call_camera_off": "Kamera Kapalı",
+  "call_private_circle_only": "Sesli ve görüntülü aramalar Özel Çemberlerde kullanılabilir.",
   "see_all": "Tümünü Gör",
   "you": "Sen",
   "view_profile": "Profili Görüntüle",

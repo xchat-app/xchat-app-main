@@ -32,14 +32,17 @@
     <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> -->
     <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+    <!-- PushNotificationService: holds the connection to the user's relay.
+         Not dataSync — Android 15 stops a dataSync service after six hours a
+         day and kills the process if it does not stop itself, and a push
+         connection has to stay open. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
     <!-- VoiceCallService: keeps the microphone (and camera) during a call while the app is off screen -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA"/>
     <!-- IncomingCallNotification: ring and light up a phone whose screen is off -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-    <!-- <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/> -->
     <!-- <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> -->
 
     <queries>
@@ -212,8 +215,16 @@
             android:exported="false"/>
 
         <service android:name="com.oxchat.lite.PushNotificationService"
-            android:foregroundServiceType="dataSync"
+            android:foregroundServiceType="specialUse"
             android:exported="false">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Keeps the connection to the user's own relay open so that
+                    end-to-end encrypted messages and incoming calls are delivered while the
+                    app is in the background. The app has no third-party push service to
+                    delegate this to: it does not use Firebase Cloud Messaging, and the relay
+                    a message arrives from is chosen and paid for by the user, so only the
+                    device itself can hold that connection." />
         </service>
 
     </application>

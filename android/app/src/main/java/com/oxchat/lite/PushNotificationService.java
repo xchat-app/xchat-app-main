@@ -237,18 +237,15 @@ public class PushNotificationService extends Service {
     }
 
     /**
-     * Android 15 gives a dataSync foreground service six hours of runtime per
-     * day. When that is spent the system calls this and allows a few seconds to
-     * stop; miss it and the process is killed with
-     * ForegroundServiceDidNotStopInTimeException. A push listener holds its
-     * socket open all day, so without this every active install crashes once a
-     * day, which is what 48 has been doing since it reached production.
+     * A backstop. The service is declared specialUse, which the system does not
+     * time out, so this should never run.
      *
-     * Stopping is all that can be done here: the daily budget is already spent,
-     * so starting the service again before the window resets would only be
-     * refused. Push is therefore quiet until then — bad, but not a crash. The
-     * foreground service type is what actually needs to change; see the commit
-     * message.
+     * It is here because it did run: as dataSync the service had six hours of
+     * runtime a day, and when that ran out the system called this and gave the
+     * app a few seconds to stop. Nothing implemented it, so every install
+     * carrying 48 was killed about once a day with
+     * ForegroundServiceDidNotStopInTimeException. Should the type ever move
+     * back to one with a budget, the app goes quiet rather than dying.
      *
      * Both signatures are overridden because Android 14 calls the one-argument
      * form and Android 15 the two-argument one.

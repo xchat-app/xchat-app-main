@@ -154,6 +154,53 @@ def cmd_publish(args):
     print(f"committed: versionCode {version_code} is live on {args.track}", file=sys.stderr)
 
 
+def cmd_promote(args):
+    """Move a version code that is already in Play onto another track.
+
+    A bundle can only be uploaded once: Play answers a second attempt with
+    "Version code N has already been used", wearing a PERMISSION_DENIED status
+    that reads like an access problem and is not one. Promoting is the separate
+    operation, and it is the one that fits how a release should go out — build
+    once, verify that artifact on a test track, then put that same artifact in
+    front of everyone, rather than building a second time and shipping a binary
+    nobody tested.
+    """
+    token = access_token(load_service_account())
+    package = args.package
+
+    known = known_version_codes(token, package)
+    if args.version_code not in known:
+        sys.exit(f"versionCode {args.version_code} is not in Play. "
+                 f"Known: {', '.join(str(c) for c in sorted(known)[-5:])}")
+
+    edit = call(token, f"{API}/applications/{package}/edits", "POST")["id"]
+    print(f"edit {edit}", file=sys.stderr)
+
+    release = {"status": args.status, "versionCodes": [str(args.version_code)]}
+    if args.release_name:
+        release["name"] = args.release_name
+    if args.notes:
+        release["releaseNotes"] = [
+            {"language": args.notes_language, "text": open(args.notes, encoding="utf-8").read()}
+        ]
+    if args.status == "inProgress":
+        release["userFraction"] = args.user_fraction
+
+    call(token, f"{API}/applications/{package}/edits/{edit}/tracks/{args.track}",
+         "PUT", body={"track": args.track, "releases": [release]})
+    print(f"assigned versionCode {args.version_code} to {args.track} ({args.status})",
+          file=sys.stderr)
+
+    if args.dry_run:
+        call(token, f"{API}/applications/{package}/edits/{edit}", "DELETE")
+        print("dry run: edit discarded, nothing was published", file=sys.stderr)
+        return
+
+    call(token, f"{API}/applications/{package}/edits/{edit}:commit", "POST")
+    print(f"committed: versionCode {args.version_code} is live on {args.track}",
+          file=sys.stderr)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -175,6 +222,22 @@ def main():
     publish.add_argument("--dry-run", action="store_true",
                          help="upload and assign, then discard the edit instead of committing")
     publish.set_defaults(func=cmd_publish)
+
+    promote = sub.add_parser(
+        "promote",
+        help="move a version code already in Play to another track")
+    promote.add_argument("--version-code", type=int, required=True)
+    promote.add_argument("--track", default="production")
+    promote.add_argument("--status", default="completed",
+                         choices=["completed", "draft", "inProgress", "halted"])
+    promote.add_argument("--user-fraction", type=float, default=0.2,
+                         help="rollout share, only used when --status inProgress")
+    promote.add_argument("--release-name")
+    promote.add_argument("--notes", help="path to a release notes file")
+    promote.add_argument("--notes-language", default="en-US")
+    promote.add_argument("--dry-run", action="store_true",
+                         help="assign, then discard the edit instead of committing")
+    promote.set_defaults(func=cmd_promote)
 
     args = parser.parse_args()
     args.func(args)

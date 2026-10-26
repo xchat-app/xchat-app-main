@@ -47,8 +47,6 @@
   "invitation_code": "Invitation Link",
   "invitation_code_empty": "Please enter an invitation link",
   "or_connect_via": "OR CONNECT VIA",
-  "public_network": "Start free",
-  "public_network_desc": "Start messaging on the public network now. Move to a private circle whenever you want.",
   "private_cloud": "Get Private Circle",
   "private_cloud_desc": "Hosted dedicated high-speed relay with built-in secure media server",
   "custom_relay": "Custom Relay",

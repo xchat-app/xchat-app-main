@@ -15,7 +15,7 @@ import '../utils/circle_entry_helper.dart';
 import 'circle_restore_page.dart';
 import 'private_cloud_overview_page.dart';
 
-enum CircleType { invite, public, private, custom }
+enum CircleType { invite, private, custom }
 
 class CircleSelectionPage extends StatefulWidget {
   const CircleSelectionPage({
@@ -113,6 +113,13 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
     );
   }
 
+  /// No free way in: an invite (someone else's circle, which its owner pays
+  /// for), a Private Circle, or a relay you run yourself. A "Start free"
+  /// option sat above the paid one from 45 (2026-09-18) and new
+  /// subscriptions per install fell four- to five-fold, in the same
+  /// high-income countries as before (0.38% → 0.08%): people had been paying
+  /// to get in, and stopped once they didn't have to. Accounts already in a
+  /// free circle keep it; this only changes where new ones can go.
   Widget _buildCircleOptions() {
     return Column(
       children: [
@@ -120,8 +127,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
         SizedBox(height: 24.px),
         _buildSeparator(),
         SizedBox(height: 24.px),
-        _buildPublicOption(),
-        SizedBox(height: 16.px),
         _buildPrivateCloudOption(),
         SizedBox(height: 16.px),
         _buildCustomRelayOption(),
@@ -210,21 +215,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
           ),
         ),
       ],
-    );
-  }
-
-  /// The only option here that costs nothing and needs nobody else. Without
-  /// it a new arrival with no invite can either pay or leave, which is what
-  /// the one-star reviews describe.
-  Widget _buildPublicOption() {
-    return _buildOptionCard(
-      icon: Icons.public_rounded,
-      iconColor: ColorToken.primary.of(context),
-      title: Localized.text('ox_login.public_network'),
-      subtitle: Localized.text('ox_login.public_network_desc'),
-      showArrow: false,
-      isSelected: _selectedCircleType == CircleType.public,
-      onTap: () => setState(() => _selectedCircleType = CircleType.public),
     );
   }
 
@@ -406,41 +396,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
     );
   }
 
-  Widget _buildCircleHintWidget(BuildContext context, TextEditingController controller) {
-    return Padding(
-      padding: EdgeInsets.only(top: 8.px),
-      child: CLText.bodySmall(
-        Localized.text('ox_login.circle_url_hint'),
-        colorToken: ColorToken.onSurfaceVariant,
-        maxLines: null,
-      ).highlighted(
-        rules: [
-          CLHighlightRule(
-            pattern: RegExp(r'0xchat'),
-            onTap: (match) {
-              controller.text = '0xchat';
-              controller.selection = TextSelection.fromPosition(
-                TextPosition(offset: controller.text.length),
-              );
-            },
-            cursor: SystemMouseCursors.click,
-          ),
-          CLHighlightRule(
-            // Whole word: "nos" is also a pronoun in fr/es/pt.
-            pattern: RegExp(r'\bnos\b'),
-            onTap: (match) {
-              controller.text = 'nos';
-              controller.selection = TextSelection.fromPosition(
-                TextPosition(offset: controller.text.length),
-              );
-            },
-            cursor: SystemMouseCursors.click,
-          ),
-        ],
-      ),
-    );
-  }
-
   void _showLearnMore() {
     OXNavigator.pushPage(
       context,
@@ -471,9 +426,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
       case CircleType.invite:
         await _onUseInvite();
         break;
-      case CircleType.public:
-        await _onUsePublicCircle();
-        break;
       case CircleType.private:
         await _onUsePrivateCircle();
         break;
@@ -488,27 +440,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
       context,
       (context) => const FindPeoplePage(joinCircleMode: true),
     );
-  }
-
-  Future<void> _onUsePublicCircle() async {
-    setState(() => _isProcessing = true);
-    OXLoading.show();
-    try {
-      if (_controller != null) {
-        _handleOnboardingResult(await _controller!.joinPublicCircle());
-      } else {
-        await CircleJoinUtils.processJoinCircle(
-          input: kPublicRelayUrl,
-          context: context,
-        );
-        if (mounted) Navigator.of(context).pop(true);
-      }
-    } catch (e) {
-      if (mounted) CommonToast.instance.show(context, e.toString());
-    } finally {
-      OXLoading.dismiss();
-      if (mounted) setState(() => _isProcessing = false);
-    }
   }
 
   Future<void> _onUsePrivateCircle() async {
@@ -586,6 +517,9 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
     }
   }
 
+  /// For a relay you run yourself, so it starts empty. It used to come
+  /// filled in with "nos" and offer public relays as one-tap shortcuts,
+  /// which made "Custom Relay" a free way in under another name.
   Future<String?> _showAddCircleDialog() async {
     return await CLDialog.showInputDialog(
       context: context,
@@ -593,7 +527,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
       description: null,
       descriptionWidget: _buildCircleDialogDescription(),
       inputLabel: Localized.text('ox_login.relay_url_placeholder'),
-      initialValue: 'nos',
       confirmText: Localized.text('ox_login.join'),
       onConfirm: (input) async {
         final trimmedInput = input.trim();
@@ -603,7 +536,6 @@ class _CircleSelectionPageState extends State<CircleSelectionPage> {
         }
         return true;
       },
-      belowInputBuilder: (ctx, controller) => _buildCircleHintWidget(ctx, controller),
     );
   }
 }

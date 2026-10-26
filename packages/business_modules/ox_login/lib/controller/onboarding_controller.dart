@@ -9,16 +9,6 @@ import 'package:ox_common/login/login_models.dart';
 import 'package:ox_common/utils/circle_join_utils.dart';
 import 'package:ox_common/upload/upload_utils.dart';
 
-/// Where an account goes when it arrives with no invite and no subscription.
-/// A public relay is the only entry that costs nothing, and without one the
-/// choices on the circle page are "pay" or "run your own server".
-///
-/// Not relay.damus.io: it accepts gift wraps (kind 1059) but only serves them
-/// after NIP-42 AUTH, and its AUTH is broken ("relay needs serviceUrl to be
-/// configured"), so a friend invite is stored and never delivered. Whatever
-/// this points at must pass a 443 / 1059 / 445 write-then-read round trip.
-const kPublicRelayUrl = 'wss://nos.lol';
-
 class OnboardingResult {
   final bool success;
   final String? errorMessage;
@@ -101,14 +91,6 @@ extension OnboardingControllerProfileEx on OnboardingController {
 }
 
 extension OnboardingControllerCircleEx on OnboardingController {
-  Future<OnboardingResult> joinPublicCircle() async {
-    final result = await _joinCircle(
-      relayUrl: kPublicRelayUrl,
-      forceJoin: true,
-    );
-    return result;
-  }
-
   /// Join private/self-hosted circle with normal network checks
   Future<OnboardingResult> joinPrivateCircle({
     required String relayUrl,

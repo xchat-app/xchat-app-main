@@ -78,7 +78,7 @@ class CLAppBar extends StatelessWidget {
       leadingWidth: (leading != null && title == null) ? 250 : null,
       centerTitle: false,
       actions: actions,
-      actionsPadding: EdgeInsets.only(right: 16),
+      actionsPadding: EdgeInsetsDirectional.only(end: 16),
       backgroundColor: backgroundColor,
       bottom: bottom,
     );

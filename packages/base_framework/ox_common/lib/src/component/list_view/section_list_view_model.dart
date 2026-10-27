@@ -103,8 +103,8 @@ class SectionListViewItem {
     Widget widget = CLText.titleSmall(title);
     if (PlatformStyle.isUseMaterial) {
       widget = Padding(
-        padding: EdgeInsets.only(
-          left: 20.px,
+        padding: EdgeInsetsDirectional.only(
+          start: 20.px,
           top: 16.px,
         ),
         child: widget,

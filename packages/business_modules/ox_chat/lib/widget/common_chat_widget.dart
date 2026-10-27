@@ -196,20 +196,27 @@ class CommonChatWidgetState extends State<CommonChatWidget> with OXChatObserver 
       leading: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: _onAppBarTap,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CLButton.back(),
-            SizedBox(width: 16.px),
-            buildAppBarAvatar(),
-            SizedBox(width: 8.px),
-            CLText.labelLarge(widget.title ?? ''),
-            if (session.isSelfChat)
-              Padding(
-                padding: EdgeInsetsDirectional.only(start: 8.px),
-                child: ChatIconWidget.selfAuthIcon(context),
-              )
-          ],
+        // The leading slot is only a toolbar-height wide. Let the row outgrow
+        // it from the start edge: left to right it spilled over the empty
+        // title anyway, but right to left it was pushed off the screen.
+        child: OverflowBox(
+          alignment: AlignmentDirectional.centerStart,
+          maxWidth: double.infinity,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CLButton.back(),
+              SizedBox(width: 16.px),
+              buildAppBarAvatar(),
+              SizedBox(width: 8.px),
+              CLText.labelLarge(widget.title ?? ''),
+              if (session.isSelfChat)
+                Padding(
+                  padding: EdgeInsetsDirectional.only(start: 8.px),
+                  child: ChatIconWidget.selfAuthIcon(context),
+                )
+            ],
+          ),
         ),
       ),
       title: session.isSelfChat

@@ -23,6 +23,8 @@ class OnboardingController with LoginManagerObserver {
     Keychain? initialKeychain,
   }) : keychain = initialKeychain ?? Account.generateNewKeychain() {
     LoginManager.instance.addObserver(this);
+    // Nobody awaits this on most paths; a failure there is not an uncaught error.
+    profilePublished.ignore();
   }
 
   /// Keychain: either from Apple (or other social) login derivation, or newly generated.
@@ -41,6 +43,18 @@ class OnboardingController with LoginManagerObserver {
 
   Future<bool> Function()? loginAction;
   Completer<bool> updateProfileCmp = Completer<bool>();
+
+  /// Completes once the name (and photo) entered during onboarding has been
+  /// published in the first circle this account connects to.
+  ///
+  /// A new account has no circle when it types its name, and a profile only
+  /// reaches a circle's relay when it is published there. Only joining by
+  /// invite or relay address used to do that, so an account that bought its
+  /// circle showed up in it as a bare npub. Publishing on the first connection
+  /// covers every way in; the subscribe page waits on this before it leaves.
+  Future<void> get profilePublished => _profilePublished.future;
+  final Completer<void> _profilePublished = Completer<void>();
+  bool _isPublishingProfile = false;
 
   Future<OnboardingResult> invokeLoginAction() async {
     if (LoginManager.instance.currentState.account != null) return OnboardingResult.success();
@@ -64,12 +78,29 @@ class OnboardingController with LoginManagerObserver {
 
   @override
   void onCircleConnected(bool isConnected) {
-    if (updateProfileCmp.isCompleted) return;
+    if (!updateProfileCmp.isCompleted) updateProfileCmp.complete(isConnected);
 
-    updateProfileCmp.complete(isConnected);
+    if (!isConnected || !isCreateNewAccount || _isPublishingProfile) return;
+    // Only the account this controller created; never rename another one
+    // that was logged into after onboarding was abandoned.
+    if (Account.sharedInstance.me?.pubKey != keychain.public) return;
+    _isPublishingProfile = true;
+    _updateProfile().then(
+      (_) => _profilePublished.complete(),
+      onError: (Object e) => _profilePublished.completeError(e),
+    ).whenComplete(() {
+      if (_isDisposed) LoginManager.instance.removeObserver(this);
+    });
   }
 
+  bool _isDisposed = false;
+
   void dispose() {
+    _isDisposed = true;
+    // Joining by invite pops these pages before the new circle connects.
+    // A new account still owes that circle its name, so keep listening until
+    // it has been published; onCircleConnected lets go after that.
+    if (isCreateNewAccount && !_isPublishingProfile) return;
     LoginManager.instance.removeObserver(this);
   }
 }
@@ -120,10 +151,6 @@ extension _NewAccountEx on OnboardingController {
         context: context,
         supportInvite: supportInvite,
       );
-
-      if (isCreateNewAccount) {
-        _updateProfile();
-      }
     } catch (e) {
       // Do not logout on join failure; only return failure so UI can show error
       return OnboardingResult.failure(e.toString());

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ox_common/component.dart';
 // ox_common
 import 'package:ox_common/navigator/navigator.dart';
@@ -13,6 +14,7 @@ import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 import 'package:ox_module_service/ox_module_service.dart';
 // ox_login
+import 'package:ox_login/component/welcome_carousel.dart';
 import 'package:ox_login/page/account_key_login_page.dart';
 import 'package:ox_login/page/apple_password_page.dart';
 import 'package:ox_login/page/profile_setup_page.dart';
@@ -31,14 +33,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  /// Near-black with a trace of the brand violet; the carousel photos fade
+  /// into it, so it has to match their darkest tone.
+  static const Color _background = Color(0xFF0E0C16);
+
   @override
   Widget build(BuildContext context) {
-    return CLScaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: CLThemeData.pageBgThemeGradient,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.light,
+      child: CLScaffold(
+        body: Container(
+          color: _background,
+          child: _body(),
         ),
-        child: SafeArea(child: _body()),
       ),
     );
   }
@@ -46,70 +53,26 @@ class _LoginPageState extends State<LoginPage> {
   Widget _body() {
     return Column(
       children: <Widget>[
-        const Spacer(),
-        BannerCarousel(
-          items: [
-            BannerItem(
-              image: CommonImage(
-                iconName: 'onboarding-welcome.png',
-                size: 280.px,
-                package: 'ox_login',
-                isPlatformStyle: true,
-              ),
-              title: Localized.text('ox_login.carousel_title_1'),
-              text: Localized.text('ox_login.carousel_text_1'),
-            ),
-            BannerItem(
-              image: CommonImage(
-                iconName: 'onboarding-nostr.png',
-                size: 280.px,
-                package: 'ox_login',
-                isPlatformStyle: true,
-              ),
-              title: Localized.text('ox_login.carousel_title_2'),
-              text: Localized.text('ox_login.carousel_text_2'),
-            ),
-            BannerItem(
-              image: CommonImage(
-                iconName: 'onboarding-circle.png',
-                size: 280.px,
-                package: 'ox_login',
-                isPlatformStyle: true,
-              ),
-              title: Localized.text('ox_login.carousel_title_3'),
-              text: Localized.text('ox_login.carousel_text_3'),
-            ),
-            BannerItem(
-              image: CommonImage(
-                iconName: 'onboarding-relays.png',
-                size: 280.px,
-                package: 'ox_login',
-                isPlatformStyle: true,
-              ),
-              title: Localized.text('ox_login.carousel_title_4'),
-              text: Localized.text('ox_login.carousel_text_4'),
-            ),
-          ],
-          height: 460.py,
-          interval: const Duration(seconds: 5),
-          padding: EdgeInsets.symmetric(horizontal: 32.px),
-        ),
-        const Spacer(),
-        Column(
+        const Expanded(child: WelcomeCarousel(background: _background)),
+        SizedBox(height: 22.py),
+        SafeArea(
+          top: false,
+          child: Column(
           children: [
             // Primary: Get Started (all platforms)
-            _buildQuickStartButton().setPaddingOnly(bottom: 18.px),
+            _buildQuickStartButton().setPaddingOnly(bottom: 6.px),
             // iOS only: Sign in with Apple below Get Started (gated by kEnableAppleLogin)
             if (Platform.isIOS && kEnableAppleLogin)
               _buildAppleLoginButton().setPaddingOnly(bottom: 8.px),
             // Secondary button: For existing Nostr users
-            _buildExistingAccountButton().setPaddingOnly(bottom: 18.px),
+            _buildExistingAccountButton().setPaddingOnly(bottom: 8.px),
             // Privacy policy and terms links
-            _buildPrivacyAndTermsLinks().setPaddingOnly(bottom: 18.px),
+            _buildPrivacyAndTermsLinks().setPaddingOnly(bottom: 12.px),
             // Signer login for Android
             if(Platform.isAndroid) buildAmberLoginWidget(),
           ],
-        ).setPadding(EdgeInsets.symmetric(horizontal: 32.px)),
+          ).setPadding(EdgeInsets.symmetric(horizontal: 24.px)),
+        ),
         SizedBox(height: 12.py,),
       ],
     );
@@ -118,10 +81,8 @@ class _LoginPageState extends State<LoginPage> {
   /// Primary action: Quick start for new users
   Widget _buildQuickStartButton() => CLButton.filled(
     onTap: _quickStart,
-    height: 48.py,
+    height: 54.px,
     expanded: true,
-    backgroundColor: ColorToken.white.of(context),
-    foregroundColor: ColorToken.xChat.of(context),
     text: Localized.text('ox_login.get_started'),
   );
 
@@ -302,7 +263,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 width: double.infinity,
                 height: 0.5.px,
-                color: ColorToken.secondaryContainer.of(context),
+                color: Colors.white.withValues(alpha: 0.15),
               ),
             ),
             Align(
@@ -316,7 +277,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: CLText.labelSmall(text),
+              child: CLText.labelSmall(text, customColor: Colors.white70),
             ),
           ],
         ),

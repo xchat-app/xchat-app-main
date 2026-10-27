@@ -17,8 +17,9 @@ import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_localizable/ox_localizable.dart';
 import 'package:nostr_core_dart/nostr.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../component/onboarding_step_bar.dart';
 import '../controller/onboarding_controller.dart';
-import 'circle_selection_page.dart';
+import 'circle_name_page.dart';
 
 class ProfileSetupPage extends StatefulWidget {
   const ProfileSetupPage({
@@ -44,8 +45,7 @@ class ProfileSetupPage extends StatefulWidget {
 enum _AvatarAction { gallery, camera }
 
 class _ProfileSetupPageState extends State<ProfileSetupPage> {
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   late final OnboardingController _onboardingController = OnboardingController(
     isCreateNewAccount: true,
@@ -58,30 +58,25 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.initialFirstName != null && widget.initialFirstName!.isNotEmpty) {
-      _firstNameController.text = widget.initialFirstName!;
-    }
-    if (widget.initialLastName != null && widget.initialLastName!.isNotEmpty) {
-      _lastNameController.text = widget.initialLastName!;
-    }
-    _firstNameController.addListener(_onInputChanged);
-    _lastNameController.addListener(_onInputChanged);
+    _nameController.text = [widget.initialFirstName, widget.initialLastName]
+        .where((part) => part != null && part.trim().isNotEmpty)
+        .join(' ');
+    _nameController.addListener(_onInputChanged);
     _onInputChanged();
   }
 
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _nameController.dispose();
     _onboardingController.dispose();
     super.dispose();
   }
 
   void _onInputChanged() {
-    // Sync input to controller
-    _onboardingController.setFirstName(_firstNameController.text);
-    _onboardingController.setLastName(_lastNameController.text);
-    
+    // One field for the whole name: people type it the way they want it shown.
+    _onboardingController.setFirstName(_nameController.text);
+    _onboardingController.setLastName('');
+
     // Update button state
     final hasValidInput = _onboardingController.hasValidProfile;
     if (hasValidInput != _hasValidInput) {
@@ -109,31 +104,50 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
         horizontal: CLLayout.horizontalPadding,
       ),
       children: [
-        _buildHeader(),
+        const OnboardingStepBar(current: OnboardingStep.profile),
+        SizedBox(height: 28.px),
+        CLText.titleLarge(
+          Localized.text('ox_login.whats_your_name'),
+          colorToken: ColorToken.onSurface,
+          isBold: true,
+        ),
         SizedBox(height: 32.px),
         _buildAvatarPreview(),
-        SizedBox(height: 24.px),
+        SizedBox(height: 32.px),
         _buildNameInput(),
+        SizedBox(height: 24.px),
+        _buildKeyNote(),
       ],
     );
   }
 
-  Widget _buildHeader() {
-    return Column(
-      children: [
-        CLText.titleLarge(
-          Localized.text('ox_login.profile_setup_title'),
-          colorToken: ColorToken.onSurface,
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: 12.px),
-        CLText.bodyMedium(
-          Localized.text('ox_login.profile_setup_subtitle'),
-          colorToken: ColorToken.onSurfaceVariant,
-          textAlign: TextAlign.center,
-          maxLines: null,
-        ),
-      ],
+  /// The one thing a new user should know before going further: there is no
+  /// phone number or email behind this account, only a key on this phone.
+  Widget _buildKeyNote() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 14.px),
+      decoration: BoxDecoration(
+        color: ColorToken.cardContainer.of(context),
+        borderRadius: BorderRadius.circular(16.px),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.key_rounded,
+            size: 20.px,
+            color: ColorToken.xChat.of(context),
+          ),
+          SizedBox(width: 12.px),
+          Expanded(
+            child: CLText.bodySmall(
+              Localized.text('ox_login.account_key_note'),
+              colorToken: ColorToken.onSurfaceVariant,
+              maxLines: null,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -296,21 +310,13 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          children: [
-            CLTextField(
-              controller: _firstNameController,
-              placeholder: Localized.text('ox_login.first_name_placeholder'),
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(height: 12.px),
-            CLTextField(
-              controller: _lastNameController,
-              placeholder: Localized.text('ox_login.last_name_placeholder'),
-              textInputAction: TextInputAction.done,
-              onSubmitted: (_) => _onNextTap(),
-            ),
-          ],
+        CLTextField(
+          controller: _nameController,
+          placeholder: Localized.text('ox_login.your_name'),
+          textInputAction: TextInputAction.done,
+          onSubmitted: (_) {
+            if (_hasValidInput) _onNextTap();
+          },
         ),
         SizedBox(height: 8.px),
         CLDescription(Localized.text('ox_login.profile_setup_name_hint')),
@@ -336,10 +342,10 @@ class _ProfileSetupPageState extends State<ProfileSetupPage> {
       CommonToast.instance.show(context, errorMessage);
       return;
     }
-    // Navigate to circle selection page with controller
+    if (!mounted) return;
     OXNavigator.pushPage(
       context,
-      (context) => CircleSelectionPage(controller: _onboardingController),
+      (context) => CircleNamePage(controller: _onboardingController),
     );
   }
 }

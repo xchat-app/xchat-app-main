@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:ox_chat/page/session/find_people_page.dart';
 import 'package:ox_common/component.dart';
 import 'package:ox_common/navigator/navigator.dart';
+import 'package:ox_common/purchase/purchase_manager.dart';
+import 'package:ox_common/purchase/subscription_period.dart';
+import 'package:ox_common/purchase/subscription_product_prices.dart';
 import 'package:ox_common/purchase/subscription_registry.dart';
 import 'package:ox_common/purchase/subscription_tier.dart';
 import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_localizable/ox_localizable.dart';
-import 'duration_selection_page.dart';
 
+import '../component/onboarding_step_bar.dart';
+import '../controller/onboarding_controller.dart';
+import 'subscribe_page.dart';
+
+/// How many people the circle is for. Each size shows its monthly price, so
+/// the choice is made knowing what it costs rather than on the next page.
 class CapacitySelectionPage extends StatefulWidget {
   const CapacitySelectionPage({
     super.key,
     required this.subscriptionGroupId,
+    required this.circleName,
+    this.controller,
   });
 
   final String subscriptionGroupId;
+
+  /// Chosen on the previous page; applied to the circle once it is bought.
+  final String circleName;
+
+  /// Set for a new account; see [CircleNamePage.controller].
+  final OnboardingController? controller;
 
   @override
   State<CapacitySelectionPage> createState() => _CapacitySelectionPageState();
@@ -27,6 +44,7 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
   @override
   void initState() {
     super.initState();
+    PurchaseManager.instance.refreshAllPrices();
     _tiers = SubscriptionRegistry.instance.tiersForGroup(widget.subscriptionGroupId);
     _selectedTier = _tiers.isEmpty
         ? null
@@ -38,7 +56,7 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
     return CLScaffold(
       appBar: CLAppBar(),
       body: _buildBody(),
-      bottomWidget: _buildContinueButton(),
+      bottomWidget: _buildBottom(),
     );
   }
 
@@ -48,86 +66,31 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
         left: CLLayout.horizontalPadding,
         right: CLLayout.horizontalPadding,
         top: 24.px,
-        bottom: 100.px,
+        bottom: 24.px,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildProgressIndicator(1, 3),
-          SizedBox(height: 24.px),
-          _buildHeader(),
-          SizedBox(height: 32.px),
+          OnboardingStepBar(
+            current: OnboardingStep.members,
+            includesProfile: widget.controller != null,
+          ),
+          SizedBox(height: 28.px),
+          CLText.titleLarge(
+            Localized.text('ox_login.capacity_selection_title'),
+            colorToken: ColorToken.onSurface,
+            isBold: true,
+          ),
+          SizedBox(height: 8.px),
+          CLText.bodyMedium(
+            Localized.text('ox_login.capacity_selection_desc'),
+            colorToken: ColorToken.onSurfaceVariant,
+            maxLines: null,
+          ),
+          SizedBox(height: 28.px),
           _buildCapacityOptions(),
         ],
       ),
-    );
-  }
-
-  Widget _buildProgressIndicator(int currentStep, int totalSteps) {
-    return Column(
-      children: [
-        Row(
-          children: List.generate(totalSteps, (index) {
-            final isActive = index < currentStep;
-            return Expanded(
-              child: Container(
-                height: 2.px,
-                margin: EdgeInsets.only(right: index < totalSteps - 1 ? 4.px : 0),
-                decoration: BoxDecoration(
-                  color: isActive
-                      ? ColorToken.xChat.of(context)
-                      : ColorToken.onSurfaceVariant.of(context).withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(1.px),
-                ),
-              ),
-            );
-          }),
-        ),
-        SizedBox(height: 8.px),
-        Row(
-          children: [
-            Expanded(
-              child: CLText.labelSmall(
-                'CAPACITY',
-                colorToken: ColorToken.onSurfaceVariant,
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Expanded(
-              child: CLText.labelSmall(
-                'DURATION',
-                colorToken: ColorToken.onSurfaceVariant,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Expanded(
-              child: CLText.labelSmall(
-                'CHECKOUT',
-                colorToken: ColorToken.onSurfaceVariant,
-                textAlign: TextAlign.right,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildHeader() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CLText.titleLarge(
-          Localized.text('ox_login.capacity_selection_title'),
-          colorToken: ColorToken.onSurface,
-          isBold: true,
-        ),
-        SizedBox(height: 8.px),
-        CLText.bodyMedium(
-          Localized.text('ox_login.capacity_selection_subtitle'),
-          colorToken: ColorToken.onSurfaceVariant,
-        ),
-      ],
     );
   }
 
@@ -148,7 +111,7 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
     return Column(
       children: [
         for (int i = 0; i < _tiers.length; i++) ...[
-          if (i > 0) SizedBox(height: 16.px),
+          if (i > 0) SizedBox(height: 14.px),
           _buildCapacityOption(
             tier: _tiers[i],
             isPopular: _tiers[i].id == SubscriptionTierIds.family,
@@ -167,22 +130,28 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
     String desc;
     switch (tier.id) {
       case SubscriptionTierIds.lovers:
-        title = Localized.text('ox_login.capacity_2_members').replaceFirst('2', '≤ 2');
+        title = Localized.text('ox_login.capacity_2_members');
         desc = Localized.text('ox_login.capacity_2_members_desc');
         break;
       case SubscriptionTierIds.family:
-        title = Localized.text('ox_login.capacity_6_members').replaceFirst('6', '≤ 6');
+        title = Localized.text('ox_login.capacity_6_members');
         desc = Localized.text('ox_login.capacity_6_members_desc');
         break;
       case SubscriptionTierIds.community:
-        title = Localized.text('ox_login.capacity_50_members').replaceFirst('20', '≤ 20');
+        title = Localized.text('ox_login.capacity_50_members');
         desc = Localized.text('ox_login.capacity_50_members_desc');
         break;
       default:
         title = '';
         desc = '';
     }
-    final color = _colorForTier(tier);
+    final monthlyPrice = SubscriptionProductPrices.instance.getNotifier(
+      SubscriptionRegistry.instance.productIdFor(
+        widget.subscriptionGroupId,
+        tier.id,
+        SubscriptionPeriod.monthly,
+      ),
+    );
 
     return Stack(
       clipBehavior: Clip.none,
@@ -190,10 +159,10 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
         GestureDetector(
           onTap: () => setState(() => _selectedTier = tier),
           child: Container(
-            padding: EdgeInsets.all(20.px),
+            padding: EdgeInsets.symmetric(horizontal: 18.px, vertical: 18.px),
             decoration: BoxDecoration(
               color: ColorToken.cardContainer.of(context),
-              borderRadius: BorderRadius.circular(16.px),
+              borderRadius: BorderRadius.circular(24.px),
               border: Border.all(
                 color: isSelected
                     ? ColorToken.xChat.of(context)
@@ -204,10 +173,10 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
             child: Row(
               children: [
                 Container(
-                  width: 40.px,
-                  height: 40.px,
+                  width: 44.px,
+                  height: 44.px,
                   decoration: BoxDecoration(
-                    color: color,
+                    color: _colorForTier(tier),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -216,102 +185,126 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
                     size: 24.px,
                   ),
                 ),
-                SizedBox(width: 16.px),
+                SizedBox(width: 14.px),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          CLText.titleMedium(
-                            title,
-                            colorToken: ColorToken.onSurface,
-                            isBold: true,
-                          ),
-                          if (isPopular) ...[
-                            SizedBox(width: 8.px),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 6.px,
-                                vertical: 2.px,
-                              ),
-                              decoration: BoxDecoration(
-                                color: ColorToken.xChat.of(context),
-                                borderRadius: BorderRadius.circular(4.px),
-                              ),
-                              child: CLText.labelSmall(
-                                Localized.text('ox_login.most_popular'),
-                                customColor: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ],
+                      CLText.titleMedium(
+                        title,
+                        colorToken: ColorToken.onSurface,
+                        isBold: true,
                       ),
                       SizedBox(height: 4.px),
                       CLText.bodySmall(
                         desc,
                         colorToken: ColorToken.onSurfaceVariant,
+                        maxLines: null,
                       ),
                     ],
                   ),
                 ),
-                SizedBox(width: 16.px),
-                Container(
-                  width: 20.px,
-                  height: 20.px,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: isSelected
-                        ? ColorToken.xChat.of(context)
-                        : Colors.transparent,
-                    border: Border.all(
-                      color: isSelected
-                          ? ColorToken.xChat.of(context)
-                          : ColorToken.onSurfaceVariant.of(context).withValues(alpha: 0.3),
-                      width: 2,
-                    ),
-                  ),
-                  child: isSelected
-                      ? Icon(
-                          Icons.check,
-                          size: 14.px,
-                          color: Colors.white,
-                        )
-                      : null,
+                SizedBox(width: 12.px),
+                ValueListenableBuilder<String?>(
+                  valueListenable: monthlyPrice,
+                  builder: (_, price, __) {
+                    if (price == null) return const SizedBox.shrink();
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        CLText.titleMedium(
+                          price,
+                          colorToken: ColorToken.onSurface,
+                          isBold: true,
+                        ),
+                        CLText.labelSmall(
+                          Localized.text('ox_login.per_month'),
+                          colorToken: ColorToken.onSurfaceVariant,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ],
             ),
           ),
         ),
+        if (isPopular)
+          Positioned(
+            top: -10.px,
+            right: 18.px,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.px, vertical: 2.px),
+              decoration: BoxDecoration(
+                color: ColorToken.xChat.of(context),
+                borderRadius: BorderRadius.circular(6.px),
+              ),
+              child: CLText.labelSmall(
+                Localized.text('ox_login.most_popular'),
+                customColor: Colors.white,
+                isBold: true,
+              ),
+            ),
+          ),
       ],
     );
   }
 
-  Widget _buildContinueButton() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 16.px,
+  /// The way in for someone who was invited: they join a circle somebody
+  /// else pays for, so they must not be stopped at the price.
+  Widget _buildInviteLink() {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () => OXNavigator.pushPage(
+        context,
+        (context) => const FindPeoplePage(joinCircleMode: true),
       ),
-      child: CLButton.filled(
-        text: Localized.text('ox_login.connect'),
-        onTap: _selectedTier != null ? _onContinue : null,
-        expanded: true,
-        height: 50.px,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12.px),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CLText.titleMedium(
-              Localized.text('ox_login.connect'),
-              customColor: Colors.white,
-            ),
-            SizedBox(width: 8.px),
-            Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-              size: 20.px,
+            Icon(Icons.link_rounded, size: 18.px, color: ColorToken.xChat.of(context)),
+            SizedBox(width: 6.px),
+            CLText.bodyMedium(
+              Localized.text('ox_login.have_invite_join_circle'),
+              colorToken: ColorToken.xChat,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildBottom() {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 16.px),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildInviteLink(),
+          SizedBox(height: 4.px),
+          CLButton.filled(
+            onTap: _selectedTier != null ? _onContinue : null,
+            expanded: true,
+            height: 50.px,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CLText.titleMedium(
+                  Localized.text('ox_login.connect'),
+                  customColor: Colors.white,
+                ),
+                SizedBox(width: 8.px),
+                Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: 20.px,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -320,9 +313,11 @@ class _CapacitySelectionPageState extends State<CapacitySelectionPage> {
     if (_selectedTier == null) return;
     OXNavigator.pushPage(
       context,
-      (context) => DurationSelectionPage(
+      (context) => SubscribePage(
         subscriptionGroupId: widget.subscriptionGroupId,
         selectedTier: _selectedTier!,
+        circleName: widget.circleName,
+        controller: widget.controller,
       ),
     );
   }

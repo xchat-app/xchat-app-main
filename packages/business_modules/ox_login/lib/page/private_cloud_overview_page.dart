@@ -7,7 +7,7 @@ import 'package:ox_login/utils/circle_entry_helper.dart';
 import 'package:ox_common/utils/adapt.dart';
 import 'package:ox_common/widgets/common_toast.dart';
 import 'package:ox_localizable/ox_localizable.dart';
-import 'capacity_selection_page.dart';
+import 'circle_name_page.dart';
 import 'private_circle_learn_more_page.dart';
 
 class PrivateCloudOverviewPage extends StatefulWidget {
@@ -244,7 +244,7 @@ class _PrivateCloudOverviewPageState extends State<PrivateCloudOverviewPage> {
     }
     OXNavigator.pushPage(
       context,
-      (context) => CapacitySelectionPage(subscriptionGroupId: groupId),
+      (context) => CircleNamePage(groupId: groupId),
     );
   }
 

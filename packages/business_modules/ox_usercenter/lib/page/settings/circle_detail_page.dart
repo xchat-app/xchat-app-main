@@ -663,9 +663,8 @@ class _CircleDetailPageState extends State<CircleDetailPage>
       memberItems.add(
         LabelItemModel(
           icon: ListViewIcon.data(Icons.person),
-          title: isOwner
-              ? Localized.text('ox_usercenter.you_owner')
-              : Localized.text('ox_chat.you'),
+          // The subtitle says whether you own it; "You (You)" said nothing.
+          title: Localized.text('ox_chat.you'),
           subtitle: isOwner
               ? Localized.text('ox_usercenter.owner')
               : Localized.text('ox_usercenter.member'),

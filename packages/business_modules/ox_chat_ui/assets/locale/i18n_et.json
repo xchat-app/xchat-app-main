@@ -15,5 +15,6 @@
   "giphy_continue": "Jätka",
   "press_duration_too_short": "Vajutuse kestus liiga lühike saatmiseks",
   "release_to_cancel": "Vabastage tühistamiseks",
-  "no_recording_permission": "Salvestamise õigust pole, palun taotlege seadetes"
+  "no_recording_permission": "Salvestamise õigust pole, palun taotlege seadetes",
+  "private_chat_accept": "Nõustu"
 }

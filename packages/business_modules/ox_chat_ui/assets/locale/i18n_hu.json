@@ -15,5 +15,6 @@
   "giphy_continue": "Folytatás",
   "press_duration_too_short": "A nyomás időtartama túl rövid a küldéshez",
   "release_to_cancel": "Engedje el a megszakításhoz",
-  "no_recording_permission": "Nincs felvételi engedély, kérjük, jelentkezzen be a beállításokban"
+  "no_recording_permission": "Nincs felvételi engedély, kérjük, jelentkezzen be a beállításokban",
+  "private_chat_accept": "Elfogadás"
 }

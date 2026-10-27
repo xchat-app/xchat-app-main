@@ -15,5 +15,6 @@
   "giphy_continue": "Fortsæt",
   "press_duration_too_short": "Trykvarighed for kort til at sende",
   "release_to_cancel": "Slip for at annullere",
-  "no_recording_permission": "Ingen optagelsestilladelse, venligst ansøg i indstillingerne"
+  "no_recording_permission": "Ingen optagelsestilladelse, venligst ansøg i indstillingerne",
+  "private_chat_accept": "Accepter"
 }

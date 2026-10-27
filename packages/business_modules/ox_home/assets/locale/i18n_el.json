@@ -19,5 +19,9 @@
   "circle_status_connecting": "Σύνδεση με ${circle}...",
   "circle_status_disconnecting": "Αποσύνδεση...",
   "circle_status_disconnected": "Αποσυνδεδεμένο",
-  "circle_status_unknown": "Άγνωστη κατάσταση σύνδεσης"
+  "circle_status_unknown": "Άγνωστη κατάσταση σύνδεσης",
+  "back_up_key_action": "Αποθήκευση τώρα",
+  "back_up_key_desc": "Ο λογαριασμός σου είναι ένα κλειδί σε αυτή τη συσκευή. Αν χάσεις το τηλέφωνο χωρίς αντίγραφο, ο λογαριασμός δεν μπορεί να ανακτηθεί — ούτε από εμάς, ούτε από κανέναν.",
+  "back_up_key_later": "Αργότερα",
+  "back_up_key_title": "Αποθήκευσε το κλειδί του λογαριασμού σου"
 }

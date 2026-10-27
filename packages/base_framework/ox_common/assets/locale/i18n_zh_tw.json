@@ -177,5 +177,8 @@
   "circle_removed_message": "您已被移出圈子「{name}」。",
   "circle_deleted_title": "圈子已刪除",
   "circle_deleted_message": "圈子「{name}」已刪除。",
-  "renew": "續訂"
+  "renew": "續訂",
+  "me": "我",
+  "notification_channel_messages": "訊息",
+  "notification_channel_messages_desc": "新訊息通知"
 }

@@ -177,5 +177,8 @@
   "circle_removed_message": "Jūs esat noņemts no apļa \"{name}\".",
   "circle_deleted_title": "Aplis izdzēsts",
   "circle_deleted_message": "Aplis \"{name}\" ir izdzēsts.",
-  "renew": "Atjaunot"
+  "renew": "Atjaunot",
+  "circle_invite_dialog_content": "Tevi uzaicināja privātā aplī. Pievienoties tagad?",
+  "notification_channel_messages": "Ziņas",
+  "notification_channel_messages_desc": "Paziņojumi par jaunām ziņām"
 }

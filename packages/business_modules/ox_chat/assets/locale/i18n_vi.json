@@ -232,9 +232,9 @@
   "you": "Bạn",
   "view_profile": "Xem hồ sơ",
   "remove_from_group": "Xóa khỏi nhóm",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Tham gia vòng tròn",
+  "find_people_join_circle_notice": "Nhập liên kết mời hoặc quét mã QR mời để tham gia vòng tròn.",
+  "circle_expired_cannot_send": "Gói đăng ký đã hết hạn. Bạn không thể gửi tin nhắn. Hãy gia hạn để tiếp tục.",
   "find_by_username": "Tìm theo tên người dùng",
   "username": "Tên người dùng"
 }

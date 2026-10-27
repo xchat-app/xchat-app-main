@@ -177,5 +177,8 @@
   "circle_removed_message": "Вас було видалено з кола \"{name}\".",
   "circle_deleted_title": "Коло видалено",
   "circle_deleted_message": "Коло \"{name}\" було видалено.",
-  "renew": "Поновлення"
+  "renew": "Поновлення",
+  "me": "Я",
+  "notification_channel_messages": "Повідомлення",
+  "notification_channel_messages_desc": "Сповіщення про нові повідомлення"
 }

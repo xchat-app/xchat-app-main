@@ -176,5 +176,9 @@
   "circle_removed_message": "Bạn đã bị xóa khỏi vòng tròn \"{name}\".",
   "circle_deleted_title": "Đã xóa vòng kết nối",
   "circle_deleted_message": "Vòng kết nối \"{name}\" đã bị xóa.",
-  "renew": "Gia hạn"
+  "renew": "Gia hạn",
+  "circle_invite_dialog_content": "Bạn được mời tham gia một vòng tròn riêng tư. Tham gia ngay?",
+  "me": "Tôi",
+  "notification_channel_messages": "Tin nhắn",
+  "notification_channel_messages_desc": "Thông báo tin nhắn mới"
 }

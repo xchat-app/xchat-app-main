@@ -232,9 +232,9 @@
   "you": "आप",
   "view_profile": "प्रोफ़ाइल देखें",
   "remove_from_group": "समूह से हटाएं",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "सर्किल से जुड़ें",
+  "find_people_join_circle_notice": "सर्किल से जुड़ने के लिए आमंत्रण लिंक डालें या आमंत्रण QR कोड स्कैन करें।",
+  "circle_expired_cannot_send": "सदस्यता समाप्त हो गई है। आप संदेश नहीं भेज सकते। जारी रखने के लिए नवीनीकरण करें।",
   "find_by_username": "उपयोगकर्ता नाम से खोजें",
   "username": "उपयोगकर्ता नाम"
 }

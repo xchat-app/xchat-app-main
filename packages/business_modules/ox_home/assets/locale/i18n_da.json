@@ -19,5 +19,9 @@
   "circle_status_connecting": "Forbinder til ${circle}...",
   "circle_status_disconnecting": "Afbryder forbindelse...",
   "circle_status_disconnected": "Afbrudt",
-  "circle_status_unknown": "Forbindelsesstatus ukendt"
+  "circle_status_unknown": "Forbindelsesstatus ukendt",
+  "back_up_key_action": "Gem den nu",
+  "back_up_key_desc": "Din konto er en nøgle på denne enhed. Hvis du mister telefonen uden en kopi, kan kontoen ikke gendannes – hverken af os eller nogen andre.",
+  "back_up_key_later": "Senere",
+  "back_up_key_title": "Gem din kontonøgle"
 }

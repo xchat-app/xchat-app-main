@@ -19,5 +19,9 @@
   "circle_status_connecting": "Připojování k ${circle}...",
   "circle_status_disconnecting": "Odpojování...",
   "circle_status_disconnected": "Odpojeno",
-  "circle_status_unknown": "Neznámý stav připojení"
+  "circle_status_unknown": "Neznámý stav připojení",
+  "back_up_key_action": "Uložit teď",
+  "back_up_key_desc": "Váš účet je klíč na tomto zařízení. Pokud telefon ztratíte bez kopie, účet nepůjde obnovit — ani námi, ani nikým.",
+  "back_up_key_later": "Později",
+  "back_up_key_title": "Uložte si klíč k účtu"
 }

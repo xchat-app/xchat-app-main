@@ -177,5 +177,8 @@
   "circle_removed_message": "आपको सर्कल \"{name}\" से हटा दिया गया है।",
   "circle_deleted_title": "सर्कल हटा दिया गया",
   "circle_deleted_message": "सर्कल \"{name}\" हटा दिया गया है।",
-  "renew": "नवीकरण करें"
+  "renew": "नवीकरण करें",
+  "circle_invite_dialog_content": "आपको एक निजी सर्किल में आमंत्रित किया गया है। अभी जुड़ें?",
+  "notification_channel_messages": "संदेश",
+  "notification_channel_messages_desc": "नए संदेशों की सूचनाएँ"
 }

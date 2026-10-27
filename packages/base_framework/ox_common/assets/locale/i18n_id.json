@@ -178,5 +178,7 @@
   "circle_removed_message": "Anda telah dihapus dari lingkaran \"{name}\".",
   "circle_deleted_title": "Lingkaran dihapus",
   "circle_deleted_message": "Lingkaran \"{name}\" telah dihapus.",
-  "renew": "Perpanjang"
+  "renew": "Perpanjang",
+  "notification_channel_messages": "Pesan",
+  "notification_channel_messages_desc": "Notifikasi pesan baru"
 }

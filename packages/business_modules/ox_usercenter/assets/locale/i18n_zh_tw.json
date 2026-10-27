@@ -154,5 +154,15 @@
   "circle_expired_message_admin": "目前圈子已過期。您仍可查看資料，但無法傳送訊息或進行修改。您可以在下方續訂。",
   "restore_private_relay": "恢復 Private Circle",
   "restore_private_relay_no_circles": "沒有可恢復的 Private Circle",
-  "no_invite_data": "暫無邀請資料。"
+  "no_invite_data": "暫無邀請資料。",
+  "add_filedrop_server": "新增 FileDrop 伺服器",
+  "file_server_test_file_type_image": "圖片",
+  "file_server_test_file_type_plain": "一般檔案",
+  "file_server_test_result_fail": "失敗",
+  "file_server_test_result_ok": "正常",
+  "file_server_test_short": "測試",
+  "file_server_test_start": "開始測試",
+  "file_server_test_testing": "測試中…",
+  "file_server_test_title": "檔案伺服器測試",
+  "validating_filedrop_server": "正在驗證 FileDrop 伺服器…"
 }

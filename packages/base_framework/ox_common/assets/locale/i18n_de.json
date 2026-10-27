@@ -177,5 +177,8 @@
   "circle_removed_message": "Sie wurden aus dem Kreis \"{name}\" entfernt.",
   "circle_deleted_title": "Kreis gelöscht",
   "circle_deleted_message": "Der Kreis \"{name}\" wurde gelöscht.",
-  "renew": "Verlängern"
+  "renew": "Verlängern",
+  "me": "Ich",
+  "notification_channel_messages": "Nachrichten",
+  "notification_channel_messages_desc": "Benachrichtigungen über neue Nachrichten"
 }

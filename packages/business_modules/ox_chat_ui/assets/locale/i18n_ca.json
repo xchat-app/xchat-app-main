@@ -15,5 +15,6 @@
   "giphy_continue": "Continua",
   "press_duration_too_short": "Durada de la pressió massa curta per enviar",
   "release_to_cancel": "Allibera per cancel·lar",
-  "no_recording_permission": "Sense permís d'enregistrament, si us plau sol·licita a la configuració"
+  "no_recording_permission": "Sense permís d'enregistrament, si us plau sol·licita a la configuració",
+  "private_chat_accept": "Accepta"
 }

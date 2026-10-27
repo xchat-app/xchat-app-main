@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChati teavitusteenus</string>
+    <string name="push_service_text">Ootab uusi sõnumeid</string>
     <string name="push_notification_title">Uus sõnum</string>
     <string name="push_notification_text">Sul on uus sõnum</string>
     <string name="incoming_call">Sissetulev kõne</string>
     <string name="call_answer">Võta vastu</string>
     <string name="call_decline">Lükka tagasi</string>
+    <string name="channel_push_service">Teavitusteenus</string>
+    <string name="channel_push_service_desc">Hoiab XChati ühenduses, et sõnumid ja kõned kohale jõuaksid</string>
+    <string name="channel_push">Uued sõnumid</string>
+    <string name="channel_push_desc">Teavitus iga uue sõnumi kohta</string>
+    <string name="channel_ongoing_calls">Käimasolevad kõned</string>
+    <string name="channel_incoming_calls">Sissetulevad kõned</string>
 </resources>

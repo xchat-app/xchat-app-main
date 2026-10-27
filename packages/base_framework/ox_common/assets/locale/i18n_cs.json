@@ -177,5 +177,8 @@
   "circle_removed_message": "Byli jste odebráni z kruhu \"{name}\".",
   "circle_deleted_title": "Kruh byl smazán",
   "circle_deleted_message": "Kruh \"{name}\" byl smazán.",
-  "renew": "Obnovit"
+  "renew": "Obnovit",
+  "circle_invite_dialog_content": "Byli jste pozváni do soukromého kruhu. Připojit se teď?",
+  "notification_channel_messages": "Zprávy",
+  "notification_channel_messages_desc": "Oznámení o nových zprávách"
 }

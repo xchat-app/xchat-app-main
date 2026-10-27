@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">Служба сповіщень XChat</string>
+    <string name="push_service_text">Очікування нових повідомлень</string>
     <string name="push_notification_title">Нове повідомлення</string>
     <string name="push_notification_text">У вас нове повідомлення</string>
     <string name="incoming_call">Вхідний дзвінок</string>
     <string name="call_answer">Прийняти</string>
     <string name="call_decline">Відхилити</string>
+    <string name="channel_push_service">Служба сповіщень</string>
+    <string name="channel_push_service_desc">Тримає XChat на зв\'язку, щоб надходили повідомлення та дзвінки</string>
+    <string name="channel_push">Нові повідомлення</string>
+    <string name="channel_push_desc">Сповіщення про кожне нове повідомлення</string>
+    <string name="channel_ongoing_calls">Поточні дзвінки</string>
+    <string name="channel_incoming_calls">Вхідні дзвінки</string>
 </resources>

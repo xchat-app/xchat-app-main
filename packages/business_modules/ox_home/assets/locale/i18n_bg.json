@@ -19,5 +19,9 @@
   "circle_status_connecting": "Свързване с ${circle}...",
   "circle_status_disconnecting": "Прекъсване на връзката...",
   "circle_status_disconnected": "Прекъсната",
-  "circle_status_unknown": "Неизвестно състояние на връзката"
+  "circle_status_unknown": "Неизвестно състояние на връзката",
+  "back_up_key_action": "Запази сега",
+  "back_up_key_desc": "Профилът ти е ключ на това устройство. Ако загубиш телефона без копие, профилът не може да бъде възстановен — нито от нас, нито от когото и да е.",
+  "back_up_key_later": "По-късно",
+  "back_up_key_title": "Запази ключа на профила си"
 }

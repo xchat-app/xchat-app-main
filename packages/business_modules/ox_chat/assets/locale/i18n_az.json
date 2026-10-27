@@ -232,9 +232,9 @@
   "you": "Sən",
   "view_profile": "Profilə bax",
   "remove_from_group": "Qrupdan çıxar",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Dairəyə qoşul",
+  "find_people_join_circle_notice": "Dairəyə qoşulmaq üçün dəvət linkini daxil et və ya dəvət QR kodunu skan et.",
+  "circle_expired_cannot_send": "Abunəliyin müddəti bitib. Mesaj göndərə bilməzsən. Davam etmək üçün uzat.",
   "find_by_username": "İstifadəçi adına görə tap",
   "username": "İstifadəçi adı"
 }

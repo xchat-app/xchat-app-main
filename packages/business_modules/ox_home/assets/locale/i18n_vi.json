@@ -19,5 +19,9 @@
   "circle_status_connecting": "Đang kết nối tới ${circle}...",
   "circle_status_disconnecting": "Đang ngắt kết nối...",
   "circle_status_disconnected": "Đã ngắt kết nối",
-  "circle_status_unknown": "Trạng thái kết nối không xác định"
+  "circle_status_unknown": "Trạng thái kết nối không xác định",
+  "back_up_key_action": "Lưu ngay",
+  "back_up_key_desc": "Tài khoản của bạn là một khóa trên thiết bị này. Nếu mất điện thoại mà không có bản sao, tài khoản không thể khôi phục — chúng tôi không thể, không ai có thể.",
+  "back_up_key_later": "Để sau",
+  "back_up_key_title": "Lưu khóa tài khoản của bạn"
 }

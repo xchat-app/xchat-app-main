@@ -19,5 +19,9 @@
   "circle_status_connecting": "Savienojas ar ${circle}...",
   "circle_status_disconnecting": "Atvienošana...",
   "circle_status_disconnected": "Atvienots",
-  "circle_status_unknown": "Savienojuma statuss nav zināms"
+  "circle_status_unknown": "Savienojuma statuss nav zināms",
+  "back_up_key_action": "Saglabāt tagad",
+  "back_up_key_desc": "Tavs konts ir atslēga šajā ierīcē. Ja pazaudēsi tālruni bez kopijas, kontu nevarēs atjaunot — ne mēs, ne kāds cits.",
+  "back_up_key_later": "Vēlāk",
+  "back_up_key_title": "Saglabā sava konta atslēgu"
 }

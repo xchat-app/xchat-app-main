@@ -177,5 +177,8 @@
   "circle_removed_message": "\"{name}\" çemberinden kaldırıldınız.",
   "circle_deleted_title": "Çember silindi",
   "circle_deleted_message": "\"{name}\" çemberi silindi.",
-  "renew": "Yenile"
+  "renew": "Yenile",
+  "me": "Ben",
+  "notification_channel_messages": "Mesajlar",
+  "notification_channel_messages_desc": "Yeni mesaj bildirimleri"
 }

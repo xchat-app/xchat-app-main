@@ -15,5 +15,6 @@
   "giphy_continue": "Kontynuuj",
   "press_duration_too_short": "Czas naciśnięcia zbyt krótki do wysłania",
   "release_to_cancel": "Puść, aby anulować",
-  "no_recording_permission": "Brak uprawnień do nagrywania, złoży wniosek w ustawieniach"
+  "no_recording_permission": "Brak uprawnień do nagrywania, złoży wniosek w ustawieniach",
+  "private_chat_accept": "Akceptuj"
 }

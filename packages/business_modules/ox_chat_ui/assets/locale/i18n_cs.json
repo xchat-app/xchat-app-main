@@ -15,5 +15,6 @@
   "giphy_continue": "Pokračovat",
   "press_duration_too_short": "Doba stisknutí příliš krátká pro odeslání",
   "release_to_cancel": "Pusťte pro zrušení",
-  "no_recording_permission": "Žádné oprávnění k nahrávání, požádejte v nastavení"
+  "no_recording_permission": "Žádné oprávnění k nahrávání, požádejte v nastavení",
+  "private_chat_accept": "Přijmout"
 }

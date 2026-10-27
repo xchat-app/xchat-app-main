@@ -19,5 +19,9 @@
   "circle_status_connecting": "Ühendamine ${circle}...",
   "circle_status_disconnecting": "Ühenduse katkestamine...",
   "circle_status_disconnected": "Ühendus katkestatud",
-  "circle_status_unknown": "Ühenduse olek teadmata"
+  "circle_status_unknown": "Ühenduse olek teadmata",
+  "back_up_key_action": "Salvesta kohe",
+  "back_up_key_desc": "Sinu konto on võti selles seadmes. Kui kaotad telefoni ilma koopiata, ei saa kontot taastada — ei meie ega keegi teine.",
+  "back_up_key_later": "Hiljem",
+  "back_up_key_title": "Salvesta oma konto võti"
 }

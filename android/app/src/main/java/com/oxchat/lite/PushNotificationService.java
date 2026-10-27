@@ -289,20 +289,20 @@ public class PushNotificationService extends Service {
             // Channel for foreground service
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
-                    "Push Notification Service",
+                    getString(R.string.channel_push_service),
                     NotificationManager.IMPORTANCE_LOW
             );
-            serviceChannel.setDescription("Service for monitoring push notifications");
+            serviceChannel.setDescription(getString(R.string.channel_push_service_desc));
             serviceChannel.setShowBadge(false);
             manager.createNotificationChannel(serviceChannel);
             
             // Channel for push notifications (higher priority)
             NotificationChannel pushChannel = new NotificationChannel(
                     PUSH_NOTIFICATION_CHANNEL_ID,
-                    "Push Notifications",
+                    getString(R.string.channel_push),
                     NotificationManager.IMPORTANCE_HIGH
             );
-            pushChannel.setDescription("Notifications for new messages");
+            pushChannel.setDescription(getString(R.string.channel_push_desc));
             pushChannel.setShowBadge(true);
             pushChannel.enableLights(true);
             pushChannel.enableVibration(true);

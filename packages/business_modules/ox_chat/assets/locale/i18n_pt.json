@@ -232,9 +232,9 @@
   "you": "Você",
   "view_profile": "Ver perfil",
   "remove_from_group": "Remover do grupo",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Entrar em um círculo",
+  "find_people_join_circle_notice": "Digite um link de convite ou escaneie o QR code de convite para entrar em um círculo.",
+  "circle_expired_cannot_send": "A assinatura expirou. Você não pode enviar mensagens. Renove para continuar.",
   "find_by_username": "Buscar por nome de usuário",
   "username": "Nome de usuário"
 }

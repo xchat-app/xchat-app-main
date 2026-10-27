@@ -232,9 +232,9 @@
   "you": "Εσείς",
   "view_profile": "Προβολή προφίλ",
   "remove_from_group": "Αφαίρεση από την ομάδα",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Συμμετοχή σε κύκλο",
+  "find_people_join_circle_notice": "Εισήγαγε σύνδεσμο πρόσκλησης ή σάρωσε τον κωδικό QR πρόσκλησης για να μπεις σε κύκλο.",
+  "circle_expired_cannot_send": "Η συνδρομή έχει λήξει. Δεν μπορείς να στέλνεις μηνύματα. Ανανέωσέ τη για να συνεχίσεις.",
   "find_by_username": "Αναζήτηση με όνομα χρήστη",
   "username": "Όνομα χρήστη"
 }

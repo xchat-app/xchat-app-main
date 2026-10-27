@@ -19,5 +19,9 @@
   "circle_status_connecting": "Connectant a ${circle}...",
   "circle_status_disconnecting": "Desconnectant...",
   "circle_status_disconnected": "Desconnectat",
-  "circle_status_unknown": "Estat de connexió desconegut"
+  "circle_status_unknown": "Estat de connexió desconegut",
+  "back_up_key_action": "Desa-la ara",
+  "back_up_key_desc": "El teu compte és una clau en aquest dispositiu. Si perds el telèfon sense una còpia, el compte no es podrà recuperar: ni nosaltres ni ningú.",
+  "back_up_key_later": "Més tard",
+  "back_up_key_title": "Desa la clau del teu compte"
 }

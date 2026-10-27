@@ -177,5 +177,8 @@
   "circle_removed_message": "Έχετε αφαιρεθεί από τον κύκλο \"{name}\".",
   "circle_deleted_title": "Ο κύκλος διαγράφηκε",
   "circle_deleted_message": "Ο κύκλος \"{name}\" έχει διαγραφεί.",
-  "renew": "Ανανέωση"
+  "renew": "Ανανέωση",
+  "circle_invite_dialog_content": "Σε προσκάλεσαν σε έναν ιδιωτικό κύκλο. Θέλεις να μπεις τώρα;",
+  "notification_channel_messages": "Μηνύματα",
+  "notification_channel_messages_desc": "Ειδοποιήσεις νέων μηνυμάτων"
 }

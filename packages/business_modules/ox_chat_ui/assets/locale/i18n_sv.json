@@ -15,5 +15,6 @@
   "giphy_continue": "Fortsätt",
   "press_duration_too_short": "Tryckningstid för kort för att skicka",
   "release_to_cancel": "Släpp för att avbryta",
-  "no_recording_permission": "Ingen inspelningsbehörighet, vänligen ansök i inställningarna"
+  "no_recording_permission": "Ingen inspelningsbehörighet, vänligen ansök i inställningarna",
+  "private_chat_accept": "Acceptera"
 }

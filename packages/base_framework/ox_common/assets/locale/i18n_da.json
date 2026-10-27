@@ -177,5 +177,8 @@
   "circle_removed_message": "Du er blevet fjernet fra cirklen \"{name}\".",
   "circle_deleted_title": "Cirkel slettet",
   "circle_deleted_message": "Cirklen \"{name}\" er blevet slettet.",
-  "renew": "Forny"
+  "renew": "Forny",
+  "circle_invite_dialog_content": "Du er inviteret til en privat cirkel. Vil du være med nu?",
+  "notification_channel_messages": "Beskeder",
+  "notification_channel_messages_desc": "Notifikationer om nye beskeder"
 }

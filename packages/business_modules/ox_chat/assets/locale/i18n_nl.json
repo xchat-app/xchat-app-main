@@ -232,9 +232,9 @@
   "you": "Jij",
   "view_profile": "Profiel bekijken",
   "remove_from_group": "Uit groep verwijderen",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Lid worden van een cirkel",
+  "find_people_join_circle_notice": "Voer een uitnodigingslink in of scan de QR-code van de uitnodiging om lid te worden van een cirkel.",
+  "circle_expired_cannot_send": "Het abonnement is verlopen. Je kunt geen berichten sturen. Verleng het om door te gaan.",
   "find_by_username": "Zoeken op gebruikersnaam",
   "username": "Gebruikersnaam"
 }

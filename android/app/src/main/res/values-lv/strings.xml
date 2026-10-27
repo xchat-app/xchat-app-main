@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChat paziņojumu pakalpojums</string>
+    <string name="push_service_text">Gaida jaunas ziņas</string>
     <string name="push_notification_title">Jauna ziņa</string>
     <string name="push_notification_text">Jums ir jauna ziņa</string>
     <string name="incoming_call">Ienākošais zvans</string>
     <string name="call_answer">Pieņemt</string>
     <string name="call_decline">Noraidīt</string>
+    <string name="channel_push_service">Paziņojumu pakalpojums</string>
+    <string name="channel_push_service_desc">Uztur XChat savienojumu, lai pienāktu ziņas un zvani</string>
+    <string name="channel_push">Jaunas ziņas</string>
+    <string name="channel_push_desc">Paziņojums par katru jaunu ziņu</string>
+    <string name="channel_ongoing_calls">Notiekošie zvani</string>
+    <string name="channel_incoming_calls">Ienākošie zvani</string>
 </resources>

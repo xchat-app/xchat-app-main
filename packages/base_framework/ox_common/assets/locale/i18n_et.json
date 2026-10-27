@@ -177,5 +177,8 @@
   "circle_removed_message": "Teid on ringist \"{name}\" eemaldatud.",
   "circle_deleted_title": "Ring kustutatud",
   "circle_deleted_message": "Ring \"{name}\" on kustutatud.",
-  "renew": "Uuenda"
+  "renew": "Uuenda",
+  "circle_invite_dialog_content": "Sind kutsuti privaatsesse ringi. Kas liitud kohe?",
+  "notification_channel_messages": "Sõnumid",
+  "notification_channel_messages_desc": "Uute sõnumite teavitused"
 }

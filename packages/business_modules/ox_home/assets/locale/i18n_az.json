@@ -19,5 +19,9 @@
   "circle_status_connecting": "${circle} ilə bağlanır...",
   "circle_status_disconnecting": "Bağlantı kəsiliyor...",
   "circle_status_disconnected": "Bağlantı kəsildi",
-  "circle_status_unknown": "Bağlantı statusu naməlum"
+  "circle_status_unknown": "Bağlantı statusu naməlum",
+  "back_up_key_action": "İndi saxla",
+  "back_up_key_desc": "Hesabın bu cihazdakı açardır. Telefonu surəti olmadan itirsən, hesab bərpa oluna bilməz — nə bizim tərəfimizdən, nə də başqası tərəfindən.",
+  "back_up_key_later": "Sonra",
+  "back_up_key_title": "Hesab açarını saxla"
 }

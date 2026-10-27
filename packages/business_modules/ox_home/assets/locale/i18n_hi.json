@@ -19,5 +19,9 @@
   "circle_status_connecting": "${circle} से कनेक्ट हो रहा है...",
   "circle_status_disconnecting": "डिस्कनेक्ट हो रहा है...",
   "circle_status_disconnected": "डिस्कनेक्ट",
-  "circle_status_unknown": "कनेक्शन स्थिति अज्ञात"
+  "circle_status_unknown": "कनेक्शन स्थिति अज्ञात",
+  "back_up_key_action": "अभी सहेजें",
+  "back_up_key_desc": "आपका खाता इस डिवाइस पर रखी एक कुंजी है। अगर बिना कॉपी के फ़ोन खो गया, तो खाता वापस नहीं मिल सकता — न हमसे, न किसी और से।",
+  "back_up_key_later": "बाद में",
+  "back_up_key_title": "अपने खाते की कुंजी सहेजें"
 }

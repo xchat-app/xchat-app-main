@@ -177,5 +177,8 @@
   "circle_removed_message": "Vous avez été retiré du cercle \"{name}\".",
   "circle_deleted_title": "Cercle supprimé",
   "circle_deleted_message": "Le cercle \"{name}\" a été supprimé.",
-  "renew": "Renouveler"
+  "renew": "Renouveler",
+  "me": "Moi",
+  "notification_channel_messages": "Messages",
+  "notification_channel_messages_desc": "Notifications de nouveaux messages"
 }

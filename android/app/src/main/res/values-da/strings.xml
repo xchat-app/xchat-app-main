@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChat-notifikationstjeneste</string>
+    <string name="push_service_text">Venter på nye beskeder</string>
     <string name="push_notification_title">Ny besked</string>
     <string name="push_notification_text">Du har en ny besked</string>
     <string name="incoming_call">Indgående opkald</string>
     <string name="call_answer">Accepter</string>
     <string name="call_decline">Afvis</string>
+    <string name="channel_push_service">Notifikationstjeneste</string>
+    <string name="channel_push_service_desc">Holder XChat forbundet, så beskeder og opkald kommer frem</string>
+    <string name="channel_push">Nye beskeder</string>
+    <string name="channel_push_desc">En notifikation for hver ny besked</string>
+    <string name="channel_ongoing_calls">Igangværende opkald</string>
+    <string name="channel_incoming_calls">Indgående opkald</string>
 </resources>

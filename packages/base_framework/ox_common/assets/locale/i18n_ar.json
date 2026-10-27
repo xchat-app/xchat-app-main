@@ -177,5 +177,8 @@
   "circle_removed_message": "تمت إزالتك من الدائرة \"{name}\".",
   "circle_deleted_title": "تم حذف الدائرة",
   "circle_deleted_message": "تم حذف الدائرة \"{name}\".",
-  "renew": "تجديد"
+  "renew": "تجديد",
+  "me": "أنا",
+  "notification_channel_messages": "الرسائل",
+  "notification_channel_messages_desc": "إشعارات الرسائل الجديدة"
 }

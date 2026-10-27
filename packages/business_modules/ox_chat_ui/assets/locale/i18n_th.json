@@ -15,5 +15,6 @@
   "giphy_continue": "ดำเนินการต่อ",
   "press_duration_too_short": "กดค้างเวลาไม่นานพอที่จะส่งได้",
   "release_to_cancel": "ปล่อยเพื่อยกเลิก",
-  "no_recording_permission": "ไม่มีสิทธิ์ในการบันทึกเสียง กรุณาสมัครในตั้งค่า"
+  "no_recording_permission": "ไม่มีสิทธิ์ในการบันทึกเสียง กรุณาสมัครในตั้งค่า",
+  "private_chat_accept": "ยอมรับ"
 }

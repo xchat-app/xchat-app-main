@@ -15,5 +15,6 @@
   "giphy_continue": "Davam et",
   "press_duration_too_short": "Basma müddəti göndərmək üçün çox qısadır",
   "release_to_cancel": "Ləğv etmək üçün buraxın",
-  "no_recording_permission": "Yazma icazəsi yoxdur, zəhmət olmasa parametrlərdə müraciət edin"
+  "no_recording_permission": "Yazma icazəsi yoxdur, zəhmət olmasa parametrlərdə müraciət edin",
+  "private_chat_accept": "Qəbul et"
 }

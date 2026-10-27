@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChat értesítési szolgáltatás</string>
+    <string name="push_service_text">Új üzenetekre vár</string>
     <string name="push_notification_title">Új üzenet</string>
     <string name="push_notification_text">Új üzeneted érkezett</string>
     <string name="incoming_call">Bejövő hívás</string>
     <string name="call_answer">Elfogadás</string>
     <string name="call_decline">Elutasítás</string>
+    <string name="channel_push_service">Értesítési szolgáltatás</string>
+    <string name="channel_push_service_desc">Kapcsolatban tartja az XChatet, hogy megérkezzenek az üzenetek és hívások</string>
+    <string name="channel_push">Új üzenetek</string>
+    <string name="channel_push_desc">Értesítés minden új üzenetről</string>
+    <string name="channel_ongoing_calls">Folyamatban lévő hívások</string>
+    <string name="channel_incoming_calls">Bejövő hívások</string>
 </resources>

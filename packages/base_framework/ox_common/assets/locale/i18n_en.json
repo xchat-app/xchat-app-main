@@ -178,5 +178,7 @@
   "circle_removed_message": "You have been removed from circle \"{name}\".",
   "circle_deleted_title": "Circle deleted",
   "circle_deleted_message": "The circle \"{name}\" has been deleted.",
-  "renew": "Renew"
+  "renew": "Renew",
+  "notification_channel_messages": "Messages",
+  "notification_channel_messages_desc": "Notifications for new messages"
 }

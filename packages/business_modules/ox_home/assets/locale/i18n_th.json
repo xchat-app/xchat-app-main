@@ -19,5 +19,9 @@
   "circle_status_connecting": "กำลังเชื่อมต่อกับ ${circle}...",
   "circle_status_disconnecting": "กำลังตัดการเชื่อมต่อ...",
   "circle_status_disconnected": "ตัดการเชื่อมต่อแล้ว",
-  "circle_status_unknown": "สถานะการเชื่อมต่อไม่ทราบ"
+  "circle_status_unknown": "สถานะการเชื่อมต่อไม่ทราบ",
+  "back_up_key_action": "บันทึกเลย",
+  "back_up_key_desc": "บัญชีของคุณคือกุญแจบนอุปกรณ์นี้ ถ้าโทรศัพท์หายโดยไม่มีสำเนา จะกู้คืนบัญชีไม่ได้ ทั้งเราและใครก็ตาม",
+  "back_up_key_later": "ไว้ทีหลัง",
+  "back_up_key_title": "บันทึกกุญแจบัญชีของคุณ"
 }

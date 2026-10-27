@@ -176,5 +176,9 @@
   "circle_removed_message": "Du har tagits bort från cirkeln \"{name}\".",
   "circle_deleted_title": "Cirkel borttagen",
   "circle_deleted_message": "Cirkeln \"{name}\" har tagits bort.",
-  "renew": "Förnya"
+  "renew": "Förnya",
+  "circle_invite_dialog_content": "Du har bjudits in till en privat cirkel. Gå med nu?",
+  "me": "Jag",
+  "notification_channel_messages": "Meddelanden",
+  "notification_channel_messages_desc": "Aviseringar om nya meddelanden"
 }

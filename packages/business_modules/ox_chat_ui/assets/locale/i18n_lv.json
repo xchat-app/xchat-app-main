@@ -15,5 +15,6 @@
   "giphy_continue": "Turpināt",
   "press_duration_too_short": "Spaudimo laikas per trumpas siųsti",
   "release_to_cancel": "Paleiskite, kad atceltu",
-  "no_recording_permission": "Nav ierakstīšanas atļaujas, lūdzu, piesakieties iestatījumos"
+  "no_recording_permission": "Nav ierakstīšanas atļaujas, lūdzu, piesakieties iestatījumos",
+  "private_chat_accept": "Pieņemt"
 }

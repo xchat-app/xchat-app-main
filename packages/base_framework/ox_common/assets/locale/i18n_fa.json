@@ -178,5 +178,7 @@
   "circle_removed_message": "شما از دایره \"{name}\" حذف شده‌اید.",
   "circle_deleted_title": "دایره حذف شد",
   "circle_deleted_message": "دایره \"{name}\" حذف شده است.",
-  "renew": "تمدید"
+  "renew": "تمدید",
+  "notification_channel_messages": "پیام‌ها",
+  "notification_channel_messages_desc": "اعلان پیام‌های جدید"
 }

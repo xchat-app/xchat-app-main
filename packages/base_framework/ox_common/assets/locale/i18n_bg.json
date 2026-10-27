@@ -176,5 +176,9 @@
   "circle_removed_message": "Бяхте премахнати от кръга \"{name}\".",
   "circle_deleted_title": "Кръгът е изтрит",
   "circle_deleted_message": "Кръгът \"{name}\" е изтрит.",
-  "renew": "Подновяване"
+  "renew": "Подновяване",
+  "circle_invite_dialog_content": "Поканен си в частен кръг. Да се присъединиш ли сега?",
+  "me": "Аз",
+  "notification_channel_messages": "Съобщения",
+  "notification_channel_messages_desc": "Известия за нови съобщения"
 }

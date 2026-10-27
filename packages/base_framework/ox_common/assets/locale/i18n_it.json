@@ -177,5 +177,8 @@
   "circle_removed_message": "Sei stato rimosso dal cerchio \"{name}\".",
   "circle_deleted_title": "Cerchio eliminato",
   "circle_deleted_message": "Il cerchio \"{name}\" è stato eliminato.",
-  "renew": "Rinnova"
+  "renew": "Rinnova",
+  "circle_invite_dialog_content": "Sei stato invitato in un cerchio privato. Vuoi entrare ora?",
+  "notification_channel_messages": "Messaggi",
+  "notification_channel_messages_desc": "Notifiche dei nuovi messaggi"
 }

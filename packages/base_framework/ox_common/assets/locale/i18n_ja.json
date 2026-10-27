@@ -177,5 +177,8 @@
   "circle_removed_message": "「{name}」サークルから削除されました。",
   "circle_deleted_title": "サークルが削除されました",
   "circle_deleted_message": "サークル「{name}」は削除されました。",
-  "renew": "更新"
+  "renew": "更新",
+  "me": "自分",
+  "notification_channel_messages": "メッセージ",
+  "notification_channel_messages_desc": "新しいメッセージの通知"
 }

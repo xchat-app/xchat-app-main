@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChat 通知サービス</string>
+    <string name="push_service_text">新しいメッセージを待っています</string>
     <string name="push_notification_title">新しいメッセージ</string>
     <string name="push_notification_text">新しいメッセージがあります</string>
     <string name="incoming_call">着信</string>
     <string name="call_answer">受け入れる</string>
     <string name="call_decline">拒否</string>
+    <string name="channel_push_service">プッシュサービス</string>
+    <string name="channel_push_service_desc">新しいメッセージや着信を受け取るため XChat の接続を保ちます</string>
+    <string name="channel_push">新しいメッセージ</string>
+    <string name="channel_push_desc">新しいメッセージごとの通知</string>
+    <string name="channel_ongoing_calls">通話中</string>
+    <string name="channel_incoming_calls">着信</string>
 </resources>

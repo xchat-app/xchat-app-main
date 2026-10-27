@@ -232,9 +232,9 @@
   "you": "Вие",
   "view_profile": "Преглед на профил",
   "remove_from_group": "Премахване от групата",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Присъедини се към кръг",
+  "find_people_join_circle_notice": "Въведи линк за покана или сканирай QR кода на поканата, за да се присъединиш към кръг.",
+  "circle_expired_cannot_send": "Абонаментът е изтекъл. Не можеш да пращаш съобщения. Поднови го, за да продължиш.",
   "find_by_username": "Търсене по потребителско име",
   "username": "Потребителско име"
 }

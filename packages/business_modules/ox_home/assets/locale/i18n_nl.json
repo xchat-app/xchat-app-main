@@ -19,5 +19,9 @@
   "circle_status_connecting": "Verbinden met ${circle}...",
   "circle_status_disconnecting": "Verbinding verbreken...",
   "circle_status_disconnected": "Verbroken",
-  "circle_status_unknown": "Verbindingsstatus onbekend"
+  "circle_status_unknown": "Verbindingsstatus onbekend",
+  "back_up_key_action": "Nu opslaan",
+  "back_up_key_desc": "Je account is een sleutel op dit apparaat. Als je je telefoon kwijtraakt zonder kopie, kan het account niet worden hersteld — niet door ons, door niemand.",
+  "back_up_key_later": "Later",
+  "back_up_key_title": "Sla je accountsleutel op"
 }

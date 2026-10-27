@@ -177,5 +177,8 @@
   "circle_removed_message": "Heu estat eliminat del cercle \"{name}\".",
   "circle_deleted_title": "Cercle eliminat",
   "circle_deleted_message": "El cercle \"{name}\" ha estat eliminat.",
-  "renew": "Renovar"
+  "renew": "Renovar",
+  "circle_invite_dialog_content": "T'han convidat a un cercle privat. Hi vols entrar ara?",
+  "notification_channel_messages": "Missatges",
+  "notification_channel_messages_desc": "Avisos de missatges nous"
 }

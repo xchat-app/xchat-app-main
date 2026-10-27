@@ -232,9 +232,9 @@
   "you": "คุณ",
   "view_profile": "ดูโปรไฟล์",
   "remove_from_group": "ลบออกจากกลุ่ม",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "เข้าร่วมวงกลม",
+  "find_people_join_circle_notice": "ใส่ลิงก์คำเชิญหรือสแกนคิวอาร์โค้ดคำเชิญเพื่อเข้าร่วมวงกลม",
+  "circle_expired_cannot_send": "การสมัครสมาชิกหมดอายุแล้ว คุณส่งข้อความไม่ได้ โปรดต่ออายุเพื่อใช้งานต่อ",
   "find_by_username": "ค้นหาตามชื่อผู้ใช้",
   "username": "ชื่อผู้ใช้"
 }

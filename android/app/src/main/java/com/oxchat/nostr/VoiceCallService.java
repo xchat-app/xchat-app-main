@@ -80,7 +80,7 @@ public class VoiceCallService extends Service {
     private Notification buildNotification(String remoteName, String content, String hangUpLabel) {
         NotificationManager manager = getSystemService(NotificationManager.class);
         NotificationChannel channel = new NotificationChannel(
-                CHANNEL_ID, "Ongoing calls", NotificationManager.IMPORTANCE_DEFAULT);
+                CHANNEL_ID, getString(R.string.channel_ongoing_calls), NotificationManager.IMPORTANCE_DEFAULT);
         channel.setSound(null, null);
         channel.enableVibration(false);
         manager.createNotificationChannel(channel);

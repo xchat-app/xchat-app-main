@@ -7,6 +7,7 @@ import 'package:ox_common/ox_common.dart';
 import 'package:ox_common/utils/ox_chat_binding.dart';
 import 'package:ox_common/model/chat_type.dart';
 import 'package:ox_common/login/login_manager.dart';
+import 'package:ox_localizable/ox_localizable.dart';
 
 import 'decision_service.dart';
 import 'core/local_notifier.dart';
@@ -40,6 +41,11 @@ class CLPushIntegration with WidgetsBindingObserver {
   Future<void> initialize() async {
     if (_initialized) return;
 
+    // Shown under the app's notification settings. Localized has loaded by
+    // now (app start); Android updates the name if the language changes.
+    final channelName = Localized.text('ox_common.notification_channel_messages');
+    final channelDesc = Localized.text('ox_common.notification_channel_messages_desc');
+
     // 1) Init base kit
     await LocalPushKit.instance.ensureInitialized(
       // Android draws the small icon from its alpha channel alone, so the
@@ -47,16 +53,16 @@ class CLPushIntegration with WidgetsBindingObserver {
       // white chat bubble made for it, which nothing was using.
       androidDefaultIcon: '@drawable/ic_notification',
       androidChannelId: 'message_channel',
-      androidChannelName: 'Messages',
-      androidChannelDescription: 'General message notifications',
+      androidChannelName: channelName,
+      androidChannelDescription: channelDesc,
     );
 
     // 2) Notifier based on LocalPushKit
     _notifier = LocalNotifier(
       LocalPushKit.instance,
       'message_channel',
-      'Messages',
-      'General message notifications',
+      channelName,
+      channelDesc,
     );
 
     // 3) Decision service with port adapters

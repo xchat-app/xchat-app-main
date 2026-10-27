@@ -8,4 +8,10 @@
     <string name="incoming_call">Incoming call</string>
     <string name="call_answer">Accept</string>
     <string name="call_decline">Decline</string>
+    <string name="channel_push_service">Push service</string>
+    <string name="channel_push_service_desc">Keeps XChat connected so messages and calls reach you</string>
+    <string name="channel_push">New messages</string>
+    <string name="channel_push_desc">A notification for each new message</string>
+    <string name="channel_ongoing_calls">Ongoing calls</string>
+    <string name="channel_incoming_calls">Incoming calls</string>
 </resources>

@@ -19,5 +19,9 @@
   "circle_status_connecting": "Łączenie z ${circle}...",
   "circle_status_disconnecting": "Rozłączanie...",
   "circle_status_disconnected": "Rozłączono",
-  "circle_status_unknown": "Nieznany status połączenia"
+  "circle_status_unknown": "Nieznany status połączenia",
+  "back_up_key_action": "Zapisz teraz",
+  "back_up_key_desc": "Twoje konto to klucz na tym urządzeniu. Jeśli zgubisz telefon bez kopii, konta nie da się odzyskać — ani nam, ani nikomu.",
+  "back_up_key_later": "Później",
+  "back_up_key_title": "Zapisz klucz konta"
 }

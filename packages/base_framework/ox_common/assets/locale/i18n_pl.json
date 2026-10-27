@@ -176,5 +176,9 @@
   "circle_removed_message": "Zostałeś usunięty z kręgu \"{name}\".",
   "circle_deleted_title": "Krąg usunięty",
   "circle_deleted_message": "Krąg \"{name}\" został usunięty.",
-  "renew": "Odnów"
+  "renew": "Odnów",
+  "circle_invite_dialog_content": "Zaproszono cię do prywatnego kręgu. Dołączyć teraz?",
+  "me": "Ja",
+  "notification_channel_messages": "Wiadomości",
+  "notification_channel_messages_desc": "Powiadomienia o nowych wiadomościach"
 }

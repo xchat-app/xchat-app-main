@@ -15,5 +15,6 @@
   "giphy_continue": "Συνέχεια",
   "press_duration_too_short": "Η διάρκεια πίεσης είναι πολύ μικρή για αποστολή",
   "release_to_cancel": "Αφήστε για ακύρωση",
-  "no_recording_permission": "Δεν υπάρχει άδεια εγγραφής, παρακαλώ κάντε αίτηση στις ρυθμίσεις"
+  "no_recording_permission": "Δεν υπάρχει άδεια εγγραφής, παρακαλώ κάντε αίτηση στις ρυθμίσεις",
+  "private_chat_accept": "Αποδοχή"
 }

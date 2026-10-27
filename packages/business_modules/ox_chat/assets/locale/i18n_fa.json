@@ -232,9 +232,9 @@
   "you": "شما",
   "view_profile": "مشاهده پروفایل",
   "remove_from_group": "حذف از گروه",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "پیوستن به حلقه",
+  "find_people_join_circle_notice": "لینک دعوت حلقه را وارد کنید یا کد QR دعوت را اسکن کنید تا به حلقه بپیوندید.",
+  "circle_expired_cannot_send": "اشتراک منقضی شده است. نمی‌توانید پیام بفرستید. برای ادامه، آن را تمدید کنید.",
   "find_by_username": "جستجو بر اساس نام کاربری",
   "username": "نام کاربری"
 }

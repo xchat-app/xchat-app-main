@@ -232,9 +232,9 @@
   "you": "Du",
   "view_profile": "Visa profil",
   "remove_from_group": "Ta bort från grupp",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Gå med i en cirkel",
+  "find_people_join_circle_notice": "Ange en inbjudningslänk eller skanna inbjudningens QR-kod för att gå med i en cirkel.",
+  "circle_expired_cannot_send": "Prenumerationen har gått ut. Du kan inte skicka meddelanden. Förnya för att fortsätta.",
   "find_by_username": "Sök efter användarnamn",
   "username": "Användarnamn"
 }

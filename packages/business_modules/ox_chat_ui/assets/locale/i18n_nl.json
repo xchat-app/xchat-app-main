@@ -15,5 +15,6 @@
   "giphy_continue": "Doorgaan",
   "press_duration_too_short": "Drukduur te kort om te verzenden",
   "release_to_cancel": "Loslaten om te annuleren",
-  "no_recording_permission": "Geen opname-toestemming, vraag dit aan in instellingen"
+  "no_recording_permission": "Geen opname-toestemming, vraag dit aan in instellingen",
+  "private_chat_accept": "Accepteren"
 }

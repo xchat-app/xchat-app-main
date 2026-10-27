@@ -232,9 +232,9 @@
   "you": "Te",
   "view_profile": "Profil megtekintése",
   "remove_from_group": "Eltávolítás a csoportból",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Csatlakozás körhöz",
+  "find_people_join_circle_notice": "Írd be a meghívó linket, vagy olvasd be a meghívó QR-kódját a csatlakozáshoz.",
+  "circle_expired_cannot_send": "Az előfizetés lejárt. Nem küldhetsz üzenetet. A folytatáshoz hosszabbítsd meg.",
   "find_by_username": "Keresés felhasználónév szerint",
   "username": "Felhasználónév"
 }

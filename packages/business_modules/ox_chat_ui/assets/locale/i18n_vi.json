@@ -15,5 +15,6 @@
   "giphy_continue": "Tiếp tục",
   "press_duration_too_short": "Thời gian nhấn quá ngắn để gửi",
   "release_to_cancel": "Thả để hủy",
-  "no_recording_permission": "Không có quyền ghi âm, vui lòng đăng ký trong cài đặt"
+  "no_recording_permission": "Không có quyền ghi âm, vui lòng đăng ký trong cài đặt",
+  "private_chat_accept": "Chấp nhận"
 }

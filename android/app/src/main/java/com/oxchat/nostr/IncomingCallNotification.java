@@ -70,7 +70,7 @@ public final class IncomingCallNotification {
         NotificationManager manager = context.getSystemService(NotificationManager.class);
         if (manager == null) return;
         NotificationChannel channel = new NotificationChannel(
-                CHANNEL_ID, "Incoming calls", NotificationManager.IMPORTANCE_HIGH);
+                CHANNEL_ID, context.getString(R.string.channel_incoming_calls), NotificationManager.IMPORTANCE_HIGH);
         channel.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE),
                 new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)

@@ -232,9 +232,9 @@
   "you": "أنت",
   "view_profile": "عرض الملف الشخصي",
   "remove_from_group": "إزالة من المجموعة",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "الانضمام إلى دائرة",
+  "find_people_join_circle_notice": "أدخل رابط دعوة الدائرة أو امسح رمز QR للدعوة للانضمام إلى دائرة.",
+  "circle_expired_cannot_send": "انتهى الاشتراك. لا يمكنك إرسال الرسائل. جدّد الاشتراك للمتابعة.",
   "find_by_username": "البحث باسم المستخدم",
   "username": "اسم المستخدم"
 }

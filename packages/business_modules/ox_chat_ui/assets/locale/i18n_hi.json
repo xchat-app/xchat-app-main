@@ -15,5 +15,6 @@
   "giphy_continue": "जारी रखें",
   "press_duration_too_short": "दबाने की अवधि भेजने के लिए बहुत कम है",
   "release_to_cancel": "रद्द करने के लिए छोड़ें",
-  "no_recording_permission": "रिकॉर्डिंग की अनुमति नहीं है, कृपया सेटिंग्स में आवेदन करें"
+  "no_recording_permission": "रिकॉर्डिंग की अनुमति नहीं है, कृपया सेटिंग्स में आवेदन करें",
+  "private_chat_accept": "स्वीकार करें"
 }

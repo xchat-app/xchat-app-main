@@ -19,5 +19,9 @@
   "circle_status_connecting": "Kapcsolódás a ${circle}...",
   "circle_status_disconnecting": "Kapcsolat bontása...",
   "circle_status_disconnected": "Kapcsolat bontva",
-  "circle_status_unknown": "Kapcsolat állapota ismeretlen"
+  "circle_status_unknown": "Kapcsolat állapota ismeretlen",
+  "back_up_key_action": "Mentés most",
+  "back_up_key_desc": "A fiókod egy kulcs ezen az eszközön. Ha másolat nélkül elveszíted a telefont, a fiók nem állítható vissza — sem általunk, sem senki által.",
+  "back_up_key_later": "Később",
+  "back_up_key_title": "Mentsd el a fiókod kulcsát"
 }

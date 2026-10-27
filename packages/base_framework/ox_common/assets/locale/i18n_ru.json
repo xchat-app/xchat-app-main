@@ -177,5 +177,8 @@
   "circle_removed_message": "Вы были удалены из круга \"{name}\".",
   "circle_deleted_title": "Круг удалён",
   "circle_deleted_message": "Круг \"{name}\" был удалён.",
-  "renew": "Продлить"
+  "renew": "Продлить",
+  "me": "Я",
+  "notification_channel_messages": "Сообщения",
+  "notification_channel_messages_desc": "Уведомления о новых сообщениях"
 }

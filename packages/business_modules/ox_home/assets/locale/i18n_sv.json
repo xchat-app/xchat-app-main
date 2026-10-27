@@ -19,5 +19,9 @@
   "circle_status_connecting": "Ansluter till ${circle}...",
   "circle_status_disconnecting": "Kopplar från...",
   "circle_status_disconnected": "Frånkopplad",
-  "circle_status_unknown": "Anslutningsstatus okänd"
+  "circle_status_unknown": "Anslutningsstatus okänd",
+  "back_up_key_action": "Spara nu",
+  "back_up_key_desc": "Ditt konto är en nyckel på den här enheten. Om du tappar bort telefonen utan en kopia kan kontot inte återställas – inte av oss, inte av någon.",
+  "back_up_key_later": "Senare",
+  "back_up_key_title": "Spara din kontonyckel"
 }

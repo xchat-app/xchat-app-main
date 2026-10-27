@@ -232,9 +232,9 @@
   "you": "Вы",
   "view_profile": "Просмотр профиля",
   "remove_from_group": "Удалить из группы",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Вступить в круг",
+  "find_people_join_circle_notice": "Введите ссылку-приглашение или отсканируйте QR-код, чтобы вступить в круг.",
+  "circle_expired_cannot_send": "Подписка истекла. Отправлять сообщения нельзя. Продлите её, чтобы продолжить.",
   "find_by_username": "Поиск по имени пользователя",
   "username": "Имя пользователя"
 }

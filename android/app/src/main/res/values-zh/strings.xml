@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChat 推送服务</string>
+    <string name="push_service_text">正在等待新消息</string>
     <string name="push_notification_title">新消息</string>
     <string name="push_notification_text">你有一条新消息</string>
     <string name="incoming_call">来电</string>
     <string name="call_answer">接受</string>
     <string name="call_decline">拒绝</string>
+    <string name="channel_push_service">推送服务</string>
+    <string name="channel_push_service_desc">保持 XChat 在线，新消息和来电才能送达</string>
+    <string name="channel_push">新消息</string>
+    <string name="channel_push_desc">每条新消息的通知</string>
+    <string name="channel_ongoing_calls">通话中</string>
+    <string name="channel_incoming_calls">来电</string>
 </resources>

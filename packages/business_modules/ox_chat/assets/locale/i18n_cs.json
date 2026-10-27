@@ -232,9 +232,9 @@
   "you": "Vy",
   "view_profile": "Zobrazit profil",
   "remove_from_group": "Odebrat ze skupiny",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Připojit se ke kruhu",
+  "find_people_join_circle_notice": "Zadejte odkaz s pozvánkou nebo naskenujte QR kód pozvánky a připojte se ke kruhu.",
+  "circle_expired_cannot_send": "Předplatné vypršelo. Nemůžete posílat zprávy. Pro pokračování ho obnovte.",
   "find_by_username": "Hledat podle uživatelského jména",
   "username": "Uživatelské jméno"
 }

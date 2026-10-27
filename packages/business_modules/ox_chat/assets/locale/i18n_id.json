@@ -232,9 +232,9 @@
   "you": "Anda",
   "view_profile": "Lihat Profil",
   "remove_from_group": "Hapus dari Grup",
-  "join_circle_title": "Join Circle",
-  "find_people_join_circle_notice": "Enter a circle invite link or scan the invite QR code to join a circle.",
-  "circle_expired_cannot_send": "Subscription has expired. You cannot send messages. Please renew to continue.",
+  "join_circle_title": "Gabung ke lingkaran",
+  "find_people_join_circle_notice": "Masukkan tautan undangan atau pindai kode QR undangan untuk bergabung ke lingkaran.",
+  "circle_expired_cannot_send": "Langganan sudah berakhir. Kamu tidak bisa mengirim pesan. Perpanjang untuk melanjutkan.",
   "find_by_username": "Cari berdasarkan nama pengguna",
   "username": "Nama pengguna"
 }

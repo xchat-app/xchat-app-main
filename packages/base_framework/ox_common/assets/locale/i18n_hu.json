@@ -177,5 +177,8 @@
   "circle_removed_message": "Eltávolították Önt a \"{name}\" körből.",
   "circle_deleted_title": "A kör törölve",
   "circle_deleted_message": "A \"{name}\" kör törölve lett.",
-  "renew": "Megújítás"
+  "renew": "Megújítás",
+  "circle_invite_dialog_content": "Meghívtak egy privát körbe. Csatlakozol most?",
+  "notification_channel_messages": "Üzenetek",
+  "notification_channel_messages_desc": "Értesítések új üzenetekről"
 }

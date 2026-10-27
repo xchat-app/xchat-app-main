@@ -176,5 +176,9 @@
   "circle_removed_message": "คุณถูกลบออกจากวงกลม \"{name}\"",
   "circle_deleted_title": "ลบวงแล้ว",
   "circle_deleted_message": "วง \"{name}\" ถูกลบแล้ว",
-  "renew": "ต่ออายุ"
+  "renew": "ต่ออายุ",
+  "circle_invite_dialog_content": "คุณได้รับคำเชิญให้เข้าร่วมวงกลมส่วนตัว เข้าร่วมเลยไหม",
+  "me": "ฉัน",
+  "notification_channel_messages": "ข้อความ",
+  "notification_channel_messages_desc": "แจ้งเตือนข้อความใหม่"
 }

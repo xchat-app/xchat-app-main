@@ -177,5 +177,8 @@
   "circle_removed_message": "\"{name}\" 서클에서 제거되었습니다.",
   "circle_deleted_title": "서클이 삭제됨",
   "circle_deleted_message": "\"{name}\" 서클이 삭제되었습니다.",
-  "renew": "갱신"
+  "renew": "갱신",
+  "me": "나",
+  "notification_channel_messages": "메시지",
+  "notification_channel_messages_desc": "새 메시지 알림"
 }

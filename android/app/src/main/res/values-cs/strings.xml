@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">Služba oznámení XChat</string>
+    <string name="push_service_text">Čeká na nové zprávy</string>
     <string name="push_notification_title">Nová zpráva</string>
     <string name="push_notification_text">Máte novou zprávu</string>
     <string name="incoming_call">Příchozí hovor</string>
     <string name="call_answer">Přijmout</string>
     <string name="call_decline">Odmítnout</string>
+    <string name="channel_push_service">Služba oznámení</string>
+    <string name="channel_push_service_desc">Udržuje XChat připojený, aby docházely zprávy a hovory</string>
+    <string name="channel_push">Nové zprávy</string>
+    <string name="channel_push_desc">Oznámení o každé nové zprávě</string>
+    <string name="channel_ongoing_calls">Probíhající hovory</string>
+    <string name="channel_incoming_calls">Příchozí hovory</string>
 </resources>

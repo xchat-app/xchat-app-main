@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Notifications the push service posts while the app is not running. -->
 <resources>
+    <string name="push_service_title">XChat-Benachrichtigungsdienst</string>
+    <string name="push_service_text">Wartet auf neue Nachrichten</string>
     <string name="push_notification_title">Neue Nachricht</string>
     <string name="push_notification_text">Du hast eine neue Nachricht</string>
     <string name="incoming_call">Eingehender Anruf</string>
     <string name="call_answer">Annehmen</string>
     <string name="call_decline">Ablehnen</string>
+    <string name="channel_push_service">Benachrichtigungsdienst</string>
+    <string name="channel_push_service_desc">Hält XChat verbunden, damit Nachrichten und Anrufe ankommen</string>
+    <string name="channel_push">Neue Nachrichten</string>
+    <string name="channel_push_desc">Eine Benachrichtigung pro neuer Nachricht</string>
+    <string name="channel_ongoing_calls">Laufende Anrufe</string>
+    <string name="channel_incoming_calls">Eingehende Anrufe</string>
 </resources>

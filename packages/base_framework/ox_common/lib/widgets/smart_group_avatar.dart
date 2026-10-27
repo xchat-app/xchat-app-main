@@ -158,7 +158,9 @@ class _SmartGroupAvatarState extends State<SmartGroupAvatar> {
   }
 
   Widget _buildGroupedAvatar() {
-    if (_displayedAvatars.isEmpty) {
+    // Most members never set a picture, and a grid of grey placeholders says
+    // nothing; the group's own initials at least tell groups apart.
+    if (_displayedAvatars.every((url) => url.isEmpty)) {
       return _buildDefaultAvatar();
     }
 
@@ -211,7 +213,8 @@ class _SmartGroupAvatarState extends State<SmartGroupAvatar> {
   }
 
   Widget _buildDefaultAvatar() {
-    final groupName = widget.group?.name ?? '';
+    // The chat list passes only the id; without a name there are no initials.
+    final groupName = widget.group?.name ?? _groupNotifier?.value.name ?? '';
     final groupId = widget.groupId ?? widget.group?.privateGroupId ?? '';
     return BaseAvatarWidget(
       defaultImageName: _defaultGroupImageName,

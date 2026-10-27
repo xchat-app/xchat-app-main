@@ -12,6 +12,7 @@ import 'package:ox_common/network/tor_network_helper.dart';
 import 'package:ox_common/ox_common.dart';
 import 'package:ox_common/login/login_manager.dart';
 import 'package:ox_common/login/account_path_manager.dart';
+import 'package:ox_common/store_shots/store_shots_flag.dart';
 import 'package:ox_common/utils/error_utils.dart';
 import 'package:ox_common/utils/font_size_notifier.dart';
 import 'package:ox_common/utils/storage_key_tool.dart';
@@ -27,6 +28,7 @@ import 'package:ox_call/ox_call.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:nostr_mls_package/nostr_mls_package.dart';
 import 'main.reflectable.dart';
+import 'store_shots.dart';
 
 class OXErrorInfo {
   OXErrorInfo(this.error, this.stack);
@@ -94,6 +96,8 @@ class AppInitializer {
 
   /// User-level initialization including auto login
   Future userInitializer() async {
+    // Play screenshots: a made-up local account instead (lib/store_shots.dart).
+    if (kStoreShots) return StoreShots.start();
     await _tryAutoLogin();
     _cleanupTempFolders();
   }

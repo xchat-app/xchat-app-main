@@ -1,0 +1,33 @@
+{
+  "lang": "en",
+  "circle": "Rivera Family",
+  "me": "Sofia",
+  "people": {
+    "mom": "Mom",
+    "dad": "Dad",
+    "grandma": "Grandma Rosa",
+    "leo": "Leo",
+    "carmen": "Aunt Carmen"
+  },
+  "group": {
+    "name": "Family 🏡",
+    "members": ["mom", "dad", "grandma", "leo"],
+    "messages": [
+      {"from": "grandma", "at": "09:12", "text": "Who's coming for lunch on Sunday? I'm making paella 🥘"},
+      {"from": "leo", "at": "09:15", "text": "Me! Can I bring Maya?"},
+      {"from": "grandma", "at": "09:16", "text": "Of course, the more the merrier ❤️"},
+      {"from": "dad", "at": "09:24", "text": "I'll pick you up at noon, Mom."},
+      {"from": "me", "at": "09:31", "text": "We'll bring dessert 🍰"},
+      {"from": "mom", "at": "09:36", "text": "Perfect. And don't forget the photos from the trip!"},
+      {"from": "me", "at": "09:38", "text": "Already on it 📸"}
+    ]
+  },
+  "chats": [
+    {"with": "mom", "at": "09:05", "text": "Call me when you land ✈️"},
+    {"with": "leo", "at": "08:47", "text": "Did you see the game last night?", "unread": 2},
+    {"with": "grandma", "at": "yesterday", "text": "Love you all 💕"},
+    {"with": "carmen", "at": "yesterday", "text": "Thanks for the recipe!"},
+    {"with": "dad", "at": "monday", "text": "👍"}
+  ],
+  "call": "mom"
+}

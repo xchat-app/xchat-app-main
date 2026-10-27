@@ -1,0 +1,87 @@
+{
+  "lang": "zh",
+  "circle": "陈家人",
+  "me": "小雨",
+  "people": {
+    "mom": "妈妈",
+    "dad": "爸爸",
+    "grandma": "奶奶",
+    "leo": "阿杰",
+    "carmen": "小姨"
+  },
+  "group": {
+    "name": "相亲相爱一家人 🏡",
+    "members": [
+      "mom",
+      "dad",
+      "grandma",
+      "leo"
+    ],
+    "messages": [
+      {
+        "from": "grandma",
+        "at": "09:12",
+        "text": "周日谁回来吃饭？我包饺子 🥟"
+      },
+      {
+        "from": "leo",
+        "at": "09:15",
+        "text": "我！能带女朋友一起来吗？"
+      },
+      {
+        "from": "grandma",
+        "at": "09:16",
+        "text": "当然啦，人多热闹 ❤️"
+      },
+      {
+        "from": "dad",
+        "at": "09:24",
+        "text": "妈，我中午去接您。"
+      },
+      {
+        "from": "me",
+        "at": "09:31",
+        "text": "我们带蛋糕 🍰"
+      },
+      {
+        "from": "mom",
+        "at": "09:36",
+        "text": "好。旅行的照片别忘了发群里！"
+      },
+      {
+        "from": "me",
+        "at": "09:38",
+        "text": "正在传 📸"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "with": "mom",
+      "at": "09:05",
+      "text": "落地了给我打电话 ✈️"
+    },
+    {
+      "with": "leo",
+      "at": "08:47",
+      "text": "昨晚的球赛你看了吗？",
+      "unread": 2
+    },
+    {
+      "with": "grandma",
+      "at": "yesterday",
+      "text": "爱你们 💕"
+    },
+    {
+      "with": "carmen",
+      "at": "yesterday",
+      "text": "谢谢你的菜谱！"
+    },
+    {
+      "with": "dad",
+      "at": "monday",
+      "text": "👍"
+    }
+  ],
+  "call": "mom"
+}

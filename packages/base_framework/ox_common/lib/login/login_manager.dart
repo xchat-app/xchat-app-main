@@ -28,6 +28,7 @@ import 'account_path_manager.dart';
 import '../secure/db_key_manager.dart';
 import 'demo_review_config.dart';
 import 'demo_review_seed.dart';
+import '../store_shots/store_shots_flag.dart';
 
 class LoginUserNotifier {
   LoginUserNotifier._();
@@ -1123,6 +1124,8 @@ extension LoginManagerCircle on LoginManager {
   }
 
   void _loginRelayCircleSuccessHandler(AccountModel account, Circle circle) async {
+    // Screenshot builds stay offline: no relay, push, key package or tenant.
+    if (kStoreShots) return;
     final pubkey = account.pubkey;
     final circleId = circle.id;
     final relayUrl = circle.relayUrl;
@@ -1207,6 +1210,8 @@ extension LoginManagerCircle on LoginManager {
   /// Server returns 404 with code TENANT_NOT_FOUND when circle was deleted remotely.
   Future<void> _fetchAndUpdateTenantInfo(Circle circle) async {
     if (!circle.isPaidRelay) return;
+    // The screenshot circle's tenant is made up: TENANT_NOT_FOUND would delete it.
+    if (kStoreShots) return;
     try {
       final tenantInfo = await CircleMemberService.sharedInstance.getTenantInfoForRelay(
         circle.relayUrl,

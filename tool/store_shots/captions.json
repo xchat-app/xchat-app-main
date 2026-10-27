@@ -1,0 +1,10 @@
+{
+  "en": {"calls_line_1": "Voice and video calls.", "calls_line_2": "Just between you."},
+  "fa": {"calls_line_1": "تماس صوتی و تصویری.", "calls_line_2": "فقط بین خودتان."},
+  "ar": {"calls_line_1": "مكالمات صوتية ومرئية.", "calls_line_2": "بينكم فقط."},
+  "fr": {"calls_line_1": "Appels audio et vidéo.", "calls_line_2": "Juste entre vous."},
+  "es": {"calls_line_1": "Llamadas y videollamadas.", "calls_line_2": "Solo con los tuyos."},
+  "ru": {"calls_line_1": "Аудио- и видеозвонки.", "calls_line_2": "Только между вами."},
+  "zh": {"calls_line_1": "语音和视频通话。", "calls_line_2": "只在你们之间。"},
+  "pt": {"calls_line_1": "Chamadas de voz e vídeo.", "calls_line_2": "Só entre vocês."}
+}

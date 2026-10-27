@@ -8,6 +8,7 @@ import 'package:ox_call/src/models/call_session.dart';
 import 'package:ox_common/utils/chat_prompt_tone.dart';
 import 'package:ox_common/utils/permission_utils.dart';
 import 'package:ox_common/business_interface/ox_chat/call_message_type.dart';
+import 'package:ox_common/store_shots/store_shots_flag.dart';
 import 'package:ox_call/src/utils/call_logger.dart';
 import 'package:ox_call/src/utils/call_notifications.dart';
 import 'package:ox_call/src/services/call_service.dart';
@@ -123,6 +124,8 @@ class CallPageController {
   /// Check permission and get local stream for incoming calls.
   /// Should be called after first frame is rendered (use WidgetsBinding.instance.addPostFrameCallback).
   Future<void> checkPermissionAndGetLocalStreamForIncoming() async {
+    // The screenshot call is made up: no microphone, no mic-in-use dot.
+    if (kStoreShots) return;
     if (!isIncoming || _permissionChecked) return;
     _permissionChecked = true;
     

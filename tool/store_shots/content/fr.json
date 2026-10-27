@@ -1,0 +1,87 @@
+{
+  "lang": "fr",
+  "circle": "Famille Martin",
+  "me": "Camille",
+  "people": {
+    "mom": "Maman",
+    "dad": "Papa",
+    "grandma": "Mamie Jeanne",
+    "leo": "Hugo",
+    "carmen": "Tata Claire"
+  },
+  "group": {
+    "name": "Famille 🏡",
+    "members": [
+      "mom",
+      "dad",
+      "grandma",
+      "leo"
+    ],
+    "messages": [
+      {
+        "from": "grandma",
+        "at": "09:12",
+        "text": "Qui vient déjeuner dimanche ? Je fais un pot-au-feu 🥘"
+      },
+      {
+        "from": "leo",
+        "at": "09:15",
+        "text": "Moi ! Je peux venir avec Léa ?"
+      },
+      {
+        "from": "grandma",
+        "at": "09:16",
+        "text": "Bien sûr, plus on est de fous, plus on rit ❤️"
+      },
+      {
+        "from": "dad",
+        "at": "09:24",
+        "text": "Je passe te chercher à midi, Maman."
+      },
+      {
+        "from": "me",
+        "at": "09:31",
+        "text": "On apporte le dessert 🍰"
+      },
+      {
+        "from": "mom",
+        "at": "09:36",
+        "text": "Parfait. Et n'oublie pas les photos du voyage !"
+      },
+      {
+        "from": "me",
+        "at": "09:38",
+        "text": "C'est en cours 📸"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "with": "mom",
+      "at": "09:05",
+      "text": "Appelle-moi quand tu atterris ✈️"
+    },
+    {
+      "with": "leo",
+      "at": "08:47",
+      "text": "Tu as vu le match hier soir ?",
+      "unread": 2
+    },
+    {
+      "with": "grandma",
+      "at": "yesterday",
+      "text": "Je vous aime tous 💕"
+    },
+    {
+      "with": "carmen",
+      "at": "yesterday",
+      "text": "Merci pour la recette !"
+    },
+    {
+      "with": "dad",
+      "at": "monday",
+      "text": "👍"
+    }
+  ],
+  "call": "mom"
+}

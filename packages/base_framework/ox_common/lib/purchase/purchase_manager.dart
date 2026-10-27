@@ -11,6 +11,7 @@ import 'package:ox_common/purchase/subscription_product_prices.dart';
 import 'package:ox_common/purchase/subscription_platform.dart';
 import 'package:ox_common/purchase/subscription_registry.dart';
 import 'package:ox_common/purchase/purchase_service.dart';
+import 'package:ox_common/store_shots/store_shots_flag.dart';
 
 /// Purchase result returned from purchaseProduct/restorePurchases
 class PurchaseResult {
@@ -180,6 +181,8 @@ class PurchaseManager {
   /// Initialize the purchase manager and subscribe to purchase stream.
   /// Call early in app init.
   Future<void> initialize() async {
+    // Screenshot builds never talk to Play Billing.
+    if (kStoreShots) return;
     if (_isInitialized) {
       LogUtil.d(() => 'PurchaseManager already initialized');
       return;

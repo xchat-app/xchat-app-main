@@ -1,0 +1,87 @@
+{
+  "lang": "pt",
+  "circle": "Família Souza",
+  "me": "Ana",
+  "people": {
+    "mom": "Mãe",
+    "dad": "Pai",
+    "grandma": "Vó Lúcia",
+    "leo": "Pedro",
+    "carmen": "Tia Bia"
+  },
+  "group": {
+    "name": "Família 🏡",
+    "members": [
+      "mom",
+      "dad",
+      "grandma",
+      "leo"
+    ],
+    "messages": [
+      {
+        "from": "grandma",
+        "at": "09:12",
+        "text": "Quem vem almoçar no domingo? Vou fazer feijoada 🥘"
+      },
+      {
+        "from": "leo",
+        "at": "09:15",
+        "text": "Eu! Posso levar a Júlia?"
+      },
+      {
+        "from": "grandma",
+        "at": "09:16",
+        "text": "Claro, quanto mais gente, melhor ❤️"
+      },
+      {
+        "from": "dad",
+        "at": "09:24",
+        "text": "Passo pra te buscar ao meio-dia, mãe."
+      },
+      {
+        "from": "me",
+        "at": "09:31",
+        "text": "A gente leva a sobremesa 🍰"
+      },
+      {
+        "from": "mom",
+        "at": "09:36",
+        "text": "Perfeito. E não esquece as fotos da viagem!"
+      },
+      {
+        "from": "me",
+        "at": "09:38",
+        "text": "Já estou mandando 📸"
+      }
+    ]
+  },
+  "chats": [
+    {
+      "with": "mom",
+      "at": "09:05",
+      "text": "Me liga quando pousar ✈️"
+    },
+    {
+      "with": "leo",
+      "at": "08:47",
+      "text": "Viu o jogo ontem à noite?",
+      "unread": 2
+    },
+    {
+      "with": "grandma",
+      "at": "yesterday",
+      "text": "Amo vocês 💕"
+    },
+    {
+      "with": "carmen",
+      "at": "yesterday",
+      "text": "Obrigada pela receita!"
+    },
+    {
+      "with": "dad",
+      "at": "monday",
+      "text": "👍"
+    }
+  ],
+  "call": "mom"
+}

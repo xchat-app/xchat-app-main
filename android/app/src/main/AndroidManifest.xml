@@ -43,6 +43,8 @@
     <!-- IncomingCallNotification: ring and light up a phone whose screen is off -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
     <!-- <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> -->
+    <!-- FcmReceiver: Firebase Cloud Messaging through Google Play services, without the Firebase SDK -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
 
     <queries>
         <intent>
@@ -50,6 +52,7 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="nostrsigner" />
         </intent>
+        <package android:name="com.google.android.gms" />
     </queries>
 
     <supports-screens
@@ -220,11 +223,20 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Keeps the connection to the user's own relay open so that
                     end-to-end encrypted messages and incoming calls are delivered while the
-                    app is in the background. The app has no third-party push service to
-                    delegate this to: it does not use Firebase Cloud Messaging, and the relay
-                    a message arrives from is chosen and paid for by the user, so only the
-                    device itself can hold that connection." />
+                    app is in the background. The relay a message arrives from is chosen and
+                    paid for by the user, so only the device itself can hold that connection.
+                    Firebase Cloud Messaging is used only after the system has stopped this
+                    service, to say that something arrived and start it again." />
         </service>
+
+        <receiver android:name="com.oxchat.lite.FcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+            </intent-filter>
+        </receiver>
 
     </application>
  

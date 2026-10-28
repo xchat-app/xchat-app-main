@@ -68,7 +68,7 @@ public class PushNotificationService extends Service {
     private static final int PUSH_NOTIFICATION_ID = 1002;
     // How long to give the app to post its own notification (a message, or a
     // ringing call) before this service posts its own.
-    private static final long APP_NOTIFICATION_GRACE_MS = 5000;
+    static final long APP_NOTIFICATION_GRACE_MS = 5000;
     
     public static final String EXTRA_SERVER_RELAY = "server_relay";
     public static final String EXTRA_DEVICE_ID = "device_id";
@@ -104,7 +104,7 @@ public class PushNotificationService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "PushNotificationService created");
-        createNotificationChannel();
+        createNotificationChannels(this);
         
         httpClient = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -149,7 +149,9 @@ public class PushNotificationService extends Service {
             deviceId = intent.getStringExtra(EXTRA_DEVICE_ID);
             pubkey = intent.getStringExtra(EXTRA_PUBKEY);
             persistConfig();
-            
+            // FcmReceiver starts it with no extras, to reconnect as before.
+            loadConfigFromPrefs();
+
             if (serverRelay == null || serverRelay.isEmpty() || pubkey == null || pubkey.isEmpty()) {
                 Log.e(TAG, "Missing required config, cannot start service");
                 stopSelf();
@@ -279,30 +281,44 @@ public class PushNotificationService extends Service {
     }
 
     /**
+     * Start the service again from the config it saved, after the system
+     * stopped it. FcmReceiver calls this when a push came through FCM instead
+     * of the socket. Android may refuse a start from the background; then
+     * only the notification shows, as it did.
+     */
+    static void startFromSavedConfig(Context context) {
+        try {
+            context.startForegroundService(new Intent(context, PushNotificationService.class));
+        } catch (Exception e) {
+            Log.w(TAG, "Could not start the push service again: " + e.getMessage());
+        }
+    }
+
+    /**
      * Create notification channel for Android O and above
      */
-    private void createNotificationChannel() {
+    private static void createNotificationChannels(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager manager = getSystemService(NotificationManager.class);
+            NotificationManager manager = context.getSystemService(NotificationManager.class);
             if (manager == null) return;
-            
+
             // Channel for foreground service
             NotificationChannel serviceChannel = new NotificationChannel(
                     CHANNEL_ID,
-                    getString(R.string.channel_push_service),
+                    context.getString(R.string.channel_push_service),
                     NotificationManager.IMPORTANCE_LOW
             );
-            serviceChannel.setDescription(getString(R.string.channel_push_service_desc));
+            serviceChannel.setDescription(context.getString(R.string.channel_push_service_desc));
             serviceChannel.setShowBadge(false);
             manager.createNotificationChannel(serviceChannel);
-            
+
             // Channel for push notifications (higher priority)
             NotificationChannel pushChannel = new NotificationChannel(
                     PUSH_NOTIFICATION_CHANNEL_ID,
-                    getString(R.string.channel_push),
+                    context.getString(R.string.channel_push),
                     NotificationManager.IMPORTANCE_HIGH
             );
-            pushChannel.setDescription(getString(R.string.channel_push_desc));
+            pushChannel.setDescription(context.getString(R.string.channel_push_desc));
             pushChannel.setShowBadge(true);
             pushChannel.enableLights(true);
             pushChannel.enableVibration(true);
@@ -479,7 +495,7 @@ public class PushNotificationService extends Service {
                 // Received an event, only wake app if process is not running
                 final boolean isCall = isCallOffer(jsonArray);
                 Log.d(TAG, "Received EVENT" + (isCall ? " (call)" : ""));
-                if (isAppProcessRunning()) {
+                if (isAppProcessRunning(this)) {
                     Log.d(TAG, "App process already running, skipping activation");
                 } else if (MainActivity.isAlive()) {
                     // In the background but alive, the app gets the message over
@@ -489,7 +505,7 @@ public class PushNotificationService extends Service {
                     // posted nothing after a few seconds.
                     final long receivedAt = System.currentTimeMillis();
                     reconnectHandler.postDelayed(() -> {
-                        if (isAppProcessRunning() || hasAppNotificationSince(receivedAt - 3000)) {
+                        if (isAppProcessRunning(this) || hasAppNotificationSince(this, receivedAt - 3000)) {
                             Log.d(TAG, "App posted its own notification, skipping activation");
                             return;
                         }
@@ -987,9 +1003,15 @@ public class PushNotificationService extends Service {
      * User can click notification to open the app
      */
     private void activateApp() {
+        showNewMessageNotification(this);
+    }
+
+    /** The generic "New message" that opens the app; FcmReceiver posts it too. */
+    static void showNewMessageNotification(Context context) {
+        createNotificationChannels(context);
         try {
             // Create a fresh Intent for MainActivity
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1000,18 +1022,18 @@ public class PushNotificationService extends Service {
                 flags |= PendingIntent.FLAG_IMMUTABLE;
             }
             PendingIntent pendingIntent = PendingIntent.getActivity(
-                this,
+                context,
                 PUSH_NOTIFICATION_ID,
                 intent,
                 flags
             );
-            
+
             // Show notification that will launch the app when clicked
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, PUSH_NOTIFICATION_CHANNEL_ID)
-                    .setContentTitle(getString(R.string.push_notification_title))
-                    .setContentText(getString(R.string.push_notification_text))
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context, PUSH_NOTIFICATION_CHANNEL_ID)
+                    .setContentTitle(context.getString(R.string.push_notification_title))
+                    .setContentText(context.getString(R.string.push_notification_text))
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
@@ -1070,8 +1092,8 @@ public class PushNotificationService extends Service {
      * is what a push for a call offer is about). This service's own two do not
      * count.
      */
-    private boolean hasAppNotificationSince(long since) {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    static boolean hasAppNotificationSince(Context context, long since) {
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager == null) return false;
         try {
             for (StatusBarNotification sbn : notificationManager.getActiveNotifications()) {
@@ -1091,12 +1113,12 @@ public class PushNotificationService extends Service {
      * Returns true only if there's an Activity visible to the user
      * Returns false if only Service is running (app was killed)
      */
-    private boolean isAppProcessRunning() {
-        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+    static boolean isAppProcessRunning(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (activityManager == null) return false;
         List<ActivityManager.RunningAppProcessInfo> runningApps = activityManager.getRunningAppProcesses();
         if (runningApps == null) return false;
-        String packageName = getPackageName();
+        String packageName = context.getPackageName();
         for (ActivityManager.RunningAppProcessInfo processInfo : runningApps) {
             if (processInfo.processName.equals(packageName)) {
                 // Check if process has Activity in foreground

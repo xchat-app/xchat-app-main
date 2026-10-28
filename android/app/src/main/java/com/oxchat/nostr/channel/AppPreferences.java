@@ -15,6 +15,7 @@ import com.oxchat.nostr.MultiEngineActivity;
 import com.oxchat.nostr.util.SharedPreUtils;
 import com.oxchat.nostr.IncomingCallNotification;
 import com.oxchat.nostr.VoiceCallService;
+import com.oxchat.lite.FcmReceiver;
 import com.oxchat.lite.PushNotificationService;
 import com.oxchat.lite.KeystoreHelper;
 import java.util.HashMap;
@@ -208,6 +209,16 @@ public class AppPreferences implements MethodChannel.MethodCallHandler, FlutterP
                 }
                 result.success(true);
             }
+            case "requestFcmToken" -> {
+                // Asks again each time, as the token can change. "" means no
+                // Google Play services; null means ask getFcmToken shortly.
+                if (!FcmReceiver.requestToken(mContext)) {
+                    result.success("");
+                } else {
+                    result.success(FcmReceiver.getToken(mContext));
+                }
+            }
+            case "getFcmToken" -> result.success(FcmReceiver.getToken(mContext));
             case "sendAuthResponse" -> {
                 String authJson = "";
                 if (paramsMap != null && paramsMap.containsKey("authJson")) {

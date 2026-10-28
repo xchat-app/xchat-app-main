@@ -97,7 +97,7 @@ class CLUserPushNotificationManager implements PushPermissionChecker {
 
     try {
       final event = await NotificationHelper.sharedInstance
-          .updateNotificationDeviceId(account.pubkey);
+          .updateNotificationDeviceId(await _androidDeviceId(account.pubkey));
       if (!event.status) {
       LogUtil.e('ensurePushService update device failed: ${event.message}');
         return;
@@ -119,6 +119,25 @@ class CLUserPushNotificationManager implements PushPermissionChecker {
     } catch (e) {
       LogUtil.e('ensurePushService failed to start service: $e');
     }
+  }
+
+  /// What nopu files this phone under. With an FCM token (Google Play
+  /// services, no Firebase SDK: see FcmReceiver) its push gateway can still
+  /// wake the phone after the system has stopped the push service. Without
+  /// one it stays the pubkey, and pushes arrive only while the service runs.
+  Future<String> _androidDeviceId(String pubkey) async {
+    try {
+      String? token = await _authChannel.invokeMethod<String>('requestFcmToken');
+      // Google Play services answers in a moment on the first run.
+      for (var i = 0; token == null && i < 10; i++) {
+        await Future.delayed(const Duration(milliseconds: 500));
+        token = await _authChannel.invokeMethod<String>('getFcmToken');
+      }
+      if (token != null && token.isNotEmpty) return 'fcm:$token';
+    } catch (e) {
+      LogUtil.e('No FCM token: $e');
+    }
+    return pubkey;
   }
 
   // Start timer to periodically check for pending AUTH challenges
@@ -230,7 +249,7 @@ class CLUserPushNotificationManager implements PushPermissionChecker {
 
         try {
           final event = await NotificationHelper.sharedInstance
-              .updateNotificationDeviceId(account.pubkey);
+              .updateNotificationDeviceId(await _androidDeviceId(account.pubkey));
           if (!event.status) {
             return event.message;
           }

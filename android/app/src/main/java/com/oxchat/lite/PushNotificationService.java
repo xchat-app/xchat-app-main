@@ -287,6 +287,13 @@ public class PushNotificationService extends Service {
      * only the notification shows, as it did.
      */
     static void startFromSavedConfig(Context context) {
+        // A service that stopped on its own (notifications turned off, or
+        // stopped by Android rather than killed) cleared the key it signs
+        // AUTH with; started now it would retry AUTH forever.
+        if (!KeystoreHelper.hasPrivateKey(context)) {
+            Log.d(TAG, "No stored key, not starting the push service");
+            return;
+        }
         try {
             context.startForegroundService(new Intent(context, PushNotificationService.class));
         } catch (Exception e) {

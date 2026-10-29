@@ -157,6 +157,11 @@ public class KeystoreHelper {
     /**
      * Clear private key from file system
      */
+    /** Whether a key is stored, without decrypting it. */
+    public static boolean hasPrivateKey(Context context) {
+        return getPrivkeyFile(context).exists();
+    }
+
     public static void clearPrivateKey(Context context) {
         File privkeyFile = getPrivkeyFile(context);
         if (privkeyFile.exists()) {
